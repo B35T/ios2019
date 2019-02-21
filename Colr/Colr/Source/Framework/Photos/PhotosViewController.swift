@@ -5,7 +5,6 @@
 //  Created by chaloemphong on 20/2/2562 BE.
 //  Copyright © 2562 charoemphong. All rights reserved.
 //
-
 import UIKit
 import Photos
 
@@ -44,7 +43,7 @@ extension UIView {
 }
 
 class PhotosViewController: UIViewController {
-
+    
     
     @IBOutlet open weak var collection: UICollectionView!
     @IBOutlet open weak var imageview: UIImageView!
@@ -76,14 +75,11 @@ class PhotosViewController: UIViewController {
         self.imageview.clipsToBounds = true
         self.view.addSubview(self.imageview)
         
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(close))
-        self.imageview.addGestureRecognizer(tap)
-        self.imageview.isUserInteractionEnabled = true
+       
         
         let c = CloseButton()
         c.add(view: self.view,.init(x: 25, y: self.view.frame.height.minus(i: 65)))
         c.animatedHidden()
-        c.addTarget(self, action: #selector(close), for: .touchUpInside)
         self.closeBtn = c
         
         let n = NextButton()
@@ -100,13 +96,13 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = .black
         self.imageManager = PHImageManager.default()
         self.requestOption = PHImageRequestOptions()
         self.requestOption.isSynchronous = true
         self.fetchOption = PHFetchOptions()
-
+        
         self.collection.register(UINib(nibName: "HeaderReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
         self.collection.register(UINib(nibName: "PhotosCell", bundle: nil), forCellWithReuseIdentifier: "photos")
         self.collection.delegate = self
@@ -114,12 +110,6 @@ class PhotosViewController: UIViewController {
         
         let layout = self.collection.collectionViewLayout as! UICollectionViewFlowLayout
         layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 70)
-    }
-    
-    @objc internal func close() {
-        self.animated(action: false)
-        self.closeBtn.animatedHidden()
-        self.nextBtn.animatedHidden()
     }
     
     func animated(action:Bool) {
@@ -148,6 +138,11 @@ class PhotosViewController: UIViewController {
 }
 
 extension PhotosViewController: UICollectionViewDataSource {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scroll")
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -187,7 +182,7 @@ extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let h = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! HeaderReusableView
         h.HeaderLabel.text = "Photos"
-//        h.frame = .init(origin: .zero, size: .init(width: self.view.frame.width, height: 70))
+        //        h.frame = .init(origin: .zero, size: .init(width: self.view.frame.width, height: 70))
         return h
         
     }
@@ -212,7 +207,7 @@ extension PhotosViewController: UICollectionViewDelegate {
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let w = self.view.bounds.width / 4 - 1
         return CGSize(width: w, height: w)
@@ -225,16 +220,13 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: self.view.frame.width, height: 70)
-//    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    //        return CGSize(width: self.view.frame.width, height: 70)
+    //    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: 0, height: 80)
     }
- 
+    
 }
-
-
-
