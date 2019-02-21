@@ -7,14 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4011BB78221D24680004CE44 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4011BB77221D24680004CE44 /* PhotosViewController.swift */; };
+		4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4011BB79221D26350004CE44 /* PhotosCell.swift */; };
+		4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4011BB7A221D26350004CE44 /* PhotosCell.xib */; };
 		401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */; };
-		401B4BEF221BD62500F5E2C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4BEE221BD62500F5E2C9 /* ViewController.swift */; };
+		401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4BEE221BD62500F5E2C9 /* MainViewController.swift */; };
 		401B4BF2221BD62500F5E2C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 401B4BF0221BD62500F5E2C9 /* Main.storyboard */; };
 		401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 401B4BF3221BD62500F5E2C9 /* Colr.xcdatamodeld */; };
 		401B4BF7221BD63100F5E2C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 401B4BF6221BD63100F5E2C9 /* Assets.xcassets */; };
 		401B4BFA221BD63100F5E2C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 401B4BF8221BD63100F5E2C9 /* LaunchScreen.storyboard */; };
 		401B4C05221BD63100F5E2C9 /* ColrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C04221BD63100F5E2C9 /* ColrTests.swift */; };
 		401B4C10221BD63100F5E2C9 /* ColrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */; };
+		40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC22221E607B007498C5 /* CustomButton.swift */; };
+		40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC24221E612F007498C5 /* CloseButton.swift */; };
+		40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC26221E61F1007498C5 /* NextButton.swift */; };
+		40CCEC2A221E7235007498C5 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC28221E7235007498C5 /* HeaderReusableView.swift */; };
+		40CCEC2B221E7235007498C5 /* HeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40CCEC29221E7235007498C5 /* HeaderReusableView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4011BB77221D24680004CE44 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		4011BB79221D26350004CE44 /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
+		4011BB7A221D26350004CE44 /* PhotosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosCell.xib; sourceTree = "<group>"; };
 		401B4BE9221BD62500F5E2C9 /* Colr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		401B4BEE221BD62500F5E2C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		401B4BEE221BD62500F5E2C9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		401B4BF1221BD62500F5E2C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		401B4BF4221BD62500F5E2C9 /* Colr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Colr.xcdatamodel; sourceTree = "<group>"; };
 		401B4BF6221BD63100F5E2C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +60,11 @@
 		401B4C0B221BD63100F5E2C9 /* ColrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColrUITests.swift; sourceTree = "<group>"; };
 		401B4C11221BD63100F5E2C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40CCEC22221E607B007498C5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		40CCEC24221E612F007498C5 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		40CCEC26221E61F1007498C5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
+		40CCEC28221E7235007498C5 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
+		40CCEC29221E7235007498C5 /* HeaderReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderReusableView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +92,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4011BB6E221D226E0004CE44 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				4011BB79221D26350004CE44 /* PhotosCell.swift */,
+				4011BB7A221D26350004CE44 /* PhotosCell.xib */,
+				40CCEC28221E7235007498C5 /* HeaderReusableView.swift */,
+				40CCEC29221E7235007498C5 /* HeaderReusableView.xib */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
 		401B4BE0221BD62500F5E2C9 = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +126,7 @@
 		401B4BEB221BD62500F5E2C9 /* Colr */ = {
 			isa = PBXGroup;
 			children = (
-				401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */,
-				401B4BEE221BD62500F5E2C9 /* ViewController.swift */,
-				401B4BF0221BD62500F5E2C9 /* Main.storyboard */,
+				401B4C1D221BD73500F5E2C9 /* Source */,
 				401B4BF6221BD63100F5E2C9 /* Assets.xcassets */,
 				401B4BF8221BD63100F5E2C9 /* LaunchScreen.storyboard */,
 				401B4BFB221BD63100F5E2C9 /* Info.plist */,
@@ -126,6 +151,77 @@
 				401B4C11221BD63100F5E2C9 /* Info.plist */,
 			);
 			path = ColrUITests;
+			sourceTree = "<group>";
+		};
+		401B4C1D221BD73500F5E2C9 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				401B4C21221BD75500F5E2C9 /* Framework */,
+				401B4C1E221BD74200F5E2C9 /* Models */,
+				401B4C20221BD74E00F5E2C9 /* ViewModels */,
+				401B4C1F221BD74900F5E2C9 /* Views */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		401B4C1E221BD74200F5E2C9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		401B4C1F221BD74900F5E2C9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */,
+				401B4C22221BD76800F5E2C9 /* Controllers */,
+				401B4BF0221BD62500F5E2C9 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		401B4C20221BD74E00F5E2C9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		401B4C21221BD75500F5E2C9 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				40CCEC21221E605F007498C5 /* Button */,
+				4011BB6E221D226E0004CE44 /* Collection */,
+				401B4C25221BD98400F5E2C9 /* Photos */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		401B4C22221BD76800F5E2C9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				401B4BEE221BD62500F5E2C9 /* MainViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		401B4C25221BD98400F5E2C9 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				4011BB77221D24680004CE44 /* PhotosViewController.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		40CCEC21221E605F007498C5 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				40CCEC22221E607B007498C5 /* CustomButton.swift */,
+				40CCEC24221E612F007498C5 /* CloseButton.swift */,
+				40CCEC26221E61F1007498C5 /* NextButton.swift */,
+			);
+			path = Button;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +328,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40CCEC2B221E7235007498C5 /* HeaderReusableView.xib in Resources */,
+				4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */,
 				401B4BFA221BD63100F5E2C9 /* LaunchScreen.storyboard in Resources */,
 				401B4BF7221BD63100F5E2C9 /* Assets.xcassets in Resources */,
 				401B4BF2221BD62500F5E2C9 /* Main.storyboard in Resources */,
@@ -259,8 +357,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				401B4BEF221BD62500F5E2C9 /* ViewController.swift in Sources */,
+				401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */,
+				4011BB78221D24680004CE44 /* PhotosViewController.swift in Sources */,
+				40CCEC2A221E7235007498C5 /* HeaderReusableView.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
+				40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */,
+				4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */,
+				40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */,
+				40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */,
 				401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: PhotosViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        _ = self.count
+        
+        self.collection.reloadData()
     }
 
 
