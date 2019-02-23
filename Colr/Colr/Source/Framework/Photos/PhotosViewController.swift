@@ -47,13 +47,12 @@ class PhotosViewController: UIViewController {
     
     @IBOutlet open weak var collection: UICollectionView!
     @IBOutlet open weak var imageview: UIImageView!
-    @IBOutlet open weak var closeBtn: CloseButton!
-    @IBOutlet open weak var nextBtn: NextButton!
     
-    private var imageManager:PHImageManager!
-    private var requestOption:PHImageRequestOptions!
-    private var fetchOption:PHFetchOptions!
-    private var fetchResult:PHFetchResult<PHAsset>!
+    
+    var imageManager:PHCachingImageManager!
+    var requestOption:PHImageRequestOptions!
+    var fetchOption:PHFetchOptions!
+    var fetchResult:PHFetchResult<PHAsset>!
     
     var c:Int = 0
     
@@ -75,19 +74,7 @@ class PhotosViewController: UIViewController {
         self.imageview.clipsToBounds = true
         self.view.addSubview(self.imageview)
         
-       
         
-        let c = CloseButton()
-        c.add(view: self.view,.init(x: 25, y: self.view.frame.height.minus(i: 65)))
-        c.animatedHidden()
-        self.closeBtn = c
-        
-        let n = NextButton()
-        n.add(view: self.view, self.view.minusSize(135, 65))
-        n.animatedHidden()
-        self.nextBtn = n
-        
-        print(n)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -98,7 +85,7 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = .black
-        self.imageManager = PHImageManager.default()
+        self.imageManager = PHCachingImageManager()
         self.requestOption = PHImageRequestOptions()
         self.requestOption.isSynchronous = true
         self.fetchOption = PHFetchOptions()
@@ -115,18 +102,20 @@ class PhotosViewController: UIViewController {
     func animated(action:Bool) {
         let layout = self.collection.collectionViewLayout as! UICollectionViewFlowLayout
         
-        UIView.animate(withDuration: 0.3) {
-            if action {
+        if action {
+            self.collection.frame.origin = self.view.frame.height.persen(p: 65).y
+            self.collection.frame.size = .init(width: self.view.frame.width, height: self.view.frame.height.persen(p: 35))
+            layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 0)
+            UIView.animate(withDuration: 0.3, animations: {
                 self.imageview.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height.persen(p: 64.9))
-                self.collection.frame.origin = self.view.frame.height.persen(p: 65).y
-                self.collection.frame.size = .init(width: self.view.frame.width, height: self.view.frame.height.persen(p: 35))
-                layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 0)
-            } else {
+            })
+        } else {
+            UIView.animate(withDuration: 0.3, animations: {
                 self.imageview.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: 0)
                 self.collection.frame.origin = .zero
                 self.collection.frame.size = .init(width: self.view.frame.width, height: self.view.frame.height)
-                layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 70)
-            }
+            })
+            layout.headerReferenceSize = CGSize(width: self.view.frame.width, height: 70)
         }
     }
     
@@ -135,13 +124,27 @@ class PhotosViewController: UIViewController {
         self.c = self.fetchResult.count
         return c
     }
+    
+    
+    
+    func resetCachedAssets() {
+        imageManager.stopCachingImagesForAllAssets()
+    }
+    
+    func cache(index:Int) {
+        guard isViewLoaded && view.window != nil else { return }
+        
+        imageManager.startCachingImages(for: [fetchResult.object(at: index)], targetSize: .init(width: 100, height: 100), contentMode: .aspectFill, options: nil)
+        
+    }
+    
+    func stopCache(index:Int) {
+        guard isViewLoaded && view.window != nil else { return }
+        imageManager.stopCachingImages(for: [fetchResult.object(at: index)], targetSize: .init(width: 100, height: 100), contentMode: .aspectFill, options: nil)
+    }
 }
 
 extension PhotosViewController: UICollectionViewDataSource {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scroll")
-    }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -151,32 +154,28 @@ extension PhotosViewController: UICollectionViewDataSource {
         return self.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "photos", for: indexPath) as! PhotosCell
-        
-        let i = (self.c - 1) - indexPath.item
-        DispatchQueue.main.async {
-            self.imageManager.requestImage(for: self.fetchResult.object(at: i), targetSize: CGSize(width: 100, height: 100), contentMode: PHImageContentMode.aspectFill, options: self.requestOption, resultHandler: { (image, any) in
-                if let img = image {
-                    cell.imageview.image = img
-                }
-            })
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "photos", for: indexPath) as! PhotosCell
         
         let i = (self.c - 1) - indexPath.item
-        DispatchQueue.main.async {
-            self.imageManager.requestImage(for: self.fetchResult.object(at: i), targetSize: CGSize(width: 100, height: 100), contentMode: PHImageContentMode.aspectFill, options: self.requestOption, resultHandler: { (image, any) in
-                if let img = image {
-                    cell.imageview.image = img
-                }
-            })
-        }
+        let asset = fetchResult.object(at: i)
+
+        cell.representedAssetIdentifier = asset.localIdentifier
+        imageManager.requestImage(for: asset, targetSize: .init(width: 100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+            // UIKit may have recycled this cell by the handler's activation time.
+            // Set the cell's thumbnail image only if it's still showing the same asset.
+            if cell.representedAssetIdentifier == asset.localIdentifier {
+                cell.thumbnailImage = image
+                self.cache(index: i)
+            }
+        })
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let i = (self.c - 1) - indexPath.item
+        self.stopCache(index: i)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -191,17 +190,6 @@ extension PhotosViewController: UICollectionViewDataSource {
 extension PhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let i = self.c - 1 - indexPath.item
-        self.imageManager.requestImage(for: self.fetchResult.object(at: i), targetSize: CGSize(width: 1000, height: 1000), contentMode: PHImageContentMode.aspectFill, options: self.requestOption) { (image, any) in
-            if let img = image {
-                self.imageview.image = img
-            }
-        }
-        
-        self.closeBtn.animatedHidden(action: false)
-        self.nextBtn.animatedHidden(action: false)
-        self.animated(action: true)
-        self.collection.scrollToItem(at: indexPath, at: .top, animated: true)
     }
 }
 
@@ -229,4 +217,46 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 0, height: 80)
     }
     
+}
+
+extension PhotosViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        guard let changes = changeInstance.changeDetails(for: fetchResult)
+            else { return }
+        
+        // Change notifications may originate from a background queue.
+        // As such, re-dispatch execution to the main queue before acting
+        // on the change, so you can update the UI.
+        DispatchQueue.main.sync {
+            // Hang on to the new fetch result.
+            fetchResult = changes.fetchResultAfterChanges
+            // If we have incremental changes, animate them in the collection view.
+            if changes.hasIncrementalChanges {
+                guard let collection = self.collection else { fatalError() }
+                // Handle removals, insertions, and moves in a batch update.
+                collection.performBatchUpdates({
+                    if let removed = changes.removedIndexes, !removed.isEmpty {
+                        collection.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
+                    }
+                    if let inserted = changes.insertedIndexes, !inserted.isEmpty {
+                        collection.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
+                    }
+                    changes.enumerateMoves { fromIndex, toIndex in
+                        collection.moveItem(at: IndexPath(item: fromIndex, section: 0),
+                                                to: IndexPath(item: toIndex, section: 0))
+                    }
+                })
+                // We are reloading items after the batch update since `PHFetchResultChangeDetails.changedIndexes` refers to
+                // items in the *after* state and not the *before* state as expected by `performBatchUpdates(_:completion:)`.
+                if let changed = changes.changedIndexes, !changed.isEmpty {
+                    collection.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
+                }
+            } else {
+                // Reload the collection view if incremental changes are not available.
+                self.collection.reloadData()
+            }
+            resetCachedAssets()
+        }
+    }
 }
