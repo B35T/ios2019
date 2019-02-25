@@ -51,6 +51,7 @@ class PhotosViewController: UICollectionViewController {
 }
 
 extension PhotosViewController {
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }

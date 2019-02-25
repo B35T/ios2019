@@ -40,6 +40,12 @@ class MainViewController: PhotosViewController {
     @IBOutlet weak var CloseBtn: CloseButton!
     @IBOutlet weak var NextBtn: NextButton!
     
+    var statusBarHidden:Bool = false {
+        didSet {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.backgroundColor = .black
@@ -63,7 +69,13 @@ class MainViewController: PhotosViewController {
         self.NextBtn = nextBtn
         self.view.addSubview(self.NextBtn)
         
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
+        
         self.delegate = self
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return self.statusBarHidden
     }
     
     @objc internal func closeAction() {
@@ -71,12 +83,13 @@ class MainViewController: PhotosViewController {
         self.NextBtn.animatedHidden(action: true)
         self.animated(action: false)
     }
-    
+
     fileprivate func showPreview(action: Bool) {
         UIView.animate(withDuration: 0.3) {
             if action {
                 self.imageView.frame = .init(x: 0, y: 0, width: self.view.w, height: self.view.h.persen(p: 69.8))
             } else {
+                
                 self.imageView.frame = .init(x: 0, y: 0, width: self.view.w, height: 0)
             }
         }
@@ -85,9 +98,13 @@ class MainViewController: PhotosViewController {
     fileprivate func animated(action: Bool) {
         if action {
             self.collectionView.frame = .init(x: 0, y: self.view.h.persen(p: 70), width: self.view.w, height: self.view.h.persen(p: 30))
+            self.statusBarHidden = true
             self.showPreview(action: true)
         } else {
-            self.collectionView.frame = .init(x: 0, y: 0, width: self.view.w, height: self.view.h)
+            UIView.animate(withDuration: 0.3) {
+                self.collectionView.frame = .init(x: 0, y: 0, width: self.view.w, height: self.view.h)
+            }
+            self.statusBarHidden = false
             self.showPreview(action: false)
         }
         
