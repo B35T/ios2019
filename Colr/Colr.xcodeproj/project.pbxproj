@@ -24,7 +24,6 @@
 		40CCEC2A221E7235007498C5 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC28221E7235007498C5 /* HeaderReusableView.swift */; };
 		40CCEC2B221E7235007498C5 /* HeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40CCEC29221E7235007498C5 /* HeaderReusableView.xib */; };
 		40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */; };
-		40CCEC2F221E85FC007498C5 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC2E221E85FC007498C5 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +67,6 @@
 		40CCEC28221E7235007498C5 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 		40CCEC29221E7235007498C5 /* HeaderReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderReusableView.xib; sourceTree = "<group>"; };
 		40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
-		40CCEC2E221E85FC007498C5 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,7 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				4011BB77221D24680004CE44 /* PhotosViewController.swift */,
-				40CCEC2E221E85FC007498C5 /* File.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -372,7 +369,6 @@
 				4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */,
 				40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */,
 				40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */,
-				40CCEC2F221E85FC007498C5 /* File.swift in Sources */,
 				401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

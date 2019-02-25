@@ -102,6 +102,8 @@ class AssetGridViewController: UICollectionViewController {
         let removedAssets = removedRect
             .compactMap { rect in collectionView!.indexPathForItem(at: rect.origin) }
             .map { indexPath in fetchResult.object(at: indexPath.item) }
+        print("add \(addedRects)")
+        print("rm \(removedRect)")
         
         imageManager.startCachingImages(for: addedAssets, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
         imageManager.stopCachingImages(for: removedAssets, targetSize: thumbnailSize, contentMode: .aspectFill, options: nil)
@@ -194,8 +196,6 @@ extension AssetGridViewController: PHPhotoLibraryChangeObserver {
             resetCacheAssets()
         }
     }
-    
-    
 }
 
 
