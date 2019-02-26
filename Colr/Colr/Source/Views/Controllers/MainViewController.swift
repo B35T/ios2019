@@ -40,8 +40,7 @@ class MainViewController: PhotosViewController {
     @IBOutlet weak var CloseBtn: CloseButton!
     @IBOutlet weak var NextBtn: NextButton!
     
-    var userCollections: PHFetchResult<PHCollection>!
-
+    var index:Int? = nil
     
     var statusBarHidden:Bool = false {
         didSet {
@@ -68,6 +67,7 @@ class MainViewController: PhotosViewController {
         self.view.addSubview(CloseBtn)
         
         let nextBtn = NextButton()
+        nextBtn.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
         nextBtn.alpha = 0
         nextBtn.add(view: view, .init(x: view.w.minus(n: 125), y: view.h.minus(n: 65)))
         self.NextBtn = nextBtn
@@ -79,9 +79,8 @@ class MainViewController: PhotosViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
         self.navigationController?.navigationBar.barStyle = .blackTranslucent
-//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -92,6 +91,18 @@ class MainViewController: PhotosViewController {
         self.CloseBtn.animatedHidden(action: true)
         self.NextBtn.animatedHidden(action: true)
         self.animated(action: false)
+    }
+    
+    @objc internal func nextAction() {
+        self.performSegue(withIdentifier: "Editor", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let editor = segue.destination as? EditorViewController else {return}
+        if let i = self.index {
+            editor.asset = self.fetchResults.object(at: i)
+        }
+        
     }
 
     fileprivate func showPreview(action: Bool) {
@@ -129,9 +140,9 @@ class MainViewController: PhotosViewController {
 }
 
 extension MainViewController: PhotosViewCollectionDelegate {
-    func photosResult(image: UIImage?) {
+    func photosResult(image: UIImage?, index: Int?) {
         self.imageView.image = image
-        
+        self.index = index
         self.CloseBtn.animatedHidden(action: false)
         self.NextBtn.animatedHidden(action: false)
         

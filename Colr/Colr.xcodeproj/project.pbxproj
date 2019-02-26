@@ -21,8 +21,6 @@
 		40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC22221E607B007498C5 /* CustomButton.swift */; };
 		40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC24221E612F007498C5 /* CloseButton.swift */; };
 		40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC26221E61F1007498C5 /* NextButton.swift */; };
-		40CCEC2A221E7235007498C5 /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC28221E7235007498C5 /* HeaderReusableView.swift */; };
-		40CCEC2B221E7235007498C5 /* HeaderReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40CCEC29221E7235007498C5 /* HeaderReusableView.xib */; };
 		40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +62,6 @@
 		40CCEC22221E607B007498C5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		40CCEC24221E612F007498C5 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		40CCEC26221E61F1007498C5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
-		40CCEC28221E7235007498C5 /* HeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
-		40CCEC29221E7235007498C5 /* HeaderReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderReusableView.xib; sourceTree = "<group>"; };
 		40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,8 +95,6 @@
 			children = (
 				4011BB79221D26350004CE44 /* PhotosCell.swift */,
 				4011BB7A221D26350004CE44 /* PhotosCell.xib */,
-				40CCEC28221E7235007498C5 /* HeaderReusableView.swift */,
-				40CCEC29221E7235007498C5 /* HeaderReusableView.xib */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -331,7 +325,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40CCEC2B221E7235007498C5 /* HeaderReusableView.xib in Resources */,
 				4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */,
 				401B4BFA221BD63100F5E2C9 /* LaunchScreen.storyboard in Resources */,
 				401B4BF7221BD63100F5E2C9 /* Assets.xcassets in Resources */,
@@ -362,7 +355,6 @@
 			files = (
 				401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */,
 				402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */,
-				40CCEC2A221E7235007498C5 /* HeaderReusableView.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
 				40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */,

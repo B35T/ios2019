@@ -34,7 +34,7 @@
             <connections>
                 <outlet property="imageview" destination="lQP-1z-5B8" id="Lts-gf-nIj"/>
             </connections>
-            <point key="canvasLocation" x="129.59999999999999" y="153.82308845577214"/>
+            <point key="canvasLocation" x="-54" y="114"/>
         </collectionViewCell>
     </objects>
 </document>

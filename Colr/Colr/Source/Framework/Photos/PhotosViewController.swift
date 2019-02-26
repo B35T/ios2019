@@ -10,7 +10,7 @@ import Photos
 import PhotosUI
 
 public protocol PhotosViewCollectionDelegate {
-    func photosResult(image: UIImage?)
+    func photosResult(image: UIImage?, index:Int?)
 }
 
 class PhotosViewController: UICollectionViewController {
@@ -18,7 +18,11 @@ class PhotosViewController: UICollectionViewController {
     var imageManager = PHCachingImageManager()
     var fetchResults: PHFetchResult<PHAsset>!
     let cells = "PhotosCell"
-    
+    var targetSize: CGSize {
+        let w = UIScreen.main.bounds.width / 4 - 1
+        let t = w * UIScreen.main.scale
+        return CGSize(width: t, height: t)
+    }
     var delegate: PhotosViewCollectionDelegate?
     
     override func viewDidLoad() {
@@ -34,7 +38,7 @@ class PhotosViewController: UICollectionViewController {
     }
     
     
-    fileprivate func resetCachedAssets() {
+    public func resetCachedAssets() {
         imageManager.stopCachingImagesForAllAssets()
     }
     
@@ -51,7 +55,7 @@ extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let asset = self.fetchResults.object(at: indexPath.item)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cells, for: indexPath) as! PhotosCell
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { (image, _) in
+        imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, _) in
             cell.imageview.image = image
         }
         return cell
@@ -65,7 +69,7 @@ extension PhotosViewController {
         self.collectionView.scrollToItem(at: IndexPath(item: indexPath.item, section: 0), at: .top, animated: true)
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .aspectFill, options: nil) { (image, _) in
-            self.delegate?.photosResult(image: image)
+            self.delegate?.photosResult(image: image, index: indexPath.item)
         }
     }
 }
