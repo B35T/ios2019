@@ -15,76 +15,47 @@ public protocol PhotosViewCollectionDelegate {
 
 class PhotosViewController: UICollectionViewController {
     
-    fileprivate var imageManager = PHCachingImageManager()
-    fileprivate var fetchResult: PHFetchResult<PHAsset>!
-    fileprivate var count: Int = 0
-    
-    var targetSize: CGSize {
-        let scale = UIScreen.main.scale
-        let size = UIScreen.main.bounds
-        return CGSize(width: size.width * scale, height: size.height * scale)
-    }
+    var imageManager = PHCachingImageManager()
+    var fetchResults: PHFetchResult<PHAsset>!
+    let cells = "PhotosCell"
     
     var delegate: PhotosViewCollectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.resetCacheAsset()
         PHPhotoLibrary.shared().register(self)
         
         let fetchOption = PHFetchOptions()
-        self.fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOption)
+        fetchOption.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        self.fetchResults = PHAsset.fetchAssets(with: .image, options: fetchOption)
         
-        self.collectionView.register(UINib(nibName: "PhotosCell", bundle: nil), forCellWithReuseIdentifier: "PhotosCell")
-//        self.collectionView.delegate = self
-//        self.collectionView.dataSource = self
+        collectionView.register(UINib(nibName: cells, bundle: nil), forCellWithReuseIdentifier: cells)
+    }
+    
+    fileprivate func resetCachedAssets() {
+        imageManager.stopCachingImagesForAllAssets()
     }
     
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
-    
-    fileprivate func resetCacheAsset() {
-        self.imageManager.stopCachingImagesForAllAssets()
-    }
 }
 
 extension PhotosViewController {
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.count = self.fetchResult.count
-        return self.count
+        return self.fetchResults.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let index = (self.count - 1) - indexPath.item
-        
-        let asset = self.fetchResult.object(at: index)
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as? PhotosCell else { fatalError("Unexpected cell in collection view") }
-        self.imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { (image, _) in
-            cell.thumbnailImage = image
+        let asset = self.fetchResults.object(at: indexPath.item)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cells, for: indexPath) as! PhotosCell
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { (image, _) in
+            cell.imageview.image = image
         }
-        
         return cell
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let index = (self.count - 1) - indexPath.item
-        let asset = self.fetchResult.object(at: index)
-        
-        self.collectionView.scrollToItem(at: .init(item: indexPath.item, section: 0), at: .top, animated: true)
-        
-        self.imageManager.requestImage(for: asset, targetSize: self.targetSize, contentMode: .aspectFit, options: nil) { (image, _) in
-            self.delegate?.photosResult(image: image)
-        }
-        
-    }
 }
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
@@ -106,34 +77,42 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 
 extension PhotosViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let change = changeInstance.changeDetails(for: self.fetchResult) else {return}
         
+        guard let changes = changeInstance.changeDetails(for: fetchResults)
+            else { return }
+        
+        // Change notifications may originate from a background queue.
+        // As such, re-dispatch execution to the main queue before acting
+        // on the change, so you can update the UI.
         DispatchQueue.main.sync {
-            self.fetchResult = change.fetchResultAfterChanges
-            
-            if change.hasIncrementalChanges {
+            // Hang on to the new fetch result.
+            fetchResults = changes.fetchResultAfterChanges
+            // If we have incremental changes, animate them in the collection view.
+            if changes.hasIncrementalChanges {
                 guard let collectionView = self.collectionView else { fatalError() }
-                
+                // Handle removals, insertions, and moves in a batch update.
                 collectionView.performBatchUpdates({
-                    if let removed = change.removedIndexes, !removed.isEmpty {
-                        collectionView.deleteItems(at: removed.map({IndexPath(item: $0, section: 0)}))
+                    if let removed = changes.removedIndexes, !removed.isEmpty {
+                        collectionView.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
                     }
-                    
-                    if let instance = change.insertedIndexes, !instance.isEmpty {
-                        collectionView.insertItems(at: instance.map({IndexPath(item: $0, section: 0)}))
+                    if let inserted = changes.insertedIndexes, !inserted.isEmpty {
+                        collectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
                     }
-                    
-                    change.enumerateMoves({ (fromIndex, toIndex) in
-                        collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0), to: IndexPath(item: toIndex, section: 0))
-                    })
-                }, completion: nil)
+                    changes.enumerateMoves { fromIndex, toIndex in
+                        collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
+                                                to: IndexPath(item: toIndex, section: 0))
+                    }
+                })
+                // We are reloading items after the batch update since `PHFetchResultChangeDetails.changedIndexes` refers to
+                // items in the *after* state and not the *before* state as expected by `performBatchUpdates(_:completion:)`.
+                if let changed = changes.changedIndexes, !changed.isEmpty {
+                    collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
+                }
             } else {
-                self.count = self.fetchResult.count
-                
+                // Reload the collection view if incremental changes are not available.
                 collectionView.reloadData()
             }
-            
-            resetCacheAsset()
+            resetCachedAssets()
         }
     }
 }
