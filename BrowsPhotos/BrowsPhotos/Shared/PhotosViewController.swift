@@ -30,15 +30,17 @@ class PhotosViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.resetCacheAsset()
-        PHPhotoLibrary.shared().register(self)
+//        self.collectionView.register(UINib(nibName: "PhotosCell", bundle: nil), forCellWithReuseIdentifier: "PhotosCell")
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         
         let fetchOption = PHFetchOptions()
         self.fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOption)
         
-        self.collectionView.register(UINib(nibName: "PhotosCell", bundle: nil), forCellWithReuseIdentifier: "PhotosCell")
-//        self.collectionView.delegate = self
-//        self.collectionView.dataSource = self
+        PHPhotoLibrary.shared().register(self)
+        self.resetCacheAsset()
+        
+        self.count = self.fetchResult.count
     }
     
     deinit {
@@ -57,8 +59,7 @@ extension PhotosViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.count = self.fetchResult.count
-        return self.count
+        return self.fetchResult.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -66,10 +67,8 @@ extension PhotosViewController {
         
         let asset = self.fetchResult.object(at: index)
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as? PhotosCell else { fatalError("Unexpected cell in collection view") }
-        self.imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { (image, _) in
-            cell.thumbnailImage = image
-        }
+        
+        let cell = UICollectionViewCell()
         
         return cell
     }

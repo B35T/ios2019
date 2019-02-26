@@ -40,6 +40,9 @@ class MainViewController: PhotosViewController {
     @IBOutlet weak var CloseBtn: CloseButton!
     @IBOutlet weak var NextBtn: NextButton!
     
+    var userCollections: PHFetchResult<PHCollection>!
+
+    
     var statusBarHidden:Bool = false {
         didSet {
             self.setNeedsStatusBarAppearanceUpdate()
@@ -48,6 +51,7 @@ class MainViewController: PhotosViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.collectionView.backgroundColor = .black
         
         let imageView = UIImageView(frame: .zero)

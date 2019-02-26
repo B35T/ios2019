@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402354E12223DFB0005469A5 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402354E02223DFB0005469A5 /* PhotosViewController.swift */; };
 		40AC37A42221052D00FEB048 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AC37A32221052D00FEB048 /* AppDelegate.swift */; };
 		40AC37A92221052D00FEB048 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40AC37A72221052D00FEB048 /* Main.storyboard */; };
 		40AC37AC2221052D00FEB048 /* BrowsPhotos.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40AC37AA2221052D00FEB048 /* BrowsPhotos.xcdatamodeld */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		402354E02223DFB0005469A5 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		40AC37A02221052C00FEB048 /* BrowsPhotos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrowsPhotos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40AC37A32221052D00FEB048 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40AC37A82221052D00FEB048 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				40AC37D922211BAA00FEB048 /* MasterViewController.swift */,
 				40AC37DB22212B2600FEB048 /* AssetGridViewController.swift */,
 				40AC37DD22212E0D00FEB048 /* GridViewCell.swift */,
+				402354E02223DFB0005469A5 /* PhotosViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				40AC37AC2221052D00FEB048 /* BrowsPhotos.xcdatamodeld in Sources */,
 				40AC37DE22212E0D00FEB048 /* GridViewCell.swift in Sources */,
 				40AC37DC22212B2600FEB048 /* AssetGridViewController.swift in Sources */,
+				402354E12223DFB0005469A5 /* PhotosViewController.swift in Sources */,
 				40AC37A42221052D00FEB048 /* AppDelegate.swift in Sources */,
 				40AC37DA22211BAA00FEB048 /* MasterViewController.swift in Sources */,
 			);

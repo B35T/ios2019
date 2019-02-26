@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4011BB78221D24680004CE44 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4011BB77221D24680004CE44 /* PhotosViewController.swift */; };
 		4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4011BB79221D26350004CE44 /* PhotosCell.swift */; };
 		4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4011BB7A221D26350004CE44 /* PhotosCell.xib */; };
 		401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */; };
@@ -18,6 +17,7 @@
 		401B4BFA221BD63100F5E2C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 401B4BF8221BD63100F5E2C9 /* LaunchScreen.storyboard */; };
 		401B4C05221BD63100F5E2C9 /* ColrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C04221BD63100F5E2C9 /* ColrTests.swift */; };
 		401B4C10221BD63100F5E2C9 /* ColrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */; };
+		402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CAF2F2224EB0300B17764 /* PhotosViewController.swift */; };
 		40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC22221E607B007498C5 /* CustomButton.swift */; };
 		40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC24221E612F007498C5 /* CloseButton.swift */; };
 		40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC26221E61F1007498C5 /* NextButton.swift */; };
@@ -44,7 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4011BB77221D24680004CE44 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		4011BB79221D26350004CE44 /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
 		4011BB7A221D26350004CE44 /* PhotosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosCell.xib; sourceTree = "<group>"; };
 		401B4BE9221BD62500F5E2C9 /* Colr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +60,7 @@
 		401B4C0B221BD63100F5E2C9 /* ColrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColrUITests.swift; sourceTree = "<group>"; };
 		401B4C11221BD63100F5E2C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		402CAF2F2224EB0300B17764 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		40CCEC22221E607B007498C5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		40CCEC24221E612F007498C5 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		40CCEC26221E61F1007498C5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 		401B4C25221BD98400F5E2C9 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
-				4011BB77221D24680004CE44 /* PhotosViewController.swift */,
+				402CAF2F2224EB0300B17764 /* PhotosViewController.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -361,7 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */,
-				4011BB78221D24680004CE44 /* PhotosViewController.swift in Sources */,
+				402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */,
 				40CCEC2A221E7235007498C5 /* HeaderReusableView.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
