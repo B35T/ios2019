@@ -33,6 +33,7 @@ class PhotosViewController: UICollectionViewController {
         collectionView.register(UINib(nibName: cells, bundle: nil), forCellWithReuseIdentifier: cells)
     }
     
+    
     fileprivate func resetCachedAssets() {
         imageManager.stopCachingImagesForAllAssets()
     }
@@ -56,6 +57,17 @@ extension PhotosViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let w = UIScreen.main.bounds.width
+        let s = w * UIScreen.main.scale
+        let asset = self.fetchResults.object(at: indexPath.item)
+        
+        self.collectionView.scrollToItem(at: IndexPath(item: indexPath.item, section: 0), at: .top, animated: true)
+        
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .aspectFill, options: nil) { (image, _) in
+            self.delegate?.photosResult(image: image)
+        }
+    }
 }
 
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {

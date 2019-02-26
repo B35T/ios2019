@@ -73,11 +73,17 @@ class MainViewController: PhotosViewController {
         self.NextBtn = nextBtn
         self.view.addSubview(self.NextBtn)
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)]
-        
         self.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
+        self.navigationController?.navigationBar.barStyle = .blackTranslucent
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+    }
+
     override var prefersStatusBarHidden: Bool {
         return self.statusBarHidden
     }
