@@ -18,6 +18,14 @@
 		401B4C05221BD63100F5E2C9 /* ColrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C04221BD63100F5E2C9 /* ColrTests.swift */; };
 		401B4C10221BD63100F5E2C9 /* ColrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */; };
 		402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CAF2F2224EB0300B17764 /* PhotosViewController.swift */; };
+		408EC04022265A3E00729533 /* PreviewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC03F22265A3E00729533 /* PreviewViewCell.swift */; };
+		408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC0412226611400729533 /* SubscriptionViewController.swift */; };
+		408EC0722226890B00729533 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC0702226890B00729533 /* MenuCell.swift */; };
+		408EC0732226890B00729533 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 408EC0712226890B00729533 /* MenuCell.xib */; };
+		408EC07622268AE300729533 /* PresetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC07422268AE300729533 /* PresetCell.swift */; };
+		408EC07722268AE300729533 /* PresetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 408EC07522268AE300729533 /* PresetCell.xib */; };
+		408EC07A22268E7400729533 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC07822268E7400729533 /* GroupsCell.swift */; };
+		408EC07B22268E7400729533 /* GroupsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 408EC07922268E7400729533 /* GroupsCell.xib */; };
 		40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC22221E607B007498C5 /* CustomButton.swift */; };
 		40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC24221E612F007498C5 /* CloseButton.swift */; };
 		40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC26221E61F1007498C5 /* NextButton.swift */; };
@@ -59,6 +67,14 @@
 		401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColrUITests.swift; sourceTree = "<group>"; };
 		401B4C11221BD63100F5E2C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		402CAF2F2224EB0300B17764 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		408EC03F22265A3E00729533 /* PreviewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewCell.swift; sourceTree = "<group>"; };
+		408EC0412226611400729533 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
+		408EC0702226890B00729533 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		408EC0712226890B00729533 /* MenuCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		408EC07422268AE300729533 /* PresetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetCell.swift; sourceTree = "<group>"; };
+		408EC07522268AE300729533 /* PresetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetCell.xib; sourceTree = "<group>"; };
+		408EC07822268E7400729533 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
+		408EC07922268E7400729533 /* GroupsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupsCell.xib; sourceTree = "<group>"; };
 		40CCEC22221E607B007498C5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		40CCEC24221E612F007498C5 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		40CCEC26221E61F1007498C5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -93,8 +109,7 @@
 		4011BB6E221D226E0004CE44 /* Collection */ = {
 			isa = PBXGroup;
 			children = (
-				4011BB79221D26350004CE44 /* PhotosCell.swift */,
-				4011BB7A221D26350004CE44 /* PhotosCell.xib */,
+				408EC04722266C0F00729533 /* Cell */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -199,6 +214,7 @@
 			children = (
 				401B4BEE221BD62500F5E2C9 /* MainViewController.swift */,
 				40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */,
+				408EC0412226611400729533 /* SubscriptionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -209,6 +225,22 @@
 				402CAF2F2224EB0300B17764 /* PhotosViewController.swift */,
 			);
 			path = Photos;
+			sourceTree = "<group>";
+		};
+		408EC04722266C0F00729533 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4011BB79221D26350004CE44 /* PhotosCell.swift */,
+				4011BB7A221D26350004CE44 /* PhotosCell.xib */,
+				408EC03F22265A3E00729533 /* PreviewViewCell.swift */,
+				408EC07422268AE300729533 /* PresetCell.swift */,
+				408EC07522268AE300729533 /* PresetCell.xib */,
+				408EC0702226890B00729533 /* MenuCell.swift */,
+				408EC0712226890B00729533 /* MenuCell.xib */,
+				408EC07822268E7400729533 /* GroupsCell.swift */,
+				408EC07922268E7400729533 /* GroupsCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		40CCEC21221E605F007498C5 /* Button */ = {
@@ -325,7 +357,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				408EC0732226890B00729533 /* MenuCell.xib in Resources */,
 				4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */,
+				408EC07B22268E7400729533 /* GroupsCell.xib in Resources */,
+				408EC07722268AE300729533 /* PresetCell.xib in Resources */,
 				401B4BFA221BD63100F5E2C9 /* LaunchScreen.storyboard in Resources */,
 				401B4BF7221BD63100F5E2C9 /* Assets.xcassets in Resources */,
 				401B4BF2221BD62500F5E2C9 /* Main.storyboard in Resources */,
@@ -353,15 +388,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				408EC04022265A3E00729533 /* PreviewViewCell.swift in Sources */,
 				401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */,
 				402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */,
+				408EC07622268AE300729533 /* PresetCell.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
+				408EC07A22268E7400729533 /* GroupsCell.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
+				408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */,
 				40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */,
 				4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */,
 				40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */,
 				40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */,
 				401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */,
+				408EC0722226890B00729533 /* MenuCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

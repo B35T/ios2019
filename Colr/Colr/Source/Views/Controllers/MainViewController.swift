@@ -37,6 +37,7 @@ class MainViewController: PhotosViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet var colrProBtn: UIBarButtonItem!
     @IBOutlet weak var CloseBtn: CloseButton!
     @IBOutlet weak var NextBtn: NextButton!
     
@@ -73,13 +74,17 @@ class MainViewController: PhotosViewController {
         self.NextBtn = nextBtn
         self.view.addSubview(self.NextBtn)
         
+        self.navigationItem.rightBarButtonItem = self.colrProBtn
+//        self.colrProBtn.tintColor = .white
+        self.colrProBtn.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)], for: .normal)
+        
         self.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
+//        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)]
         self.navigationController?.navigationBar.barStyle = .blackTranslucent
     }
 
