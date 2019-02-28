@@ -16,6 +16,8 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var closeBtn: CloseButton!
+    @IBOutlet weak var saveBtn: SaveButton!
+    @IBOutlet weak var label: PresetLabel!
     
     
     enum Cells: String {
@@ -46,7 +48,16 @@ class EditorViewController: UIViewController {
         closeBtn.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
         closeBtn.add(view: view, .init(x: 10, y: 10))
         self.closeBtn = closeBtn
-        self.view.addSubview(self.closeBtn)
+        
+        let saveBtn = SaveButton()
+        saveBtn.add(view: view, .init(x: view.w.minus(n: 120), y: 10))
+        self.saveBtn = saveBtn
+        
+        let presetLabel = PresetLabel()
+        presetLabel.add(view: view, .init(x: 0, y: view.h.minus(n: 200)))
+        presetLabel.x(view: view)
+        presetLabel.text = "OG \\ 100"
+        self.label = presetLabel
         
         self.updateStaticPhotos()
     }
@@ -77,6 +88,17 @@ class EditorViewController: UIViewController {
 
 }
 
+extension EditorViewController: PresetCellDelegate {
+    func PresetSelectItem(indexPath: IndexPath, identifier: String) {
+        if identifier == "OG" {
+            self.label.text = "OG"
+            return
+        }
+        self.label.text = "\(identifier)\(indexPath.item) \\ 100"
+    }
+    
+}
+
 extension EditorViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
@@ -90,10 +112,16 @@ extension EditorViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! PresetCell
+            cell.delegate = self
+            let s = 60 * UIScreen.main.scale
+            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .default, options: nil) { (img, _) in
+                cell.thumbnails = img
+            }
             cell.asset = asset
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.MenuCell.rawValue, for: indexPath) as! MenuCell
+            cell.images = [#imageLiteral(resourceName: "preset"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "color"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "overlay"), #imageLiteral(resourceName: "crop")]
             return cell
         default:
             fatalError()
@@ -122,6 +150,8 @@ extension EditorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 5
     }
+    
+    
 }
 
 

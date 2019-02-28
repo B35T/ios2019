@@ -40,9 +40,9 @@ class GroupsCell: UICollectionViewCell {
 extension GroupsCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let identifier = self.identifier else { print("not identifier key"); return}
-        
+
         self.delegate?.GroupsSelected(indexPath: indexPath, identifier: identifier)
-        print("\(identifier), \(indexPath.item)")
+        
     }
 }
 
@@ -54,7 +54,8 @@ extension GroupsCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
         cell.thumbnailImage = image ?? #imageLiteral(resourceName: "preview")
-        cell.addText(str: text)
+        cell.useIsSelect = .color
+        cell.addText(str: "\(text)\(indexPath.item)")
         return cell
     }
     

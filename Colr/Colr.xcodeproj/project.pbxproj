@@ -26,6 +26,10 @@
 		408EC07722268AE300729533 /* PresetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 408EC07522268AE300729533 /* PresetCell.xib */; };
 		408EC07A22268E7400729533 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC07822268E7400729533 /* GroupsCell.swift */; };
 		408EC07B22268E7400729533 /* GroupsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 408EC07922268E7400729533 /* GroupsCell.xib */; };
+		408F571E2227BF8F0000A7D6 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F571D2227BF8F0000A7D6 /* SaveButton.swift */; };
+		408F57202227CE280000A7D6 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F571F2227CE280000A7D6 /* CustomLabel.swift */; };
+		408F57222227CE560000A7D6 /* PresetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F57212227CE560000A7D6 /* PresetLabel.swift */; };
+		408F57252227D3830000A7D6 /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F57242227D3830000A7D6 /* config.swift */; };
 		40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC22221E607B007498C5 /* CustomButton.swift */; };
 		40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC24221E612F007498C5 /* CloseButton.swift */; };
 		40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC26221E61F1007498C5 /* NextButton.swift */; };
@@ -75,6 +79,10 @@
 		408EC07522268AE300729533 /* PresetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetCell.xib; sourceTree = "<group>"; };
 		408EC07822268E7400729533 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		408EC07922268E7400729533 /* GroupsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupsCell.xib; sourceTree = "<group>"; };
+		408F571D2227BF8F0000A7D6 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
+		408F571F2227CE280000A7D6 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		408F57212227CE560000A7D6 /* PresetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetLabel.swift; sourceTree = "<group>"; };
+		408F57242227D3830000A7D6 /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
 		40CCEC22221E607B007498C5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		40CCEC24221E612F007498C5 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		40CCEC26221E61F1007498C5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -202,7 +210,8 @@
 		401B4C21221BD75500F5E2C9 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				40CCEC21221E605F007498C5 /* Button */,
+				408F57232227D3740000A7D6 /* config */,
+				40CCEC21221E605F007498C5 /* Button & Label */,
 				4011BB6E221D226E0004CE44 /* Collection */,
 				401B4C25221BD98400F5E2C9 /* Photos */,
 			);
@@ -243,14 +252,25 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		40CCEC21221E605F007498C5 /* Button */ = {
+		408F57232227D3740000A7D6 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				408F57242227D3830000A7D6 /* config.swift */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		40CCEC21221E605F007498C5 /* Button & Label */ = {
 			isa = PBXGroup;
 			children = (
 				40CCEC22221E607B007498C5 /* CustomButton.swift */,
 				40CCEC24221E612F007498C5 /* CloseButton.swift */,
 				40CCEC26221E61F1007498C5 /* NextButton.swift */,
+				408F571D2227BF8F0000A7D6 /* SaveButton.swift */,
+				408F571F2227CE280000A7D6 /* CustomLabel.swift */,
+				408F57212227CE560000A7D6 /* PresetLabel.swift */,
 			);
-			path = Button;
+			path = "Button & Label";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,14 +414,18 @@
 				408EC07622268AE300729533 /* PresetCell.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
 				408EC07A22268E7400729533 /* GroupsCell.swift in Sources */,
+				408F57222227CE560000A7D6 /* PresetLabel.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
+				408F57202227CE280000A7D6 /* CustomLabel.swift in Sources */,
 				408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */,
 				40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */,
 				4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */,
 				40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */,
 				40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */,
 				401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */,
+				408F57252227D3830000A7D6 /* config.swift in Sources */,
 				408EC0722226890B00729533 /* MenuCell.swift in Sources */,
+				408F571E2227BF8F0000A7D6 /* SaveButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

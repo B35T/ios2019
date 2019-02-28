@@ -14,7 +14,52 @@ class PhotosCell: UICollectionViewCell {
 
     @IBOutlet weak var imageview: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
+    
+    private var textColor = UIColor()
+    
+    enum select {
+        case none
+        case line
+        case color
+    }
+    
+    let select:CALayer = CALayer()
+    override var isSelected: Bool {
+        didSet {
+            switch self.useIsSelect {
+            case .line:
+                if self.isSelected {
+                    self.layer.addSublayer(self.select)
+                } else {
+                    self.select.removeFromSuperlayer()
+                }
+            case .color:
+                if self.isSelected {
+                    textLabel.backgroundColor = UIColor.init(red: 255/255, green: 196/255, blue: 20/255, alpha: 1)
+                    textLabel.textColor = .white
+                } else {
+                    textLabel.backgroundColor = .white
+                    textLabel.textColor = self.textColor
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    var useIsSelect:select = select.none {
+        didSet {
+            switch self.useIsSelect {
+            case .line:
+                self.select.frame = .init(x: 0, y: frame.height - 5, width: frame.width, height: 5)
+                self.select.backgroundColor = UIColor.white.cgColor
+            default:
+                break
+            }
+        }
+    }
 
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -23,6 +68,7 @@ class PhotosCell: UICollectionViewCell {
     }
     
     func addText(str:String = "Text", textColor:UIColor = UIColor.init(red: 255/255, green: 196/255, blue: 20/255, alpha: 1), bgColor: UIColor = .white) {
+        self.textColor = textColor
         self.textLabel.textColor = textColor
         self.textLabel.text = str
         self.textLabel.backgroundColor = bgColor

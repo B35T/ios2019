@@ -33,10 +33,17 @@ class SubscriptionViewController: UIViewController {
         self.collectionView.backgroundColor = .black
         
         self.subscriptionView.frame = .init(x: 0, y: view.h.minus(n: 215), width: view.w, height: 215)
+        
+        self.startSubbtn.addTarget(self, action: #selector(subAction), for: .touchUpInside)
         self.startSubbtn.layer.cornerRadius = 6
+        
         self.view.addSubview(self.subscriptionView)
     }
 
+    
+    @objc internal func subAction() {
+        colrPro = true
+    }
 }
 
 extension SubscriptionViewController: UICollectionViewDataSource {

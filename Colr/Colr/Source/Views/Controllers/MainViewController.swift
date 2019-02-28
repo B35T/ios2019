@@ -65,14 +65,12 @@ class MainViewController: PhotosViewController {
         closeBtn.alpha = 0
         closeBtn.add(view: view, .init(x: 15, y: view.h.minus(n: 65)))
         self.CloseBtn = closeBtn
-        self.view.addSubview(CloseBtn)
         
         let nextBtn = NextButton()
         nextBtn.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
         nextBtn.alpha = 0
         nextBtn.add(view: view, .init(x: view.w.minus(n: 125), y: view.h.minus(n: 65)))
         self.NextBtn = nextBtn
-        self.view.addSubview(self.NextBtn)
         
         self.navigationItem.rightBarButtonItem = self.colrProBtn
 //        self.colrProBtn.tintColor = .white

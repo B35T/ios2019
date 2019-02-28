@@ -12,7 +12,7 @@ class MenuCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var image: UIImage?
+    var images: [UIImage]?
     let phCell = "PhotosCell"
     
     override func awakeFromNib() {
@@ -27,13 +27,15 @@ class MenuCell: UICollectionViewCell {
 }
 
 extension MenuCell: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.images?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCell, for: indexPath) as! PhotosCell
-        cell.thumbnailImage = image ?? #imageLiteral(resourceName: "Icon_filter")
+        cell.thumbnailImage = images?[indexPath.item]
+        cell.useIsSelect = .line
         return cell
     }
 }
