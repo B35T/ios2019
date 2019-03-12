@@ -86,15 +86,33 @@ class EditorViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CropPage" {
+            guard let croping = segue.destination as? CropViewController else {return}
+            guard let asset = self.asset else {return}
+            
+            croping.asset = asset
+        }
+    }
 }
 
-extension EditorViewController: PresetCellDelegate {
+extension EditorViewController: PresetCellDelegate, MenuCellDelegate {
     func PresetSelectItem(indexPath: IndexPath, identifier: String) {
         if identifier == "OG" {
             self.label.text = "OG"
             return
         }
         self.label.text = "\(identifier)\(indexPath.item) \\ 100"
+    }
+    
+    func MenuCellSelected(indexPath: IndexPath) {
+        switch indexPath.item {
+        case 0,1,2:
+            self.performSegue(withIdentifier: "CropPage", sender: nil)
+        default:
+            break
+        }
     }
     
 }
@@ -121,6 +139,7 @@ extension EditorViewController: UICollectionViewDataSource {
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.MenuCell.rawValue, for: indexPath) as! MenuCell
+            cell.delegate = self
             cell.images = [#imageLiteral(resourceName: "preset"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "color"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "overlay"), #imageLiteral(resourceName: "crop")]
             return cell
         default:
@@ -129,9 +148,7 @@ extension EditorViewController: UICollectionViewDataSource {
     }
 }
 
-extension EditorViewController: UICollectionViewDelegate {
-    
-}
+extension EditorViewController: UICollectionViewDelegate {}
 
 extension EditorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

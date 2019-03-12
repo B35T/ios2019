@@ -8,10 +8,15 @@
 
 import UIKit
 
+public protocol MenuCellDelegate {
+    func MenuCellSelected(indexPath: IndexPath)
+}
+
 class MenuCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var delegate: MenuCellDelegate?
     var images: [UIImage]?
     let phCell = "PhotosCell"
     
@@ -41,7 +46,9 @@ extension MenuCell: UICollectionViewDataSource {
 }
 
 extension MenuCell: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.MenuCellSelected(indexPath: indexPath)
+    }
 }
 
 extension MenuCell: UICollectionViewDelegateFlowLayout {

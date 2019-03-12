@@ -53,6 +53,7 @@ class PhotosCell: UICollectionViewCell {
             case .line:
                 self.select.frame = .init(x: 0, y: frame.height - 5, width: frame.width, height: 5)
                 self.select.backgroundColor = UIColor.white.cgColor
+                self.select.cornerRadius = 1.5
             default:
                 break
             }

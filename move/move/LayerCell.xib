@@ -22,18 +22,34 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iYd-PK-U2o">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTb-go-28W">
+                        <rect key="frame" x="0.0" y="0.0" width="42" height="35"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="T4O-YN-Hhw"/>
+                            <constraint firstAttribute="width" constant="42" id="TgD-uk-HYK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="qTb-go-28W" secondAttribute="trailing" constant="58" id="4Z3-sS-ReU"/>
                 <constraint firstAttribute="bottom" secondItem="iYd-PK-U2o" secondAttribute="bottom" id="9wH-aD-Umr"/>
                 <constraint firstItem="iYd-PK-U2o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="art-a4-ySa"/>
                 <constraint firstItem="iYd-PK-U2o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="b0L-3E-lbP"/>
+                <constraint firstItem="qTb-go-28W" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ggJ-Pz-xFY"/>
+                <constraint firstAttribute="bottom" secondItem="qTb-go-28W" secondAttribute="bottom" constant="65" id="og3-bS-twA"/>
+                <constraint firstItem="qTb-go-28W" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="pPa-XY-YVX"/>
                 <constraint firstAttribute="trailing" secondItem="iYd-PK-U2o" secondAttribute="trailing" id="wDH-w3-EpW"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="109" height="85"/>
             <connections>
                 <outlet property="imageView" destination="iYd-PK-U2o" id="f53-5Z-yYN"/>
+                <outlet property="itemLabel" destination="qTb-go-28W" id="TRv-3r-Ap7"/>
             </connections>
             <point key="canvasLocation" x="86.400000000000006" y="62.068965517241381"/>
         </collectionViewCell>

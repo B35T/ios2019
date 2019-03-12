@@ -11,6 +11,7 @@ import UIKit
 class LayerCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var itemLabel: UILabel!
     
     var thumbnail: UIImage? {
         didSet {
@@ -26,7 +27,7 @@ class LayerCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+        self.itemLabel.text = nil
         self.imageView.image = nil
     }
 }

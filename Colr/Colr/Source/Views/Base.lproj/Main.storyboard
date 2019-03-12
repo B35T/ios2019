@@ -168,11 +168,27 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="4RD-eJ-Ny5" id="CIC-nk-T1f"/>
+                        <segue destination="vzL-Xs-G0D" kind="presentation" identifier="CropPage" modalTransitionStyle="crossDissolve" id="VUv-FP-QJb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uji-4k-dY0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3312.8000000000002" y="-1031.3343328335832"/>
+        </scene>
+        <!--Crop View Controller-->
+        <scene sceneID="Wn9-ay-htP">
+            <objects>
+                <viewController storyboardIdentifier="CropView" id="vzL-Xs-G0D" customClass="CropViewController" customModule="Colr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i7q-zF-Eej">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="dx5-2j-QBF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CfK-Mc-brI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4382" y="-2060"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gok-uQ-yF7">

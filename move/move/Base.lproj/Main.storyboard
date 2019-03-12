@@ -35,14 +35,22 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="a8g-YL-c5T">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="g7o-iz-UWj">
-                            <connections>
-                                <action selector="addaction:" destination="BYZ-38-t0r" id="3IR-Rb-eG0"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="g7o-iz-UWj">
+                                <connections>
+                                    <action selector="addaction:" destination="BYZ-38-t0r" id="3IR-Rb-eG0"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="add image" id="DUf-ju-nmd">
+                                <connections>
+                                    <action selector="addimageAction:" destination="BYZ-38-t0r" id="xcz-bq-YpV"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="add" destination="g7o-iz-UWj" id="XKR-xy-Fy8"/>
+                        <outlet property="addimage" destination="DUf-ju-nmd" id="wvd-7X-7fs"/>
                         <outlet property="collectionViewLayer" destination="I6Z-JX-5gy" id="KkO-qK-8JN"/>
                     </connections>
                 </viewController>

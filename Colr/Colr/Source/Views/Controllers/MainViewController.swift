@@ -31,6 +31,14 @@ extension UIView {
     var size: CGSize {
         return self.frame.size
     }
+    
+    var x: CGFloat {
+        return self.frame.origin.x
+    }
+    
+    var y: CGFloat {
+        return self.frame.origin.y
+    }
 }
 
 class MainViewController: PhotosViewController {

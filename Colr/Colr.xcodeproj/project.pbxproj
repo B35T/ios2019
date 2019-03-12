@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4011BB79221D26350004CE44 /* PhotosCell.swift */; };
 		4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4011BB7A221D26350004CE44 /* PhotosCell.xib */; };
+		4014088A223387900025E539 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40140889223387900025E539 /* CropViewController.swift */; };
 		401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */; };
 		401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4BEE221BD62500F5E2C9 /* MainViewController.swift */; };
 		401B4BF2221BD62500F5E2C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 401B4BF0221BD62500F5E2C9 /* Main.storyboard */; };
@@ -18,6 +19,9 @@
 		401B4C05221BD63100F5E2C9 /* ColrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C04221BD63100F5E2C9 /* ColrTests.swift */; };
 		401B4C10221BD63100F5E2C9 /* ColrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */; };
 		402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CAF2F2224EB0300B17764 /* PhotosViewController.swift */; };
+		4081385E2237715700378B9C /* CropImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081385D2237715700378B9C /* CropImageViewController.swift */; };
+		408138602237717000378B9C /* GridLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081385F2237717000378B9C /* GridLayer.swift */; };
+		40813862223771A600378B9C /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40813861223771A600378B9C /* FrameView.swift */; };
 		408EC04022265A3E00729533 /* PreviewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC03F22265A3E00729533 /* PreviewViewCell.swift */; };
 		408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC0412226611400729533 /* SubscriptionViewController.swift */; };
 		408EC0722226890B00729533 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC0702226890B00729533 /* MenuCell.swift */; };
@@ -56,6 +60,7 @@
 /* Begin PBXFileReference section */
 		4011BB79221D26350004CE44 /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
 		4011BB7A221D26350004CE44 /* PhotosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosCell.xib; sourceTree = "<group>"; };
+		40140889223387900025E539 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
 		401B4BE9221BD62500F5E2C9 /* Colr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		401B4BEE221BD62500F5E2C9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +76,9 @@
 		401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColrUITests.swift; sourceTree = "<group>"; };
 		401B4C11221BD63100F5E2C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		402CAF2F2224EB0300B17764 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		4081385D2237715700378B9C /* CropImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageViewController.swift; sourceTree = "<group>"; };
+		4081385F2237717000378B9C /* GridLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayer.swift; sourceTree = "<group>"; };
+		40813861223771A600378B9C /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
 		408EC03F22265A3E00729533 /* PreviewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewCell.swift; sourceTree = "<group>"; };
 		408EC0412226611400729533 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
 		408EC0702226890B00729533 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
@@ -120,6 +128,16 @@
 				408EC04722266C0F00729533 /* Cell */,
 			);
 			path = Collection;
+			sourceTree = "<group>";
+		};
+		40140886223384840025E539 /* Crop */ = {
+			isa = PBXGroup;
+			children = (
+				4081385D2237715700378B9C /* CropImageViewController.swift */,
+				40813861223771A600378B9C /* FrameView.swift */,
+				4081385F2237717000378B9C /* GridLayer.swift */,
+			);
+			path = Crop;
 			sourceTree = "<group>";
 		};
 		401B4BE0221BD62500F5E2C9 = {
@@ -213,6 +231,7 @@
 				408F57232227D3740000A7D6 /* config */,
 				40CCEC21221E605F007498C5 /* Button & Label */,
 				4011BB6E221D226E0004CE44 /* Collection */,
+				40140886223384840025E539 /* Crop */,
 				401B4C25221BD98400F5E2C9 /* Photos */,
 			);
 			path = Framework;
@@ -224,6 +243,7 @@
 				401B4BEE221BD62500F5E2C9 /* MainViewController.swift */,
 				40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */,
 				408EC0412226611400729533 /* SubscriptionViewController.swift */,
+				40140889223387900025E539 /* CropViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -410,9 +430,11 @@
 			files = (
 				408EC04022265A3E00729533 /* PreviewViewCell.swift in Sources */,
 				401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */,
+				4014088A223387900025E539 /* CropViewController.swift in Sources */,
 				402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */,
 				408EC07622268AE300729533 /* PresetCell.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
+				4081385E2237715700378B9C /* CropImageViewController.swift in Sources */,
 				408EC07A22268E7400729533 /* GroupsCell.swift in Sources */,
 				408F57222227CE560000A7D6 /* PresetLabel.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
@@ -420,6 +442,8 @@
 				408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */,
 				40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */,
 				4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */,
+				40813862223771A600378B9C /* FrameView.swift in Sources */,
+				408138602237717000378B9C /* GridLayer.swift in Sources */,
 				40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */,
 				40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */,
 				401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */,

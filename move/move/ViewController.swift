@@ -16,10 +16,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var collectionViewLayer: UICollectionView!
     @IBOutlet weak var add: UIBarButtonItem!
+    @IBOutlet weak var addimage: UIBarButtonItem!
     
     var layers :[Int:UIView] = [:]
+    var collecLayer: [Int:UIView] = [:]
     var tag = 0
     var tagFind = 0
+    let imgs = ["rainbow.png", "rainbow02.png"]
     
     override func loadView() {
         super.loadView()
@@ -48,18 +51,21 @@ class ViewController: UIViewController {
         super.viewDidLoad()
      
         self.collectionViewLayer.register(UINib(nibName: "LayerCell", bundle: nil), forCellWithReuseIdentifier: "LayerCell")
-        
-        let tapPicker = UITapGestureRecognizer.init(target: self, action: #selector(pickerPopUp))
-        view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(tapPicker)
-        
     }
     
     @objc internal func sliderAction(_ sender:UISlider) {
         guard let v = self.layers[self.tagFind] as? UIImageView else {return}
         v.alpha = CGFloat(sender.value)
+        
+        if let c = self.collecLayer[self.tagFind], c.tag == self.tagFind {
+            c.alpha = CGFloat(sender.value)
+        }
     }
-
+    
+    @IBAction func addimageAction(_ sender: Any) {
+        pickerPopUp()
+    }
+    
     @IBAction func addaction(_ sender: Any) {
         let l = self.addlayer(self.imageView)
         layers.updateValue(l, forKey: self.tag)
@@ -103,9 +109,21 @@ class ViewController: UIViewController {
     }
     
     @objc internal func tapChoose(_ sender: UITapGestureRecognizer) {
+        let pre = self.tagFind
+        if let v = self.layers[pre] {
+            v.layer.borderWidth = 0
+        }
+        
         if let view = sender.view as? UIImageView {
             self.tagFind = view.tag
             self.slider.value = Float(view.alpha)
+            
+            print("choose \(self.tagFind)")
+            view.layer.borderColor = UIColor.red.cgColor
+            view.layer.borderWidth = 2
+            view.layer.cornerRadius = 3
+            
+           
         }
     }
     
@@ -152,13 +170,25 @@ extension ViewController {
     }
     
     func addlayer(_ view:UIView) -> UIView {
+        
+        let label = UILabel()
+        label.frame = .init(x: -10, y: -10, width: 20, height: 20)
+        label.backgroundColor = .white
+        label.layer.cornerRadius = 10
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.textColor = .black
+        
         let image = UIImageView(frame: .zero)
         image.tag = tag
+        label.text = "\(tag)"
+        self.tagFind = tag
         image.frame.size = .init(width: 200, height: 200)
         image.frame.origin = .init(x: view.frame.width / 2 - 100, y: view.frame.height / 2 - 100)
         image.contentMode = .scaleAspectFit
-        image.image = UIImage(named: "rainbow.png")
+        image.image = UIImage(named: self.imgs.randomElement() ?? "rainbow.png")
         view.addSubview(image)
+        image.addSubview(label)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapChoose(_:)))
         let tapLong = UILongPressGestureRecognizer(target: self, action: #selector(tapRemove(_:)))
@@ -179,15 +209,44 @@ extension ViewController {
 
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let pre = self.tagFind
+        if let v = self.layers[pre] {
+            v.layer.borderWidth = 0
+        }
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LayerCell", for: indexPath) as! LayerCell
+        self.tagFind = cell.tag
+        print("_\(cell.tag)")
+        
+        
+        if let view = self.layers[self.tagFind] as? UIImageView {
+            self.tagFind = view.tag
+            self.slider.value = Float(view.alpha)
+            
+            print("choose \(self.tagFind)")
+            view.layer.borderColor = UIColor.red.cgColor
+            view.layer.borderWidth = 2
+            view.layer.cornerRadius = 3
+            
+            
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(self.layers.count)
         return self.layers.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LayerCell", for: indexPath) as! LayerCell
         cell.backgroundColor = .red
+        self.collecLayer.updateValue(cell, forKey: self.tagFind)
+        cell.tag = self.tagFind
         cell.thumbnail = UIImage(named: "rainbow.png")
+        print("tag")
+        print(self.tag)
+        print("_")
         return cell
     }
 }
