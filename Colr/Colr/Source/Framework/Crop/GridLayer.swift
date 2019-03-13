@@ -9,13 +9,6 @@
 import UIKit
 
 open class GridLayer: UIView {
-
-    open override var frame: CGRect {
-        didSet {
-        }
-    }
-    
- 
     
     open override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
