@@ -67,13 +67,35 @@ open class FrameView:UIView {
         self.moving.isUserInteractionEnabled = true
     }
     
+    var o:CGRect = .zero
     @objc internal func movingAction(_ gesture:UIPanGestureRecognizer) {
         let t = gesture.translation(in: self)
         if let view = gesture.view {
             switch gesture.state {
+            case .began:
+                o = grid.frame
+                print("begin \(o)")
             case .changed:
                 view.center = .init(x: view.center.x + t.x, y: view.center.y + t.y)
+                
+                let x = view.center.x - 2
+                let y = view.center.y - 2
+                self.grid.frame.origin = .init(x: x, y: y)
+                
+//                let w = calculator.width - x - o.width
+                let c = (o.origin.x - grid.x)
+                let w = -c - o.width
+                
+                let c2 = (o.origin.y - grid.y)
+                let h = -c2 - o.height
+                
+                self.grid.frame.size.width = -w
+                self.grid.frame.size.height = -h
+                
+                
             case .ended:
+                o = grid.frame
+                print("end \(o)")
                 break
             default:
                 break
@@ -89,15 +111,18 @@ open class FrameView:UIView {
             
             switch sender.state {
             case .changed:
+
                 if grid.w >= 50 {
                     view.center.x = view.center.x + t.x
                     self.grid.frame.size = .init(width: (view.frame.origin.x - grid.frame.origin.x) + 12, height: (view.frame.origin.y - grid.frame.origin.y) + 12)
                 }
                 
-                if grid.h >= 50 {
+                if grid.h >= 50  {
                     view.center.y = view.center.y + t.y
                     self.grid.frame.size = .init(width: (view.frame.origin.x - grid.frame.origin.x) + 12, height: (view.frame.origin.y - grid.frame.origin.y) + 12)
                 }
+                
+                
                 
             case .ended:
                 UIView.animate(withDuration: 0.3) {
