@@ -13,7 +13,7 @@ open class GridLayer: UIView {
     open override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         
-        self.layer.borderWidth = 2
+        self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor
     }
 

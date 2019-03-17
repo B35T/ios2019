@@ -31,11 +31,12 @@ open class CropImageViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         
         self.imageView = imageView
-        self.imageView.frame = .init(x: 10, y: 10, width: view.w - 20, height: view.h.persen(p: 80))
+        self.imageView.frame = .init(x: 20, y: 20, width: view.w - 40, height: view.h.persen(p: 80))
         self.imageView.isUserInteractionEnabled = true
+        self.imageView.layer.cornerRadius = 4
         self.view.addSubview(self.imageView)
         
-        let frameView = FrameView(frame: .init(x: 0, y: 0, width: view.w - 20, height: view.h.persen(p: 80)))
+        let frameView = FrameView(frame: .init(x: 0, y: 0, width: view.w - 40, height: view.h.persen(p: 80)))
         
         self.frameView = frameView
         self.imageView.addSubview(self.frameView)

@@ -13,9 +13,7 @@ open class FrameView:UIView {
     var grid: GridLayer!
     var calculator: CGRect = .zero {
         didSet {
-//            let y = (self.h / 2) + (calculator.height / 2)
             self.grid.frame = calculator
-//            self.tx.frame = .init(x: calculator.width - 12, y: y - 12, width: 20, height: 20)
             self.update()
         }
     }
@@ -76,26 +74,54 @@ open class FrameView:UIView {
                 o = grid.frame
                 print("begin \(o)")
             case .changed:
-                view.center = .init(x: view.center.x + t.x, y: view.center.y + t.y)
+                self.tx.alpha = 0
+//                view.center = .init(x: view.center.x + t.x, y: view.center.y + t.y)
                 
                 let x = view.center.x - 2
                 let y = view.center.y - 2
                 self.grid.frame.origin = .init(x: x, y: y)
                 
-//                let w = calculator.width - x - o.width
                 let c = (o.origin.x - grid.x)
                 let w = -c - o.width
                 
                 let c2 = (o.origin.y - grid.y)
                 let h = -c2 - o.height
                 
-                self.grid.frame.size.width = -w
-                self.grid.frame.size.height = -h
+                if grid.w >= 100 {
+                    view.center.x = view.center.x + t.x
+                    self.grid.frame.size.width = -w
+                }
                 
-                
+                if grid.h >= 100 {
+                    view.center.y = view.center.y + t.y
+                    self.grid.frame.size.height = -h
+                }
+                print(x, y)
+               
             case .ended:
                 o = grid.frame
                 print("end \(o)")
+                UIView.animate(withDuration: 0.3) {
+                    self.tx.alpha = 1
+                    if self.grid.w <= 100 {
+                        self.grid.frame.size.width = 100
+                    }
+                    
+                    if self.grid.h <= 100 {
+                        self.grid.frame.size.height = 100
+                    }
+                    
+                    
+                    if self.grid.h > self.calculator.height {
+                        self.grid.frame.size.height = self.calculator.height
+                    }
+                    
+                    if self.grid.w > self.calculator.width {
+                        self.grid.frame.size.width = self.calculator.width
+                    }
+                    self.update()
+                }
+                
                 break
             default:
                 break
@@ -111,19 +137,22 @@ open class FrameView:UIView {
             
             switch sender.state {
             case .changed:
+                
+                let x = view.center.x + t.x
+                let y = view.center.y + t.y
 
-                if grid.w >= 50 {
-                    view.center.x = view.center.x + t.x
-                    self.grid.frame.size = .init(width: (view.frame.origin.x - grid.frame.origin.x) + 12, height: (view.frame.origin.y - grid.frame.origin.y) + 12)
+                if y - calculator.origin.y >= 100 && y - calculator.origin.y <= self.calculator.height {
+                    view.center.y = y
+                    self.grid.frame.size.height = (view.frame.origin.y - grid.frame.origin.y) + 12
                 }
                 
-                if grid.h >= 50  {
-                    view.center.y = view.center.y + t.y
-                    self.grid.frame.size = .init(width: (view.frame.origin.x - grid.frame.origin.x) + 12, height: (view.frame.origin.y - grid.frame.origin.y) + 12)
+                if x >= 100 && x <= self.calculator.width {
+                    view.center.x = x
+                    self.grid.frame.size.width = (view.frame.origin.x - grid.frame.origin.x) + 12
                 }
                 
                 
-                
+
             case .ended:
                 UIView.animate(withDuration: 0.3) {
                     if self.grid.w <= 100 {
@@ -132,6 +161,15 @@ open class FrameView:UIView {
                     
                     if self.grid.h <= 100 {
                         self.grid.frame.size.height = 100
+                    }
+
+                    
+                    if self.grid.h > self.calculator.height {
+                        self.grid.frame.size.height = self.calculator.height
+                    }
+                    
+                    if self.grid.w > self.calculator.width {
+                        self.grid.frame.size.width = self.calculator.width
                     }
                     self.update()
                 }
@@ -189,7 +227,7 @@ open class FrameView:UIView {
     }
     
     @objc internal func tapAction(_ gesture: UITapGestureRecognizer) {
-        self.grid.frame.size = .init(width: 200, height: 200)
+        self.grid.frame = calculator
         self.update()
     }
     
