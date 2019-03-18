@@ -100,7 +100,6 @@ open class FrameView:UIView {
                
             case .ended:
                 o = grid.frame
-                print("end \(o)")
                 UIView.animate(withDuration: 0.3) {
                     self.tx.alpha = 1
                     if self.grid.w <= 100 {
@@ -141,17 +140,14 @@ open class FrameView:UIView {
                 let x = view.center.x + t.x
                 let y = view.center.y + t.y
 
-                if y - calculator.origin.y >= 100 && y - calculator.origin.y <= self.calculator.height {
-                    view.center.y = y
-                    self.grid.frame.size.height = (view.frame.origin.y - grid.frame.origin.y) + 12
-                }
+                let w = view.frame.origin.x - grid.frame.origin.x
+                let h = view.frame.origin.y - grid.frame.origin.y
                 
-                if x >= 100 && x <= self.calculator.width {
-                    view.center.x = x
-                    self.grid.frame.size.width = (view.frame.origin.x - grid.frame.origin.x) + 12
-                }
+                view.center = .init(x: x, y: y)
+                self.grid.frame.size = .init(width: w + 10, height: h + 10)
                 
-                
+                print(x, y)
+
 
             case .ended:
                 UIView.animate(withDuration: 0.3) {
@@ -163,13 +159,14 @@ open class FrameView:UIView {
                         self.grid.frame.size.height = 100
                     }
 
-                    
-                    if self.grid.h > self.calculator.height {
+                    let c = (self.grid.y * 2) + self.grid.h - self.h
+                    if c >= self.calculator.height {
                         self.grid.frame.size.height = self.calculator.height
                     }
                     
-                    if self.grid.w > self.calculator.width {
-                        self.grid.frame.size.width = self.calculator.width
+                    if (self.grid.w + self.grid.x) >= self.calculator.width {
+                        self.grid.frame.size.width = (self.calculator.width - self.grid.x) + self.calculator.origin.x
+                        
                     }
                     self.update()
                 }

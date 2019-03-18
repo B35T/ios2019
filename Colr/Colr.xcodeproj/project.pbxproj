@@ -22,6 +22,8 @@
 		4081385E2237715700378B9C /* CropImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081385D2237715700378B9C /* CropImageViewController.swift */; };
 		408138602237717000378B9C /* GridLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4081385F2237717000378B9C /* GridLayer.swift */; };
 		40813862223771A600378B9C /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40813861223771A600378B9C /* FrameView.swift */; };
+		408BCC8D223F65820056D78E /* GridButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408BCC8C223F65820056D78E /* GridButton.swift */; };
+		408BCC8F223F8AD90056D78E /* GridOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408BCC8E223F8AD90056D78E /* GridOverlay.swift */; };
 		408EC04022265A3E00729533 /* PreviewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC03F22265A3E00729533 /* PreviewViewCell.swift */; };
 		408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC0412226611400729533 /* SubscriptionViewController.swift */; };
 		408EC0722226890B00729533 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC0702226890B00729533 /* MenuCell.swift */; };
@@ -79,6 +81,8 @@
 		4081385D2237715700378B9C /* CropImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImageViewController.swift; sourceTree = "<group>"; };
 		4081385F2237717000378B9C /* GridLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLayer.swift; sourceTree = "<group>"; };
 		40813861223771A600378B9C /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
+		408BCC8C223F65820056D78E /* GridButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridButton.swift; sourceTree = "<group>"; };
+		408BCC8E223F8AD90056D78E /* GridOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOverlay.swift; sourceTree = "<group>"; };
 		408EC03F22265A3E00729533 /* PreviewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewCell.swift; sourceTree = "<group>"; };
 		408EC0412226611400729533 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
 		408EC0702226890B00729533 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 				4081385D2237715700378B9C /* CropImageViewController.swift */,
 				40813861223771A600378B9C /* FrameView.swift */,
 				4081385F2237717000378B9C /* GridLayer.swift */,
+				408BCC8C223F65820056D78E /* GridButton.swift */,
+				408BCC8E223F8AD90056D78E /* GridOverlay.swift */,
 			);
 			path = Crop;
 			sourceTree = "<group>";
@@ -440,6 +446,7 @@
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
 				408F57202227CE280000A7D6 /* CustomLabel.swift in Sources */,
 				408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */,
+				408BCC8D223F65820056D78E /* GridButton.swift in Sources */,
 				40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */,
 				4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */,
 				40813862223771A600378B9C /* FrameView.swift in Sources */,
@@ -447,6 +454,7 @@
 				40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */,
 				40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */,
 				401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */,
+				408BCC8F223F8AD90056D78E /* GridOverlay.swift in Sources */,
 				408F57252227D3830000A7D6 /* config.swift in Sources */,
 				408EC0722226890B00729533 /* MenuCell.swift in Sources */,
 				408F571E2227BF8F0000A7D6 /* SaveButton.swift in Sources */,
