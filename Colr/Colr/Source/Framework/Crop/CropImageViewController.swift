@@ -55,9 +55,12 @@ open class CropImageViewController: UIViewController {
         
         let grid = GridLayer()
         self.grid = grid
+        self.grid.addLine = true
         self.grid.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapResetAction(_:)))
         let moveGrid = UIPanGestureRecognizer(target: self, action: #selector(moveGrid(_:)))
         self.grid.addGestureRecognizer(moveGrid)
+        self.grid.addGestureRecognizer(tap)
         self.view.addSubview(self.grid)
         
         
@@ -137,10 +140,18 @@ open class CropImageViewController: UIViewController {
         self.bottom_right.center = .init(x: self.grid.w + self.grid.x, y:  self.grid.h + self.grid.y)
         
         self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+        self.grid.update()
     }
 }
 
 extension CropImageViewController {
+    @objc internal func tapResetAction(_ sender: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.3) {
+            self.grid.frame = self.calculator
+            self.update()
+        }
+    }
+    
     @objc internal func moveGrid(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
@@ -173,6 +184,7 @@ extension CropImageViewController {
                     view.frame.origin.y = max_y
                 }
                 
+                self.grid.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
             case .ended:
                 self.update()
@@ -203,6 +215,7 @@ extension CropImageViewController {
             
             switch sender.state {
             case .changed:
+                self.grid.update()
                 self.top_left.alpha = 0
                 self.top_right.alpha = 0
                 self.bottom_left.alpha = 0
