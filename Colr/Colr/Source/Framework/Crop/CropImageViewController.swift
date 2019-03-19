@@ -20,6 +20,8 @@ open class CropImageViewController: UIViewController {
     var top_right: UIView!
     var bottom_left: UIView!
     
+    var o:CGRect = .zero
+    
     var image:UIImage? {
         didSet {
             if let img = image {
@@ -38,7 +40,7 @@ open class CropImageViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         
         self.imageView = imageView
-        self.imageView.frame = .init(x: 20, y: 20, width: view.w - 40, height: view.h.persen(p: 70))
+        self.imageView.frame = .init(x: 20, y: 40, width: view.w - 40, height: view.h.persen(p: 70))
         self.imageView.isUserInteractionEnabled = true
         self.imageView.layer.cornerRadius = 4
         self.view.addSubview(self.imageView)
@@ -79,6 +81,8 @@ open class CropImageViewController: UIViewController {
         
         self.top_left = UIView()
         self.top_left.frame.size = .init(width: 20, height: 20)
+        let moveTopL = UIPanGestureRecognizer(target: self, action: #selector(moveTopLeft(_:)))
+        self.top_left.addGestureRecognizer(moveTopL)
         self.top_left.isUserInteractionEnabled = true
         self.top_left.backgroundColor = .white
         self.top_left.layer.cornerRadius = 10
@@ -111,6 +115,13 @@ open class CropImageViewController: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func hide(t_l:CGFloat = 1, t_r:CGFloat = 1, b_l: CGFloat = 1, b_r: CGFloat = 1) {
+        self.top_left.alpha = t_l
+        self.top_right.alpha = t_r
+        self.bottom_left.alpha = b_l
+        self.bottom_right.alpha = b_r
     }
 
     var calculator: CGRect {
@@ -157,10 +168,7 @@ extension CropImageViewController {
         if let view = sender.view {
             switch sender.state {
             case .changed:
-                self.top_left.alpha = 0
-                self.top_right.alpha = 0
-                self.bottom_left.alpha = 0
-                self.bottom_right.alpha = 0
+                self.hide(t_l: 0, t_r: 0, b_l: 0, b_r: 0)
                 
                 if view.frame != self.calculator {
                     view.center = .init(x: view.center.x + translation.x, y: view.center.y + translation.y)
@@ -189,10 +197,7 @@ extension CropImageViewController {
             case .ended:
                 self.update()
                 UIView.animate(withDuration: 0.2) {
-                    self.top_left.alpha = 1
-                    self.top_right.alpha = 1
-                    self.bottom_left.alpha = 1
-                    self.bottom_right.alpha = 1
+                    self.hide()
                 }
             default:
                 break
@@ -205,30 +210,90 @@ extension CropImageViewController {
     @objc internal func moveBottomRight(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
-            view.center = .init(x: view.center.x + translation.x, y: view.center.y + translation.y)
+//            view.center = .init(x: view.center.x + translation.x, y: view.center.y + translation.y)
             
-            let w = view.x - grid.x
-            let h = view.y - grid.y
-            self.grid.frame.size = .init(width: w + 10, height: h + 10)
+            
             
             self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
             
             switch sender.state {
             case .changed:
+                let x = view.center.x + translation.x
+                let y = view.center.y + translation.y
+
+                if x <=  self.calculator.width + self.calculator.origin.x {
+                    view.center.x = view.center.x + translation.x
+                    
+                    let w = view.x - grid.x
+                    self.grid.frame.size.width = w + 10
+                }
+                
+                if y <= self.calculator.height + self.calculator.origin.y {
+                    view.center.y = view.center.y + translation.y
+                    
+                    let h = view.y - grid.y
+                    self.grid.frame.size.height = h + 10
+                }
+                
                 self.grid.update()
-                self.top_left.alpha = 0
-                self.top_right.alpha = 0
-                self.bottom_left.alpha = 0
-                self.bottom_right.alpha = 0
+                self.hide(t_l: 0, t_r: 0, b_l: 0)
+                
             case .ended:
                 self.update()
                 
                 UIView.animate(withDuration: 0.2) {
-                    self.top_left.alpha = 1
-                    self.top_right.alpha = 1
-                    self.bottom_left.alpha = 1
-                    self.bottom_right.alpha = 1
+                    self.hide()
                 }
+            default: break
+            }
+        }
+        
+        sender.setTranslation(.zero, in: self.view)
+    }
+    
+    @objc internal func moveTopLeft(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.view)
+        
+        if let view = sender.view {
+
+            switch sender.state {
+            case .began: o = self.grid.frame
+            case .changed:
+                let x = view.center.x + translation.x
+                let y = view.center.y + translation.y
+                self.grid.frame.origin = .init(x: x, y: y)
+
+                if view.center.x + translation.x >=  self.calculator.origin.x {
+                    view.center.x = view.center.x + translation.x
+                    
+                    let cal = o.origin.x - grid.x
+                    let w = -cal - o.width
+                    self.grid.frame.size.width = -w
+                }
+                
+                if view.center.y + translation.y >= self.calculator.origin.y {
+                    view.center.y = view.center.y + translation.y
+                    
+                    let cal_h = o.origin.y - grid.y
+                    let h = -cal_h - o.height
+                    self.grid.frame.size.height = -h
+                }
+                
+                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.hide(t_r: 0, b_l: 0, b_r: 0)
+                self.grid.update()
+            case .ended:
+                UIView.animate(withDuration: 0.2) {
+                    if self.grid.x <= self.calculator.origin.x {
+                        self.grid.frame.origin.x = self.calculator.origin.x
+                    }
+                    
+                    if self.grid.y <= self.calculator.origin.y {
+                        self.grid.frame.origin.y = self.calculator.origin.y
+                    }
+                }
+                self.update()
+                self.hide()
             default: break
             }
         }
