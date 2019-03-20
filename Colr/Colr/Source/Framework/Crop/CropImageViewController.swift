@@ -210,20 +210,22 @@ extension CropImageViewController {
     @objc internal func moveBottomRight(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
-
+            let x = view.center.x + translation.x
+            let y = view.center.y + translation.y
+            
+            let w = x - self.grid.x
+            let h = y - self.grid.y
+            
             switch sender.state {
             case .changed:
-                let x = view.center.x + translation.x
-                let y = view.center.y + translation.y
-
-                if x <=  self.calculator.width + self.calculator.origin.x {
+                if x <=  self.calculator.width + self.calculator.origin.x && w >= 100 {
                     view.center.x = view.center.x + translation.x
                     
                     let w = view.x - grid.x
                     self.grid.frame.size.width = w + 10
                 }
                 
-                if y <= self.calculator.height + self.calculator.origin.y {
+                if y <= self.calculator.height + self.calculator.origin.y && h >= 100 {
                     view.center.y = view.center.y + translation.y
                     
                     let h = view.y - grid.y
@@ -235,7 +237,6 @@ extension CropImageViewController {
                 self.grid.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
             case .ended:
-
                 self.hide()
                 self.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
