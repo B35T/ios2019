@@ -277,58 +277,62 @@ extension CropImageViewController {
             let x = view.center.x + translation.x
             let y = view.center.y + translation.y
 
+            let cal_x = (self.calculator.width + self.calculator.origin.x) - x
+            let cal_y = (self.calculator.height + self.calculator.origin.y) - y
+            
             switch sender.state {
             case .began: self.o = self.grid.frame
             case .changed:
-                let cal_w = -(o.origin.x - grid.x) - o.width
-                let cal_x = (self.calculator.width + self.calculator.origin.x) - x
+            
                 if cal_x >= 100 && x >= self.calculator.origin.x {
                     view.center.x = x
-                    self.grid.frame.origin.x = view.center.x
+                    self.grid.frame.origin.x = x
+                    
+                    let cal_w = -(o.origin.x - grid.x) - o.width
+                    
+                    
+                    if cal_w <= -100 {
+                        self.grid.frame.size.width = -cal_w
+                    }
+                    
                 }
-            
-                if cal_w <= -100 {
-                    self.grid.frame.size.width = -cal_w
+                
+                if cal_y >= 100 && y >= self.calculator.origin.y {
+                    view.center.y = y
+                    self.grid.frame.origin.y = y
+                    
+                    let cal_h = -(o.origin.y - grid.y) - o.height
+                    
+                    if cal_h <= -100  {
+                        self.grid.frame.size.height = -cal_h
+                    }
                 }
                 
                 
-                
-//                if x >=  self.calculator.origin.x {
-//                    view.center.x = x
-//
-//                    let cal = o.origin.x - grid.x
-//                    let w = -cal - o.width
-//                    if (w <= -100) {
-//                        self.grid.frame.size.width = -w
-//                    }
-//                }
-//
-//                if view.center.y + translation.y >= self.calculator.origin.y {
-//                    view.center.y = y
-//
-//                    let cal_h = o.origin.y - grid.y
-//                    let h = -cal_h - o.height
-//
-//                    if (h <= -100) {
-//                        self.grid.frame.size.height = -h
-//                    }
-//                }
-                
+                self.grid.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
                 self.hide(t_r: 0, b_l: 0, b_r: 0)
-                self.grid.update()
-            case .ended:
                 
+            case .ended:
                 self.o = self.grid.frame
-//                UIView.animate(withDuration: 0.2) {
-//                    if self.grid.x <= self.calculator.origin.x {
-//                        self.grid.frame.origin.x = self.calculator.origin.x
-//                    }
-//
-//                    if self.grid.y <= self.calculator.origin.y {
-//                        self.grid.frame.origin.y = self.calculator.origin.y
-//                    }
-//                }
+
+                let w = grid.w + grid.x > calculator.width
+                let h = grid.h + grid.y > calculator.height
+                if w {
+                    self.grid.frame.origin.x = (calculator.width - grid.w) + calculator.origin.x
+                }
+                
+                if h {
+                    self.grid.frame.origin.y = (calculator.height - grid.h) + calculator.origin.y
+                }
+                
+                if self.grid.x < self.calculator.origin.x {
+                    self.grid.frame.origin.x = self.calculator.origin.x
+                }
+
+                if self.grid.y < self.calculator.origin.y {
+                    self.grid.frame.origin.y = self.calculator.origin.y
+                }
                 self.update()
                 self.hide()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
