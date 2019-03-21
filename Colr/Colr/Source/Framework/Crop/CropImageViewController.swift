@@ -12,6 +12,14 @@ open class CropImageViewController: UIViewController {
 
     @IBOutlet open weak var imageView: UIImageView!
     
+    enum condition {
+        case มากกว่าหรือเท่ากับ
+        case น้อยกว่าหรือเท่ากับ
+        case น้อยกว่า
+        case มากกว่า
+        case เท่ากับ
+    }
+    
     var grid: GridLayer!
 
     var bgview: UIView!
@@ -247,47 +255,80 @@ extension CropImageViewController {
         sender.setTranslation(.zero, in: self.view)
     }
     
+    func stop(condition: condition, point:CGFloat , input: CGFloat, completion: @escaping ((_ output: CGFloat) -> ())) {
+        switch condition {
+        case .เท่ากับ:
+            if point == input {completion(input) }
+        case .น้อยกว่าหรือเท่ากับ:
+            if point <= input {} else {completion(input)}
+        case .มากกว่าหรือเท่ากับ:
+            if point >= input {} else {completion(input)}
+        case .น้อยกว่า:
+            if point < input {completion(input)}
+        case .มากกว่า:
+            if point > input {completion(input)}
+        }
+    }
+    
     @objc internal func moveTopLeft(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         
         if let view = sender.view {
-            
-            switch sender.state {
-            case .began: o = self.grid.frame
-            case .changed:
-                let x = view.center.x + translation.x
-                let y = view.center.y + translation.y
-                self.grid.frame.origin = .init(x: x, y: y)
+            let x = view.center.x + translation.x
+            let y = view.center.y + translation.y
 
-                if view.center.x + translation.x >=  self.calculator.origin.x {
-                    view.center.x = view.center.x + translation.x
-                    
-                    let cal = o.origin.x - grid.x
-                    let w = -cal - o.width
-                    self.grid.frame.size.width = -w
+            switch sender.state {
+            case .began: self.o = self.grid.frame
+            case .changed:
+                let cal_w = -(o.origin.x - grid.x) - o.width
+                let cal_x = (self.calculator.width + self.calculator.origin.x) - x
+                if cal_x >= 100 && x >= self.calculator.origin.x {
+                    view.center.x = x
+                    self.grid.frame.origin.x = view.center.x
+                }
+            
+                if cal_w <= -100 {
+                    self.grid.frame.size.width = -cal_w
                 }
                 
-                if view.center.y + translation.y >= self.calculator.origin.y {
-                    view.center.y = view.center.y + translation.y
-                    
-                    let cal_h = o.origin.y - grid.y
-                    let h = -cal_h - o.height
-                    self.grid.frame.size.height = -h
-                }
+                
+                
+//                if x >=  self.calculator.origin.x {
+//                    view.center.x = x
+//
+//                    let cal = o.origin.x - grid.x
+//                    let w = -cal - o.width
+//                    if (w <= -100) {
+//                        self.grid.frame.size.width = -w
+//                    }
+//                }
+//
+//                if view.center.y + translation.y >= self.calculator.origin.y {
+//                    view.center.y = y
+//
+//                    let cal_h = o.origin.y - grid.y
+//                    let h = -cal_h - o.height
+//
+//                    if (h <= -100) {
+//                        self.grid.frame.size.height = -h
+//                    }
+//                }
                 
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
                 self.hide(t_r: 0, b_l: 0, b_r: 0)
                 self.grid.update()
             case .ended:
-                UIView.animate(withDuration: 0.2) {
-                    if self.grid.x <= self.calculator.origin.x {
-                        self.grid.frame.origin.x = self.calculator.origin.x
-                    }
-                    
-                    if self.grid.y <= self.calculator.origin.y {
-                        self.grid.frame.origin.y = self.calculator.origin.y
-                    }
-                }
+                
+                self.o = self.grid.frame
+//                UIView.animate(withDuration: 0.2) {
+//                    if self.grid.x <= self.calculator.origin.x {
+//                        self.grid.frame.origin.x = self.calculator.origin.x
+//                    }
+//
+//                    if self.grid.y <= self.calculator.origin.y {
+//                        self.grid.frame.origin.y = self.calculator.origin.y
+//                    }
+//                }
                 self.update()
                 self.hide()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
