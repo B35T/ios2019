@@ -426,6 +426,7 @@ extension CropImageViewController {
                     self.grid.frame.size.width = w + 10
                 }
                 
+                
                 if y <= self.calculator.height + self.calculator.origin.y && h >= 100 {
                     view.center.y = view.center.y + translation.y
                     
