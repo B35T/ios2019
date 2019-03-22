@@ -270,23 +270,24 @@ extension CropImageViewController {
             let x = view.center.x + translation.x
             let y = view.center.y + translation.y
             
-            let max_x = x - (self.calculator.width + self.calculator.origin.x)
-            let max_y = y - (self.calculator.height + self.calculator.origin.y)
             
-            let cal_w = -(o.origin.x - x) - o.width
-            let cal_h = -(o.origin.y - y) - o.height
             
             switch sender.state {
             case .began: self.o = self.grid.frame
             case .changed:
+                let cal_w = -(o.origin.x - x) - o.width
+                let cal_h = -(o.origin.y - y) - o.height
+                
+//                let max = self.calculator.width + cal_w
+//                let convert = self.calculator.width - max
 
-                if -max_x >= 100 && -max_x <= self.calculator.width {
+                if -cal_w >= 100 && -cal_w <= self.calculator.width && x >= self.calculator.origin.x {
                     view.center.x = x
                     grid.frame.origin.x = x
                     grid.frame.size.width = -cal_w
                 }
                 
-                if -max_y >= 100 && -max_y <= self.calculator.height {
+                if -cal_h >= 100 && -cal_h <= self.calculator.height && y >= self.calculator.origin.y {
                     view.center.y = y
                     grid.frame.origin.y = y
                     grid.frame.size.height = -cal_h
@@ -310,14 +311,10 @@ extension CropImageViewController {
     }
     
     func ratio(scale: scale_crop) {
-        let c = self.calculator
         switch scale {
         case .sq:
-            print(c)
-            self.grid.center.y = (c.height / 2) + c.origin.y
             self.grid.frame.size = .init(width: grid.w, height: grid.w)
             self.update()
-            self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
         default:
             break
         }
@@ -355,17 +352,17 @@ extension CropImageViewController {
                 print("f")
             }
             
-            let w = self.grid.x + self.grid.w > self.calculator.width
-            if w {
-                self.grid.frame.origin.x = (self.calculator.width + self.calculator.origin.x) - self.grid.w
-                print("g")
-            }
-            
-            let h = self.grid.y + self.grid.h > self.calculator.height
-            if h {
-                self.grid.frame.origin.y = (self.calculator.height + self.calculator.origin.y) - self.grid.h
-                print("h")
-            }
+//            let w = self.grid.x + self.grid.w > self.calculator.width
+//            if w {
+//                self.grid.frame.origin.x = (self.calculator.width + self.calculator.origin.x) - self.grid.w
+//                print("g")
+//            }
+//
+//            let h = self.grid.y + self.grid.h > self.calculator.height
+//            if h {
+//                self.grid.frame.origin.y = (self.calculator.height + self.calculator.origin.y) - self.grid.h
+//                print("h")
+//            }
             
             
         }
