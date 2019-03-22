@@ -12,12 +12,15 @@ open class CropImageViewController: UIViewController {
 
     @IBOutlet open weak var imageView: UIImageView!
     
-    enum condition {
-        case มากกว่าหรือเท่ากับ
-        case น้อยกว่าหรือเท่ากับ
-        case น้อยกว่า
-        case มากกว่า
-        case เท่ากับ
+    enum scale_crop:String {
+        case sq = "Square"
+        case _2_3 = "2:3"
+        case _3_2 = "3:2"
+        case _4_3 = "4:3"
+        case _3_4 = "3:4"
+        case _16_9 = "16:9"
+        case _9_16 = "9:16"
+        case _21_9 = "21:9"
     }
     
     var grid: GridLayer!
@@ -153,6 +156,9 @@ open class CropImageViewController: UIViewController {
     }
  
     func update() {
+
+        self.position()
+        
         self.top_left.center = .init(x: self.grid.x, y: self.grid.y)
         self.top_right.center = .init(x: self.grid.w + grid.x, y: self.grid.y)
         self.bottom_left.center = .init(x: self.grid.x, y: self.grid.h + self.grid.y)
@@ -166,8 +172,9 @@ open class CropImageViewController: UIViewController {
 extension CropImageViewController {
     @objc internal func tapResetAction(_ sender: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.3) {
-            self.grid.frame = self.calculator
-            self.update()
+//            self.grid.frame = self.calculator
+//            self.update()
+            self.ratio(scale: .sq)
         }
     }
     
@@ -254,21 +261,7 @@ extension CropImageViewController {
         
         sender.setTranslation(.zero, in: self.view)
     }
-    
-    func stop(condition: condition, point:CGFloat , input: CGFloat, completion: @escaping ((_ output: CGFloat) -> ())) {
-        switch condition {
-        case .เท่ากับ:
-            if point == input {completion(input) }
-        case .น้อยกว่าหรือเท่ากับ:
-            if point <= input {} else {completion(input)}
-        case .มากกว่าหรือเท่ากับ:
-            if point >= input {} else {completion(input)}
-        case .น้อยกว่า:
-            if point < input {completion(input)}
-        case .มากกว่า:
-            if point > input {completion(input)}
-        }
-    }
+
     
     @objc internal func moveTopLeft(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
@@ -276,38 +269,28 @@ extension CropImageViewController {
         if let view = sender.view {
             let x = view.center.x + translation.x
             let y = view.center.y + translation.y
-
-            let cal_x = (self.calculator.width + self.calculator.origin.x) - x
-            let cal_y = (self.calculator.height + self.calculator.origin.y) - y
+            
+            let max_x = x - (self.calculator.width + self.calculator.origin.x)
+            let max_y = y - (self.calculator.height + self.calculator.origin.y)
+            
+            let cal_w = -(o.origin.x - x) - o.width
+            let cal_h = -(o.origin.y - y) - o.height
             
             switch sender.state {
             case .began: self.o = self.grid.frame
             case .changed:
-            
-                if cal_x >= 100 && x >= self.calculator.origin.x {
+
+                if -max_x >= 100 && -max_x <= self.calculator.width {
                     view.center.x = x
-                    self.grid.frame.origin.x = x
-                    
-                    let cal_w = -(o.origin.x - grid.x) - o.width
-                    
-                    
-                    if cal_w <= -100 {
-                        self.grid.frame.size.width = -cal_w
-                    }
-                    
+                    grid.frame.origin.x = x
+                    grid.frame.size.width = -cal_w
                 }
                 
-                if cal_y >= 100 && y >= self.calculator.origin.y {
+                if -max_y >= 100 && -max_y <= self.calculator.height {
                     view.center.y = y
-                    self.grid.frame.origin.y = y
-                    
-                    let cal_h = -(o.origin.y - grid.y) - o.height
-                    
-                    if cal_h <= -100  {
-                        self.grid.frame.size.height = -cal_h
-                    }
+                    grid.frame.origin.y = y
+                    grid.frame.size.height = -cal_h
                 }
-                
                 
                 self.grid.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
@@ -315,24 +298,7 @@ extension CropImageViewController {
                 
             case .ended:
                 self.o = self.grid.frame
-
-                let w = grid.w + grid.x > calculator.width
-                let h = grid.h + grid.y > calculator.height
-                if w {
-                    self.grid.frame.origin.x = (calculator.width - grid.w) + calculator.origin.x
-                }
                 
-                if h {
-                    self.grid.frame.origin.y = (calculator.height - grid.h) + calculator.origin.y
-                }
-                
-                if self.grid.x < self.calculator.origin.x {
-                    self.grid.frame.origin.x = self.calculator.origin.x
-                }
-
-                if self.grid.y < self.calculator.origin.y {
-                    self.grid.frame.origin.y = self.calculator.origin.y
-                }
                 self.update()
                 self.hide()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
@@ -341,5 +307,68 @@ extension CropImageViewController {
         }
         
         sender.setTranslation(.zero, in: self.view)
+    }
+    
+    func ratio(scale: scale_crop) {
+        let c = self.calculator
+        switch scale {
+        case .sq:
+            print(c)
+            self.grid.center.y = (c.height / 2) + c.origin.y
+            self.grid.frame.size = .init(width: grid.w, height: grid.w)
+            self.update()
+            self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+        default:
+            break
+        }
+    }
+    
+    func position() {
+        UIView.animate(withDuration: 0.15) {
+            if self.grid.w < 100 {
+                self.grid.frame.size.width = 100
+                print("a")
+            }
+            
+            if self.grid.h < 100 {
+                self.grid.frame.size.height = 100
+                print("b")
+            }
+            
+            if self.grid.w > self.calculator.width {
+                self.grid.frame.size.width = self.calculator.width
+                print("c")
+            }
+            
+            if self.grid.h > self.calculator.height {
+                self.grid.frame.size.height = self.calculator.height
+                print("d")
+            }
+            
+            if self.grid.x < self.calculator.origin.x {
+                self.grid.frame.origin.x = self.calculator.origin.x
+                print("e")
+            }
+            
+            if self.grid.y < self.calculator.origin.y {
+                self.grid.frame.origin.y = self.calculator.origin.y
+                print("f")
+            }
+            
+            let w = self.grid.x + self.grid.w > self.calculator.width
+            if w {
+                self.grid.frame.origin.x = (self.calculator.width + self.calculator.origin.x) - self.grid.w
+                print("g")
+            }
+            
+            let h = self.grid.y + self.grid.h > self.calculator.height
+            if h {
+                self.grid.frame.origin.y = (self.calculator.height + self.calculator.origin.y) - self.grid.h
+                print("h")
+            }
+            
+            
+        }
+        
     }
 }
