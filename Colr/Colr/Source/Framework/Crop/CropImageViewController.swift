@@ -116,6 +116,8 @@ open class CropImageViewController: UIViewController {
         
         self.bottom_left = UIView()
         self.bottom_left.frame.size = .init(width: 20, height: 20)
+        let moveBottL = UIPanGestureRecognizer(target: self, action: #selector(moveButtomLeft(_:)))
+        self.bottom_left.addGestureRecognizer(moveBottL)
         self.bottom_left.isUserInteractionEnabled = true
         self.bottom_left.backgroundColor = .white
         self.bottom_left.layer.cornerRadius = 10
@@ -352,6 +354,48 @@ extension CropImageViewController {
                 self.hide(t_l: 0, b_l: 0, b_r: 0)
                 self.grid.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+            case .ended:
+                self.o = self.grid.frame
+                self.hide()
+                self.update()
+                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+            default: break
+            }
+        }
+        
+        sender.setTranslation(.zero, in: self.view)
+    }
+    
+    @objc internal func moveButtomLeft(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.view)
+        if let view = sender.view {
+            switch sender.state {
+            case .began: self.o = self.grid.frame
+            case .changed:
+                let x = view.center.x + translation.x
+                let y = view.center.y + translation.y
+                
+                let max_w = -(o.origin.x - x) - o.width
+
+                let h = y - self.grid.y
+                
+                if x >= (self.calculator.origin.x) && -max_w >= 100 {
+                    view.center.x = x
+                    self.grid.frame.origin.x = x
+                    self.grid.frame.size.width = -max_w
+                }
+
+                if y <= self.calculator.height + self.calculator.origin.y && h >= 100 {
+                    view.center.y = view.center.y + translation.y
+                    
+                    let h = view.y - grid.y
+                    self.grid.frame.size.height = h + 10
+                }
+                
+                self.hide(t_l: 0, b_l: 0, b_r: 0)
+                self.grid.update()
+                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                
             case .ended:
                 self.o = self.grid.frame
                 self.hide()
