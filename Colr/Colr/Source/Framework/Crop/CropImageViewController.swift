@@ -155,8 +155,12 @@ open class CropImageViewController: UIViewController {
         return r
     }
  
-    func update() {
+    
+}
 
+extension CropImageViewController {
+    func update() {
+        
         self.position()
         
         self.top_left.center = .init(x: self.grid.x, y: self.grid.y)
@@ -166,6 +170,50 @@ open class CropImageViewController: UIViewController {
         
         self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
         self.grid.update()
+    }
+    
+    func ratio(scale: scale_crop) {
+        switch scale {
+        case .sq:
+            self.grid.frame.size = .init(width: grid.w, height: grid.w)
+            self.update()
+        default:
+            break
+        }
+    }
+    
+    func position() {
+        UIView.animate(withDuration: 0.15) {
+            if self.grid.w < 100 {
+                self.grid.frame.size.width = 100
+                print("a")
+            }
+            
+            if self.grid.h < 100 {
+                self.grid.frame.size.height = 100
+                print("b")
+            }
+            
+            if self.grid.w > self.calculator.width {
+                self.grid.frame.size.width = self.calculator.width
+                print("c")
+            }
+            
+            if self.grid.h > self.calculator.height {
+                self.grid.frame.size.height = self.calculator.height
+                print("d")
+            }
+            
+            if self.grid.x < self.calculator.origin.x {
+                self.grid.frame.origin.x = self.calculator.origin.x
+                print("e")
+            }
+            
+            if self.grid.y < self.calculator.origin.y {
+                self.grid.frame.origin.y = self.calculator.origin.y
+                print("f")
+            }
+        }
     }
 }
 
@@ -177,6 +225,8 @@ extension CropImageViewController {
             self.ratio(scale: .sq)
         }
     }
+    
+    
     
     @objc internal func moveGrid(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
@@ -222,6 +272,53 @@ extension CropImageViewController {
         sender.setTranslation(.zero, in: self.view)
     }
     
+    @objc internal func moveTopLeft(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.view)
+        
+        if let view = sender.view {
+            let x = view.center.x + translation.x
+            let y = view.center.y + translation.y
+            
+            
+            
+            switch sender.state {
+            case .began: self.o = self.grid.frame
+            case .changed:
+                let cal_w = -(o.origin.x - x) - o.width
+                let cal_h = -(o.origin.y - y) - o.height
+                
+                //                let max = self.calculator.width + cal_w
+                //                let convert = self.calculator.width - max
+                
+                if -cal_w >= 100 && -cal_w <= self.calculator.width && x >= self.calculator.origin.x {
+                    view.center.x = x
+                    grid.frame.origin.x = x
+                    grid.frame.size.width = -cal_w
+                }
+                
+                if -cal_h >= 100 && -cal_h <= self.calculator.height && y >= self.calculator.origin.y {
+                    view.center.y = y
+                    grid.frame.origin.y = y
+                    grid.frame.size.height = -cal_h
+                }
+                
+                self.grid.update()
+                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.hide(t_r: 0, b_l: 0, b_r: 0)
+                
+            case .ended:
+                self.o = self.grid.frame
+                
+                self.update()
+                self.hide()
+                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+            default: break
+            }
+        }
+        
+        sender.setTranslation(.zero, in: self.view)
+    }
+    
     @objc internal func moveBottomRight(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
@@ -260,112 +357,5 @@ extension CropImageViewController {
         }
         
         sender.setTranslation(.zero, in: self.view)
-    }
-
-    
-    @objc internal func moveTopLeft(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: self.view)
-        
-        if let view = sender.view {
-            let x = view.center.x + translation.x
-            let y = view.center.y + translation.y
-            
-            
-            
-            switch sender.state {
-            case .began: self.o = self.grid.frame
-            case .changed:
-                let cal_w = -(o.origin.x - x) - o.width
-                let cal_h = -(o.origin.y - y) - o.height
-                
-//                let max = self.calculator.width + cal_w
-//                let convert = self.calculator.width - max
-
-                if -cal_w >= 100 && -cal_w <= self.calculator.width && x >= self.calculator.origin.x {
-                    view.center.x = x
-                    grid.frame.origin.x = x
-                    grid.frame.size.width = -cal_w
-                }
-                
-                if -cal_h >= 100 && -cal_h <= self.calculator.height && y >= self.calculator.origin.y {
-                    view.center.y = y
-                    grid.frame.origin.y = y
-                    grid.frame.size.height = -cal_h
-                }
-                
-                self.grid.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
-                self.hide(t_r: 0, b_l: 0, b_r: 0)
-                
-            case .ended:
-                self.o = self.grid.frame
-                
-                self.update()
-                self.hide()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
-            default: break
-            }
-        }
-        
-        sender.setTranslation(.zero, in: self.view)
-    }
-    
-    func ratio(scale: scale_crop) {
-        switch scale {
-        case .sq:
-            self.grid.frame.size = .init(width: grid.w, height: grid.w)
-            self.update()
-        default:
-            break
-        }
-    }
-    
-    func position() {
-        UIView.animate(withDuration: 0.15) {
-            if self.grid.w < 100 {
-                self.grid.frame.size.width = 100
-                print("a")
-            }
-            
-            if self.grid.h < 100 {
-                self.grid.frame.size.height = 100
-                print("b")
-            }
-            
-            if self.grid.w > self.calculator.width {
-                self.grid.frame.size.width = self.calculator.width
-                print("c")
-            }
-            
-            if self.grid.h > self.calculator.height {
-                self.grid.frame.size.height = self.calculator.height
-                print("d")
-            }
-            
-            if self.grid.x < self.calculator.origin.x {
-                self.grid.frame.origin.x = self.calculator.origin.x
-                print("e")
-            }
-            
-            if self.grid.y < self.calculator.origin.y {
-                self.grid.frame.origin.y = self.calculator.origin.y
-                print("f")
-            }
-            
-//            let w = self.grid.x + self.grid.w > self.calculator.width
-//            if w {
-//                self.grid.frame.origin.x = (self.calculator.width + self.calculator.origin.x) - self.grid.w
-//                print("g")
-//            }
-//
-//            let h = self.grid.y + self.grid.h > self.calculator.height
-//            if h {
-//                self.grid.frame.origin.y = (self.calculator.height + self.calculator.origin.y) - self.grid.h
-//                print("h")
-//            }
-            
-            
-        }
-        
-    }
+    } 
 }
