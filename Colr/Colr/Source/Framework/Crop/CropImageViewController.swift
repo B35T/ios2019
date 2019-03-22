@@ -12,6 +12,9 @@ open class CropImageViewController: UIViewController {
 
     @IBOutlet open weak var imageView: UIImageView!
     
+    var alphaOverlay: CGFloat = 0.7
+    var scaleRatioW: CGFloat = 1
+    var scaleRatioH: CGFloat = 0.5625
     enum scale_crop:String {
         case sq = "Square"
         case _2_3 = "2:3"
@@ -172,7 +175,7 @@ extension CropImageViewController {
         self.bottom_left.center = .init(x: self.grid.x, y: self.grid.h + self.grid.y)
         self.bottom_right.center = .init(x: self.grid.w + self.grid.x, y:  self.grid.h + self.grid.y)
         
-        self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+        self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
         self.grid.update()
     }
     
@@ -188,13 +191,15 @@ extension CropImageViewController {
     
     func position() {
         UIView.animate(withDuration: 0.15) {
-            if self.grid.w < 100 {
-                self.grid.frame.size.width = 100
+            let sw:CGFloat = 100
+            let sh:CGFloat = 100
+            if self.grid.w < sw {
+                self.grid.frame.size.width = sw
                 print("a")
             }
             
-            if self.grid.h < 100 {
-                self.grid.frame.size.height = 100
+            if self.grid.h < sh {
+                self.grid.frame.size.height = sh
                 print("b")
             }
             
@@ -262,7 +267,7 @@ extension CropImageViewController {
                 }
                 
                 self.grid.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             case .ended:
                 self.update()
                 UIView.animate(withDuration: 0.2) {
@@ -280,8 +285,8 @@ extension CropImageViewController {
         let translation = sender.translation(in: self.view)
         
         if let view = sender.view {
-            let x = view.center.x + translation.x
-            let y = view.center.y + translation.y
+            let x = (view.center.x + translation.x)
+            let y = (view.center.y + translation.y)
             
             
             
@@ -307,7 +312,7 @@ extension CropImageViewController {
                 }
                 
                 self.grid.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
                 self.hide(t_r: 0, b_l: 0, b_r: 0)
                 
             case .ended:
@@ -315,7 +320,7 @@ extension CropImageViewController {
                 
                 self.update()
                 self.hide()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             default: break
             }
         }
@@ -353,12 +358,12 @@ extension CropImageViewController {
                 
                 self.hide(t_l: 0, b_l: 0, b_r: 0)
                 self.grid.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             case .ended:
                 self.o = self.grid.frame
                 self.hide()
                 self.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             default: break
             }
         }
@@ -385,22 +390,22 @@ extension CropImageViewController {
                     self.grid.frame.size.width = -max_w
                 }
 
-                if y <= self.calculator.height + self.calculator.origin.y && h >= 100 {
+                if y <= self.calculator.height + self.calculator.origin.y && h >= 100{
                     view.center.y = view.center.y + translation.y
                     
                     let h = view.y - grid.y
-                    self.grid.frame.size.height = h + 10
+                    self.grid.frame.size.height = (h + 10)
                 }
                 
                 self.hide(t_l: 0, t_r: 0, b_r: 0)
                 self.grid.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
                 
             case .ended:
                 self.o = self.grid.frame
                 self.hide()
                 self.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             default: break
             }
         }
@@ -423,24 +428,24 @@ extension CropImageViewController {
                     view.center.x = view.center.x + translation.x
                     
                     let w = view.x - grid.x
-                    self.grid.frame.size.width = w + 10
+                    self.grid.frame.size.width = (w + 10)
                 }
                 
                 if y <= self.calculator.height + self.calculator.origin.y && h >= 100 {
                     view.center.y = view.center.y + translation.y
                     
                     let h = view.y - grid.y
-                    self.grid.frame.size.height = h + 10
+                    self.grid.frame.size.height = (h + 10)
                 }
                 
                 
                 self.hide(t_l: 0, t_r: 0, b_l: 0)
                 self.grid.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             case .ended:
                 self.hide()
                 self.update()
-                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+                self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             default: break
             }
         }
