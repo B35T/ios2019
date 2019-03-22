@@ -392,7 +392,7 @@ extension CropImageViewController {
                     self.grid.frame.size.height = h + 10
                 }
                 
-                self.hide(t_l: 0, b_l: 0, b_r: 0)
+                self.hide(t_l: 0, t_r: 0, b_r: 0)
                 self.grid.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
                 
@@ -425,7 +425,6 @@ extension CropImageViewController {
                     let w = view.x - grid.x
                     self.grid.frame.size.width = w + 10
                 }
-                
                 
                 if y <= self.calculator.height + self.calculator.origin.y && h >= 100 {
                     view.center.y = view.center.y + translation.y
