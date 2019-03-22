@@ -336,18 +336,17 @@ extension CropImageViewController {
                 let w = x - (self.calculator.width + self.grid.x)
                 let max_w = w + self.calculator.width
                 
-                let h = y - self.calculator.origin.y
-                let max_h = self.calculator.height - h
+                let max_h = -(o.origin.y - y) - o.height
                 
                 if x <= (self.calculator.size.width + self.calculator.origin.x) && max_w >= 100 {
                     view.center.x = x
                     self.grid.frame.size.width = max_w
                 }
                 
-                if y >= (self.calculator.origin.y) && max_h >= 100 {
+                if y >= (self.calculator.origin.y) && -max_h >= 100 {
                     view.center.y = y
                     self.grid.frame.origin.y = y
-                    self.grid.frame.size.height = max_h
+                    self.grid.frame.size.height = -max_h
                 }
                 
                 self.hide(t_l: 0, b_l: 0, b_r: 0)
