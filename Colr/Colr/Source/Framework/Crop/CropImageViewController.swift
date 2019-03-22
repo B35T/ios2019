@@ -289,8 +289,8 @@ extension CropImageViewController {
                 let cal_w = -(o.origin.x - x) - o.width
                 let cal_h = -(o.origin.y - y) - o.height
                 
-                //                let max = self.calculator.width + cal_w
-                //                let convert = self.calculator.width - max
+//                let max = self.calculator.width + cal_w
+//                let convert = self.calculator.width - max
                 
                 if -cal_w >= 100 && -cal_w <= self.calculator.width && x >= self.calculator.origin.x {
                     view.center.x = x
@@ -327,23 +327,34 @@ extension CropImageViewController {
             
             
             switch sender.state {
+            case .began:self.o = self.grid.frame
             case .changed:
                 let x = view.center.x + translation.x
-                // let y = view.center.y + translation.y
+                let y = view.center.y + translation.y
                 
                 
                 let w = x - (self.calculator.width + self.grid.x)
                 let max_w = w + self.calculator.width
+                
+                let h = y - self.calculator.origin.y
+                let max_h = self.calculator.height - h
                 
                 if x <= (self.calculator.size.width + self.calculator.origin.x) && max_w >= 100 {
                     view.center.x = x
                     self.grid.frame.size.width = max_w
                 }
                 
+                if y >= (self.calculator.origin.y) && max_h >= 100 {
+                    view.center.y = y
+                    self.grid.frame.origin.y = y
+                    self.grid.frame.size.height = max_h
+                }
+                
                 self.hide(t_l: 0, b_l: 0, b_r: 0)
                 self.grid.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
             case .ended:
+                self.o = self.grid.frame
                 self.hide()
                 self.update()
                 self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
