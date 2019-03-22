@@ -104,6 +104,8 @@ open class CropImageViewController: UIViewController {
         
         self.top_right = UIView()
         self.top_right.frame.size = .init(width: 20, height: 20)
+        let moveTopR = UIPanGestureRecognizer(target: self, action: #selector(moveTopRight(_:)))
+        self.top_right.addGestureRecognizer(moveTopR)
         self.top_right.isUserInteractionEnabled = true
         self.top_right.backgroundColor = .white
         self.top_right.layer.cornerRadius = 10
@@ -319,6 +321,39 @@ extension CropImageViewController {
         sender.setTranslation(.zero, in: self.view)
     }
     
+    @objc internal func moveTopRight(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self.view)
+        if let view = sender.view {
+            
+            
+            switch sender.state {
+            case .changed:
+                let x = view.center.x + translation.x
+                // let y = view.center.y + translation.y
+                
+                
+                let w = x - (self.calculator.width + self.grid.x)
+                let max_w = w + self.calculator.width
+                
+                if x <= (self.calculator.size.width + self.calculator.origin.x) && max_w >= 100 {
+                    view.center.x = x
+                    self.grid.frame.size.width = max_w
+                }
+                
+                self.hide(t_l: 0, b_l: 0, b_r: 0)
+                self.grid.update()
+                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+            case .ended:
+                self.hide()
+                self.update()
+                self.bgview.createOverlay(alpha: 0.5, rect: grid.frame)
+            default: break
+            }
+        }
+        
+        sender.setTranslation(.zero, in: self.view)
+    }
+    
     @objc internal func moveBottomRight(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: self.view)
         if let view = sender.view {
@@ -357,5 +392,5 @@ extension CropImageViewController {
         }
         
         sender.setTranslation(.zero, in: self.view)
-    } 
+    }
 }
