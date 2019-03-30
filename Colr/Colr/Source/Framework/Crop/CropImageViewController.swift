@@ -13,8 +13,7 @@ open class CropImageViewController: UIViewController {
     @IBOutlet open weak var imageView: UIImageView!
     
     var alphaOverlay: CGFloat = 0.7
-    var scaleRatioW: CGFloat = 1
-    var scaleRatioH: CGFloat = 0.5625
+
     enum scale_crop:String {
         case sq = "Square"
         case _2_3 = "2:3"
@@ -142,6 +141,7 @@ open class CropImageViewController: UIViewController {
         self.bottom_right.alpha = b_r
     }
 
+     
     var calculator: CGRect {
         var r:CGRect = .zero
         if let s = image?.size {
@@ -161,7 +161,6 @@ open class CropImageViewController: UIViewController {
         }
         return r
     }
- 
     
 }
 
@@ -433,13 +432,14 @@ extension CropImageViewController {
                 
                 if y <= self.calculator.height + self.calculator.origin.y && h >= 100 {
                     view.center.y = view.center.y + translation.y
-                    
+
                     let h = view.y - grid.y
                     self.grid.frame.size.height = (h + 10)
                 }
+
                 
                 
-                self.hide(t_l: 0, t_r: 0, b_l: 0)
+                self.hide(t_l: 0, t_r: 0, b_l: 0, b_r: 0)
                 self.grid.update()
                 self.bgview.createOverlay(alpha: self.alphaOverlay, rect: grid.frame)
             case .ended:
