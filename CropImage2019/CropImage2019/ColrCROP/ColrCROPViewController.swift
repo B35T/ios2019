@@ -8,6 +8,30 @@
 
 import UIKit
 
+public enum setScale: Int {
+    case free = 0
+    case sq
+    case image
+    case _32
+    case _23
+    case _43
+    case _34
+    case _169
+    case _916
+    case _219
+    case _921
+    
+    
+    var count: Int {
+        return 11
+    }
+    
+    func title(i: Int) -> String {
+        let t = ["Free", "Sq", "Image", "3:2","2:3", "4:3", "3:4", "16:9", "9:16", "21:9", "9:21"]
+        return t[i]
+    }
+}
+
 open class ColrCROPViewController: UIViewController {
     
     @IBOutlet weak var Grid: grid!
@@ -15,17 +39,14 @@ open class ColrCROPViewController: UIViewController {
     @IBOutlet weak var bottomRight: margin!
     var bgview:UIView!
     
-    enum setScale {
-        case free
-        case sq
-        case image
-    }
+    
     
     var Scale: setScale = .image {
         didSet {
             switch self.Scale {
             case .image:
                 self.calScale(size: max.size)
+                self.Grid.frame = max
             case .free:
                 self.scale = .init(width: 1, height: 1)
             case .sq:
@@ -36,7 +57,40 @@ open class ColrCROPViewController: UIViewController {
                     self.calScale(size: .init(width: max.width, height: max.width))
                     self.Grid.frame.size.height = self.Grid.frame.width
                 }
+            case ._32:
+                self.scale = .init(width: 1.5, height: 1)
+                self.scaleForCal = self.scale.width
+                self.calculatorGridW()
+            case ._23:
+                self.scale = .init(width: 1, height: 1.5)
+                self.scaleForCal = self.scale.height
+                self.calculatorGridH()
+            case ._43:
+                self.scale = .init(width: 1.33333, height: 1)
+                self.scaleForCal = self.scale.width
+                self.calculatorGridW()
+            case ._34:
+                self.scale = .init(width: 1, height: 1.33333)
+                self.scaleForCal = self.scale.height
+                self.calculatorGridH()
+            case ._169:
+                self.scale = .init(width: 1.7777777778, height: 1)
+                self.scaleForCal = self.scale.width
+                self.calculatorGridW()
+            case ._916:
+                self.scale = .init(width: 1, height: 1.7777777778)
+                self.scaleForCal = self.scale.height
+                self.calculatorGridH()
+            case ._219:
+                self.scale = .init(width: 2.3333333333, height: 1)
+                self.scaleForCal = self.scale.width
+                self.calculatorGridW()
+            case ._921:
+                self.scale = .init(width: 1, height: 2.3333333333)
+                self.scaleForCal = self.scale.height
+                self.calculatorGridH()
             }
+            
             
             self.Grid.updateContent()
             self.updateMargin()
@@ -44,6 +98,7 @@ open class ColrCROPViewController: UIViewController {
         }
     }
     
+    var scaleForCal:CGFloat = 1
     var scale: CGSize = .init(width: 1, height: 1)
     var max: CGRect = .zero
     public var image: UIImage? {
@@ -118,6 +173,35 @@ open class ColrCROPViewController: UIViewController {
         }
     }
     
+    
+    func calculatorGridW() {
+        
+        var w = max.width
+        var h = max.width / scaleForCal
+        
+        if h > max.height {
+            h = max.height
+            w = h * scaleForCal
+        }
+
+        self.Grid.frame.size = .init(width: w, height: h)
+        
+        self.Grid.center = self.imageView.center
+    }
+    
+    func calculatorGridH() {
+        var h = max.height
+        var w = max.height / scaleForCal
+        
+        if w > max.width {
+            w = max.width
+            h = w * scaleForCal
+        }
+        
+        self.Grid.frame.size = .init(width: w, height: h)
+        
+        self.Grid.center = self.imageView.center
+    }
 }
 
 extension ColrCROPViewController {
@@ -160,18 +244,25 @@ extension ColrCROPViewController {
             let x = view.center.x + t.x
             let y = view.center.y + t.y
             
+            let w = x - self.Grid.frame.origin.x
+            let h = y - self.Grid.frame.origin.y
             switch self.Scale {
             case .free:
-                view.center.x = x
-                view.center.y = y
                 
-                let w = view.center.x - Grid.frame.origin.x
-                let h = view.center.y - Grid.frame.origin.y
+                if x <= self.max.width + self.max.origin.x && w >= 100 {
+                    view.center.x = view.center.x + t.x
+                    
+                    let w = view.frame.origin.x - Grid.frame.origin.x
+                    self.Grid.frame.size.width = w + 10
+                }
                 
-                self.Grid.frame.size.width = w
-                self.Grid.frame.size.height = h
-                
-            case .image, .sq:
+                if y <= self.max.height + self.max.origin.y && h >= 100 {
+                    view.center.y = view.center.y + t.y
+                    
+                    let h = view.frame.origin.y - Grid.frame.origin.y
+                    self.Grid.frame.size.height = h + 10
+                }
+            default:
                 if scale.width >= scale.height {
                     view.center.y = y
 

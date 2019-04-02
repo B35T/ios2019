@@ -26,43 +26,59 @@
                                     <action selector="PickerImageAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="toV-1V-jNs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kE-sm-kw7">
-                                <rect key="frame" x="46" y="557" width="30" height="30"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ixg-EJ-16x">
+                                <rect key="frame" x="0.0" y="559" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="free"/>
-                                <connections>
-                                    <action selector="freeAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dd4-31-W0o"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wPd-0L-ndh">
-                                <rect key="frame" x="295" y="557" width="42" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="image"/>
-                                <connections>
-                                    <action selector="imageAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tzi-cQ-sWp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U95-YK-LfH">
-                                <rect key="frame" x="172" y="557" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="sq"/>
-                                <connections>
-                                    <action selector="sqAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L4X-6T-Q12"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cxj-xN-7pu">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="iWf-K4-1Zu" customClass="ViewCell" customModule="CropImage2019" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AiW-uB-rLf">
+                                                    <rect key="frame" x="4" y="15" width="42" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="AiW-uB-rLf" secondAttribute="height" multiplier="2:1" id="5wc-um-Wz3"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="AiW-uB-rLf" firstAttribute="top" secondItem="iWf-K4-1Zu" secondAttribute="top" constant="15" id="AXD-YI-Vgu"/>
+                                            <constraint firstAttribute="bottom" secondItem="AiW-uB-rLf" secondAttribute="bottom" constant="14" id="Sl4-3M-8ke"/>
+                                            <constraint firstAttribute="trailing" secondItem="AiW-uB-rLf" secondAttribute="trailing" constant="4" id="kcm-8Y-CI1"/>
+                                            <constraint firstItem="AiW-uB-rLf" firstAttribute="leading" secondItem="iWf-K4-1Zu" secondAttribute="leading" constant="4" id="qHZ-1Q-Yme"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="label" destination="AiW-uB-rLf" id="Mhr-Ci-wmy"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="add" destination="5Ux-MN-exW" id="szd-9K-vau"/>
-                        <outlet property="free" destination="4kE-sm-kw7" id="6fD-Ek-Dwj"/>
-                        <outlet property="imagescale" destination="wPd-0L-ndh" id="ynq-1S-545"/>
-                        <outlet property="sq" destination="U95-YK-LfH" id="jKk-jy-3JB"/>
+                        <outlet property="collection" destination="ixg-EJ-16x" id="s5V-WV-XPg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="40.799999999999997" y="25.637181409295355"/>
         </scene>
     </scenes>
 </document>

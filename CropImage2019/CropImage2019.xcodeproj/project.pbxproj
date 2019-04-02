@@ -19,6 +19,7 @@
 		40C13E6B224E0D9D001E93F9 /* margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E6A224E0D9D001E93F9 /* margin.swift */; };
 		40C13E6D224E0E21001E93F9 /* view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E6C224E0E21001E93F9 /* view.swift */; };
 		40C13E6F224E1326001E93F9 /* grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E6E224E1326001E93F9 /* grid.swift */; };
+		40DC384022508C340066A4AC /* ViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40DC383F22508C340066A4AC /* ViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		40C13E6A224E0D9D001E93F9 /* margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = margin.swift; sourceTree = "<group>"; };
 		40C13E6C224E0E21001E93F9 /* view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = view.swift; sourceTree = "<group>"; };
 		40C13E6E224E1326001E93F9 /* grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = grid.swift; sourceTree = "<group>"; };
+		40DC383F22508C340066A4AC /* ViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		408C1404224B4A070086151A /* CropImage2019 */ = {
 			isa = PBXGroup;
 			children = (
+				40DC383E22508C130066A4AC /* cell */,
 				40C13E67224E0D3B001E93F9 /* ColrCROP */,
 				408C1405224B4A070086151A /* AppDelegate.swift */,
 				408C1407224B4A070086151A /* ViewController.swift */,
@@ -146,6 +149,14 @@
 				40C13E6C224E0E21001E93F9 /* view.swift */,
 			);
 			path = ColrCROP;
+			sourceTree = "<group>";
+		};
+		40DC383E22508C130066A4AC /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				40DC383F22508C340066A4AC /* ViewCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,6 +297,7 @@
 				40C13E69224E0D55001E93F9 /* ColrCROPViewController.swift in Sources */,
 				408C1408224B4A070086151A /* ViewController.swift in Sources */,
 				40C13E6F224E1326001E93F9 /* grid.swift in Sources */,
+				40DC384022508C340066A4AC /* ViewCell.swift in Sources */,
 				40C13E6B224E0D9D001E93F9 /* margin.swift in Sources */,
 				40C13E6D224E0E21001E93F9 /* view.swift in Sources */,
 				408C1406224B4A070086151A /* AppDelegate.swift in Sources */,

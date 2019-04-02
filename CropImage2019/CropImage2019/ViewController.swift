@@ -12,20 +12,18 @@ import UIKit
 class ViewController: ColrCROPViewController {
     
     
-    @IBOutlet weak var free: UIButton!
-    @IBOutlet weak var sq: UIButton!
-    @IBOutlet weak var imagescale: UIButton!
     @IBOutlet weak var add: UIButton!
+    @IBOutlet weak var collection: UICollectionView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .black
-        
-        self.view.insertSubview(self.free, at: 5)
-        self.view.insertSubview(self.imagescale, at: 5)
-        self.view.insertSubview(self.sq, at: 5)
+
+        self.collection.delegate = self
+        self.collection.dataSource = self
+        self.view.insertSubview(self.collection, at: 5)
         self.view.insertSubview(self.add, at: 5)
     }
     
@@ -42,20 +40,26 @@ class ViewController: ColrCROPViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
-    @IBAction func freeAction(_ sender: Any) {
-        self.Scale = .free
+}
+
+extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.Scale.count
     }
     
-    @IBAction func sqAction(_ sender: Any) {
-        self.Scale = .sq
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ViewCell
+        cell.label.text = self.Scale.title(i: indexPath.item)
+        return cell
     }
     
-    @IBAction func imageAction(_ sender: Any) {
-        self.Scale = .image
+    //delegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.Scale = setScale(rawValue: indexPath.item) ?? setScale.free
+        print(setScale(rawValue: indexPath.item) ?? setScale.free)
     }
     
 }
-
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
