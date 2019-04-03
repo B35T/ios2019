@@ -105,9 +105,9 @@ open class ColrCROPViewController: UIViewController {
     var max: CGRect = .zero {
         didSet {
             if max.width > max.height {
-                self.minimumCrop = max.width / 10
+                self.minimumCrop = max.width / 5
             } else {
-                self.minimumCrop = max.height / 10
+                self.minimumCrop = max.height / 5
             }
         }
     }
