@@ -44,18 +44,18 @@ class ViewController: ColrCROPViewController {
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.Scale.count
+        return self.scaleRatio.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ViewCell
-        cell.label.text = self.Scale.title(i: indexPath.item)
+        cell.label.text = self.scaleRatio.title(i: indexPath.item)
         return cell
     }
     
     //delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.Scale = setScale(rawValue: indexPath.item) ?? setScale.free
+        self.scaleRatio = setScale(rawValue: indexPath.item) ?? setScale.free
         print(setScale(rawValue: indexPath.item) ?? setScale.free)
     }
     

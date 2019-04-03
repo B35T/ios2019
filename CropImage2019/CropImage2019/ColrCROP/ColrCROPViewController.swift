@@ -41,14 +41,14 @@ open class ColrCROPViewController: UIViewController {
     
     
     
-    var Scale: setScale = .image {
+    var scaleRatio: setScale = .image {
         didSet {
-            switch self.Scale {
+            switch self.scaleRatio {
             case .image:
                 self.calScale(size: max.size)
                 self.Grid.frame = max
             case .free:
-                self.scale = .init(width: 1, height: 1)
+                self.ratio = .init(width: 1, height: 1)
             case .sq:
                 if max.width >= max.height {
                     self.calScale(size: .init(width: max.height, height: max.height))
@@ -57,37 +57,38 @@ open class ColrCROPViewController: UIViewController {
                     self.calScale(size: .init(width: max.width, height: max.width))
                     self.Grid.frame.size.height = self.Grid.frame.width
                 }
+                self.Grid.center = self.imageView.center
             case ._32:
-                self.scale = .init(width: 1.5, height: 1)
-                self.scaleForCal = self.scale.width
+                self.ratio = .init(width: 1.5, height: 1)
+                self.ratioCalculate = self.ratio.width
                 self.calculatorGridW()
             case ._23:
-                self.scale = .init(width: 1, height: 1.5)
-                self.scaleForCal = self.scale.height
+                self.ratio = .init(width: 1, height: 1.5)
+                self.ratioCalculate = self.ratio.height
                 self.calculatorGridH()
             case ._43:
-                self.scale = .init(width: 1.33333, height: 1)
-                self.scaleForCal = self.scale.width
+                self.ratio = .init(width: 1.33333, height: 1)
+                self.ratioCalculate = self.ratio.width
                 self.calculatorGridW()
             case ._34:
-                self.scale = .init(width: 1, height: 1.33333)
-                self.scaleForCal = self.scale.height
+                self.ratio = .init(width: 1, height: 1.33333)
+                self.ratioCalculate = self.ratio.height
                 self.calculatorGridH()
             case ._169:
-                self.scale = .init(width: 1.7777777778, height: 1)
-                self.scaleForCal = self.scale.width
+                self.ratio = .init(width: 1.7777777778, height: 1)
+                self.ratioCalculate = self.ratio.width
                 self.calculatorGridW()
             case ._916:
-                self.scale = .init(width: 1, height: 1.7777777778)
-                self.scaleForCal = self.scale.height
+                self.ratio = .init(width: 1, height: 1.7777777778)
+                self.ratioCalculate = self.ratio.height
                 self.calculatorGridH()
             case ._219:
-                self.scale = .init(width: 2.3333333333, height: 1)
-                self.scaleForCal = self.scale.width
+                self.ratio = .init(width: 2.3333333333, height: 1)
+                self.ratioCalculate = self.ratio.width
                 self.calculatorGridW()
             case ._921:
-                self.scale = .init(width: 1, height: 2.3333333333)
-                self.scaleForCal = self.scale.height
+                self.ratio = .init(width: 1, height: 2.3333333333)
+                self.ratioCalculate = self.ratio.height
                 self.calculatorGridH()
             }
             
@@ -98,9 +99,18 @@ open class ColrCROPViewController: UIViewController {
         }
     }
     
-    var scaleForCal:CGFloat = 1
-    var scale: CGSize = .init(width: 1, height: 1)
-    var max: CGRect = .zero
+    var minimumCrop: CGFloat = 1
+    var ratioCalculate: CGFloat = 1
+    var ratio: CGSize = .init(width: 1, height: 1)
+    var max: CGRect = .zero {
+        didSet {
+            if max.width > max.height {
+                self.minimumCrop = max.width / 10
+            } else {
+                self.minimumCrop = max.height / 10
+            }
+        }
+    }
     public var image: UIImage? {
         didSet {
             if let image = self.image {
@@ -114,7 +124,7 @@ open class ColrCROPViewController: UIViewController {
                 self.updateMargin()
                 
                 
-                self.Scale = .image
+                self.scaleRatio = .image
             }
         }
     }
@@ -166,10 +176,10 @@ open class ColrCROPViewController: UIViewController {
     func calScale(size: CGSize) {
         if size.width >= size.height {
             let w = size.width / size.height
-            self.scale = .init(width: w, height: 1)
+            self.ratio = .init(width: w, height: 1)
         }  else {
             let h = size.height / size.width
-            self.scale = .init(width: 1, height: h)
+            self.ratio = .init(width: 1, height: h)
         }
     }
     
@@ -177,11 +187,11 @@ open class ColrCROPViewController: UIViewController {
     func calculatorGridW() {
         
         var w = max.width
-        var h = max.width / scaleForCal
+        var h = max.width / ratioCalculate
         
         if h > max.height {
             h = max.height
-            w = h * scaleForCal
+            w = h * ratioCalculate
         }
 
         self.Grid.frame.size = .init(width: w, height: h)
@@ -191,11 +201,11 @@ open class ColrCROPViewController: UIViewController {
     
     func calculatorGridH() {
         var h = max.height
-        var w = max.height / scaleForCal
+        var w = max.height / ratioCalculate
         
         if w > max.width {
             w = max.width
-            h = w * scaleForCal
+            h = w * ratioCalculate
         }
         
         self.Grid.frame.size = .init(width: w, height: h)
@@ -246,46 +256,50 @@ extension ColrCROPViewController {
             
             let w = x - self.Grid.frame.origin.x
             let h = y - self.Grid.frame.origin.y
-            switch self.Scale {
+            switch self.scaleRatio {
             case .free:
-                
-                if x <= self.max.width + self.max.origin.x && w >= 100 {
+                if x <= self.max.width + self.max.origin.x && w >= self.minimumCrop {
                     view.center.x = view.center.x + t.x
                     
                     let w = view.frame.origin.x - Grid.frame.origin.x
                     self.Grid.frame.size.width = w + 10
                 }
                 
-                if y <= self.max.height + self.max.origin.y && h >= 100 {
+                if y <= self.max.height + self.max.origin.y && h >= self.minimumCrop {
                     view.center.y = view.center.y + t.y
                     
                     let h = view.frame.origin.y - Grid.frame.origin.y
                     self.Grid.frame.size.height = h + 10
                 }
             default:
-                if scale.width >= scale.height {
-                    view.center.y = y
-
-                    let h = view.center.y - Grid.frame.origin.y
-                    let x = Grid.frame.width + Grid.frame.origin.x
-                    view.center.x = x
-
-                    self.Grid.frame.size.height = h
-                    self.Grid.frame.size.width = h * scale.width
+                if ratio.width >= ratio.height {
+                    if h >= self.minimumCrop && w >= self.minimumCrop && x <= (self.max.width + self.max.origin.x) && y <= (self.max.height + self.max.origin.y) {
+                        view.center.y = y
+                        
+                        let h = view.center.y - Grid.frame.origin.y
+                        let x = Grid.frame.width + Grid.frame.origin.x
+                        view.center.x = x
+                        
+                        self.Grid.frame.size.height = h
+                        self.Grid.frame.size.width = h * ratio.width
+                    }
                 } else {
-                    let x = view.center.x + t.x
-                    view.center.x = x
-
-                    let w = view.center.x - Grid.frame.origin.x
-                    let y = Grid.frame.height + Grid.frame.origin.y
-                    view.center.y = y
-
-                    self.Grid.frame.size.width = w
-                    self.Grid.frame.size.height = w * scale.height
+                    if h >= self.minimumCrop && w >= self.minimumCrop && x <= (self.max.width + self.max.origin.x) && y <= (self.max.height + self.max.origin.y) {
+                        let x = view.center.x + t.x
+                        view.center.x = x
+                        
+                        let w = view.center.x - Grid.frame.origin.x
+                        let y = Grid.frame.height + Grid.frame.origin.y
+                        view.center.y = y
+                        
+                        self.Grid.frame.size.width = w
+                        self.Grid.frame.size.height = w * ratio.height
+                    }
                 }
             }
             
             self.Grid.updateContent()
+            self.updateMargin()
             self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
         }
         
@@ -335,3 +349,7 @@ extension UIView {
     }
 }
 
+
+extension CGFloat {
+    
+}
