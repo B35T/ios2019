@@ -19,4 +19,6 @@ open class view: UIView {
     public func config() {}
     
     public func updateContent() {}
+    
+    public func add_icon() {}
 }
