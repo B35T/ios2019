@@ -325,53 +325,56 @@ extension ColrCROPViewController {
             let w = x - self.Grid.frame.origin.x
             let h = y - self.Grid.frame.origin.y
             
+            topLeft_o = Grid.frame
             switch self.scaleRatio {
             case .free:
+                
                 if x <= self.max.maxX && w >= self.minimumCrop {
-                    view.center.x = view.center.x + t.x
-                    
-                    let w = view.frame.origin.x - Grid.frame.origin.x
-                    self.Grid.frame.size.width = w + 10
+                    view.center.x = x
+                    self.Grid.frame.size.width = w
                 }
                 
                 if y <= self.max.maxY && h >= self.minimumCrop {
-                    view.center.y = view.center.y + t.y
-                    
-                    let h = view.frame.origin.y - Grid.frame.origin.y
-                    self.Grid.frame.size.height = h + 10
+                    view.center.y = y
+                    self.Grid.frame.size.height = h
                 }
+
             default:
-                if ratio.width > ratio.height {
-                    if y <= self.max.maxY && x <= self.max.maxX && w >= self.minimumCrop && h >= self.minimumCrop {
-                        view.center.x = view.center.x + t.x
-                        
-                        let w = (view.frame.origin.x - Grid.frame.origin.x) + 10
+
+                if ratio.height >= ratio.width {
+                    let multi = w * ratioCalculate
+                    let max_y =  multi + Grid.frame.origin.y
+                    
+                    if max_y <= max.maxY && x <= max.maxX {
+                        view.center.x = x
                         self.Grid.frame.size.width = w
-                        self.Grid.frame.size.height = w / self.ratioCalculate
+                        self.Grid.frame.size.height = multi
                     }
                 } else {
-                    if y <= self.max.maxY && x <= self.max.maxX && h >= self.minimumCrop && w >= self.minimumCrop  {
-                        view.center.x = view.center.x + t.x
-                        
-                        let w = (view.frame.origin.x - Grid.frame.origin.x) + 10
+                    let multi = w / ratioCalculate
+                    let max_y =  multi + Grid.frame.origin.y
+                    if max_y <= max.maxY && x <= max.maxX {
+                        view.center.x = x
                         self.Grid.frame.size.width = w
-                        self.Grid.frame.size.height = w * self.ratioCalculate
-//                        view.center.y = view.center.y + t.y
-//
-//                        let w = (view.frame.origin.y - Grid.frame.origin.y) + 10
-//                        self.Grid.frame.size.width = w / self.ratioCalculate
-//                        self.Grid.frame.size.height = w
+                        self.Grid.frame.size.height = multi
                     }
+                    
                 }
+                
             }
+                
+            
 
             self.Grid.updateContent()
             self.updateMargin()
             self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+            
         }
         
         sender.setTranslation(.zero, in: self.view)
     }
+
+    
 }
 
 extension UIImageView {
