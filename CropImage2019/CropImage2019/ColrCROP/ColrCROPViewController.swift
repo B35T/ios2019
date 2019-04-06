@@ -108,9 +108,9 @@ open class ColrCROPViewController: UIViewController {
     var max: CGRect = .zero {
         didSet {
             if max.width > max.height {
-                self.minimumCrop = max.width / 5
-            } else {
                 self.minimumCrop = max.height / 5
+            } else {
+                self.minimumCrop = max.width / 5
             }
         }
     }
@@ -344,7 +344,7 @@ extension ColrCROPViewController {
                 if ratio.height >= ratio.width {
                     let multi = w * ratioCalculate
                     let max_y =  multi + Grid.frame.origin.y
-                    if max_y <= max.maxY && x <= max.maxX && multi >= minimumCrop {
+                    if max_y <= max.maxY && x <= max.maxX && w >= self.minimumCrop && h >= self.minimumCrop  {
                         view.center.x = x
                         self.Grid.frame.size.width = w
                         self.Grid.frame.size.height = multi
@@ -352,7 +352,7 @@ extension ColrCROPViewController {
                 } else {
                     let multi = w / ratioCalculate
                     let max_y =  multi + Grid.frame.origin.y
-                    if max_y <= max.maxY && x <= max.maxX && multi >= self.minimumCrop {
+                    if max_y <= max.maxY && x <= max.maxX && w >= self.minimumCrop && h >= self.minimumCrop {
                         view.center.x = x
                         self.Grid.frame.size.width = w
                         self.Grid.frame.size.height = multi
