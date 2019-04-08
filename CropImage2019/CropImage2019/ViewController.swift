@@ -12,6 +12,7 @@ import UIKit
 class ViewController: ColrCROPViewController {
     
     
+    @IBOutlet weak var cropBtn: UIButton!
     @IBOutlet weak var add: UIButton!
     @IBOutlet weak var collection: UICollectionView!
     
@@ -25,10 +26,16 @@ class ViewController: ColrCROPViewController {
         self.collection.dataSource = self
         self.view.insertSubview(self.collection, at: 5)
         self.view.insertSubview(self.add, at: 5)
+        self.view.insertSubview(self.cropBtn, at: 5)
     }
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    @IBAction func cropAction(_ sender: Any) {
+        guard let crop = self.cropping() else {return}
+        UIImageWriteToSavedPhotosAlbum(crop, nil, nil, nil)
     }
     
     @IBAction func PickerImageAction(_ sender: Any) {

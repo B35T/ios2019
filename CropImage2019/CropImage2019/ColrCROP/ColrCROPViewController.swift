@@ -243,6 +243,17 @@ open class ColrCROPViewController: UIViewController {
         
         self.Grid.center = self.imageView.center
     }
+    
+    func cropping() -> UIImage? {
+        guard let image = image else {return nil}
+        let rect = Grid.frame
+        let imageScale:CGFloat = Swift.max(image.size.width / self.max.width , image.size.height / self.max.height)
+        
+        let cropZone = CGRect(x: (rect.origin.x - self.max.origin.x) * imageScale, y: (rect.origin.y - self.max.origin.y) * imageScale, width: rect.width * imageScale, height: rect.height * imageScale)
+        
+        guard let cropImage = image.cgImage?.cropping(to: cropZone) else {return nil}
+        return UIImage(cgImage: cropImage)
+    }
 }
 
 extension ColrCROPViewController {

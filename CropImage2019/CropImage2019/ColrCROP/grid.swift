@@ -16,11 +16,13 @@ open class grid: view {
     
     public var color = UIColor.white
     public var cornerRadius: CGFloat = 0.5
+    public var freamRadius: CGFloat = 0.5
+    
     
     public override func config() {
         super.config()
         self.layer.borderColor = color.cgColor
-        self.layer.borderWidth = 1
+        self.layer.borderWidth = freamRadius
         
         self.horizontalTop = UIView()
         self.horizontalBottom = UIView()
