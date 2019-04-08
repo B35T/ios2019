@@ -38,6 +38,7 @@ open class ColrCROPViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var bottomRight: margin!
     @IBOutlet weak var topLeft: margin!
+    @IBOutlet weak var topRight: margin!
     var bgview:UIView!
     var topLeft_o: CGRect = .zero
     
@@ -168,6 +169,13 @@ open class ColrCROPViewController: UIViewController {
         self.topLeft.addGestureRecognizer(moveTopLeft)
         self.topLeft.isUserInteractionEnabled = true
         self.view.addSubview(self.topLeft)
+        
+        let topRight = margin(frame: .init(x: 0, y: 0, width: 20, height: 20))
+        self.topRight = topRight
+        let moveTopRight = UIPanGestureRecognizer(target: self, action: #selector(moveTopRight(_:)))
+        self.topRight.addGestureRecognizer(moveTopRight)
+        self.topRight.isUserInteractionEnabled = true
+        self.view.addSubview(self.topRight)
         
         self.updateMargin()
     }
@@ -319,7 +327,6 @@ extension ColrCROPViewController {
             default: break
             }
             
-            
 
             self.Grid.updateContent()
             self.updateMargin()
@@ -327,6 +334,10 @@ extension ColrCROPViewController {
         }
         
         sender.setTranslation(.zero, in: self.view)
+    }
+    
+    @objc internal func moveTopRight(_ sender: UIPanGestureRecognizer) {
+        
     }
     
     @objc internal func moveBottomRight(_ sender: UIPanGestureRecognizer) {
