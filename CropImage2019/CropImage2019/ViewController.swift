@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: ColrCROPViewController {
+class ViewController: CroperViewController {
     
     
     @IBOutlet weak var cropBtn: UIButton!
@@ -63,7 +63,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     //delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.scaleRatio = setScale(rawValue: indexPath.item) ?? setScale.free
-        print(setScale(rawValue: indexPath.item) ?? setScale.free)
     }
     
 }

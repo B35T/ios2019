@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class grid: view {
+open class GridOverlay: view {
     var horizontalTop: UIView!
     var horizontalBottom: UIView!
     var verticalLeft: UIView!

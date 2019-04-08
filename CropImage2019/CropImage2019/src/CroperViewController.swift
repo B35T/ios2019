@@ -32,10 +32,10 @@ public enum setScale: Int {
     }
 }
 
-open class ColrCROPViewController: UIViewController {
+open class CroperViewController: UIViewController {
     
-    @IBOutlet weak var Grid: grid!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var Grid: GridOverlay!
+    @IBOutlet weak var imageView: imageScrollView!
     @IBOutlet weak var bottomRight: margin!
     @IBOutlet weak var topLeft: margin!
     @IBOutlet weak var topRight: margin!
@@ -49,16 +49,16 @@ open class ColrCROPViewController: UIViewController {
         didSet {
             switch self.scaleRatio {
             case .image:
-                self.calScale(size: max.size)
-                self.Grid.frame = max
+                self.calScale(size: maxScope.size)
+                self.Grid.frame = maxScope
             case .free:
                 self.ratio = .init(width: 1, height: 1)
             case .sq:
-                if max.width >= max.height {
-                    self.calScale(size: .init(width: max.height, height: max.height))
+                if maxScope.width >= maxScope.height {
+                    self.calScale(size: .init(width: maxScope.height, height: maxScope.height))
                     self.Grid.frame.size.width = self.Grid.frame.height
                 } else {
-                    self.calScale(size: .init(width: max.width, height: max.width))
+                    self.calScale(size: .init(width: maxScope.width, height: maxScope.width))
                     self.Grid.frame.size.height = self.Grid.frame.width
                 }
                 self.Grid.center = self.imageView.center
@@ -99,7 +99,7 @@ open class ColrCROPViewController: UIViewController {
             
             self.Grid.updateContent()
             self.updateMargin()
-            self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+            self.bgview.DimmingOverlay(alpha: 0.7, rect: self.Grid.frame)
             self.topLeft_o = Grid.frame
         }
     }
@@ -107,24 +107,27 @@ open class ColrCROPViewController: UIViewController {
     var minimumCrop: CGFloat = 1
     var ratioCalculate: CGFloat = 1
     var ratio: CGSize = .init(width: 1, height: 1)
-    var max: CGRect = .zero {
+    var maxScope: CGRect = .zero {
         didSet {
-            if max.width > max.height {
-                self.minimumCrop = max.height / 5
+            if maxScope.width > maxScope.height {
+                self.minimumCrop = maxScope.height / 5
             } else {
-                self.minimumCrop = max.width / 5
+                self.minimumCrop = maxScope.width / 5
             }
         }
     }
     public var image: UIImage? {
         didSet {
             if let image = self.image {
-                self.imageView.frame = .init(x: 20, y: 20, width: view.frame.width - 40, height: 500)
-                self.imageView.image = image
+//                self.imageView.frame = .init(x: 20, y: 20, width: view.frame.width - 40, height: 500)
+//                self.imageView.image = image
                 
-                self.imageView.setImageFrame()
-                self.max = self.imageView.frame
-                self.Grid.rect = self.max
+//                self.imageView.setImageFrame()
+                
+                self.imageView.image = image
+                self.imageView.rect = .init(x: 20, y: 20, width: view.frame.width - 40, height: 500)
+                self.maxScope = self.imageView.frame
+                self.Grid.rect = self.maxScope
                 self.Grid.updateContent()
                 self.updateMargin()
                 
@@ -137,10 +140,9 @@ open class ColrCROPViewController: UIViewController {
     open override func loadView() {
         super.loadView()
         
-        let imageView = UIImageView(frame: .init(x: 20, y: 20, width: view.frame.width - 40, height: 500))
+        let imageView = imageScrollView(frame: .init(x: 20, y: 20, width: view.frame.width - 40, height: 500))
         self.imageView = imageView
-        self.imageView.contentMode = .scaleAspectFit
-        self.imageView.backgroundColor = .red
+        self.imageView.config()
         self.view.addSubview(self.imageView)
         
         let bgview = UIView()
@@ -149,7 +151,7 @@ open class ColrCROPViewController: UIViewController {
         self.bgview = bgview
         self.view.addSubview(self.bgview)
         
-        let Grid = grid(frame: .zero)
+        let Grid = GridOverlay(frame: .zero)
         Grid.config()
         self.Grid = Grid
         let moveGr = UIPanGestureRecognizer(target: self, action: #selector(moveGrid(_:)))
@@ -217,11 +219,11 @@ open class ColrCROPViewController: UIViewController {
     
     func calculatorGridW() {
         
-        var w = max.width
-        var h = max.width / ratioCalculate
+        var w = maxScope.width
+        var h = maxScope.width / ratioCalculate
         
-        if h > max.height {
-            h = max.height
+        if h > maxScope.height {
+            h = maxScope.height
             w = h * ratioCalculate
         }
 
@@ -231,11 +233,11 @@ open class ColrCROPViewController: UIViewController {
     }
     
     func calculatorGridH() {
-        var h = max.height
-        var w = max.height / ratioCalculate
+        var h = maxScope.height
+        var w = maxScope.height / ratioCalculate
         
-        if w > max.width {
-            w = max.width
+        if w > maxScope.width {
+            w = maxScope.width
             h = w * ratioCalculate
         }
         
@@ -247,37 +249,37 @@ open class ColrCROPViewController: UIViewController {
     func cropping() -> UIImage? {
         guard let image = image else {return nil}
         let rect = Grid.frame
-        let imageScale:CGFloat = Swift.max(image.size.width / self.max.width , image.size.height / self.max.height)
+        let imageScale:CGFloat = Swift.max(image.size.width / self.maxScope.width , image.size.height / self.maxScope.height)
         
-        let cropZone = CGRect(x: (rect.origin.x - self.max.origin.x) * imageScale, y: (rect.origin.y - self.max.origin.y) * imageScale, width: rect.width * imageScale, height: rect.height * imageScale)
+        let cropZone = CGRect(x: (rect.origin.x - self.maxScope.origin.x) * imageScale, y: (rect.origin.y - self.maxScope.origin.y) * imageScale, width: rect.width * imageScale, height: rect.height * imageScale)
         
         guard let cropImage = image.cgImage?.cropping(to: cropZone) else {return nil}
         return UIImage(cgImage: cropImage)
     }
 }
 
-extension ColrCROPViewController {
+extension CroperViewController {
     @objc internal func moveGrid(_ sender: UIPanGestureRecognizer) {
         let t = sender.translation(in: self.view)
         if let view = sender.view {
-            if view.frame != self.max {
+            if view.frame != self.maxScope {
                 view.center = .init(x: view.center.x + t.x, y: view.center.y + t.y)
             }
             
-            if view.frame.origin.x <= max.origin.x {
-                view.frame.origin.x = max.origin.x
+            if view.frame.origin.x <= maxScope.origin.x {
+                view.frame.origin.x = maxScope.origin.x
             }
             
-            if view.frame.origin.y <= max.origin.y {
-                view.frame.origin.y = max.origin.y
+            if view.frame.origin.y <= maxScope.origin.y {
+                view.frame.origin.y = maxScope.origin.y
             }
             
-            let max_x = ((self.imageView.frame.width - max.width) / 2) + (max.width - view.frame.width) + self.imageView.frame.origin.x
+            let max_x = ((self.imageView.frame.width - maxScope.width) / 2) + (maxScope.width - view.frame.width) + self.imageView.frame.origin.x
             if view.frame.origin.x >= max_x {
                 view.frame.origin.x = max_x
             }
             
-            let max_y = ((self.imageView.frame.height - max.height) / 2) + (max.height - view.frame.height) + self.imageView.frame.origin.y
+            let max_y = ((self.imageView.frame.height - maxScope.height) / 2) + (maxScope.height - view.frame.height) + self.imageView.frame.origin.y
             if view.frame.origin.y >= max_y {
                 view.frame.origin.y = max_y
             }
@@ -286,7 +288,7 @@ extension ColrCROPViewController {
         }
         
         
-        self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+        self.bgview.DimmingOverlay(alpha: 0.7, rect: self.Grid.frame)
         sender.setTranslation(.zero, in: self.view)
     }
     
@@ -306,13 +308,13 @@ extension ColrCROPViewController {
             
                 switch self.scaleRatio {
                 case .free:
-                    if width >= minimumCrop && width <= self.max.width && x >= self.max.origin.x {
+                    if width >= minimumCrop && width <= self.maxScope.width && x >= self.maxScope.origin.x {
                         view.center.x = x
                         Grid.frame.origin.x = x
                         Grid.frame.size.width = width
                     }
                     
-                    if height >= minimumCrop && height <= self.max.height && y >= self.max.origin.y {
+                    if height >= minimumCrop && height <= self.maxScope.height && y >= self.maxScope.origin.y {
                         view.center.y = y
                         Grid.frame.origin.y = y
                         Grid.frame.size.height = height
@@ -323,7 +325,7 @@ extension ColrCROPViewController {
                         let h = width * ratioCalculate
                         let y = topLeft_o.maxY - h
                         
-                        if y >= self.max.origin.y && x >= self.max.origin.x && width >= minimumCrop && height >= minimumCrop {
+                        if y >= self.maxScope.origin.y && x >= self.maxScope.origin.x && width >= minimumCrop && height >= minimumCrop {
                             view.center.x = x
                             Grid.frame.origin.x = x
                             Grid.frame.size.width = width
@@ -335,7 +337,7 @@ extension ColrCROPViewController {
                         let h = width / ratioCalculate
                         let y = topLeft_o.maxY - h
                         
-                        if y >= self.max.origin.y && x >= self.max.origin.x && width >= minimumCrop && height >= minimumCrop {
+                        if y >= self.maxScope.origin.y && x >= self.maxScope.origin.x && width >= minimumCrop && height >= minimumCrop {
                             view.center.x = x
                             Grid.frame.origin.x = x
                             Grid.frame.size.width = width
@@ -351,7 +353,7 @@ extension ColrCROPViewController {
 
             self.Grid.updateContent()
             self.updateMargin()
-            self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+            self.bgview.DimmingOverlay(alpha: 0.7, rect: self.Grid.frame)
         }
         
         sender.setTranslation(.zero, in: self.view)
@@ -365,29 +367,29 @@ extension ColrCROPViewController {
             
             switch self.scaleRatio {
             case .free:
-                let w = x - (self.max.width + self.Grid.frame.origin.x)
-                let max_w = w + self.max.width
+                let w = x - (self.maxScope.width + self.Grid.frame.origin.x)
+                let max_w = w + self.maxScope.width
                 let max_h = Grid.frame.height - (y - Grid.frame.origin.y)
                 
-                if x <= max.maxX && max_w >= self.minimumCrop {
+                if x <= maxScope.maxX && max_w >= self.minimumCrop {
                     view.center.x = x
                     self.Grid.frame.size.width = max_w
                 }
                 
-                if y >= self.max.origin.y && max_h >= self.minimumCrop {
+                if y >= self.maxScope.origin.y && max_h >= self.minimumCrop {
                     view.center.y = y
                     self.Grid.frame.origin.y = y
                     self.Grid.frame.size.height = max_h
                 }
             default:
-                let w = x - (self.max.width + self.Grid.frame.origin.x)
-                let width = w + self.max.width
+                let w = x - (self.maxScope.width + self.Grid.frame.origin.x)
+                let width = w + self.maxScope.width
                 
                 if ratio.height >= ratio.width {
                     let height = width * ratioCalculate
                     let y = self.Grid.frame.maxY - height
                     
-                    if y >= self.max.origin.y && x >= max.origin.x && x <= max.maxX && height >= self.minimumCrop && width >= self.minimumCrop {
+                    if y >= self.maxScope.origin.y && x >= maxScope.origin.x && x <= maxScope.maxX && height >= self.minimumCrop && width >= self.minimumCrop {
                         
                         view.center.x = x
                         self.Grid.frame.origin.y = y
@@ -398,7 +400,7 @@ extension ColrCROPViewController {
                     let height = width / ratioCalculate
                     let y = self.Grid.frame.maxY - height
                     
-                    if y >= self.max.origin.y && x >= max.origin.x && x <= max.maxX && height >= self.minimumCrop && width >= self.minimumCrop {
+                    if y >= self.maxScope.origin.y && x >= maxScope.origin.x && x <= maxScope.maxX && height >= self.minimumCrop && width >= self.minimumCrop {
                         view.center.x = x
                         self.Grid.frame.origin.y = y
                         self.Grid.frame.size.width = width
@@ -415,7 +417,7 @@ extension ColrCROPViewController {
             
             self.Grid.updateContent()
             self.updateMargin()
-            self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+            self.bgview.DimmingOverlay(alpha: 0.7, rect: self.Grid.frame)
         }
         
         sender.setTranslation(.zero, in: self.view)
@@ -435,13 +437,13 @@ extension ColrCROPViewController {
                 let width = Grid.frame.width - (x - Grid.frame.origin.x)
                 let height = y - Grid.frame.origin.y
                 
-                if x >= self.max.origin.x && width >= self.minimumCrop {
+                if x >= self.maxScope.origin.x && width >= self.minimumCrop {
                     view.center.x = x
                     self.Grid.frame.origin.x = x
                     self.Grid.frame.size.width = width
                 }
                 
-                if y <= self.max.maxY && height >= self.minimumCrop {
+                if y <= self.maxScope.maxY && height >= self.minimumCrop {
                     view.center.y = y
                     self.Grid.frame.size.height = height
                 }
@@ -455,7 +457,7 @@ extension ColrCROPViewController {
                     let height = width * ratioCalculate
                     let max_y =  height + Grid.frame.origin.y
                     
-                    if x >= self.max.origin.x && max_y <= max.maxY && width >= self.minimumCrop && height >= self.minimumCrop {
+                    if x >= self.maxScope.origin.x && max_y <= maxScope.maxY && width >= self.minimumCrop && height >= self.minimumCrop {
                         view.center.x = x
                         self.Grid.frame.origin.x = x
                         self.Grid.frame.size.width = width
@@ -465,7 +467,7 @@ extension ColrCROPViewController {
                     let height = width / ratioCalculate
                     let max_y =  height + Grid.frame.origin.y
                     
-                    if x >= self.max.origin.x && max_y <= max.maxY && width >= self.minimumCrop && height >= self.minimumCrop {
+                    if x >= self.maxScope.origin.x && max_y <= maxScope.maxY && width >= self.minimumCrop && height >= self.minimumCrop {
                         view.center.x = x
                         self.Grid.frame.origin.x = x
                         self.Grid.frame.size.width = width
@@ -476,7 +478,7 @@ extension ColrCROPViewController {
             
             self.Grid.updateContent()
             self.updateMargin()
-            self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+            self.bgview.DimmingOverlay(alpha: 0.7, rect: self.Grid.frame)
         }
         
         sender.setTranslation(.zero, in: self.view)
@@ -495,12 +497,12 @@ extension ColrCROPViewController {
             switch self.scaleRatio {
             case .free:
                 
-                if x <= self.max.maxX && w >= self.minimumCrop {
+                if x <= self.maxScope.maxX && w >= self.minimumCrop {
                     view.center.x = x
                     self.Grid.frame.size.width = w
                 }
                 
-                if y <= self.max.maxY && h >= self.minimumCrop {
+                if y <= self.maxScope.maxY && h >= self.minimumCrop {
                     view.center.y = y
                     self.Grid.frame.size.height = h
                 }
@@ -510,7 +512,7 @@ extension ColrCROPViewController {
                 if ratio.height >= ratio.width {
                     let multi = w * ratioCalculate
                     let max_y =  multi + Grid.frame.origin.y
-                    if max_y <= max.maxY && x <= max.maxX && w >= self.minimumCrop && h >= self.minimumCrop  {
+                    if max_y <= maxScope.maxY && x <= maxScope.maxX && w >= self.minimumCrop && h >= self.minimumCrop  {
                         view.center.x = x
                         self.Grid.frame.size.width = w
                         self.Grid.frame.size.height = multi
@@ -518,7 +520,7 @@ extension ColrCROPViewController {
                 } else {
                     let multi = w / ratioCalculate
                     let max_y =  multi + Grid.frame.origin.y
-                    if max_y <= max.maxY && x <= max.maxX && w >= self.minimumCrop && h >= self.minimumCrop {
+                    if max_y <= maxScope.maxY && x <= maxScope.maxX && w >= self.minimumCrop && h >= self.minimumCrop {
                         view.center.x = x
                         self.Grid.frame.size.width = w
                         self.Grid.frame.size.height = multi
@@ -529,7 +531,7 @@ extension ColrCROPViewController {
 
             self.Grid.updateContent()
             self.updateMargin()
-            self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+            self.bgview.DimmingOverlay(alpha: 0.7, rect: self.Grid.frame)
             
         }
         
@@ -559,25 +561,25 @@ extension UIImageView {
         }
         self.frame = r
     }
-}
-
-extension UIView {
-    func createOverlay(alpha:CGFloat, rect:CGRect) {
-        self.alpha = alpha
-        let path = UIBezierPath(roundedRect: self.frame,cornerRadius: 0)
-        
-        let circle = UIBezierPath(roundedRect: CGRect (origin: CGPoint(x:rect.origin.x, y: rect.origin.y),
-                                                       size: CGSize(width: rect.width, height: rect.height)), cornerRadius: 0)
-        
-        path.append(circle)
-        path.usesEvenOddFillRule = true
-        
-        let maskLayer = CAShapeLayer()
-        maskLayer.duration = 2
-        maskLayer.path = path.cgPath
-        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
-        
-        self.layer.mask = maskLayer
+    
+    func calculetorImageFrame(frame:CGRect = .zero) -> CGRect {
+        var r:CGRect = .zero
+        if let s = image?.size {
+            
+            let c = s.width / s.height
+            let h = frame.width / c
+            let y = (frame.height / 2) - (h / 2) + frame.origin.y
+            
+            if h > frame.height {
+                let c = s.height / s.width
+                let w = frame.height / c
+                let x = (frame.width / 2) - (w / 2) + frame.origin.x
+                r = .init(x: x, y: frame.origin.y, width: w, height: frame.height)
+            } else {
+                r = .init(x: frame.origin.x, y: y, width: frame.width, height: h)
+            }
+        }
+        return r
     }
 }
 
