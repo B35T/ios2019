@@ -75,6 +75,13 @@
                                     <action selector="PickerImageAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="toV-1V-jNs"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-45" maxValue="45" translatesAutoresizingMaskIntoConstraints="NO" id="LWX-Qj-LeE">
+                                <rect key="frame" x="14" y="521" width="347" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="sliderAcrtion:" destination="BYZ-38-t0r" eventType="valueChanged" id="dnD-yw-5cb"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -83,6 +90,7 @@
                         <outlet property="add" destination="5Ux-MN-exW" id="szd-9K-vau"/>
                         <outlet property="collection" destination="ixg-EJ-16x" id="s5V-WV-XPg"/>
                         <outlet property="cropBtn" destination="Xd5-dg-MgD" id="M7n-qN-SXq"/>
+                        <outlet property="slider" destination="LWX-Qj-LeE" id="JV5-VL-zeM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

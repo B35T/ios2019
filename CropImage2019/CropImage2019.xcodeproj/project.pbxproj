@@ -22,6 +22,7 @@
 		40DC384022508C340066A4AC /* ViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40DC383F22508C340066A4AC /* ViewCell.swift */; };
 		40F0F142225B7016000A1399 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F0F141225B7016000A1399 /* ImageScrollView.swift */; };
 		40F0F144225B85DA000A1399 /* DimmingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F0F143225B85DA000A1399 /* DimmingOverlay.swift */; };
+		40F0F146225B886E000A1399 /* Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F0F145225B886E000A1399 /* Rotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		40DC383F22508C340066A4AC /* ViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCell.swift; sourceTree = "<group>"; };
 		40F0F141225B7016000A1399 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		40F0F143225B85DA000A1399 /* DimmingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingOverlay.swift; sourceTree = "<group>"; };
+		40F0F145225B886E000A1399 /* Rotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				40C13E6C224E0E21001E93F9 /* view.swift */,
 				40F0F141225B7016000A1399 /* ImageScrollView.swift */,
 				40F0F143225B85DA000A1399 /* DimmingOverlay.swift */,
+				40F0F145225B886E000A1399 /* Rotation.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				408C140E224B4A070086151A /* CropImage2019.xcdatamodeld in Sources */,
 				40F0F142225B7016000A1399 /* ImageScrollView.swift in Sources */,
 				40C13E69224E0D55001E93F9 /* CroperViewController.swift in Sources */,
+				40F0F146225B886E000A1399 /* Rotation.swift in Sources */,
 				408C1408224B4A070086151A /* ViewController.swift in Sources */,
 				40C13E6F224E1326001E93F9 /* GridOverlay.swift in Sources */,
 				40DC384022508C340066A4AC /* ViewCell.swift in Sources */,

@@ -15,6 +15,7 @@ class ViewController: CroperViewController {
     @IBOutlet weak var cropBtn: UIButton!
     @IBOutlet weak var add: UIButton!
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var slider: UISlider!
     
     
     override func viewDidLoad() {
@@ -27,6 +28,7 @@ class ViewController: CroperViewController {
         self.view.insertSubview(self.collection, at: 5)
         self.view.insertSubview(self.add, at: 5)
         self.view.insertSubview(self.cropBtn, at: 5)
+        self.view.insertSubview(self.slider, at: 5)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -45,6 +47,11 @@ class ViewController: CroperViewController {
         picker.allowsEditing = false
         
         self.present(picker, animated: true, completion: nil)
+    }
+    
+    @IBAction func sliderAcrtion(_ sender: UISlider) {
+        print(sender.value)
+        self.imageView.rotation(degree: sender.value)
     }
     
 }

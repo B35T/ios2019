@@ -17,6 +17,7 @@ open class imageScrollView: view {
         didSet {
             if let img = image {
                 self.imageview.image = img
+                self.scrollview.contentSize = img.size
             }
         }
     }
@@ -35,6 +36,10 @@ open class imageScrollView: view {
         
         let scrollview = UIScrollView(frame: .zero)
         self.scrollview = scrollview
+        self.scrollview.delegate = self
+        self.scrollview.maximumZoomScale = 3
+        self.scrollview.minimumZoomScale = 1
+        self.scrollview.zoomScale = 1
         self.addSubview(self.scrollview)
         
         let imageview = UIImageView(frame: .zero)
