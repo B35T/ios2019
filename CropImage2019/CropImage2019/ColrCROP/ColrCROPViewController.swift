@@ -39,6 +39,7 @@ open class ColrCROPViewController: UIViewController {
     @IBOutlet weak var bottomRight: margin!
     @IBOutlet weak var topLeft: margin!
     @IBOutlet weak var topRight: margin!
+    @IBOutlet weak var bottomLeft: margin!
     var bgview:UIView!
     var topLeft_o: CGRect = .zero
     
@@ -177,6 +178,13 @@ open class ColrCROPViewController: UIViewController {
         self.topRight.isUserInteractionEnabled = true
         self.view.addSubview(self.topRight)
         
+        let bottomLeft = margin(frame: .init(x: 0, y: 0, width: 20, height: 20))
+        self.bottomLeft = bottomLeft
+        let moveBottomLeft = UIPanGestureRecognizer(target: self, action: #selector(moveBottomLeft(_:)))
+        self.bottomLeft.addGestureRecognizer(moveBottomLeft)
+        self.bottomLeft.isUserInteractionEnabled = true
+        self.view.addSubview(self.bottomLeft)
+        
         self.updateMargin()
     }
     
@@ -188,9 +196,10 @@ open class ColrCROPViewController: UIViewController {
     
     func updateMargin() {
         let g = self.Grid.frame
-        self.bottomRight.origin = .init(x: g.width + g.origin.x - 10, y: g.height + g.origin.y - 10)
+        self.bottomRight.origin = .init(x: g.maxX - 10, y: g.maxY - 10)
         self.topLeft.center = .init(x: g.origin.x, y: g.origin.y)
         self.topRight.center = .init(x: g.maxX, y: g.origin.y)
+        self.bottomLeft.origin = .init(x: g.origin.x - 10, y: g.maxY - 10)
     }
 
     func calScale(size: CGSize) {
@@ -405,6 +414,10 @@ extension ColrCROPViewController {
         }
         
         sender.setTranslation(.zero, in: self.view)
+    }
+    
+    @objc internal func moveBottomLeft(_ sender: UIPanGestureRecognizer) {
+        
     }
     
     @objc internal func moveBottomRight(_ sender: UIPanGestureRecognizer) {
