@@ -270,38 +270,51 @@ extension ColrCROPViewController {
             
             switch sender.state {
             case .began: self.topLeft_o = self.Grid.frame
-            case .ended: self.topLeft_o = self.Grid.frame; print(self.Grid.frame)
+            case .ended: self.topLeft_o = self.Grid.frame
             case .changed:
-                let cal_w = -(topLeft_o.origin.x - x) - topLeft_o.width
-                let cal_h = -(topLeft_o.origin.y - y) - topLeft_o.height
-                
-                
+                let width = topLeft_o.maxX - x
+                let height = topLeft_o.maxY - y
+            
                 switch self.scaleRatio {
                 case .free:
-                    
-                    
-                    if -cal_w >= minimumCrop && -cal_w <= self.max.width && x >= self.max.origin.x {
+                    if width >= minimumCrop && width <= self.max.width && x >= self.max.origin.x {
                         view.center.x = x
                         Grid.frame.origin.x = x
-                        Grid.frame.size.width = -cal_w
+                        Grid.frame.size.width = width
                     }
                     
-                    if -cal_h >= minimumCrop && -cal_h <= self.max.height && y >= self.max.origin.y {
+                    if height >= minimumCrop && height <= self.max.height && y >= self.max.origin.y {
                         view.center.y = y
                         Grid.frame.origin.y = y
-                        Grid.frame.size.height = -cal_h
+                        Grid.frame.size.height = height
                     }
                     
                 default:
-                    if ratio.width > ratio.height {
-                        view.center.x = x
-                        Grid.frame.origin.x = x
-                        Grid.frame.size.width = -cal_w
+                    if ratio.height > ratio.width {
+                        let h = width * ratioCalculate
+                        let y = topLeft_o.maxY - h
+                        
+                        if y >= self.max.origin.y && x >= self.max.origin.x && width >= minimumCrop && height >= minimumCrop {
+                            view.center.x = x
+                            Grid.frame.origin.x = x
+                            Grid.frame.size.width = width
+                            Grid.frame.origin.y = y
+                            Grid.frame.size.height = h
+                        }
+                        
                     } else {
-                        view.center.y = y
-                        Grid.frame.origin.y = y
-                        Grid.frame.size.height = -cal_h
+                        let h = width / ratioCalculate
+                        let y = topLeft_o.maxY - h
+                        
+                        if y >= self.max.origin.y && x >= self.max.origin.x && width >= minimumCrop && height >= minimumCrop {
+                            view.center.x = x
+                            Grid.frame.origin.x = x
+                            Grid.frame.size.width = width
+                            Grid.frame.origin.y = y
+                            Grid.frame.size.height = h
+                        }
                     }
+                    
                 }
             default: break
             }
@@ -361,8 +374,6 @@ extension ColrCROPViewController {
                 }
                 
             }
-                
-            
 
             self.Grid.updateContent()
             self.updateMargin()
