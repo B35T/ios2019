@@ -352,11 +352,6 @@ extension ColrCROPViewController {
             let x = view.center.x + t.x
             let y = view.center.y + t.y
             
-            switch sender.state {
-            case .began: self.topLeft_o = Grid.frame
-            case .ended: self.topLeft_o = Grid.frame
-            default: break
-            }
             switch self.scaleRatio {
             case .free:
                 let w = x - (self.max.width + self.Grid.frame.origin.x)
@@ -379,9 +374,9 @@ extension ColrCROPViewController {
                 
                 if ratio.height >= ratio.width {
                     let height = width * ratioCalculate
-                    let y = self.topLeft_o.maxY - height
+                    let y = self.Grid.frame.maxY - height
                     
-                    if y >= self.max.origin.y && x >= max.origin.x && height >= self.minimumCrop && width >= self.minimumCrop {
+                    if y >= self.max.origin.y && x >= max.origin.x && x <= max.maxX && height >= self.minimumCrop && width >= self.minimumCrop {
                         
                         view.center.x = x
                         self.Grid.frame.origin.y = y
@@ -390,10 +385,9 @@ extension ColrCROPViewController {
                     }
                 } else {
                     let height = width / ratioCalculate
-                    let y = self.topLeft_o.maxY - height
+                    let y = self.Grid.frame.maxY - height
                     
-                    if y >= self.max.origin.y && x >= max.origin.x && height >= self.minimumCrop && width >= self.minimumCrop {
-                        
+                    if y >= self.max.origin.y && x >= max.origin.x && x <= max.maxX && height >= self.minimumCrop && width >= self.minimumCrop {
                         view.center.x = x
                         self.Grid.frame.origin.y = y
                         self.Grid.frame.size.width = width
@@ -417,7 +411,64 @@ extension ColrCROPViewController {
     }
     
     @objc internal func moveBottomLeft(_ sender: UIPanGestureRecognizer) {
+        let t = sender.translation(in: self.view)
+        if let view = sender.view {
+            
+            let x = view.center.x + t.x
+            let y = view.center.y + t.y
+            
+            
+            
+            switch self.scaleRatio {
+            case .free:
+                let width = Grid.frame.width - (x - Grid.frame.origin.x)
+                let height = y - Grid.frame.origin.y
+                
+                if x >= self.max.origin.x && width >= self.minimumCrop {
+                    view.center.x = x
+                    self.Grid.frame.origin.x = x
+                    self.Grid.frame.size.width = width
+                }
+                
+                if y <= self.max.maxY && height >= self.minimumCrop {
+                    view.center.y = y
+                    self.Grid.frame.size.height = height
+                }
+                
+                break
+            default:
+                let width = Grid.frame.width - (x - Grid.frame.origin.x)
+                
+                
+                if ratio.height >= ratio.width {
+                    let height = width * ratioCalculate
+                    let max_y =  height + Grid.frame.origin.y
+                    
+                    if x >= self.max.origin.x && max_y <= max.maxY && width >= self.minimumCrop && height >= self.minimumCrop {
+                        view.center.x = x
+                        self.Grid.frame.origin.x = x
+                        self.Grid.frame.size.width = width
+                        self.Grid.frame.size.height = height
+                    }
+                } else {
+                    let height = width / ratioCalculate
+                    let max_y =  height + Grid.frame.origin.y
+                    
+                    if x >= self.max.origin.x && max_y <= max.maxY && width >= self.minimumCrop && height >= self.minimumCrop {
+                        view.center.x = x
+                        self.Grid.frame.origin.x = x
+                        self.Grid.frame.size.width = width
+                        self.Grid.frame.size.height = height
+                    }
+                }
+            }
+            
+            self.Grid.updateContent()
+            self.updateMargin()
+            self.bgview.createOverlay(alpha: 0.7, rect: self.Grid.frame)
+        }
         
+        sender.setTranslation(.zero, in: self.view)
     }
     
     @objc internal func moveBottomRight(_ sender: UIPanGestureRecognizer) {
@@ -461,7 +512,6 @@ extension ColrCROPViewController {
                         self.Grid.frame.size.width = w
                         self.Grid.frame.size.height = multi
                     }
-                    
                 }
                 
             }
