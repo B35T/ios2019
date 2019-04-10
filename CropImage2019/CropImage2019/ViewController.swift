@@ -9,7 +9,7 @@
 import UIKit
 
 
-class ViewController: CroperViewController {
+class ViewController: CroprViewController {
     
     
     @IBOutlet weak var cropBtn: UIButton!
@@ -50,7 +50,6 @@ class ViewController: CroperViewController {
     }
     
     @IBAction func sliderAcrtion(_ sender: UISlider) {
-        print(sender.value)
         self.imageView.rotation(degree: sender.value)
     }
     

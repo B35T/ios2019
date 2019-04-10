@@ -15,7 +15,7 @@
 		408C1413224B4A090086151A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 408C1411224B4A090086151A /* LaunchScreen.storyboard */; };
 		408C141E224B4A090086151A /* CropImage2019Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408C141D224B4A090086151A /* CropImage2019Tests.swift */; };
 		408C1429224B4A090086151A /* CropImage2019UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408C1428224B4A090086151A /* CropImage2019UITests.swift */; };
-		40C13E69224E0D55001E93F9 /* CroperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E68224E0D55001E93F9 /* CroperViewController.swift */; };
+		40C13E69224E0D55001E93F9 /* CroprViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E68224E0D55001E93F9 /* CroprViewController.swift */; };
 		40C13E6B224E0D9D001E93F9 /* margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E6A224E0D9D001E93F9 /* margin.swift */; };
 		40C13E6D224E0E21001E93F9 /* view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E6C224E0E21001E93F9 /* view.swift */; };
 		40C13E6F224E1326001E93F9 /* GridOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C13E6E224E1326001E93F9 /* GridOverlay.swift */; };
@@ -57,7 +57,7 @@
 		408C1424224B4A090086151A /* CropImage2019UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CropImage2019UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		408C1428224B4A090086151A /* CropImage2019UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImage2019UITests.swift; sourceTree = "<group>"; };
 		408C142A224B4A090086151A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40C13E68224E0D55001E93F9 /* CroperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroperViewController.swift; sourceTree = "<group>"; };
+		40C13E68224E0D55001E93F9 /* CroprViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroprViewController.swift; sourceTree = "<group>"; };
 		40C13E6A224E0D9D001E93F9 /* margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = margin.swift; sourceTree = "<group>"; };
 		40C13E6C224E0E21001E93F9 /* view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = view.swift; sourceTree = "<group>"; };
 		40C13E6E224E1326001E93F9 /* GridOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOverlay.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 		40C13E67224E0D3B001E93F9 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				40C13E68224E0D55001E93F9 /* CroperViewController.swift */,
+				40C13E68224E0D55001E93F9 /* CroprViewController.swift */,
 				40C13E6A224E0D9D001E93F9 /* margin.swift */,
 				40C13E6E224E1326001E93F9 /* GridOverlay.swift */,
 				40C13E6C224E0E21001E93F9 /* view.swift */,
@@ -305,7 +305,7 @@
 				40F0F144225B85DA000A1399 /* DimmingOverlay.swift in Sources */,
 				408C140E224B4A070086151A /* CropImage2019.xcdatamodeld in Sources */,
 				40F0F142225B7016000A1399 /* ImageScrollView.swift in Sources */,
-				40C13E69224E0D55001E93F9 /* CroperViewController.swift in Sources */,
+				40C13E69224E0D55001E93F9 /* CroprViewController.swift in Sources */,
 				40F0F146225B886E000A1399 /* Rotation.swift in Sources */,
 				408C1408224B4A070086151A /* ViewController.swift in Sources */,
 				40C13E6F224E1326001E93F9 /* GridOverlay.swift in Sources */,

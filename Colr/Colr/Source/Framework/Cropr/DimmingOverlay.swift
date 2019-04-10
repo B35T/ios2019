@@ -1,15 +1,15 @@
 //
-//  GridOverlay.swift
-//  Colr
+//  DimmingOverlay.swift
+//  CropImage2019
 //
-//  Created by chaloemphong on 18/3/2562 BE.
+//  Created by chaloemphong on 8/4/2562 BE.
 //  Copyright © 2562 charoemphong. All rights reserved.
 //
 
 import UIKit
 
 extension UIView {
-    func createOverlay(alpha:CGFloat, rect:CGRect) {
+    func DimmingOverlay(alpha:CGFloat, rect:CGRect) {
         self.alpha = alpha
         let path = UIBezierPath(roundedRect: self.frame,cornerRadius: 0)
         
@@ -27,3 +27,4 @@ extension UIView {
         self.layer.mask = maskLayer
     }
 }
+

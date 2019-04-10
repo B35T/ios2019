@@ -40,14 +40,22 @@ extension MenuCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCell, for: indexPath) as! PhotosCell
         cell.thumbnailImage = images?[indexPath.item]
-        cell.useIsSelect = .line
+        cell.imageview.alpha = 0.5
+        cell.useIsSelect = .highlight
         return cell
     }
 }
 
 extension MenuCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCell, for: indexPath) as! PhotosCell
+        cell.isSelected = true
         self.delegate?.MenuCellSelected(indexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCell, for: indexPath) as! PhotosCell
+        cell.isSelected = false
     }
 }
 

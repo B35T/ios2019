@@ -21,6 +21,7 @@ class PhotosCell: UICollectionViewCell {
         case none
         case line
         case color
+        case highlight
     }
     
     let select:CALayer = CALayer()
@@ -29,8 +30,10 @@ class PhotosCell: UICollectionViewCell {
             switch self.useIsSelect {
             case .line:
                 if self.isSelected {
+                    self.imageview.alpha = 1
                     self.layer.addSublayer(self.select)
                 } else {
+                    self.imageview.alpha = 0.5
                     self.select.removeFromSuperlayer()
                 }
             case .color:
@@ -40,6 +43,12 @@ class PhotosCell: UICollectionViewCell {
                 } else {
                     textLabel.backgroundColor = .white
                     textLabel.textColor = self.textColor
+                }
+            case .highlight:
+                if self.isSelected {
+                    self.imageview.alpha = 1
+                } else {
+                    self.imageview.alpha = 0.5
                 }
             default:
                 break

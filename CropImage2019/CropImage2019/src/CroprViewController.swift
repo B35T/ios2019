@@ -32,7 +32,7 @@ public enum setScale: Int {
     }
 }
 
-open class CroperViewController: UIViewController {
+open class CroprViewController: UIViewController {
     
     @IBOutlet weak var Grid: GridOverlay!
     @IBOutlet weak var imageView: imageScrollView!
@@ -258,7 +258,7 @@ open class CroperViewController: UIViewController {
     }
 }
 
-extension CroperViewController {
+extension CroprViewController {
     @objc internal func moveGrid(_ sender: UIPanGestureRecognizer) {
         let t = sender.translation(in: self.view)
         if let view = sender.view {

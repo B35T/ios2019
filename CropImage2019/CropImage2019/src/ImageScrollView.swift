@@ -13,11 +13,11 @@ open class imageScrollView: view {
     @IBOutlet open weak var scrollview: UIScrollView!
     @IBOutlet open weak var imageview: UIImageView!
     
+    public var radians:CGFloat = 0
     public var image:UIImage? = nil {
         didSet {
             if let img = image {
                 self.imageview.image = img
-                self.scrollview.contentSize = img.size
             }
         }
     }
