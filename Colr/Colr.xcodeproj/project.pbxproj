@@ -39,6 +39,17 @@
 		408F57202227CE280000A7D6 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F571F2227CE280000A7D6 /* CustomLabel.swift */; };
 		408F57222227CE560000A7D6 /* PresetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F57212227CE560000A7D6 /* PresetLabel.swift */; };
 		408F57252227D3830000A7D6 /* config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408F57242227D3830000A7D6 /* config.swift */; };
+		4093425C225EF0DA00009FEA /* HSLColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4093425A225EF0DA00009FEA /* HSLColorCell.swift */; };
+		4093425D225EF0DA00009FEA /* HSLColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4093425B225EF0DA00009FEA /* HSLColorCell.xib */; };
+		4093425F225EF1D400009FEA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4093425E225EF1D400009FEA /* Color.swift */; };
+		40934262225EF68A00009FEA /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934260225EF68A00009FEA /* SliderCell.swift */; };
+		40934263225EF68A00009FEA /* SliderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40934261225EF68A00009FEA /* SliderCell.xib */; };
+		40934268225EFEFA00009FEA /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934266225EFEFA00009FEA /* ColorCell.swift */; };
+		40934269225EFEFA00009FEA /* ColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40934267225EFEFA00009FEA /* ColorCell.xib */; };
+		40934271225F0AF900009FEA /* HSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934270225F0AF900009FEA /* HSLViewController.swift */; };
+		40934273225F1E1D00009FEA /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934272225F1E1D00009FEA /* Slider.swift */; };
+		40934276225F1E5B00009FEA /* HSLSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934275225F1E5B00009FEA /* HSLSlider.swift */; };
+		40934278225F24BD00009FEA /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934277225F24BD00009FEA /* extension.swift */; };
 		40CCEC23221E607B007498C5 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC22221E607B007498C5 /* CustomButton.swift */; };
 		40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC24221E612F007498C5 /* CloseButton.swift */; };
 		40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC26221E61F1007498C5 /* NextButton.swift */; };
@@ -101,6 +112,17 @@
 		408F571F2227CE280000A7D6 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		408F57212227CE560000A7D6 /* PresetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetLabel.swift; sourceTree = "<group>"; };
 		408F57242227D3830000A7D6 /* config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = config.swift; sourceTree = "<group>"; };
+		4093425A225EF0DA00009FEA /* HSLColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLColorCell.swift; sourceTree = "<group>"; };
+		4093425B225EF0DA00009FEA /* HSLColorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HSLColorCell.xib; sourceTree = "<group>"; };
+		4093425E225EF1D400009FEA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		40934260225EF68A00009FEA /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
+		40934261225EF68A00009FEA /* SliderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderCell.xib; sourceTree = "<group>"; };
+		40934266225EFEFA00009FEA /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		40934267225EFEFA00009FEA /* ColorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorCell.xib; sourceTree = "<group>"; };
+		40934270225F0AF900009FEA /* HSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLViewController.swift; sourceTree = "<group>"; };
+		40934272225F1E1D00009FEA /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		40934275225F1E5B00009FEA /* HSLSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLSlider.swift; sourceTree = "<group>"; };
+		40934277225F24BD00009FEA /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		40CCEC22221E607B007498C5 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		40CCEC24221E612F007498C5 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		40CCEC26221E61F1007498C5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -226,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */,
+				40934277225F24BD00009FEA /* extension.swift */,
 				401B4C22221BD76800F5E2C9 /* Controllers */,
 				401B4BF0221BD62500F5E2C9 /* Main.storyboard */,
 			);
@@ -242,8 +265,10 @@
 		401B4C21221BD75500F5E2C9 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				408F57232227D3740000A7D6 /* Config */,
+				40934255225EEFE700009FEA /* HSL */,
+				40934252225EEF6100009FEA /* ProfileController */,
 				400F576E225DD2CB007A0DB6 /* Cropr */,
-				408F57232227D3740000A7D6 /* config */,
 				40CCEC21221E605F007498C5 /* Button & Label */,
 				4011BB6E221D226E0004CE44 /* Collection */,
 				401B4C25221BD98400F5E2C9 /* Photos */,
@@ -259,6 +284,7 @@
 				40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */,
 				408EC0412226611400729533 /* SubscriptionViewController.swift */,
 				40140889223387900025E539 /* CropViewController.swift */,
+				40934270225F0AF900009FEA /* HSLViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -287,12 +313,49 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		408F57232227D3740000A7D6 /* config */ = {
+		408F57232227D3740000A7D6 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				4093425E225EF1D400009FEA /* Color.swift */,
 				408F57242227D3830000A7D6 /* config.swift */,
 			);
-			path = config;
+			path = Config;
+			sourceTree = "<group>";
+		};
+		40934252225EEF6100009FEA /* ProfileController */ = {
+			isa = PBXGroup;
+			children = (
+				40934254225EEF8C00009FEA /* Sources */,
+				40934253225EEF7E00009FEA /* JsonProfile */,
+			);
+			path = ProfileController;
+			sourceTree = "<group>";
+		};
+		40934253225EEF7E00009FEA /* JsonProfile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = JsonProfile;
+			sourceTree = "<group>";
+		};
+		40934254225EEF8C00009FEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		40934255225EEFE700009FEA /* HSL */ = {
+			isa = PBXGroup;
+			children = (
+				4093425A225EF0DA00009FEA /* HSLColorCell.swift */,
+				4093425B225EF0DA00009FEA /* HSLColorCell.xib */,
+				40934260225EF68A00009FEA /* SliderCell.swift */,
+				40934261225EF68A00009FEA /* SliderCell.xib */,
+				40934266225EFEFA00009FEA /* ColorCell.swift */,
+				40934267225EFEFA00009FEA /* ColorCell.xib */,
+			);
+			path = HSL;
 			sourceTree = "<group>";
 		};
 		40CCEC21221E605F007498C5 /* Button & Label */ = {
@@ -304,6 +367,8 @@
 				408F571D2227BF8F0000A7D6 /* SaveButton.swift */,
 				408F571F2227CE280000A7D6 /* CustomLabel.swift */,
 				408F57212227CE560000A7D6 /* PresetLabel.swift */,
+				40934272225F1E1D00009FEA /* Slider.swift */,
+				40934275225F1E5B00009FEA /* HSLSlider.swift */,
 			);
 			path = "Button & Label";
 			sourceTree = "<group>";
@@ -415,7 +480,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4093425D225EF0DA00009FEA /* HSLColorCell.xib in Resources */,
 				408EC0732226890B00729533 /* MenuCell.xib in Resources */,
+				40934263225EF68A00009FEA /* SliderCell.xib in Resources */,
+				40934269225EFEFA00009FEA /* ColorCell.xib in Resources */,
 				4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */,
 				408EC07B22268E7400729533 /* GroupsCell.xib in Resources */,
 				408EC07722268AE300729533 /* PresetCell.xib in Resources */,
@@ -447,13 +515,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				400F577E225DDB7A007A0DB6 /* ButtonBlendMode.swift in Sources */,
+				40934273225F1E1D00009FEA /* Slider.swift in Sources */,
 				408EC04022265A3E00729533 /* PreviewViewCell.swift in Sources */,
 				400F5776225DD3E0007A0DB6 /* view.swift in Sources */,
 				401B4BEF221BD62500F5E2C9 /* MainViewController.swift in Sources */,
 				4014088A223387900025E539 /* CropViewController.swift in Sources */,
 				402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */,
 				408EC07622268AE300729533 /* PresetCell.swift in Sources */,
+				40934278225F24BD00009FEA /* extension.swift in Sources */,
+				40934262225EF68A00009FEA /* SliderCell.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
+				40934268225EFEFA00009FEA /* ColorCell.swift in Sources */,
 				408EC07A22268E7400729533 /* GroupsCell.swift in Sources */,
 				408F57222227CE560000A7D6 /* PresetLabel.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
@@ -461,6 +533,7 @@
 				408F57202227CE280000A7D6 /* CustomLabel.swift in Sources */,
 				408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */,
 				400F5772225DD3BC007A0DB6 /* margin.swift in Sources */,
+				40934276225F1E5B00009FEA /* HSLSlider.swift in Sources */,
 				40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */,
 				400F577A225DD40B007A0DB6 /* DimmingOverlay.swift in Sources */,
 				4011BB7B221D26350004CE44 /* PhotosCell.swift in Sources */,
@@ -468,9 +541,12 @@
 				40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */,
 				401B4BED221BD62500F5E2C9 /* AppDelegate.swift in Sources */,
 				408F57252227D3830000A7D6 /* config.swift in Sources */,
+				40934271225F0AF900009FEA /* HSLViewController.swift in Sources */,
+				4093425C225EF0DA00009FEA /* HSLColorCell.swift in Sources */,
 				400F577C225DD420007A0DB6 /* Rotation.swift in Sources */,
 				408EC0722226890B00729533 /* MenuCell.swift in Sources */,
 				400F5778225DD3F5007A0DB6 /* ImageScrollView.swift in Sources */,
+				4093425F225EF1D400009FEA /* Color.swift in Sources */,
 				400F5774225DD3D0007A0DB6 /* GridOverlay.swift in Sources */,
 				408F571E2227BF8F0000A7D6 /* SaveButton.swift in Sources */,
 			);

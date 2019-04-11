@@ -1,8 +1,15 @@
+//
+//  Slider.swift
+//  Colr
+//
+//  Created by chaloemphong on 11/4/2562 BE.
+//  Copyright © 2562 charoemphong. All rights reserved.
+//
 
 import UIKit
 
-open class CustomLabel: UILabel {
-    
+open class Slider: UISlider {
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         

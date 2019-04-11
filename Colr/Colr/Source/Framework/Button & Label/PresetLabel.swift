@@ -14,7 +14,16 @@ open class PresetLabel: CustomLabel {
         self.center.x = view.center.x
     }
     
+    open override func setup(font:UIFont = UIFont.boldSystemFont(ofSize: 14)) {
+        super.setup(font: font)
+        
+        self.textColor = .white
+        self.backgroundColor = .clear
+        self.font = font
+    }
+    
     open override func add(view:UIView,_ p: CGPoint = .zero, _ s: CGSize = CGSize(width: 110, height: 40)) {
+        super.add(view: view, p, s)
         self.frame = .init(origin: p, size: s)
         self.backgroundColor = .white
         self.layer.cornerRadius = 20

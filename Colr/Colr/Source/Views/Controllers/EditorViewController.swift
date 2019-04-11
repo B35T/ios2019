@@ -19,6 +19,17 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var saveBtn: SaveButton!
     @IBOutlet weak var label: PresetLabel!
     
+    var selectMenu: Int = 0
+    
+    private var image: UIImage? {
+        didSet {
+            if let img = image {
+                self.imageView.image = img
+            } else {
+                print("no image")
+            }
+        }
+    }
     
     enum Cells: String {
         case PresetCell
@@ -39,7 +50,7 @@ class EditorViewController: UIViewController {
         
         self.view.backgroundColor = .black
 
-        let imageView = UIImageView(frame: .init(x: 0, y: 0, width: view.w, height: view.h.minus(n: 160)))
+        let imageView = UIImageView(frame: .init(x: 0, y: 0, width: view.w, height: view.h.persen(p: 76)))
         imageView.contentMode = .scaleAspectFit
         self.imageView = imageView
         self.view.addSubview(self.imageView)
@@ -59,6 +70,8 @@ class EditorViewController: UIViewController {
         presetLabel.text = "OG \\ 100"
         self.label = presetLabel
         
+        
+        
         self.updateStaticPhotos()
     }
     
@@ -69,7 +82,9 @@ class EditorViewController: UIViewController {
         
         let s = UIScreen.main.bounds.width * UIScreen.main.scale
         PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .aspectFit, options: option) { (image, _) in
-            self.imageView.image = image
+            self.image = image
+            self.imageView.image = self.image
+            print(image?.size ?? 0.0)
         }
         
     }
@@ -91,13 +106,30 @@ class EditorViewController: UIViewController {
         if segue.identifier == "CropPage" {
             guard let croping = segue.destination as? CropViewController else {return}
             guard let asset = self.asset else {return}
-            
+            croping.delegate = self
             croping.asset = asset
+        }
+        
+        if segue.identifier == "HSL" {
+            guard let HSL = segue.destination as? HSLViewController else {return}
+            HSL.delegate = self
+            HSL.modalPresentationStyle = .overCurrentContext
+            self.imageView.scale(view: view, persen: 50, duration: 0.2)
+            self.closeBtn.animatedHidden()
+            self.saveBtn.animatedHidden()
+            self.label.animatedHidden()
         }
     }
 }
 
-extension EditorViewController: PresetCellDelegate, MenuCellDelegate {
+extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewControllerDelegate, HSLViewControllerDelegate {
+    func HSLViewBack() {
+        self.imageView.scale(view: view, persen: 76, duration: 0.3)
+        self.closeBtn.animatedHidden(action: false)
+        self.saveBtn.animatedHidden(action: false)
+        self.label.animatedHidden(action: false)
+    }
+    
     func PresetSelectItem(indexPath: IndexPath, identifier: String) {
         if identifier == "OG" {
             self.label.text = "OG"
@@ -108,11 +140,18 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate {
     
     func MenuCellSelected(indexPath: IndexPath) {
         switch indexPath.item {
-        case 0,1,2:
+        case 1:
+            self.performSegue(withIdentifier: "HSL", sender: nil)
+            
+        case 6:
             self.performSegue(withIdentifier: "CropPage", sender: nil)
         default:
             break
         }
+    }
+    
+    func cropResult(image: UIImage, zone: CGRect) {
+        self.image = image
     }
     
 }
@@ -148,7 +187,11 @@ extension EditorViewController: UICollectionViewDataSource {
     }
 }
 
-extension EditorViewController: UICollectionViewDelegate {}
+extension EditorViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+}
 
 extension EditorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

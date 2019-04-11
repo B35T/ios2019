@@ -9,6 +9,10 @@
 import UIKit
 import Photos
 
+public protocol CropViewControllerDelegate {
+    func cropResult(image:UIImage, zone:CGRect)
+}
+
 
 class CropViewController: CroprViewController {
     
@@ -18,6 +22,8 @@ class CropViewController: CroprViewController {
     @IBOutlet weak var closeBtn: CloseButtonIcon!
     @IBOutlet weak var chooseBtn: ChooseButtonIcon!
     @IBOutlet weak var labelTitle: UILabel!
+    
+    public var delegate: CropViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +41,7 @@ class CropViewController: CroprViewController {
         
         let chooseBtn = ChooseButtonIcon()
         self.chooseBtn = chooseBtn
-        chooseBtn.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
+        chooseBtn.addTarget(self, action: #selector(cropAction), for: .touchUpInside)
         chooseBtn.add(view: view, .init(x: view.w - 60, y: view.h - 60))
         
         self.view.backgroundColor = .black
@@ -53,6 +59,15 @@ class CropViewController: CroprViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc internal func cropAction() {
+        if let image = self.cropping() {
+            self.delegate?.cropResult(image: image, zone: self.cropZone)
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            print("error")
+        }
+    }
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -62,6 +77,8 @@ extension CropViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotosCell", for: indexPath) as! PhotosCell
         cell.isSelected = true
+        
+        self.scaleRatio = setScale(rawValue: indexPath.item) ?? setScale.free
     }
 }
 

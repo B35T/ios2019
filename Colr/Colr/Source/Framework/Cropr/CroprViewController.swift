@@ -9,9 +9,9 @@
 import UIKit
 
 public enum setScale: Int {
-    case free = 0
+    case image = 0
+    case free
     case sq
-    case image
     case _32
     case _23
     case _43
@@ -42,7 +42,7 @@ open class CroprViewController: UIViewController {
     @IBOutlet weak var bottomLeft: margin!
     var bgview:UIView!
     var topLeft_o: CGRect = .zero
-    
+    var cropZone: CGRect = .zero
     
     
     var scaleRatio: setScale = .image {
@@ -250,6 +250,7 @@ open class CroprViewController: UIViewController {
         let cropZone = CGRect(x: (rect.origin.x - self.maxScope.origin.x) * imageScale, y: (rect.origin.y - self.maxScope.origin.y) * imageScale, width: rect.width * imageScale, height: rect.height * imageScale)
         
         guard let cropImage = image.cgImage?.cropping(to: cropZone) else {return nil}
+        self.cropZone = cropZone
         return UIImage(cgImage: cropImage)
     }
 }

@@ -20,6 +20,8 @@ class MenuCell: UICollectionViewCell {
     var images: [UIImage]?
     let phCell = "PhotosCell"
     
+    var phCells: [Int:PhotosCell] = [:]
+    var select = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -42,14 +44,21 @@ extension MenuCell: UICollectionViewDataSource {
         cell.thumbnailImage = images?[indexPath.item]
         cell.imageview.alpha = 0.5
         cell.useIsSelect = .highlight
+        self.phCells.updateValue(cell, forKey: indexPath.item)
+        if indexPath.item == self.select {
+            cell.isSelected = true
+        }
         return cell
     }
 }
 
 extension MenuCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCell, for: indexPath) as! PhotosCell
-        cell.isSelected = true
+        let pre = self.select
+        self.phCells[pre]?.isSelected = false
+        
+        self.select = indexPath.item
+        self.phCells[self.select]?.isSelected = true
         self.delegate?.MenuCellSelected(indexPath: indexPath)
     }
     

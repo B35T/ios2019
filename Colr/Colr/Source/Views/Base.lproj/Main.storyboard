@@ -169,11 +169,63 @@
                     <connections>
                         <outlet property="collectionView" destination="4RD-eJ-Ny5" id="CIC-nk-T1f"/>
                         <segue destination="vzL-Xs-G0D" kind="presentation" identifier="CropPage" modalTransitionStyle="crossDissolve" id="VUv-FP-QJb"/>
+                        <segue destination="3Tv-ld-qNg" kind="show" identifier="HSL" id="asi-gz-Gvh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uji-4k-dY0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3312.8000000000002" y="-1031.3343328335832"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="TCZ-f8-y4y">
+            <objects>
+                <viewController id="3Tv-ld-qNg" customClass="HSLViewController" customModule="Colr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bBg-ZP-avZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ri0-SO-QY2">
+                                <rect key="frame" x="0.0" y="267" width="375" height="400"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="51y-h8-195">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="340"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mgb-6O-ZKF">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="1DM-7d-tiu"/>
+                                    <constraint firstItem="51y-h8-195" firstAttribute="top" secondItem="ri0-SO-QY2" secondAttribute="top" id="j3f-A2-Jn7"/>
+                                    <constraint firstAttribute="bottom" secondItem="51y-h8-195" secondAttribute="bottom" constant="60" id="qkk-h8-ugY"/>
+                                    <constraint firstAttribute="width" constant="375" id="xQo-2x-VNo"/>
+                                    <constraint firstAttribute="trailing" secondItem="51y-h8-195" secondAttribute="trailing" id="xkA-rb-ze0"/>
+                                    <constraint firstItem="51y-h8-195" firstAttribute="leading" secondItem="ri0-SO-QY2" secondAttribute="leading" id="y8m-AN-fRo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ri0-SO-QY2" firstAttribute="bottom" secondItem="MYn-ha-NOg" secondAttribute="bottom" id="73L-aC-G8t"/>
+                            <constraint firstItem="ri0-SO-QY2" firstAttribute="trailing" secondItem="MYn-ha-NOg" secondAttribute="trailing" id="BD2-8b-fNA"/>
+                            <constraint firstItem="ri0-SO-QY2" firstAttribute="leading" secondItem="MYn-ha-NOg" secondAttribute="leading" id="g3N-U7-1m1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MYn-ha-NOg"/>
+                    </view>
+                    <connections>
+                        <outlet property="background" destination="ri0-SO-QY2" id="biQ-4X-aQF"/>
+                        <outlet property="collectionView" destination="51y-h8-195" id="VcW-oF-7ra"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lQf-Qy-Bgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4386.3999999999996" y="-1033.1334332833585"/>
         </scene>
         <!--Crop View Controller-->
         <scene sceneID="Wn9-ay-htP">
