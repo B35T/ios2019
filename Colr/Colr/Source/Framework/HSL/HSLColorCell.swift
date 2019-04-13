@@ -8,13 +8,24 @@
 
 import UIKit
 
+public protocol HSLColorCellDelegate {
+    func HSLColorSelect(HSL:Any?, index:Int)
+}
+
 class HSLColorCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     let screen = UIScreen.main.bounds
     let color = Color()
     
-    var select = 0
+    var delegate: HSLColorCellDelegate?
+    
+    var select = 0 {
+        didSet {
+            let color = Color.HSLColorSet.init(rawValue: self.select)
+            self.delegate?.HSLColorSelect(HSL: color, index: self.select)
+        }
+    }
     var colors:[Int:ColorCell] = [:]
     override func awakeFromNib() {
         super.awakeFromNib()

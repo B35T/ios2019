@@ -121,7 +121,7 @@ open class CroprViewController: UIViewController {
             if let image = self.image {
    
                 self.imageView.image = image
-                self.imageView.rect = .init(x: 20, y: 20, width: view.frame.width - 40, height: 500)
+                self.imageView.rect = .init(x: 20, y: 20, width: view.frame.width - 40, height: view.h.persen(p: 75))
                 self.maxScope = self.imageView.frame
                 self.Grid.rect = self.maxScope
                 self.Grid.updateContent()
@@ -136,7 +136,7 @@ open class CroprViewController: UIViewController {
     open override func loadView() {
         super.loadView()
         
-        let imageView = imageScrollView(frame: .init(x: 20, y: 20, width: view.frame.width - 40, height: 500))
+        let imageView = imageScrollView(frame: .init(x: 20, y: 20, width: view.frame.width - 40, height: view.h.persen(p: 75)))
         self.imageView = imageView
         self.imageView.config()
         self.view.addSubview(self.imageView)

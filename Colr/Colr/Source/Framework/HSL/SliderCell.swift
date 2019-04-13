@@ -8,22 +8,38 @@
 
 import UIKit
 
+public protocol HSLSliderDelegate {
+    func HSLSliderValue(title: String?, value:Float)
+}
+
 class SliderCell: UICollectionViewCell {
 
+    var delegate: HSLSliderDelegate?
+
+    
     @IBOutlet weak var slider: HSLSlider!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var resetBtn: UIButton!
     @IBOutlet weak var valueLabel: UILabel!
     
     
-    var value:String? = "0.0"{
+    var value:Float? = 0.0 {
         didSet {
-            self.valueLabel.text = self.value
+            self.slider.value = self.value ?? 0.0
+            self.valueLabel.text = String(format: "%0.2f", self.value ?? 0.0)
         }
     }
     var title: String? {
         didSet {
             self.labelTitle.text = self.title
+            
+            switch self.title ?? "" {
+            case "Hue": self.slider.minimumValue = -0.5; self.slider.maximumValue = 0.5; self.slider.value = 0
+            case "Saturation": self.slider.minimumValue = 0; self.slider.maximumValue = 2; self.slider.value = 1
+            case "Lightness": self.slider.minimumValue = 0; self.slider.maximumValue = 2; self.slider.value = 1
+            default:
+                break
+            }
         }
     }
     
@@ -33,7 +49,7 @@ class SliderCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.slider.add()
-        self.value = "0.0"
+        self.value = 0.0
         self.resetBtn.setTitleColor(.white, for: .normal)
         self.resetBtn.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.resetBtn.layer.cornerRadius = 3
@@ -44,12 +60,17 @@ class SliderCell: UICollectionViewCell {
     }
 
     @objc internal func resetAction(_ sender: UIButton) {
-        self.value = "0.0"
-        self.slider.value = 0.0
+        switch self.title ?? "" {
+        case "Hue": self.value = 0.0
+        case "Saturation": self.value = 1.0
+        case "Lightness": self.value = 1.0
+        default:
+            break
+        }
     }
     
     @objc internal func sliderAction(_ sender: UISlider) {
-        let str = String(format: "%0.2f", sender.value)
-        self.value = str
+        self.value = sender.value
+        self.delegate?.HSLSliderValue(title: title, value: sender.value)
     }
 }

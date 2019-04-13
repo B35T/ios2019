@@ -113,6 +113,7 @@ class EditorViewController: UIViewController {
         if segue.identifier == "HSL" {
             guard let HSL = segue.destination as? HSLViewController else {return}
             HSL.delegate = self
+            HSL.image = self.image
             HSL.modalPresentationStyle = .overCurrentContext
             self.imageView.scale(view: view, persen: 50, duration: 0.2)
             self.closeBtn.animatedHidden()
@@ -123,6 +124,10 @@ class EditorViewController: UIViewController {
 }
 
 extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewControllerDelegate, HSLViewControllerDelegate {
+    func HSLResult(image: UIImage?) {
+        self.imageView.image = image
+    }
+    
     func HSLViewBack() {
         self.imageView.scale(view: view, persen: 76, duration: 0.3)
         self.closeBtn.animatedHidden(action: false)
