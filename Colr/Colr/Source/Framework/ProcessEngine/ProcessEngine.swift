@@ -16,7 +16,6 @@ open class ProcessEngine: ProcessEngineProtocal {
     
     public func process() -> UIImage? {
         guard let profile = profile?.HSL else { fatalError() }
-        print(profile)
         return nil
     }
 }

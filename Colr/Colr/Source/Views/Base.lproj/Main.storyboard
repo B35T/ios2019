@@ -184,11 +184,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ri0-SO-QY2">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ri0-SO-QY2">
                                 <rect key="frame" x="0.0" y="267" width="375" height="400"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="51y-h8-195">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="51y-h8-195">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="340"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mgb-6O-ZKF">
                                             <size key="itemSize" width="50" height="50"/>
@@ -200,22 +202,9 @@
                                     </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="1DM-7d-tiu"/>
-                                    <constraint firstItem="51y-h8-195" firstAttribute="top" secondItem="ri0-SO-QY2" secondAttribute="top" id="j3f-A2-Jn7"/>
-                                    <constraint firstAttribute="bottom" secondItem="51y-h8-195" secondAttribute="bottom" constant="60" id="qkk-h8-ugY"/>
-                                    <constraint firstAttribute="width" constant="375" id="xQo-2x-VNo"/>
-                                    <constraint firstAttribute="trailing" secondItem="51y-h8-195" secondAttribute="trailing" id="xkA-rb-ze0"/>
-                                    <constraint firstItem="51y-h8-195" firstAttribute="leading" secondItem="ri0-SO-QY2" secondAttribute="leading" id="y8m-AN-fRo"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="ri0-SO-QY2" firstAttribute="bottom" secondItem="MYn-ha-NOg" secondAttribute="bottom" id="73L-aC-G8t"/>
-                            <constraint firstItem="ri0-SO-QY2" firstAttribute="trailing" secondItem="MYn-ha-NOg" secondAttribute="trailing" id="BD2-8b-fNA"/>
-                            <constraint firstItem="ri0-SO-QY2" firstAttribute="leading" secondItem="MYn-ha-NOg" secondAttribute="leading" id="g3N-U7-1m1"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="MYn-ha-NOg"/>
                     </view>
                     <connections>

@@ -82,6 +82,7 @@ class HSLViewController: UIViewController {
         labelTitle.text = "HSL"
         
         Multi.inputImage = ciimage
+        self.update()
         self.prevoid = HSLModelValue
     }
 
@@ -167,6 +168,18 @@ extension HSLViewController: HSLSliderDelegate , HSLColorCellDelegate {
         self.sliderCell[1]?.value = Float(value?.hue ?? 0)
         self.sliderCell[2]?.value = Float(value?.saturation ?? 1)
         self.sliderCell[3]?.value = Float(value?.lightness ?? 1)
+    }
+    
+    func update() {
+        self.Multi.inputRedShift = HSLModelValue?.red?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        self.Multi.inputAquaShift = HSLModelValue?.aqua?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        self.Multi.inputBlueShift = HSLModelValue?.blue?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        self.Multi.inputGreenShift = HSLModelValue?.green?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        self.Multi.inputMagentaShift = HSLModelValue?.magenta?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        self.Multi.inputOrangeShift = HSLModelValue?.orange?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        self.Multi.inputPurpleShift = HSLModelValue?.purple?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        self.Multi.inputYellowShift = HSLModelValue?.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        
     }
 
 }

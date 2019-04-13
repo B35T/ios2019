@@ -82,7 +82,7 @@ class EditorViewController: UIViewController {
         option.deliveryMode = .highQualityFormat
         option.isNetworkAccessAllowed = true
         
-        let s = UIScreen.main.bounds.width * UIScreen.main.scale
+        let s:CGFloat = 1000//UIScreen.main.bounds.width // * UIScreen.main.scale
         PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .aspectFit, options: option) { (image, _) in
             self.image = image
             self.imageView.image = self.image
@@ -132,7 +132,6 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
     func HSLResult(image: UIImage?, model: HSLModel?) {
         self.imageView.image = image
         self.HSLmodelValue = model
-        print("return \(model)")
     }
     
     func HSLViewBack() {
