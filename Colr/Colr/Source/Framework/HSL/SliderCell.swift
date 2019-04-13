@@ -67,6 +67,8 @@ class SliderCell: UICollectionViewCell {
         default:
             break
         }
+        
+        self.delegate?.HSLSliderValue(title: title, value: self.value ?? 0)
     }
     
     @objc internal func sliderAction(_ sender: UISlider) {

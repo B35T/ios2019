@@ -2,7 +2,7 @@
 import CoreImage
 import UIKit
 
-class MultiBandHSV: CIFilter
+open class MultiBandHSV: CIFilter
 {
     let multiBandHSVKernel: CIColorKernel =
     {
@@ -76,31 +76,16 @@ class MultiBandHSV: CIFilter
     }()
     
     var inputImage: CIImage?
-    var inputRedShift = CIVector(x: 0, y: 1, z: 1) {
-        didSet {
-            print("red \(self.inputRedShift)")
-        }
-    }
-    var inputOrangeShift = CIVector(x: 0, y: 1, z: 1) { didSet { self.update() }}
-    var inputYellowShift = CIVector(x: 0, y: 1, z: 1) { didSet { self.update() }}
-    var inputGreenShift = CIVector(x: 0, y: 1, z: 1) { didSet { self.update() }}
-    var inputAquaShift = CIVector(x: 0, y: 1, z: 1) { didSet { self.update() }}
-    var inputBlueShift = CIVector(x: 0, y: 1, z: 1) { didSet { self.update() }}
-    var inputPurpleShift = CIVector(x: 0, y: 1, z: 1) { didSet { self.update() }}
-    var inputMagentaShift = CIVector(x: 0, y: 1, z: 1) { didSet { self.update() }}
+    var inputRedShift = CIVector(x: 0, y: 1, z: 1)
+    var inputOrangeShift = CIVector(x: 0, y: 1, z: 1)
+    var inputYellowShift = CIVector(x: 0, y: 1, z: 1)
+    var inputGreenShift = CIVector(x: 0, y: 1, z: 1)
+    var inputAquaShift = CIVector(x: 0, y: 1, z: 1)
+    var inputBlueShift = CIVector(x: 0, y: 1, z: 1)
+    var inputPurpleShift = CIVector(x: 0, y: 1, z: 1)
+    var inputMagentaShift = CIVector(x: 0, y: 1, z: 1)
     
-    func update() {
-        HSLEngine.shared.red = HSLVector(hue: inputRedShift.x, saturation: inputRedShift.y, lightness: inputRedShift.z)
-        HSLEngine.shared.green = HSLVector(hue: inputGreenShift.x, saturation: inputGreenShift.y, lightness: inputGreenShift.z)
-        HSLEngine.shared.blue = HSLVector(hue: inputBlueShift.x, saturation: inputBlueShift.y, lightness: inputBlueShift.z)
-        HSLEngine.shared.orange = HSLVector(hue: inputOrangeShift.x, saturation: inputOrangeShift.y, lightness: inputOrangeShift.z)
-        HSLEngine.shared.yellow = HSLVector(hue: inputYellowShift.x, saturation: inputYellowShift.y, lightness: inputYellowShift.z)
-        HSLEngine.shared.aqua = HSLVector(hue: inputAquaShift.x, saturation: inputAquaShift.y, lightness: inputAquaShift.z)
-        HSLEngine.shared.purple = HSLVector(hue: inputPurpleShift.x, saturation: inputPurpleShift.y, lightness: inputPurpleShift.z)
-        HSLEngine.shared.magenta = HSLVector(hue: inputMagentaShift.x, saturation: inputMagentaShift.y, lightness: inputMagentaShift.z)
-    }
-    
-    override var attributes: [String : Any]
+    override open var attributes: [String : Any]
     {
         return [
             kCIAttributeFilterDisplayName: "MultiBandHSV" as AnyObject,
@@ -168,7 +153,7 @@ class MultiBandHSV: CIFilter
         ]
     }
     
-    override var outputImage: CIImage?
+    override open var outputImage: CIImage?
     {
         guard let inputImage = inputImage else
         {

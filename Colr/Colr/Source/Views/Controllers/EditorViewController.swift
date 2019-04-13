@@ -18,6 +18,8 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var closeBtn: CloseButton!
     @IBOutlet weak var saveBtn: SaveButton!
     @IBOutlet weak var label: PresetLabel!
+    var HSLmodelValue: HSLModel? = HSLModel()
+    var Engine:ProcessEngine!
     
     var selectMenu: Int = 0
     
@@ -38,7 +40,7 @@ class EditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.Engine = ProcessEngine()
         self.collectionView.register(UINib(nibName: Cells.PresetCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.PresetCell.rawValue)
         self.collectionView.register(UINib(nibName: Cells.MenuCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.MenuCell.rawValue)
         self.collectionView.frame = .init(x: 0, y: view.h.minus(n: 150), width: view.w, height: 150)
@@ -113,7 +115,10 @@ class EditorViewController: UIViewController {
         if segue.identifier == "HSL" {
             guard let HSL = segue.destination as? HSLViewController else {return}
             HSL.delegate = self
+            HSL.Engine = self.Engine
+            HSL.HSLModelValue = self.HSLmodelValue
             HSL.image = self.image
+            HSL.prevoidImg = self.imageView.image
             HSL.modalPresentationStyle = .overCurrentContext
             self.imageView.scale(view: view, persen: 50, duration: 0.2)
             self.closeBtn.animatedHidden()
@@ -124,8 +129,10 @@ class EditorViewController: UIViewController {
 }
 
 extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewControllerDelegate, HSLViewControllerDelegate {
-    func HSLResult(image: UIImage?) {
+    func HSLResult(image: UIImage?, model: HSLModel?) {
         self.imageView.image = image
+        self.HSLmodelValue = model
+        print("return \(model)")
     }
     
     func HSLViewBack() {
@@ -148,7 +155,7 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
         case 1:
             self.performSegue(withIdentifier: "HSL", sender: nil)
             
-        case 6:
+        case 5:
             self.performSegue(withIdentifier: "CropPage", sender: nil)
         default:
             break
@@ -184,7 +191,7 @@ extension EditorViewController: UICollectionViewDataSource {
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.MenuCell.rawValue, for: indexPath) as! MenuCell
             cell.delegate = self
-            cell.images = [#imageLiteral(resourceName: "preset"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "color"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "overlay"), #imageLiteral(resourceName: "crop")]
+            cell.images = [#imageLiteral(resourceName: "preset"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "overlay"), #imageLiteral(resourceName: "crop")]
             return cell
         default:
             fatalError()

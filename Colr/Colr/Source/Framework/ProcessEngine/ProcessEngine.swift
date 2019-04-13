@@ -12,13 +12,7 @@ import UIKit
 open class ProcessEngine: ProcessEngineProtocal {
     public var profile: ProcessEngineProfileModel?
     public var delegate: ProcessEngineDelegate?
-    
-    public class var shared: ProcessEngine {
-        struct Static {
-            static let instence: ProcessEngine = ProcessEngine()
-        }
-        return Static.instence
-    }
+
     
     public func process() -> UIImage? {
         guard let profile = profile?.HSL else { fatalError() }

@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol HSLViewControllerDelegate {
-    func HSLResult(image: UIImage?)
+    func HSLResult(image: UIImage?, model:HSLModel?)
     func HSLViewBack()
 }
 
@@ -18,7 +18,22 @@ class HSLViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var background: UIView!
     
+    let Multi = MultiBandHSV()
+    
+    fileprivate var ciimage:CIImage?
+    fileprivate var HSLColor = Color.HSLColorSet.red
+    fileprivate var colorCell:[Int:HSLColorCell] = [:]
+    fileprivate var sliderCell:[Int:SliderCell] = [:]
+    fileprivate var prevoid: HSLModel?
+    fileprivate var value:HSLVector? = HSLVector(hue: 0, saturation: 1, lightness: 1)
+    
+    
     public var delegate: HSLViewControllerDelegate?
+    
+    // for sender
+    var HSLModelValue:HSLModel?
+    var Engine: ProcessEngine!
+    var prevoidImg: UIImage?
     
     public var image:UIImage? {
         didSet {
@@ -27,16 +42,6 @@ class HSLViewController: UIViewController {
             self.ciimage = CIImage(image: image)
         }
     }
-    fileprivate var ciimage:CIImage?
-    
-    fileprivate var HSLColor = Color.HSLColorSet.red
-    
-    fileprivate var colorCell:[Int:HSLColorCell] = [:]
-    fileprivate var sliderCell:[Int:SliderCell] = [:]
-    
-    let HSV = HSLEngine.shared.HSV
-    fileprivate var value:HSLVector? = HSLVector(hue: 0, saturation: 1, lightness: 1)
-    fileprivate var HSLModelValue:HSLModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,9 +70,9 @@ class HSLViewController: UIViewController {
         closeBtn.addTarget(self, action: #selector(dismissAction), for: .touchUpInside)
         closeBtn.add(view: view, .init(x: 10, y: view.h - 60))
         
-        let doneBtn = ChooseButtonIcon()
-        doneBtn.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
-        doneBtn.add(view: view, .init(x: view.w - 60, y: view.h - 60))
+        let chooseBtn = ChooseButtonIcon()
+        chooseBtn.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
+        chooseBtn.add(view: view, .init(x: view.w - 60, y: view.h - 60))
         
         let labelTitle = PresetLabel()
         labelTitle.add(view: view)
@@ -75,6 +80,9 @@ class HSLViewController: UIViewController {
         labelTitle.frame.origin.y = view.h - 55
         labelTitle.center.x = view.center.x
         labelTitle.text = "HSL"
+        
+        Multi.inputImage = ciimage
+        self.prevoid = HSLModelValue
     }
 
     
@@ -82,12 +90,14 @@ class HSLViewController: UIViewController {
         return true
     }
     
-    @objc internal func doneAction() {
+    
+    @objc internal func dismissAction() {
         self.delegate?.HSLViewBack()
+        self.delegate?.HSLResult(image: prevoidImg, model: prevoid)
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc internal func dismissAction() {
+    @objc internal func doneAction() {
         self.delegate?.HSLViewBack()
         self.dismiss(animated: true, completion: nil)
     }
@@ -102,8 +112,6 @@ extension HSLViewController: HSLSliderDelegate , HSLColorCellDelegate {
     
     
     func HSLSliderValue(title: String?, value: Float) {
-        guard let ciimage = ciimage else {return}
-        HSV.inputImage = ciimage
         switch title ?? "" {
         case "Hue": self.value?.hue = CGFloat(value)
         case "Saturation": self.value?.saturation = CGFloat(value)
@@ -113,37 +121,54 @@ extension HSLViewController: HSLSliderDelegate , HSLColorCellDelegate {
         }
         
         switch HSLColor {
-        case .red: HSV.inputRedShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
-        case .aque: HSV.inputAquaShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
-        case .blue: HSV.inputBlueShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
-        case .green: HSV.inputGreenShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
-        case .magenta: HSV.inputMagentaShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
-        case .orange: HSV.inputOrangeShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
-        case .purple: HSV.inputPurpleShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
-        case .yellow: HSV.inputYellowShift = self.value?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .red:
+            self.HSLModelValue?.red = self.value
+            Multi.inputRedShift = self.HSLModelValue?.red?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .aque:
+            self.HSLModelValue?.aqua = self.value
+            Multi.inputAquaShift = self.HSLModelValue?.aqua?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .blue:
+            self.HSLModelValue?.blue = self.value
+            Multi.inputBlueShift = self.HSLModelValue?.blue?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .green:
+            self.HSLModelValue?.green = self.value
+            Multi.inputGreenShift = self.HSLModelValue?.green?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .magenta:
+            self.HSLModelValue?.magenta = self.value
+            Multi.inputMagentaShift = self.HSLModelValue?.magenta?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .orange:
+            self.HSLModelValue?.orange = self.value
+            Multi.inputOrangeShift = self.HSLModelValue?.orange?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .purple:
+            self.HSLModelValue?.purple = self.value
+            Multi.inputPurpleShift = self.HSLModelValue?.purple?.vector ?? CIVector(x: 0, y: 1, z: 1)
+        case .yellow:
+            self.HSLModelValue?.yellow = self.value
+            Multi.inputYellowShift = self.HSLModelValue?.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
         }
         
-        guard let result = HSV.outputImage else {print("no image");return}
-        self.delegate?.HSLResult(image: UIImage(ciImage: result))
+        guard let output = Multi.outputImage else {print("no output");return}
+        self.delegate?.HSLResult(image: UIImage(ciImage: output), model: HSLModelValue)
     }
     
     func getValue() {
         switch HSLColor {
-        case .red: self.value = HSLEngine.shared.red ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
-        case .aque: self.value = HSLEngine.shared.aqua ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
-        case .blue: self.value = HSLEngine.shared.blue ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
-        case .green: self.value = HSLEngine.shared.green ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
-        case .magenta: self.value = HSLEngine.shared.magenta ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
-        case .orange: self.value = HSLEngine.shared.orange ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
-        case .purple: self.value = HSLEngine.shared.purple ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
-        case .yellow: self.value = HSLEngine.shared.yellow ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .red: self.value = HSLModelValue?.red ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .aque: self.value = HSLModelValue?.aqua ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .blue: self.value = HSLModelValue?.blue ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .green: self.value = HSLModelValue?.green ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .magenta: self.value = HSLModelValue?.magenta ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .orange: self.value = HSLModelValue?.orange ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .purple: self.value = HSLModelValue?.purple ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        case .yellow: self.value = HSLModelValue?.yellow ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
         }
+        
         
         self.sliderCell[1]?.value = Float(value?.hue ?? 0)
         self.sliderCell[2]?.value = Float(value?.saturation ?? 1)
         self.sliderCell[3]?.value = Float(value?.lightness ?? 1)
     }
-    
+
 }
 
 

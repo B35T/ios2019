@@ -27,8 +27,6 @@
 		401B4C05221BD63100F5E2C9 /* ColrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C04221BD63100F5E2C9 /* ColrTests.swift */; };
 		401B4C10221BD63100F5E2C9 /* ColrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */; };
 		402CAF302224EB0300B17764 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402CAF2F2224EB0300B17764 /* PhotosViewController.swift */; };
-		403D910722604EE6007EA3E1 /* JsonEngineProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D910622604EE6007EA3E1 /* JsonEngineProtocol.swift */; };
-		403D910922604F6A007EA3E1 /* HSLEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D910822604F6A007EA3E1 /* HSLEngine.swift */; };
 		403D910E22605029007EA3E1 /* ProcessEngineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D910D22605029007EA3E1 /* ProcessEngineModel.swift */; };
 		403D911022605102007EA3E1 /* ProcessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D910F22605102007EA3E1 /* ProcessEngine.swift */; };
 		403D9112226053A7007EA3E1 /* ProcessEngineProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D9111226053A7007EA3E1 /* ProcessEngineProtocol.swift */; };
@@ -107,8 +105,6 @@
 		401B4C0F221BD63100F5E2C9 /* ColrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColrUITests.swift; sourceTree = "<group>"; };
 		401B4C11221BD63100F5E2C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		402CAF2F2224EB0300B17764 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
-		403D910622604EE6007EA3E1 /* JsonEngineProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonEngineProtocol.swift; sourceTree = "<group>"; };
-		403D910822604F6A007EA3E1 /* HSLEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLEngine.swift; sourceTree = "<group>"; };
 		403D910D22605029007EA3E1 /* ProcessEngineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessEngineModel.swift; sourceTree = "<group>"; };
 		403D910F22605102007EA3E1 /* ProcessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessEngine.swift; sourceTree = "<group>"; };
 		403D9111226053A7007EA3E1 /* ProcessEngineProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessEngineProtocol.swift; sourceTree = "<group>"; };
@@ -319,27 +315,17 @@
 				403D9111226053A7007EA3E1 /* ProcessEngineProtocol.swift */,
 				403D910D22605029007EA3E1 /* ProcessEngineModel.swift */,
 				403D910F22605102007EA3E1 /* ProcessEngine.swift */,
-				403D910A22604F9F007EA3E1 /* HSLEngine */,
-				403D910522604EC4007EA3E1 /* JsonEngine */,
+				403D910A22604F9F007EA3E1 /* MultiBandHSV */,
 			);
 			path = ProcessEngine;
 			sourceTree = "<group>";
 		};
-		403D910522604EC4007EA3E1 /* JsonEngine */ = {
+		403D910A22604F9F007EA3E1 /* MultiBandHSV */ = {
 			isa = PBXGroup;
 			children = (
-				403D910622604EE6007EA3E1 /* JsonEngineProtocol.swift */,
-			);
-			path = JsonEngine;
-			sourceTree = "<group>";
-		};
-		403D910A22604F9F007EA3E1 /* HSLEngine */ = {
-			isa = PBXGroup;
-			children = (
-				403D910822604F6A007EA3E1 /* HSLEngine.swift */,
 				403D911522605738007EA3E1 /* MultiBandHSV.swift */,
 			);
-			path = HSLEngine;
+			path = MultiBandHSV;
 			sourceTree = "<group>";
 		};
 		408EC04722266C0F00729533 /* Cell */ = {
@@ -569,7 +555,6 @@
 				408EC07622268AE300729533 /* PresetCell.swift in Sources */,
 				40934278225F24BD00009FEA /* extension.swift in Sources */,
 				40934262225EF68A00009FEA /* SliderCell.swift in Sources */,
-				403D910922604F6A007EA3E1 /* HSLEngine.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
 				40934268225EFEFA00009FEA /* ColorCell.swift in Sources */,
 				403D911622605738007EA3E1 /* MultiBandHSV.swift in Sources */,
@@ -593,7 +578,6 @@
 				408F57252227D3830000A7D6 /* config.swift in Sources */,
 				40934271225F0AF900009FEA /* HSLViewController.swift in Sources */,
 				4093425C225EF0DA00009FEA /* HSLColorCell.swift in Sources */,
-				403D910722604EE6007EA3E1 /* JsonEngineProtocol.swift in Sources */,
 				400F577C225DD420007A0DB6 /* Rotation.swift in Sources */,
 				408EC0722226890B00729533 /* MenuCell.swift in Sources */,
 				400F5778225DD3F5007A0DB6 /* ImageScrollView.swift in Sources */,
