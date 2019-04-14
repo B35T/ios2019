@@ -27,7 +27,7 @@ class LightCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.backgroundColor = .darkGray
+        self.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
         self.layer.cornerRadius = 4
     }
 

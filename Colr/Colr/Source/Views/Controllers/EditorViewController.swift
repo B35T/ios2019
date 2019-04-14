@@ -77,8 +77,6 @@ class EditorViewController: UIViewController {
         presetLabel.text = "OG \\ 100"
         self.label = presetLabel
         
-        
-        
         self.updateStaticPhotos()
     }
     
@@ -178,7 +176,7 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
 
 extension EditorViewController: UICollectionViewDataSource {
     func animetion() {
-        self.addSectionLight = !self.addSectionLight
+        self.addSectionLight = false
         
         self.collectionView.performBatchUpdates({
             self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
@@ -188,8 +186,6 @@ extension EditorViewController: UICollectionViewDataSource {
         UIView.animate(withDuration: 0.3) {
             if !self.addSectionLight {
                 self.label.animatedHidden()
-            } else {
-                self.label.animatedHidden(action: true)
             }
         }
     }
