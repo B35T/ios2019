@@ -22,6 +22,7 @@ class EditorViewController: UIViewController {
     var Engine:ProcessEngine!
     
     var selectMenu: Int = 0
+    var section:Int = 2
     
     private var image: UIImage? {
         didSet {
@@ -36,13 +37,17 @@ class EditorViewController: UIViewController {
     enum Cells: String {
         case PresetCell
         case MenuCell
+        case LightCollectCell
     }
+    
+    var addSectionLight = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Engine = ProcessEngine()
         self.collectionView.register(UINib(nibName: Cells.PresetCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.PresetCell.rawValue)
         self.collectionView.register(UINib(nibName: Cells.MenuCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.MenuCell.rawValue)
+        self.collectionView.register(UINib(nibName: Cells.LightCollectCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.LightCollectCell.rawValue)
         self.collectionView.frame = .init(x: 0, y: view.h.minus(n: 150), width: view.w, height: 150)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -153,10 +158,14 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
         switch indexPath.item {
         case 1:
             self.performSegue(withIdentifier: "HSL", sender: nil)
-            
+            self.remove()
+        case 2:
+            self.animetion()
         case 5:
             self.performSegue(withIdentifier: "CropPage", sender: nil)
+            self.remove()
         default:
+            self.remove()
             break
         }
     }
@@ -168,8 +177,44 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
 }
 
 extension EditorViewController: UICollectionViewDataSource {
+    func animetion() {
+        self.addSectionLight = !self.addSectionLight
+        
+        self.collectionView.performBatchUpdates({
+            self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
+            self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.3) {
+            if !self.addSectionLight {
+                self.label.animatedHidden()
+            } else {
+                self.label.animatedHidden(action: true)
+            }
+        }
+    }
+    
+    func remove() {
+        if !self.addSectionLight {
+            self.addSectionLight = true
+            
+            self.collectionView.performBatchUpdates({
+                self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
+                self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
+            }, completion: nil)
+        }
+        
+        UIView.animate(withDuration: 0.3) {
+            if !self.addSectionLight {
+                self.label.animatedHidden()
+            } else {
+                self.label.animatedHidden(action: true)
+            }
+        }
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return self.section
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -179,14 +224,20 @@ extension EditorViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! PresetCell
-            cell.delegate = self
-            let s = 60 * UIScreen.main.scale
-            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .default, options: nil) { (img, _) in
-                cell.thumbnails = img
+            if self.addSectionLight {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! PresetCell
+                cell.delegate = self
+                let s = 60 * UIScreen.main.scale
+                PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .default, options: nil) { (img, _) in
+                    cell.thumbnails = img
+                }
+                cell.asset = asset
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell
+                cell.titles = ["Exposure", "Brightness","Contrast","Grain","Saturation","Vibrance","Temp","Tint","Sharpan","Split Tone"]
+                return cell
             }
-            cell.asset = asset
-            return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.MenuCell.rawValue, for: indexPath) as! MenuCell
             cell.delegate = self
@@ -195,19 +246,26 @@ extension EditorViewController: UICollectionViewDataSource {
         default:
             fatalError()
         }
+        
+        
     }
 }
 
 extension EditorViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {}
 }
 
 extension EditorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case 0:
+//            if !self.addSectionLight {
+//                print("action")
+//                return CGSize(width: view.w, height: 100)
+//            } else {
+//                return CGSize(width: view.w, height: 80)
+//            }
+            
             return CGSize(width: view.w, height: 80)
         default:
             return CGSize(width: view.w, height: 60)
