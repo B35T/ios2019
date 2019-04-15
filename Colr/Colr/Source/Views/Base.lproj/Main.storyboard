@@ -220,7 +220,7 @@
         <!--Value Adjust View Controller-->
         <scene sceneID="o25-Fd-udV">
             <objects>
-                <viewController id="6KT-lQ-0B4" customClass="ValueAdjustViewController" customModule="Colr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ValueAdjust" id="6KT-lQ-0B4" customClass="ValueAdjustViewController" customModule="Colr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OYP-R9-dma">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -232,6 +232,8 @@
                                     <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="lir-VY-EqK">
                                         <rect key="frame" x="6" y="65" width="363" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="sliderAction:" destination="6KT-lQ-0B4" eventType="valueChanged" id="Azy-oD-1hQ"/>
                                         </connections>

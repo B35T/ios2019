@@ -8,6 +8,24 @@
 
 import UIKit
 
+public enum LightTool {
+    case Exposure
+    case Contrast
+    case White
+    case Hue
+    case Grain
+    case Fade
+    case Highlight
+    case Shadow
+    case Saturation
+    case Vibrance
+    case Temperature
+    case Gamma
+    case Tint
+    case Sharpan
+    case SplitTone
+}
+
 public struct HSLVector {
     var hue: CGFloat
     var saturation: CGFloat
@@ -61,6 +79,7 @@ public struct ProcessEngineProfileModel {
     var TransverseChromatic:TransverseChromaticModel?
     
     var white:CGFloat?
+    var brightness:CGFloat?
     var saturation:CGFloat?
     var fade:CGFloat?
     var exposure:CGFloat?
@@ -73,8 +92,62 @@ public struct ProcessEngineProfileModel {
     var vibrance:CGFloat?
     var grain:CGFloat?
     var gamma:CGFloat?
+    var tint:CGFloat?
+    var split:CGFloat?
     
     var json: [String:Any?] {
         return ["HSL":HSL?.json,"Chromatic":Chromatic?.json, "TransverseChromatic":TransverseChromatic?.json, "white": white, "saturation":saturation, "fade":fade, "exposure": exposure, "contrast":contrast, "hue":hue, "sharpen":sharpen, "highlight": highlight, "shadow":shadow, "temperature":temperature, "vibrance":vibrance, "grain":grain, "gamma":gamma]
+    }
+    
+    func get(name:String) -> CGFloat? {
+        switch name {
+        case "Brightness":return self.brightness
+        case "Exposure":return self.exposure
+        case "Contrast":return self.contrast
+        case "White":return self.white
+        case "Hue":return self.hue
+        case "Grain":return self.grain
+        case "Fade":return self.fade
+        case "Highlight":return self.highlight
+        case "Shadow":return self.shadow
+        case "Saturation":return self.saturation
+        case "Vibrance":return self.vibrance
+        case "Temperature":return self.temperature
+        case "Gamma":return self.gamma
+        case "Tint":return self.tint
+        case "Sharpan":return self.sharpen
+        case "Split Tone":return self.split
+        default:
+            return 0.0
+        }
+    }
+    
+    mutating func update(name:String, value:CGFloat){
+        switch name {
+        case "Brightness":self.brightness = value
+        case "Exposure":self.exposure = value
+        case "Contrast":self.contrast = value
+        case "White":self.white = value
+        case "Hue":self.hue = value
+        case "Grain":self.grain = value
+        case "Fade":self.fade = value
+        case "Highlight":self.highlight = value
+        case "Shadow":self.shadow = value
+        case "Saturation":self.saturation = value
+        case "Vibrance":self.vibrance = value
+        case "Temperature":self.temperature = value
+        case "Gamma":self.gamma = value
+        case "Tint":self.tint = value
+        case "Sharpan":self.sharpen = value
+        case "Split Tone":self.split = value
+        default:
+            break
+        }
+    }
+}
+
+extension CGFloat {
+    var toFloat:Float {
+        return Float(self)
     }
 }

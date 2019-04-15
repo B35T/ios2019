@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol LightCollectCellDelegate {
-    func LightCollectSelect(title:String?, index:Int)
+    func updateValueProfile(profile:ProcessEngineProfileModel?)
 }
 
 class LightCollectCell: UICollectionViewCell {
@@ -18,6 +18,9 @@ class LightCollectCell: UICollectionViewCell {
     
     var delegate: LightCollectCellDelegate?
     var titles:[String]?
+    var ProcessEngineProfile: ProcessEngineProfileModel?
+    var cells:[String:LightCell] = [:]
+    var viewController:UIViewController!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +31,15 @@ class LightCollectCell: UICollectionViewCell {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
     }
+}
 
+extension LightCollectCell: ValueAdjustViewControllerDelegate {
+    func ValueAdjust(value: Float, title: String) {
+        self.ProcessEngineProfile?.update(name: title, value: CGFloat(value))
+        self.cells[title]?.value = value
+        
+        self.delegate?.updateValueProfile(profile: self.ProcessEngineProfile)
+    }
 }
 
 extension LightCollectCell: UICollectionViewDataSource {
@@ -40,15 +51,24 @@ extension LightCollectCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LightCell", for: indexPath) as! LightCell
         cell.frame.size = .init(width: 80, height: 80)
         cell.titles = self.titles?[indexPath.item]
+        cell.value = self.ProcessEngineProfile?.get(name: self.titles?[indexPath.item] ?? "")?.toFloat
+        cells.updateValue(cell, forKey: self.titles?[indexPath.item] ?? "")
         return cell
     }
 }
 
 extension LightCollectCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.LightCollectSelect(title: self.titles?[indexPath.item], index: indexPath.item)
+        let valueAdjust = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ValueAdjust") as! ValueAdjustViewController
+        valueAdjust.modalPresentationStyle = .overCurrentContext
+        valueAdjust.titles = self.titles?[indexPath.item] ?? ""
+        valueAdjust.ProcessEngineProfile = self.ProcessEngineProfile
+        valueAdjust.delegate = self
+        self.viewController.present(valueAdjust, animated: true, completion: nil)
     }
 }
+
+
 
 extension LightCollectCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

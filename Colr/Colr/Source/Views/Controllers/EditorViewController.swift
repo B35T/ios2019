@@ -19,6 +19,7 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var saveBtn: SaveButton!
     @IBOutlet weak var label: PresetLabel!
     var HSLmodelValue: HSLModel? = HSLModel()
+    var ProcessEngineProfile: ProcessEngineProfileModel? = ProcessEngineProfileModel()
     var Engine:ProcessEngine!
     
     var selectMenu: Int = 0
@@ -71,11 +72,7 @@ class EditorViewController: UIViewController {
         saveBtn.add(view: view, .init(x: view.w.minus(n: 120), y: 10))
         self.saveBtn = saveBtn
         
-        let presetLabel = PresetLabel()
-        presetLabel.add(view: view, .init(x: 0, y: view.h.minus(n: 200)))
-        presetLabel.x(view: view)
-        presetLabel.text = "OG \\ 100"
-        self.label = presetLabel
+//        let presetLabel = PresetLabel()
         
         self.updateStaticPhotos()
     }
@@ -126,14 +123,6 @@ class EditorViewController: UIViewController {
             self.imageView.scale(view: view, persen: 50, duration: 0.2)
             self.closeBtn.animatedHidden()
             self.saveBtn.animatedHidden()
-            self.label.animatedHidden()
-        }
-        
-        if segue.identifier == "ValueAdjust" {
-            guard let ValueAdjust = segue.destination as? ValueAdjustViewController else {return}
-            ValueAdjust.delegate = self
-            ValueAdjust.titles = self.title!
-            ValueAdjust.modalPresentationStyle = .overCurrentContext
         }
     }
 }
@@ -148,16 +137,9 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
         self.imageView.scale(view: view, persen: 76, duration: 0.3)
         self.closeBtn.animatedHidden(action: false)
         self.saveBtn.animatedHidden(action: false)
-        self.label.animatedHidden(action: false)
     }
     
-    func PresetSelectItem(indexPath: IndexPath, identifier: String) {
-        if identifier == "OG" {
-            self.label.text = "OG"
-            return
-        }
-        self.label.text = "\(identifier)\(indexPath.item) \\ 100"
-    }
+    func PresetSelectItem(indexPath: IndexPath, identifier: String) {}
     
     func MenuCellSelected(indexPath: IndexPath) {
         switch indexPath.item {
@@ -181,18 +163,10 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
     
 }
 
-extension EditorViewController: LightCollectCellDelegate, ValueAdjustViewControllerDelegate {
-    func ValueAdjust(value: Float, title: String) {
-        
+extension EditorViewController: LightCollectCellDelegate {
+    func updateValueProfile(profile: ProcessEngineProfileModel?) {
+        self.ProcessEngineProfile = profile
     }
-    
-    func LightCollectSelect(title: String?, index: Int) {
-        guard let str = title else {return}
-        self.title = str
-        self.performSegue(withIdentifier: "ValueAdjust", sender: nil)
-    }
-    
-    
 }
 
 extension EditorViewController: UICollectionViewDataSource {
@@ -204,11 +178,11 @@ extension EditorViewController: UICollectionViewDataSource {
             self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.3) {
-            if !self.addSectionLight {
-                self.label.animatedHidden()
-            }
-        }
+//        UIView.animate(withDuration: 0.3) {
+//            if !self.addSectionLight {
+//                self.label.animatedHidden()
+//            }
+//        }
     }
     
     func remove() {
@@ -221,13 +195,7 @@ extension EditorViewController: UICollectionViewDataSource {
             }, completion: nil)
         }
         
-        UIView.animate(withDuration: 0.3) {
-            if !self.addSectionLight {
-                self.label.animatedHidden()
-            } else {
-                self.label.animatedHidden(action: true)
-            }
-        }
+//        self.label.animatedHidden(action: false)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -236,6 +204,14 @@ extension EditorViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if !self.addSectionLight {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell
+            cell.ProcessEngineProfile = self.ProcessEngineProfile
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -253,7 +229,10 @@ extension EditorViewController: UICollectionViewDataSource {
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell
                 cell.delegate = self
-                cell.titles = ["Exposure", "Brightness","Contrast","Grain","Saturation","Vibrance","Temp","Tint","Sharpan","Split Tone"]
+                cell.viewController = self
+                cell.tag = indexPath.item
+                cell.titles = ["Exposure", "Brightness","Contrast","White","Hue","Grain","Fade","Highlight","Shadow","Saturation","Vibrance","Temperature","Vibrance","Gamma","Tint","Sharpan","Split Tone"]
+                cell.ProcessEngineProfile = self.ProcessEngineProfile
                 return cell
             }
         case 1:
@@ -277,13 +256,6 @@ extension EditorViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case 0:
-//            if !self.addSectionLight {
-//                print("action")
-//                return CGSize(width: view.w, height: 100)
-//            } else {
-//                return CGSize(width: view.w, height: 80)
-//            }
-            
             return CGSize(width: view.w, height: 80)
         default:
             return CGSize(width: view.w, height: 60)

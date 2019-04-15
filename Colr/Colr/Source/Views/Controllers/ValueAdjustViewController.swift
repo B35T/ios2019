@@ -19,12 +19,13 @@ class ValueAdjustViewController: UIViewController {
     @IBOutlet weak var sliderValue: UISlider!
     
     let labelTitle = PresetLabel()
-    
     var delegate: ValueAdjustViewControllerDelegate?
-    
-    var value:Float = 0 {
+    var ProcessEngineProfile:ProcessEngineProfileModel?
+    var ovalue:Float = 0.5
+    var value:Float = 0.5 {
         didSet {
             let str = String(format: "%0.2f", self.value)
+            self.sliderValue.value = self.value
             self.labelValue.text = str
         }
     }
@@ -50,9 +51,7 @@ class ValueAdjustViewController: UIViewController {
         self.labelValue.layer.cornerRadius = 4
         self.labelValue.clipsToBounds = true
         self.labelValue.text = "0.5"
-        let tap = UITapGestureRecognizer(target: self, action: #selector(ResetToCenter))
-        self.labelTitle.isUserInteractionEnabled = true
-        self.labelTitle.addGestureRecognizer(tap)
+        
         self.sliderValue.frame = .init(x: 10, y: 50, width: view.w - 20, height: 30)
         
         self.backgoundview.addSubview(self.labelValue)
@@ -64,7 +63,7 @@ class ValueAdjustViewController: UIViewController {
         closeBtn.add(view: view, .init(x: 10, y: view.h - 60))
         
         let chooseBtn = ChooseButtonIcon()
-//        chooseBtn.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
+        chooseBtn.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
         chooseBtn.add(view: view, .init(x: view.w - 60, y: view.h - 60))
         
         
@@ -74,8 +73,23 @@ class ValueAdjustViewController: UIViewController {
         labelTitle.center.x = view.center.x
         
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if let v = self.ProcessEngineProfile?.get(name: self.titles) {
+            self.value = v.toFloat
+            self.ovalue = v.toFloat
+        }
     }
     
     @objc internal func ResetToCenter() {
@@ -83,7 +97,15 @@ class ValueAdjustViewController: UIViewController {
         self.value = 0.5
     }
     
+    @objc internal func doneAction() {
+        self.delegate?.ValueAdjust(value: self.sliderValue.value, title: self.titles)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc internal func dismissAction() {
+        self.sliderValue.value = self.ovalue
+        self.value = self.ovalue
+        self.delegate?.ValueAdjust(value: self.ovalue, title: self.titles)
         self.dismiss(animated: true, completion: nil)
     }
 

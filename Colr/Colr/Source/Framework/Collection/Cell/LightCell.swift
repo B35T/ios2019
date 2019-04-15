@@ -19,11 +19,13 @@ class LightCell: UICollectionViewCell {
         }
     }
     
-    var value: String? {
+    var value: Float? {
         didSet {
-            self.valueLabel.text = self.value
+            let str = String(format: "%0.2f", self.value ?? 0.5)
+            self.valueLabel.text = str
         }
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
