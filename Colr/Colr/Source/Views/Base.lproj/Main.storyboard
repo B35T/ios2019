@@ -170,6 +170,7 @@
                         <outlet property="collectionView" destination="4RD-eJ-Ny5" id="CIC-nk-T1f"/>
                         <segue destination="vzL-Xs-G0D" kind="presentation" identifier="CropPage" modalTransitionStyle="crossDissolve" id="VUv-FP-QJb"/>
                         <segue destination="3Tv-ld-qNg" kind="show" identifier="HSL" id="asi-gz-Gvh"/>
+                        <segue destination="6KT-lQ-0B4" kind="showDetail" identifier="ValueAdjust" id="8Yq-QM-dji"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uji-4k-dY0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -214,7 +215,49 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQf-Qy-Bgh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4386.3999999999996" y="-1033.1334332833585"/>
+            <point key="canvasLocation" x="4569" y="-1391"/>
+        </scene>
+        <!--Value Adjust View Controller-->
+        <scene sceneID="o25-Fd-udV">
+            <objects>
+                <viewController id="6KT-lQ-0B4" customClass="ValueAdjustViewController" customModule="Colr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OYP-R9-dma">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YcE-sa-mT9">
+                                <rect key="frame" x="0.0" y="492" width="375" height="175"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="lir-VY-EqK">
+                                        <rect key="frame" x="6" y="65" width="363" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="sliderAction:" destination="6KT-lQ-0B4" eventType="valueChanged" id="Azy-oD-1hQ"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wma-HG-aWP">
+                                        <rect key="frame" x="152" y="8" width="70" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ifQ-eI-d32"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgoundview" destination="YcE-sa-mT9" id="hAT-nh-6CY"/>
+                        <outlet property="labelValue" destination="wma-HG-aWP" id="rZo-kp-0AU"/>
+                        <outlet property="sliderValue" destination="lir-VY-EqK" id="Lc6-u0-i6J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="69J-cr-NnV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4568.8000000000002" y="-712.89355322338838"/>
         </scene>
         <!--Crop View Controller-->
         <scene sceneID="Wn9-ay-htP">

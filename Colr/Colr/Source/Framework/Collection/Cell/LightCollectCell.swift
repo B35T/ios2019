@@ -8,10 +8,15 @@
 
 import UIKit
 
+public protocol LightCollectCellDelegate {
+    func LightCollectSelect(title:String?, index:Int)
+}
+
 class LightCollectCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var delegate: LightCollectCellDelegate?
     var titles:[String]?
     
     override func awakeFromNib() {
@@ -40,7 +45,9 @@ extension LightCollectCell: UICollectionViewDataSource {
 }
 
 extension LightCollectCell: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.LightCollectSelect(title: self.titles?[indexPath.item], index: indexPath.item)
+    }
 }
 
 extension LightCollectCell: UICollectionViewDelegateFlowLayout {

@@ -128,6 +128,13 @@ class EditorViewController: UIViewController {
             self.saveBtn.animatedHidden()
             self.label.animatedHidden()
         }
+        
+        if segue.identifier == "ValueAdjust" {
+            guard let ValueAdjust = segue.destination as? ValueAdjustViewController else {return}
+            ValueAdjust.delegate = self
+            ValueAdjust.titles = self.title!
+            ValueAdjust.modalPresentationStyle = .overCurrentContext
+        }
     }
 }
 
@@ -171,6 +178,20 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
     func cropResult(image: UIImage, zone: CGRect) {
         self.image = image
     }
+    
+}
+
+extension EditorViewController: LightCollectCellDelegate, ValueAdjustViewControllerDelegate {
+    func ValueAdjust(value: Float, title: String) {
+        
+    }
+    
+    func LightCollectSelect(title: String?, index: Int) {
+        guard let str = title else {return}
+        self.title = str
+        self.performSegue(withIdentifier: "ValueAdjust", sender: nil)
+    }
+    
     
 }
 
@@ -231,6 +252,7 @@ extension EditorViewController: UICollectionViewDataSource {
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell
+                cell.delegate = self
                 cell.titles = ["Exposure", "Brightness","Contrast","Grain","Saturation","Vibrance","Temp","Tint","Sharpan","Split Tone"]
                 return cell
             }
