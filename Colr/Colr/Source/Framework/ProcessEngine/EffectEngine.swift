@@ -22,9 +22,9 @@ extension ProcessEngine {
         case .P3:
             return CIPhotoEffectTransfer(ciimage: ciimage)
         case .P4:
-            return CIPhotoEffectNoir(ciimage: ciimage)
-        case .P5:
             return CIPhotoEffectMono(ciimage: ciimage)
+        case .P5:
+            return CIPhotoEffectNoir(ciimage: ciimage)
         }
     }
     

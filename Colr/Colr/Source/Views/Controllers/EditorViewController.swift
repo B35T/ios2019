@@ -45,16 +45,19 @@ class EditorViewController: UIViewController {
     }
     
     enum Cells: String {
+        case FilterCell
         case PresetCell
         case MenuCell
         case LightCollectCell
     }
     
     var selected:select = .filter
+    var checkSelect:select = .filter
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Engine = ProcessEngine()
+        self.collectionView.register(UINib(nibName: Cells.FilterCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.FilterCell.rawValue)
         self.collectionView.register(UINib(nibName: Cells.PresetCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.PresetCell.rawValue)
         self.collectionView.register(UINib(nibName: Cells.MenuCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.MenuCell.rawValue)
         self.collectionView.register(UINib(nibName: Cells.LightCollectCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.LightCollectCell.rawValue)
@@ -166,7 +169,7 @@ extension EditorViewController: PresetCellDelegate, FilterCellDelegate, MenuCell
     func FilterSelectItem(indexPath: IndexPath, identifier: String) {
         switch indexPath.section {
         case 0:
-            return self.imageView.image = UIImage(ciImage: thumbnail)
+            return self.imageView.image = self.image
         case 1:
             let filter = Engine.filter(index: indexPath.item, ciimage: ciimage!)
             self.imageView.image = UIImage(ciImage: filter!)
@@ -178,16 +181,20 @@ extension EditorViewController: PresetCellDelegate, FilterCellDelegate, MenuCell
     // Menu
     func MenuCellSelected(indexPath: IndexPath) {
         switch indexPath.item {
+        case 0:
+            self.selected = .filter
+            self.animetion()
+        case 1:
+            self.selected = .preset
+            self.animetion()
         case 2:
             self.performSegue(withIdentifier: "HSL", sender: nil)
-            self.remove()
         case 3:
+            self.selected = .tools
             self.animetion()
         case 6:
             self.performSegue(withIdentifier: "CropPage", sender: nil)
-            self.remove()
         default:
-            self.remove()
             break
         }
     }
@@ -201,7 +208,6 @@ extension EditorViewController: PresetCellDelegate, FilterCellDelegate, MenuCell
 extension EditorViewController: LightCollectCellDelegate {
     func updateValueProfile(profile: ProcessEngineProfileModel?) {
         self.ProcessEngineProfile = profile
-        print(self.ProcessEngineProfile?.white)
         let out = Engine.whitePoint(ciimage: ciimage, point: profile?.white ?? 1)
         self.imageView.image = UIImage(ciImage: out!)
     }
@@ -209,18 +215,17 @@ extension EditorViewController: LightCollectCellDelegate {
 
 extension EditorViewController: UICollectionViewDataSource {
     func animetion() {
+        if self.checkSelect == self.selected {
+            return
+        }
+        
+        self.checkSelect = self.selected
+        
         self.collectionView.performBatchUpdates({
             self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
             self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
         }, completion: nil)
         
-    }
-    
-    func remove() {
-        self.collectionView.performBatchUpdates({
-            self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
-            self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
-        }, completion: nil)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -244,16 +249,18 @@ extension EditorViewController: UICollectionViewDataSource {
         case 0:
             switch selected {
             case .filter:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! FilterCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.FilterCell.rawValue, for: indexPath) as! FilterCell
                 cell.Engine = self.Engine
-                cell.delegate = self
                 cell.thumbnails = self.thumbnail
+                cell.delegate = self
+                
                 return cell
             case .preset:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! PresetCell
                 cell.Engine = self.Engine
-                cell.delegate = self
                 cell.thumbnails = self.thumbnail
+                cell.delegate = self
+                
                 return cell
             case .tools:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell

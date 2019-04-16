@@ -12,38 +12,36 @@ import UIKit
 public protocol FilterCellDelegate {
     func FilterSelectItem(indexPath: IndexPath, identifier: String)
 }
-
-
 class FilterCell: UICollectionViewCell {
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let phCells = "PhotosCell"
-    
-    enum Filters:Int {
+    enum Preset:Int {
         case OG = 0
         case P = 1
     }
     
-    var Engine: ProcessEngine!
-    var thumbnails: CIImage!
     var delegate: FilterCellDelegate?
+    
+    let phCells = "PhotosCell"
+    var Engine:ProcessEngine!
+    var thumbnails: CIImage!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         self.collectionView.register(UINib(nibName: phCells, bundle: nil), forCellWithReuseIdentifier: phCells)
         self.collectionView.backgroundColor = .clear
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+
     }
-
+    
 }
-
 
 extension FilterCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var str = ""
-        switch Filters(rawValue: indexPath.section)! {
+        switch Preset(rawValue: indexPath.section)! {
         case .OG:
             str = "OG"
         case .P:
@@ -59,7 +57,7 @@ extension FilterCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch Filters(rawValue: section)! {
+        switch Preset(rawValue: section)! {
         case .OG:
             return 1
         case .P:
@@ -68,18 +66,17 @@ extension FilterCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch Filters.init(rawValue: indexPath.section)! {
+        switch Preset.init(rawValue: indexPath.section)! {
         case .OG:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
-            cell.thumbnailImage = UIImage(ciImage: self.thumbnails)
+            cell.thumbnailImage = UIImage(ciImage: thumbnails)
             cell.addText(str: "OG")
             cell.useIsSelect = .color
             cell.layer.cornerRadius = 4
             return cell
         case .P:
             let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
-            let filter = Engine.filter(index: indexPath.item, ciimage: self.thumbnails)
-            cell.thumbnailImage = UIImage(ciImage: filter!)
+            cell.thumbnailImage = UIImage(ciImage: thumbnails)
             cell.addText(str: "P\(indexPath.item)")
             cell.useIsSelect = .color
             cell.layer.cornerRadius = 4
