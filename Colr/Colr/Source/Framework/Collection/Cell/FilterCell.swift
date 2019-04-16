@@ -76,7 +76,8 @@ extension FilterCell: UICollectionViewDataSource {
             return cell
         case .P:
             let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
-            cell.thumbnailImage = UIImage(ciImage: thumbnails)
+            let filter = self.Engine.filter(index: indexPath.item, ciimage: thumbnails)
+            cell.thumbnailImage = UIImage(ciImage: filter!)
             cell.addText(str: "P\(indexPath.item)")
             cell.useIsSelect = .color
             cell.layer.cornerRadius = 4

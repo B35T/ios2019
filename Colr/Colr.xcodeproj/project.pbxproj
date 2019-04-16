@@ -68,6 +68,8 @@
 		40E14EB52265C1FE00E85BD4 /* EffectEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EB42265C1FE00E85BD4 /* EffectEngine.swift */; };
 		40E14EB82265D41A00E85BD4 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EB62265D41A00E85BD4 /* FilterCell.swift */; };
 		40E14EB92265D41A00E85BD4 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40E14EB72265D41A00E85BD4 /* FilterCell.xib */; };
+		40E14EBB2265E75900E85BD4 /* HSLViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EBA2265E75900E85BD4 /* HSLViewControllers.swift */; };
+		40E14EBF2265F05B00E85BD4 /* HSLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EBE2265F05B00E85BD4 /* HSLCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,7 +141,7 @@
 		40934261225EF68A00009FEA /* SliderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderCell.xib; sourceTree = "<group>"; };
 		40934266225EFEFA00009FEA /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		40934267225EFEFA00009FEA /* ColorCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorCell.xib; sourceTree = "<group>"; };
-		40934270225F0AF900009FEA /* HSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLViewController.swift; sourceTree = "<group>"; };
+		40934270225F0AF900009FEA /* HSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HSLViewController.swift; path = ../Views/Controllers/HSLViewController.swift; sourceTree = "<group>"; };
 		40934272225F1E1D00009FEA /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		40934275225F1E5B00009FEA /* HSLSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLSlider.swift; sourceTree = "<group>"; };
 		40934277225F24BD00009FEA /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
@@ -155,6 +157,8 @@
 		40E14EB42265C1FE00E85BD4 /* EffectEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectEngine.swift; sourceTree = "<group>"; };
 		40E14EB62265D41A00E85BD4 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		40E14EB72265D41A00E85BD4 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
+		40E14EBA2265E75900E85BD4 /* HSLViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLViewControllers.swift; sourceTree = "<group>"; };
+		40E14EBE2265F05B00E85BD4 /* HSLCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +297,7 @@
 		401B4C21221BD75500F5E2C9 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				40934270225F0AF900009FEA /* HSLViewController.swift */,
 				408F57232227D3740000A7D6 /* Config */,
 				403D910422604E86007EA3E1 /* ProcessEngine */,
 				40934255225EEFE700009FEA /* HSL */,
@@ -309,12 +314,13 @@
 		401B4C22221BD76800F5E2C9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				40E14EBE2265F05B00E85BD4 /* HSLCell.swift */,
 				401B4BEE221BD62500F5E2C9 /* MainViewController.swift */,
 				40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */,
 				408EC0412226611400729533 /* SubscriptionViewController.swift */,
 				40140889223387900025E539 /* CropViewController.swift */,
-				40934270225F0AF900009FEA /* HSLViewController.swift */,
 				407E354322643F2700DEEDA5 /* ValueAdjustViewController.swift */,
+				40E14EBA2265E75900E85BD4 /* HSLViewControllers.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -590,6 +596,8 @@
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
 				40934268225EFEFA00009FEA /* ColorCell.swift in Sources */,
 				403D911622605738007EA3E1 /* MultiBandHSV.swift in Sources */,
+				40E14EBF2265F05B00E85BD4 /* HSLCell.swift in Sources */,
+				40E14EBB2265E75900E85BD4 /* HSLViewControllers.swift in Sources */,
 				40E14EB82265D41A00E85BD4 /* FilterCell.swift in Sources */,
 				403D9112226053A7007EA3E1 /* ProcessEngineProtocol.swift in Sources */,
 				408EC07A22268E7400729533 /* GroupsCell.swift in Sources */,

@@ -132,13 +132,12 @@ class EditorViewController: UIViewController {
             croping.asset = asset
         }
         
-        if segue.identifier == "HSL" {
-            guard let HSL = segue.destination as? HSLViewController else {return}
+        if segue.identifier == "HSL2" {
+            guard let HSL = segue.destination as? HSLViewControllers else {return}
             HSL.delegate = self
             HSL.Engine = self.Engine
-            HSL.HSLModelValue = self.HSLmodelValue
             HSL.image = self.image
-            HSL.prevoidImg = self.imageView.image
+            HSL.HSLModelValue = self.HSLmodelValue
             HSL.modalPresentationStyle = .overCurrentContext
             self.imageView.scale(view: view, persen: 50, duration: 0.2)
             self.closeBtn.animatedHidden()
@@ -147,7 +146,7 @@ class EditorViewController: UIViewController {
     }
 }
 
-extension EditorViewController: PresetCellDelegate, FilterCellDelegate, MenuCellDelegate, CropViewControllerDelegate, HSLViewControllerDelegate {
+extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, FilterCellDelegate, MenuCellDelegate, CropViewControllerDelegate {
     //HSL
     func HSLResult(image: UIImage?, model: HSLModel?) {
         self.imageView.image = image
@@ -188,7 +187,7 @@ extension EditorViewController: PresetCellDelegate, FilterCellDelegate, MenuCell
             self.selected = .preset
             self.animetion()
         case 2:
-            self.performSegue(withIdentifier: "HSL", sender: nil)
+            self.performSegue(withIdentifier: "HSL2", sender: nil)
         case 3:
             self.selected = .tools
             self.animetion()

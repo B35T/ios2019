@@ -12,7 +12,7 @@ public protocol HSLSliderDelegate {
     func HSLSliderValue(title: String?, value:Float)
 }
 
-class SliderCell: UICollectionViewCell {
+class SliderView: UIView {
 
     var delegate: HSLSliderDelegate?
 
