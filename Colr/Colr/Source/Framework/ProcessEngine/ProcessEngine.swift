@@ -11,11 +11,14 @@ import UIKit
 
 open class ProcessEngine: ProcessEngineProtocal {
     public var profile: ProcessEngineProfileModel?
+    public var ciimage: CIImage?
     public var delegate: ProcessEngineDelegate?
 
     
     public func process() -> UIImage? {
-        guard let profile = profile?.HSL else { fatalError() }
+        
         return nil
     }
 }
+
+

@@ -6,7 +6,7 @@ open class MultiBandHSV: CIFilter
 {
     let multiBandHSVKernel: CIColorKernel =
     {
-        let red = CGFloat(0) // UIColor(red: 0.901961, green: 0.270588, blue: 0.270588, alpha: 1).hue()
+        let red = UIColor(red: 0.901961, green: 0.270588, blue: 0.270588, alpha: 1).hue()
         let orange = UIColor(red: 0.901961, green: 0.584314, blue: 0.270588, alpha: 1).hue()
         let yellow = UIColor(red: 0.901961, green: 0.901961, blue: 0.270588, alpha: 1).hue()
         let green = UIColor(red: 0.270588, green: 0.901961, blue: 0.270588, alpha: 1).hue()

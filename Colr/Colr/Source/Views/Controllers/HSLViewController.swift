@@ -50,6 +50,7 @@ class HSLViewController: UIViewController {
         self.view.backgroundColor = .clear
         self.background.frame = .init(x: 0, y: view.h - 400, width: view.w, height: 400)
         
+        self.collectionView.frame = .init(x: 0, y: 0, width: view.w, height: 340)
         self.collectionView.register(UINib(nibName: "HSLColorCell", bundle: nil), forCellWithReuseIdentifier: "HSLColorCell")
         self.collectionView.register(UINib(nibName: "SliderCell", bundle: nil), forCellWithReuseIdentifier: "SliderCell")
         self.collectionView.dataSource = self
@@ -84,6 +85,8 @@ class HSLViewController: UIViewController {
         Multi.inputImage = ciimage
         self.update()
         self.prevoid = HSLModelValue
+        
+        print(self.collectionView.frame)
     }
 
     

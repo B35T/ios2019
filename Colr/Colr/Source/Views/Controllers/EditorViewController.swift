@@ -9,6 +9,12 @@
 import UIKit
 import Photos
 
+enum select:Int {
+    case filter = 0
+    case preset
+    case tools
+}
+
 class EditorViewController: UIViewController {
 
     var asset: PHAsset!
@@ -21,14 +27,17 @@ class EditorViewController: UIViewController {
     var HSLmodelValue: HSLModel? = HSLModel()
     var ProcessEngineProfile: ProcessEngineProfileModel? = ProcessEngineProfileModel()
     var Engine:ProcessEngine!
+    var thumbnail:CIImage!
     
     var selectMenu: Int = 0
     var section:Int = 2
     
+    private var ciimage:CIImage?
     private var image: UIImage? {
         didSet {
             if let img = image {
                 self.imageView.image = img
+                self.ciimage = CIImage(image: img)
             } else {
                 print("no image")
             }
@@ -41,7 +50,7 @@ class EditorViewController: UIViewController {
         case LightCollectCell
     }
     
-    var addSectionLight = true
+    var selected:select = .filter
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +98,14 @@ class EditorViewController: UIViewController {
             print(image?.size ?? 0.0)
         }
         
+        let s2 = 60 * UIScreen.main.scale
+        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s2, height: s2), contentMode: .default, options: nil) { (img, _) in
+            
+            guard let img = img else {return}
+            guard let ciimage = CIImage(image: img) else {return}
+            self.thumbnail = ciimage
+        }
+        
     }
     
     deinit {
@@ -127,7 +144,8 @@ class EditorViewController: UIViewController {
     }
 }
 
-extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewControllerDelegate, HSLViewControllerDelegate {
+extension EditorViewController: PresetCellDelegate, FilterCellDelegate, MenuCellDelegate, CropViewControllerDelegate, HSLViewControllerDelegate {
+    //HSL
     func HSLResult(image: UIImage?, model: HSLModel?) {
         self.imageView.image = image
         self.HSLmodelValue = model
@@ -139,16 +157,33 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
         self.saveBtn.animatedHidden(action: false)
     }
     
-    func PresetSelectItem(indexPath: IndexPath, identifier: String) {}
+    // Preset
+    func PresetSelectItem(indexPath: IndexPath, identifier: String) {
+        
+    }
     
+    //Filter
+    func FilterSelectItem(indexPath: IndexPath, identifier: String) {
+        switch indexPath.section {
+        case 0:
+            return self.imageView.image = UIImage(ciImage: thumbnail)
+        case 1:
+            let filter = Engine.filter(index: indexPath.item, ciimage: ciimage!)
+            self.imageView.image = UIImage(ciImage: filter!)
+        default:
+            break
+        }
+    }
+    
+    // Menu
     func MenuCellSelected(indexPath: IndexPath) {
         switch indexPath.item {
-        case 1:
+        case 2:
             self.performSegue(withIdentifier: "HSL", sender: nil)
             self.remove()
-        case 2:
+        case 3:
             self.animetion()
-        case 5:
+        case 6:
             self.performSegue(withIdentifier: "CropPage", sender: nil)
             self.remove()
         default:
@@ -166,36 +201,26 @@ extension EditorViewController: PresetCellDelegate, MenuCellDelegate, CropViewCo
 extension EditorViewController: LightCollectCellDelegate {
     func updateValueProfile(profile: ProcessEngineProfileModel?) {
         self.ProcessEngineProfile = profile
+        print(self.ProcessEngineProfile?.white)
+        let out = Engine.whitePoint(ciimage: ciimage, point: profile?.white ?? 1)
+        self.imageView.image = UIImage(ciImage: out!)
     }
 }
 
 extension EditorViewController: UICollectionViewDataSource {
     func animetion() {
-        self.addSectionLight = false
-        
         self.collectionView.performBatchUpdates({
             self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
             self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
         }, completion: nil)
         
-//        UIView.animate(withDuration: 0.3) {
-//            if !self.addSectionLight {
-//                self.label.animatedHidden()
-//            }
-//        }
     }
     
     func remove() {
-        if !self.addSectionLight {
-            self.addSectionLight = true
-            
-            self.collectionView.performBatchUpdates({
-                self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
-                self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
-            }, completion: nil)
-        }
-        
-//        self.label.animatedHidden(action: false)
+        self.collectionView.performBatchUpdates({
+            self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
+            self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
+        }, completion: nil)
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -207,7 +232,7 @@ extension EditorViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if !self.addSectionLight {
+        if self.selected == .preset {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell
             cell.ProcessEngineProfile = self.ProcessEngineProfile
             
@@ -217,16 +242,20 @@ extension EditorViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case 0:
-            if self.addSectionLight {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! PresetCell
+            switch selected {
+            case .filter:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! FilterCell
+                cell.Engine = self.Engine
                 cell.delegate = self
-                let s = 60 * UIScreen.main.scale
-                PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .default, options: nil) { (img, _) in
-                    cell.thumbnails = img
-                }
-                cell.asset = asset
+                cell.thumbnails = self.thumbnail
                 return cell
-            } else {
+            case .preset:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! PresetCell
+                cell.Engine = self.Engine
+                cell.delegate = self
+                cell.thumbnails = self.thumbnail
+                return cell
+            case .tools:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell
                 cell.delegate = self
                 cell.viewController = self
@@ -238,13 +267,11 @@ extension EditorViewController: UICollectionViewDataSource {
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.MenuCell.rawValue, for: indexPath) as! MenuCell
             cell.delegate = self
-            cell.images = [#imageLiteral(resourceName: "preset"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "overlay"), #imageLiteral(resourceName: "crop")]
+            cell.images = [#imageLiteral(resourceName: "Filter"),#imageLiteral(resourceName: "preset"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "overlay"), #imageLiteral(resourceName: "crop")]
             return cell
         default:
             fatalError()
         }
-        
-        
     }
 }
 

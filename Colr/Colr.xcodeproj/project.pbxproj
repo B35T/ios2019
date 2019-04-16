@@ -64,6 +64,10 @@
 		40CCEC25221E612F007498C5 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC24221E612F007498C5 /* CloseButton.swift */; };
 		40CCEC27221E61F1007498C5 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC26221E61F1007498C5 /* NextButton.swift */; };
 		40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */; };
+		40E14EB322659A3900E85BD4 /* ToolEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EB222659A3900E85BD4 /* ToolEngine.swift */; };
+		40E14EB52265C1FE00E85BD4 /* EffectEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EB42265C1FE00E85BD4 /* EffectEngine.swift */; };
+		40E14EB82265D41A00E85BD4 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EB62265D41A00E85BD4 /* FilterCell.swift */; };
+		40E14EB92265D41A00E85BD4 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40E14EB72265D41A00E85BD4 /* FilterCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +151,10 @@
 		40CCEC24221E612F007498C5 /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		40CCEC26221E61F1007498C5 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		40CCEC2C221E7AD3007498C5 /* EditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		40E14EB222659A3900E85BD4 /* ToolEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolEngine.swift; sourceTree = "<group>"; };
+		40E14EB42265C1FE00E85BD4 /* EffectEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectEngine.swift; sourceTree = "<group>"; };
+		40E14EB62265D41A00E85BD4 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		40E14EB72265D41A00E85BD4 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +334,8 @@
 				403D9111226053A7007EA3E1 /* ProcessEngineProtocol.swift */,
 				403D910D22605029007EA3E1 /* ProcessEngineModel.swift */,
 				403D910F22605102007EA3E1 /* ProcessEngine.swift */,
+				40E14EB222659A3900E85BD4 /* ToolEngine.swift */,
+				40E14EB42265C1FE00E85BD4 /* EffectEngine.swift */,
 				403D910A22604F9F007EA3E1 /* MultiBandHSV */,
 			);
 			path = ProcessEngine;
@@ -347,6 +357,8 @@
 				408EC03F22265A3E00729533 /* PreviewViewCell.swift */,
 				408EC07422268AE300729533 /* PresetCell.swift */,
 				408EC07522268AE300729533 /* PresetCell.xib */,
+				40E14EB62265D41A00E85BD4 /* FilterCell.swift */,
+				40E14EB72265D41A00E85BD4 /* FilterCell.xib */,
 				408EC0702226890B00729533 /* MenuCell.swift */,
 				408EC0712226890B00729533 /* MenuCell.xib */,
 				408EC07822268E7400729533 /* GroupsCell.swift */,
@@ -536,6 +548,7 @@
 				401B4BFA221BD63100F5E2C9 /* LaunchScreen.storyboard in Resources */,
 				401B4BF7221BD63100F5E2C9 /* Assets.xcassets in Resources */,
 				40BF48742262CDD400CE4899 /* LightCell.xib in Resources */,
+				40E14EB92265D41A00E85BD4 /* FilterCell.xib in Resources */,
 				401B4BF2221BD62500F5E2C9 /* Main.storyboard in Resources */,
 				40BF48782262D0E100CE4899 /* LightCollectCell.xib in Resources */,
 			);
@@ -573,14 +586,17 @@
 				408EC07622268AE300729533 /* PresetCell.swift in Sources */,
 				40934278225F24BD00009FEA /* extension.swift in Sources */,
 				40934262225EF68A00009FEA /* SliderCell.swift in Sources */,
+				40E14EB52265C1FE00E85BD4 /* EffectEngine.swift in Sources */,
 				40CCEC2D221E7AD3007498C5 /* EditorViewController.swift in Sources */,
 				40934268225EFEFA00009FEA /* ColorCell.swift in Sources */,
 				403D911622605738007EA3E1 /* MultiBandHSV.swift in Sources */,
+				40E14EB82265D41A00E85BD4 /* FilterCell.swift in Sources */,
 				403D9112226053A7007EA3E1 /* ProcessEngineProtocol.swift in Sources */,
 				408EC07A22268E7400729533 /* GroupsCell.swift in Sources */,
 				408F57222227CE560000A7D6 /* PresetLabel.swift in Sources */,
 				401B4BF5221BD62500F5E2C9 /* Colr.xcdatamodeld in Sources */,
 				400F5770225DD3A7007A0DB6 /* CroprViewController.swift in Sources */,
+				40E14EB322659A3900E85BD4 /* ToolEngine.swift in Sources */,
 				408F57202227CE280000A7D6 /* CustomLabel.swift in Sources */,
 				408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */,
 				403D911022605102007EA3E1 /* ProcessEngine.swift in Sources */,

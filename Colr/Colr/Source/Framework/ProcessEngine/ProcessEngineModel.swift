@@ -8,6 +8,21 @@
 
 import UIKit
 
+
+public enum Filter:Int {
+    case P0 = 0
+    case P1
+    case P2
+    case P3
+    case P4
+    case P5
+
+    
+    var count: Int {
+        return 6
+    }
+}
+
 public enum LightTool {
     case Exposure
     case Contrast
