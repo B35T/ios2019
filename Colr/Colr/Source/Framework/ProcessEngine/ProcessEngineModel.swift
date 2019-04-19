@@ -16,10 +16,11 @@ public enum Filter:Int {
     case P3
     case P4
     case P5
-
+    case P6
+    case P7
     
     var count: Int {
-        return 6
+        return 8
     }
 }
 

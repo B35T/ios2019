@@ -25,7 +25,12 @@ class FilterCell: UICollectionViewCell {
     
     let phCells = "PhotosCell"
     var Engine:ProcessEngine!
-    var thumbnails: CIImage!
+    var thumbnails: [UIImage]?
+    var original:UIImage? {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,11 +62,15 @@ extension FilterCell: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if original == nil {
+            print("no image original")
+            return 0
+        }
         switch Preset(rawValue: section)! {
         case .OG:
             return 1
         case .P:
-            return 6
+            return 8
         }
     }
     
@@ -69,15 +78,15 @@ extension FilterCell: UICollectionViewDataSource {
         switch Preset.init(rawValue: indexPath.section)! {
         case .OG:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
-            cell.thumbnailImage = UIImage(ciImage: thumbnails)
+            cell.thumbnailImage = self.original
             cell.addText(str: "OG")
             cell.useIsSelect = .color
             cell.layer.cornerRadius = 4
             return cell
         case .P:
             let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
-            let filter = self.Engine.filter(index: indexPath.item, ciimage: thumbnails)
-            cell.thumbnailImage = UIImage(ciImage: filter!)
+            let f = self.Engine.filter(index: indexPath.item, ciimage: CIImage(image: self.original!))
+            cell.thumbnailImage = UIImage(ciImage: f!)
             cell.addText(str: "P\(indexPath.item)")
             cell.useIsSelect = .color
             cell.layer.cornerRadius = 4

@@ -86,7 +86,7 @@ class PhotosCell: UICollectionViewCell {
 
     var representedAssetIdentifier: String!
     
-    var thumbnailImage: UIImage! {
+    var thumbnailImage: UIImage? {
         didSet {
             imageview.image = thumbnailImage
         }

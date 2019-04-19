@@ -47,7 +47,6 @@ class HSLViewControllers: UIViewController {
     public var image:UIImage? {
         didSet {
             guard let image = self.image else {return}
-            self.prevoidimage = image
             self.ciimage = CIImage(image: image)
         }
     }

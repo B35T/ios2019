@@ -21,7 +21,8 @@ class PresetCell: UICollectionViewCell {
     
     let phCells = "PhotosCell"
     var Engine:ProcessEngine!
-    var thumbnails: CIImage!
+    var thumbnails: [UIImage]!
+    var origonal:UIImage!
     var asset: PHAsset!
     
     override func awakeFromNib() {
@@ -42,12 +43,16 @@ extension PresetCell: UICollectionViewDelegate {
 
 extension PresetCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if origonal == nil {
+            return 0
+        }
+        
         return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
-        cell.thumbnailImage = UIImage(ciImage: thumbnails)
+        cell.thumbnailImage = self.origonal
         cell.addText(str: "OG")
         cell.useIsSelect = .color
         cell.layer.cornerRadius = 4

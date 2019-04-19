@@ -17,7 +17,12 @@ enum select:Int {
 
 class EditorViewController: UIViewController {
 
-    var asset: PHAsset!
+    var asset: PHAsset? {
+        didSet {
+            self.updateStaticPhotos()
+            self.collectionView.reloadData()
+        }
+    }
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var imageView: UIImageView!
@@ -27,7 +32,8 @@ class EditorViewController: UIViewController {
     var HSLmodelValue: HSLModel? = HSLModel()
     var ProcessEngineProfile: ProcessEngineProfileModel? = ProcessEngineProfileModel()
     var Engine:ProcessEngine!
-    var thumbnail:CIImage!
+    var thumbnail:[UIImage]!
+    var original:UIImage!
     
     var selectMenu: Int = 0
     var section:Int = 2
@@ -84,9 +90,6 @@ class EditorViewController: UIViewController {
         saveBtn.add(view: view, .init(x: view.w.minus(n: 120), y: 10))
         self.saveBtn = saveBtn
         
-//        let presetLabel = PresetLabel()
-        
-        self.updateStaticPhotos()
     }
     
     func updateStaticPhotos() {
@@ -95,20 +98,11 @@ class EditorViewController: UIViewController {
         option.isNetworkAccessAllowed = true
         
         let s:CGFloat = 1000//UIScreen.main.bounds.width // * UIScreen.main.scale
-        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .aspectFit, options: option) { (image, _) in
+        PHImageManager.default().requestImage(for: asset!, targetSize: CGSize(width: s, height: s), contentMode: .aspectFit, options: option) { (image, _) in
             self.image = image
             self.imageView.image = self.image
             print(image?.size ?? 0.0)
         }
-        
-        let s2 = 60 * UIScreen.main.scale
-        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: s2, height: s2), contentMode: .default, options: nil) { (img, _) in
-            
-            guard let img = img else {return}
-            guard let ciimage = CIImage(image: img) else {return}
-            self.thumbnail = ciimage
-        }
-        
     }
     
     deinit {
@@ -120,7 +114,11 @@ class EditorViewController: UIViewController {
     }
     
     @objc internal func closeAction() {
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.3) {
+            self.view.alpha = 0
+        }
+        
     }
 
     
@@ -137,6 +135,7 @@ class EditorViewController: UIViewController {
             HSL.delegate = self
             HSL.Engine = self.Engine
             HSL.image = self.image
+            HSL.prevoidimage = self.imageView.image
             HSL.HSLModelValue = self.HSLmodelValue
             HSL.modalPresentationStyle = .overCurrentContext
             self.imageView.scale(view: view, persen: 50, duration: 0.2)
@@ -205,10 +204,13 @@ extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, F
 }
 
 extension EditorViewController: LightCollectCellDelegate {
+    func lightAction(title: String, tag: Int, value: Float, profile: ProcessEngineProfileModel?) {
+        let result = Engine.toolCreate(t: tool(rawValue: tag)!, ciimage: self.ciimage!, Profile: profile!, value: value)
+        self.imageView.image = UIImage(ciImage: result!)
+    }
+
     func updateValueProfile(profile: ProcessEngineProfileModel?) {
         self.ProcessEngineProfile = profile
-        let out = Engine.whitePoint(ciimage: ciimage, point: profile?.white ?? 1)
-        self.imageView.image = UIImage(ciImage: out!)
     }
 }
 
@@ -250,23 +252,24 @@ extension EditorViewController: UICollectionViewDataSource {
             case .filter:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.FilterCell.rawValue, for: indexPath) as! FilterCell
                 cell.Engine = self.Engine
+                cell.original = self.original
                 cell.thumbnails = self.thumbnail
                 cell.delegate = self
-                
                 return cell
             case .preset:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.PresetCell.rawValue, for: indexPath) as! PresetCell
                 cell.Engine = self.Engine
+                cell.origonal = self.original
                 cell.thumbnails = self.thumbnail
                 cell.delegate = self
-                
+                print("reload")
                 return cell
             case .tools:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.LightCollectCell.rawValue, for: indexPath) as! LightCollectCell
                 cell.delegate = self
                 cell.viewController = self
                 cell.tag = indexPath.item
-                cell.titles = ["Exposure", "Brightness","Contrast","White","Hue","Grain","Fade","Highlight","Shadow","Saturation","Vibrance","Temperature","Vibrance","Gamma","Tint","Sharpan","Split Tone"]
+                cell.titles = ["Exposure","Saturation", "Brightness","Contrast","Highlight","Shadow","Temperature","Tint","Vibrance","Gamma","Sharpan"]
                 cell.ProcessEngineProfile = self.ProcessEngineProfile
                 return cell
             }

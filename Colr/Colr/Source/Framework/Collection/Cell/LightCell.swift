@@ -21,7 +21,11 @@ class LightCell: UICollectionViewCell {
     
     var value: Float? {
         didSet {
-            let str = String(format: "%0.2f", self.value ?? 0.5)
+            var f = "%0.2f"
+            if self.value ?? 0 > 100 {
+                f = "%0.0f"
+            }
+            let str = String(format: f, self.value ?? 0.0)
             self.valueLabel.text = str
         }
     }

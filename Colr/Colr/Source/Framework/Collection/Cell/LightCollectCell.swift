@@ -10,6 +10,7 @@ import UIKit
 
 public protocol LightCollectCellDelegate {
     func updateValueProfile(profile:ProcessEngineProfileModel?)
+    func lightAction(title:String, tag: Int, value:Float, profile:ProcessEngineProfileModel?)
 }
 
 class LightCollectCell: UICollectionViewCell {
@@ -34,10 +35,11 @@ class LightCollectCell: UICollectionViewCell {
 }
 
 extension LightCollectCell: ValueAdjustViewControllerDelegate {
-    func ValueAdjust(value: Float, title: String) {
+    func ValueAdjust(value: Float, title: String, tag: Int) {
         self.ProcessEngineProfile?.update(name: title, value: CGFloat(value))
         self.cells[title]?.value = value
         
+        self.delegate?.lightAction(title: title, tag: tag, value: value, profile: self.ProcessEngineProfile)
         self.delegate?.updateValueProfile(profile: self.ProcessEngineProfile)
     }
 }
@@ -51,7 +53,7 @@ extension LightCollectCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LightCell", for: indexPath) as! LightCell
         cell.frame.size = .init(width: 80, height: 80)
         cell.titles = self.titles?[indexPath.item]
-        cell.value = self.ProcessEngineProfile?.get(name: self.titles?[indexPath.item] ?? "")?.toFloat
+        cell.value = self.ProcessEngineProfile?.get(name: self.titles?[indexPath.item] ?? "")?.toFloat ?? ProcessEngine().toolmin(t: tool(rawValue: indexPath.item)!).value
         cells.updateValue(cell, forKey: self.titles?[indexPath.item] ?? "")
         return cell
     }
@@ -60,9 +62,15 @@ extension LightCollectCell: UICollectionViewDataSource {
 extension LightCollectCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let valueAdjust = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ValueAdjust") as! ValueAdjustViewController
+        valueAdjust.tag = indexPath.item
         valueAdjust.modalPresentationStyle = .overCurrentContext
         valueAdjust.titles = self.titles?[indexPath.item] ?? ""
         valueAdjust.ProcessEngineProfile = self.ProcessEngineProfile
+        let m = ProcessEngine().toolmin(t: tool(rawValue: indexPath.item)!)
+        valueAdjust.defualValue = m.value
+        valueAdjust.min = m.min
+        valueAdjust.max = m.max
+        
         valueAdjust.delegate = self
         self.viewController.present(valueAdjust, animated: true, completion: nil)
     }

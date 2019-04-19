@@ -9,7 +9,7 @@
 import UIKit
 
 public protocol ValueAdjustViewControllerDelegate {
-    func ValueAdjust(value:Float, title:String)
+    func ValueAdjust(value:Float, title:String, tag:Int)
 }
 
 class ValueAdjustViewController: UIViewController {
@@ -17,14 +17,24 @@ class ValueAdjustViewController: UIViewController {
     @IBOutlet weak var backgoundview: UIView!
     @IBOutlet weak var labelValue: UILabel!
     @IBOutlet weak var sliderValue: UISlider!
-    
+    var tag:Int = 0
     let labelTitle = PresetLabel()
     var delegate: ValueAdjustViewControllerDelegate?
     var ProcessEngineProfile:ProcessEngineProfileModel?
+    
+    var defualValue:Float = 0
+    var min:Float = 0
+    var max:Float = 0
+    
     var ovalue:Float = 0.5
     var value:Float = 0.5 {
         didSet {
-            let str = String(format: "%0.2f", self.value)
+            var f = "%0.2f"
+            if self.value > 100 {
+                f = "%0.0f"
+            }
+            
+            let str = String(format: f, self.value)
             self.sliderValue.value = self.value
             self.labelValue.text = str
         }
@@ -81,14 +91,18 @@ class ValueAdjustViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.sliderValue.minimumValue = self.min
+        self.sliderValue.maximumValue = self.max
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
         if let v = self.ProcessEngineProfile?.get(name: self.titles) {
             self.value = v.toFloat
             self.ovalue = v.toFloat
+        } else {
+            self.value = self.defualValue
+            self.ovalue = self.defualValue
         }
     }
     
@@ -98,19 +112,19 @@ class ValueAdjustViewController: UIViewController {
     }
     
     @objc internal func doneAction() {
-        self.delegate?.ValueAdjust(value: self.sliderValue.value, title: self.titles)
+        self.delegate?.ValueAdjust(value: self.sliderValue.value, title: self.titles, tag: self.tag)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc internal func dismissAction() {
         self.sliderValue.value = self.ovalue
         self.value = self.ovalue
-        self.delegate?.ValueAdjust(value: self.ovalue, title: self.titles)
+        self.delegate?.ValueAdjust(value: self.ovalue, title: self.titles, tag: self.tag)
         self.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func sliderAction(_ sender: UISlider) {
         self.value = sender.value
-        self.delegate?.ValueAdjust(value: sender.value, title: self.titles)
+        self.delegate?.ValueAdjust(value: sender.value, title: self.titles, tag: self.tag)
     }
 }

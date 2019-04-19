@@ -48,6 +48,7 @@ class MainViewController: PhotosViewController {
     @IBOutlet var colrProBtn: UIBarButtonItem!
     @IBOutlet weak var CloseBtn: CloseButton!
     @IBOutlet weak var NextBtn: NextButton!
+    var viewEdit:EditorViewController!
     
     var index:Int? = nil
     
@@ -85,6 +86,10 @@ class MainViewController: PhotosViewController {
         self.colrProBtn.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)], for: .normal)
         
         self.delegate = self
+        
+        self.viewEdit = self.storyboard?.instantiateViewController(withIdentifier: "Editor") as? EditorViewController
+        viewEdit.view.alpha = 0
+        self.view.addSubview(viewEdit.view)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,14 +110,27 @@ class MainViewController: PhotosViewController {
     }
     
     @objc internal func nextAction() {
-        self.performSegue(withIdentifier: "Editor", sender: nil)
+//        self.performSegue(withIdentifier: "Editor", sender: nil)
+        guard let index = index else {return}
+        UIView.animate(withDuration: 0.3) {
+            let asset = self.fetchResults.object(at: index)
+            let ss:CGFloat = 100//UIScreen.main.bounds.width // * UIScreen.main.scale
+            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: ss, height: ss), contentMode: .aspectFit, options: nil) { (image, _) in
+                self.viewEdit.original = image
+            }
+            
+            self.viewEdit.asset = asset
+            self.viewEdit.view.alpha = 1
+            
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let editor = segue.destination as? EditorViewController else {return}
-        if let i = self.index {
-            editor.asset = self.fetchResults.object(at: i)
-        }
+//        guard let editor = segue.destination as? EditorViewController else {return}
+//        if let i = self.index {
+//            editor.asset = self.fetchResults.object(at: i)
+//        }
         
     }
 
