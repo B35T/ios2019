@@ -559,6 +559,48 @@ extension UIImageView {
         self.frame = r
     }
     
+    func getframe() -> CGRect {
+        var r:CGRect = .zero
+        if let s = image?.size {
+            
+            let c = s.width / s.height
+            let h = self.frame.width / c
+            let y = (self.frame.height / 2) - (h / 2) + self.frame.origin.y
+            
+            if h > self.frame.height {
+                let c = s.height / s.width
+                let w = self.frame.height / c
+                let x = (self.frame.width / 2) - (w / 2) + self.frame.origin.x
+                r = .init(x: x, y: self.frame.origin.y, width: w, height: self.frame.height)
+            } else {
+                r = .init(x: self.frame.origin.x, y: y, width: self.frame.width, height: h)
+            }
+        }
+        return r
+    }
+    
+    func setFrameForOverlay() {
+        var r:CGRect = .zero
+        if let s = image?.size {
+            
+            let c = s.width / s.height
+            let h = (self.frame.width / 2) / c
+            let y = (self.frame.height / 2) - (h / 2) + self.frame.origin.y
+            
+            if h > (self.frame.height / 2) {
+                let c = s.height / s.width
+                let w = (self.frame.height / 2) / c
+                let x = (self.frame.width / 2) - (w / 2) + self.frame.origin.x
+                r = .init(x: x, y: self.frame.origin.y, width: w, height: self.frame.height)
+            } else {
+                r = .init(x: self.frame.origin.x, y: y, width: self.frame.width, height: h)
+            }
+        }
+        self.frame = r
+    }
+    
+    
+    
     func calculetorImageFrame(frame:CGRect = .zero) -> CGRect {
         var r:CGRect = .zero
         if let s = image?.size {

@@ -34,6 +34,7 @@
 		403D911622605738007EA3E1 /* MultiBandHSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D911522605738007EA3E1 /* MultiBandHSV.swift */; };
 		4075D0B1226988C800EDFCB8 /* CollectionDelegate+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4075D0B0226988C800EDFCB8 /* CollectionDelegate+DataSource.swift */; };
 		4075D0B32269891D00EDFCB8 /* CollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4075D0B22269891D00EDFCB8 /* CollectionDataSource.swift */; };
+		4075D0B522698C4100EDFCB8 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4075D0B422698C4100EDFCB8 /* OverlayView.swift */; };
 		407E354422643F2700DEEDA5 /* ValueAdjustViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E354322643F2700DEEDA5 /* ValueAdjustViewController.swift */; };
 		408EC04022265A3E00729533 /* PreviewViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC03F22265A3E00729533 /* PreviewViewCell.swift */; };
 		408EC0422226611400729533 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408EC0412226611400729533 /* SubscriptionViewController.swift */; };
@@ -51,6 +52,12 @@
 		40934273225F1E1D00009FEA /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934272225F1E1D00009FEA /* Slider.swift */; };
 		40934276225F1E5B00009FEA /* HSLSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934275225F1E5B00009FEA /* HSLSlider.swift */; };
 		40934278225F24BD00009FEA /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934277225F24BD00009FEA /* extension.swift */; };
+		40B988712269C9A00047ADC9 /* lightning.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988702269C99F0047ADC9 /* lightning.jpg */; };
+		40B988772269CB680047ADC9 /* Art3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988722269CB670047ADC9 /* Art3.jpg */; };
+		40B988782269CB680047ADC9 /* bokeh2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988732269CB680047ADC9 /* bokeh2.jpg */; };
+		40B988792269CB680047ADC9 /* Art1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988742269CB680047ADC9 /* Art1.jpg */; };
+		40B9887A2269CB680047ADC9 /* Art2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988752269CB680047ADC9 /* Art2.jpg */; };
+		40B9887B2269CB680047ADC9 /* bokeh.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988762269CB680047ADC9 /* bokeh.jpg */; };
 		40BF48732262CDD400CE4899 /* LightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BF48712262CDD400CE4899 /* LightCell.swift */; };
 		40BF48742262CDD400CE4899 /* LightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40BF48722262CDD400CE4899 /* LightCell.xib */; };
 		40BF48772262D0E100CE4899 /* LightCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BF48752262D0E100CE4899 /* LightCollectCell.swift */; };
@@ -65,6 +72,7 @@
 		40E14EB92265D41A00E85BD4 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40E14EB72265D41A00E85BD4 /* FilterCell.xib */; };
 		40E14EBB2265E75900E85BD4 /* HSLViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EBA2265E75900E85BD4 /* HSLViewControllers.swift */; };
 		40E14EBF2265F05B00E85BD4 /* HSLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E14EBE2265F05B00E85BD4 /* HSLCell.swift */; };
+		40E479642269AF530015533C /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E479632269AF530015533C /* OverlayViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +126,7 @@
 		403D911522605738007EA3E1 /* MultiBandHSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiBandHSV.swift; sourceTree = "<group>"; };
 		4075D0B0226988C800EDFCB8 /* CollectionDelegate+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDelegate+DataSource.swift"; sourceTree = "<group>"; };
 		4075D0B22269891D00EDFCB8 /* CollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDataSource.swift; sourceTree = "<group>"; };
+		4075D0B422698C4100EDFCB8 /* OverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		407E354322643F2700DEEDA5 /* ValueAdjustViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueAdjustViewController.swift; sourceTree = "<group>"; };
 		408EC03F22265A3E00729533 /* PreviewViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewCell.swift; sourceTree = "<group>"; };
 		408EC0412226611400729533 /* SubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +144,12 @@
 		40934272225F1E1D00009FEA /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		40934275225F1E5B00009FEA /* HSLSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLSlider.swift; sourceTree = "<group>"; };
 		40934277225F24BD00009FEA /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		40B988702269C99F0047ADC9 /* lightning.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lightning.jpg; sourceTree = "<group>"; };
+		40B988722269CB670047ADC9 /* Art3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Art3.jpg; sourceTree = "<group>"; };
+		40B988732269CB680047ADC9 /* bokeh2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bokeh2.jpg; sourceTree = "<group>"; };
+		40B988742269CB680047ADC9 /* Art1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Art1.jpg; sourceTree = "<group>"; };
+		40B988752269CB680047ADC9 /* Art2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Art2.jpg; sourceTree = "<group>"; };
+		40B988762269CB680047ADC9 /* bokeh.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bokeh.jpg; sourceTree = "<group>"; };
 		40BF48712262CDD400CE4899 /* LightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCell.swift; sourceTree = "<group>"; };
 		40BF48722262CDD400CE4899 /* LightCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCell.xib; sourceTree = "<group>"; };
 		40BF48752262D0E100CE4899 /* LightCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCollectCell.swift; sourceTree = "<group>"; };
@@ -149,6 +164,7 @@
 		40E14EB72265D41A00E85BD4 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		40E14EBA2265E75900E85BD4 /* HSLViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLViewControllers.swift; sourceTree = "<group>"; };
 		40E14EBE2265F05B00E85BD4 /* HSLCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLCell.swift; sourceTree = "<group>"; };
+		40E479632269AF530015533C /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +267,12 @@
 		401B4C1D221BD73500F5E2C9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				40B988742269CB680047ADC9 /* Art1.jpg */,
+				40B988752269CB680047ADC9 /* Art2.jpg */,
+				40B988722269CB670047ADC9 /* Art3.jpg */,
+				40B988762269CB680047ADC9 /* bokeh.jpg */,
+				40B988732269CB680047ADC9 /* bokeh2.jpg */,
+				40B988702269C99F0047ADC9 /* lightning.jpg */,
 				401B4C21221BD75500F5E2C9 /* Framework */,
 				401B4C1E221BD74200F5E2C9 /* Models */,
 				401B4C20221BD74E00F5E2C9 /* ViewModels */,
@@ -269,9 +291,9 @@
 		401B4C1F221BD74900F5E2C9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				401B4C22221BD76800F5E2C9 /* Controllers */,
 				401B4BEC221BD62500F5E2C9 /* AppDelegate.swift */,
 				40934277225F24BD00009FEA /* extension.swift */,
-				401B4C22221BD76800F5E2C9 /* Controllers */,
 				401B4BF0221BD62500F5E2C9 /* Main.storyboard */,
 			);
 			path = Views;
@@ -411,6 +433,8 @@
 				40E14EBA2265E75900E85BD4 /* HSLViewControllers.swift */,
 				4075D0B0226988C800EDFCB8 /* CollectionDelegate+DataSource.swift */,
 				4075D0B22269891D00EDFCB8 /* CollectionDataSource.swift */,
+				4075D0B422698C4100EDFCB8 /* OverlayView.swift */,
+				40E479632269AF530015533C /* OverlayViewController.swift */,
 			);
 			path = EditorController;
 			sourceTree = "<group>";
@@ -537,11 +561,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40B988782269CB680047ADC9 /* bokeh2.jpg in Resources */,
+				40B9887B2269CB680047ADC9 /* bokeh.jpg in Resources */,
 				408EC0732226890B00729533 /* MenuCell.xib in Resources */,
+				40B9887A2269CB680047ADC9 /* Art2.jpg in Resources */,
 				4011BB7C221D26350004CE44 /* PhotosCell.xib in Resources */,
 				408EC07B22268E7400729533 /* GroupsCell.xib in Resources */,
 				408EC07722268AE300729533 /* PresetCell.xib in Resources */,
 				401B4BFA221BD63100F5E2C9 /* LaunchScreen.storyboard in Resources */,
+				40B988772269CB680047ADC9 /* Art3.jpg in Resources */,
+				40B988792269CB680047ADC9 /* Art1.jpg in Resources */,
+				40B988712269C9A00047ADC9 /* lightning.jpg in Resources */,
 				401B4BF7221BD63100F5E2C9 /* Assets.xcassets in Resources */,
 				40BF48742262CDD400CE4899 /* LightCell.xib in Resources */,
 				40E14EB92265D41A00E85BD4 /* FilterCell.xib in Resources */,
@@ -571,6 +601,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4075D0B522698C4100EDFCB8 /* OverlayView.swift in Sources */,
 				407E354422643F2700DEEDA5 /* ValueAdjustViewController.swift in Sources */,
 				400F577E225DDB7A007A0DB6 /* ButtonBlendMode.swift in Sources */,
 				40934273225F1E1D00009FEA /* Slider.swift in Sources */,
@@ -609,6 +640,7 @@
 				408F57252227D3830000A7D6 /* config.swift in Sources */,
 				40BF48772262D0E100CE4899 /* LightCollectCell.swift in Sources */,
 				40BF48732262CDD400CE4899 /* LightCell.swift in Sources */,
+				40E479642269AF530015533C /* OverlayViewController.swift in Sources */,
 				4075D0B32269891D00EDFCB8 /* CollectionDataSource.swift in Sources */,
 				400F577C225DD420007A0DB6 /* Rotation.swift in Sources */,
 				408EC0722226890B00729533 /* MenuCell.swift in Sources */,

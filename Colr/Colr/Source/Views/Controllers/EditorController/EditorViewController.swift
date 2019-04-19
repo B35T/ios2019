@@ -29,6 +29,8 @@ class EditorViewController: UIViewController {
     @IBOutlet weak var closeBtn: CloseButton!
     @IBOutlet weak var saveBtn: SaveButton!
     @IBOutlet weak var label: PresetLabel!
+    @IBOutlet weak var background: UIView!
+//    @IBOutlet weak var overlayLayer: UIView!
     var HSLmodelValue: HSLModel? = HSLModel()
     var ProcessEngineProfile: ProcessEngineProfileModel? = ProcessEngineProfileModel()
     var Engine:ProcessEngine!
@@ -62,6 +64,7 @@ class EditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.isUserInteractionEnabled = true
         self.Engine = ProcessEngine()
         self.collectionView.register(UINib(nibName: Cells.FilterCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.FilterCell.rawValue)
         self.collectionView.register(UINib(nibName: Cells.PresetCell.rawValue, bundle: nil), forCellWithReuseIdentifier: Cells.PresetCell.rawValue)
@@ -79,6 +82,7 @@ class EditorViewController: UIViewController {
         let imageView = UIImageView(frame: .init(x: 0, y: 0, width: view.w, height: view.h.persen(p: 76)))
         imageView.contentMode = .scaleAspectFit
         self.imageView = imageView
+        self.imageView.isUserInteractionEnabled = true
         self.view.addSubview(self.imageView)
         
         let closeBtn = CloseButton()
@@ -118,7 +122,6 @@ class EditorViewController: UIViewController {
         UIView.animate(withDuration: 0.3) {
             self.view.alpha = 0
         }
-        
     }
 
     
@@ -141,6 +144,11 @@ class EditorViewController: UIViewController {
             self.imageView.scale(view: view, persen: 50, duration: 0.2)
             self.closeBtn.animatedHidden()
             self.saveBtn.animatedHidden()
+        }
+        
+        if segue.identifier == "overlay" {
+            guard let overlay = segue.destination as? OverlayViewController else {return}
+            overlay.delegate = self
         }
     }
 }
@@ -190,6 +198,8 @@ extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, F
         case 3:
             self.selected = .tools
             self.animetion()
+        case 5:
+            self.performSegue(withIdentifier: "overlay", sender: nil)
         case 6:
             self.performSegue(withIdentifier: "CropPage", sender: nil)
         default:
@@ -201,6 +211,70 @@ extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, F
         self.image = image
     }
     
+}
+
+extension EditorViewController: OverlayViewControllerDelegate {
+    func OverlaySelected(image: UIImage) {
+        let over = OverlayImage()
+        over.overlay(view: self.imageView, image: image)
+        over.isUserInteractionEnabled = true
+        
+        let move = UIPanGestureRecognizer(target: self, action: #selector(moveOverlay))
+        over.addGestureRecognizer(move)
+        
+        let rotation = UIRotationGestureRecognizer(target: self, action: #selector(rotationOverlay(_:)))
+        over.addGestureRecognizer(rotation)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinchOverlay(_:)))
+        over.addGestureRecognizer(pinch)
+        
+        let remove = UILongPressGestureRecognizer(target: self, action: #selector(removeOverlay(_:)))
+        remove.minimumPressDuration = 1
+        over.addGestureRecognizer(remove)
+    }
+    
+    func overlayshow(view: UIView, width:CGFloat = 3, color: UIColor = .white, radius: CGFloat = 4, state: UIGestureRecognizer.State) {
+        
+        switch state {
+        case .changed:
+            view.layer.borderColor = color.cgColor
+            view.layer.borderWidth = width
+            view.layer.cornerRadius = radius
+        case .ended:
+            view.layer.borderWidth = 0
+        default:
+            view.layer.borderWidth = 0
+        }
+        
+    }
+    
+    @objc internal func removeOverlay(_ sender: UITapGestureRecognizer) {
+        if let view = sender.view {
+            view.removeFromSuperview()
+        }
+    }
+    
+    @objc internal func pinchOverlay(_ sender:UIPinchGestureRecognizer) {
+        if let view = sender.view {
+            view.transform = view.transform.scaledBy(x: sender.scale, y: sender.scale)
+            sender.scale = 1
+        }
+    }
+    
+    @objc internal func rotationOverlay(_ sender: UIRotationGestureRecognizer) {
+        if let view = sender.view {
+            view.transform = view.transform.rotated(by: sender.rotation)
+            sender.rotation = 0
+        }
+    }
+    
+    @objc internal func moveOverlay(_ sender: UIPanGestureRecognizer) {
+        if let view = sender.view {
+            let t = sender.translation(in: self.imageView)
+            view.center = .init(x: view.center.x + t.x, y: view.center.y + t.y)
+        }
+        sender.setTranslation(.zero, in: self.imageView)
+    }
 }
 
 extension EditorViewController: LightCollectCellDelegate {

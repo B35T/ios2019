@@ -186,6 +186,7 @@ class HSLViewControllers: UIViewController {
         self.background.addSubview(self.lightnessValueLabel)
         
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -214,8 +215,12 @@ class HSLViewControllers: UIViewController {
         self.prevoid = HSLModelValue
         self.getValue()
     }
-    
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    
     @objc internal func dismissAction() {
         self.delegate?.HSLResult(image: prevoidimage!, model: prevoid)
         self.delegate?.HSLViewBack()

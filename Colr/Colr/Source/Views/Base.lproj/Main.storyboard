@@ -171,6 +171,7 @@
                         <segue destination="vzL-Xs-G0D" kind="presentation" identifier="CropPage" modalTransitionStyle="crossDissolve" id="VUv-FP-QJb"/>
                         <segue destination="6KT-lQ-0B4" kind="showDetail" identifier="ValueAdjust" id="8Yq-QM-dji"/>
                         <segue destination="hAx-0G-dEK" kind="showDetail" identifier="HSL2" id="j1i-q9-yLD"/>
+                        <segue destination="FGu-eG-9g3" kind="showDetail" identifier="overlay" id="tRV-ac-NtQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uji-4k-dY0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -276,7 +277,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="69J-cr-NnV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4568.8000000000002" y="-712.89355322338838"/>
+            <point key="canvasLocation" x="4598" y="-668"/>
+        </scene>
+        <!--Overlay View Controller-->
+        <scene sceneID="n0o-s0-0Qo">
+            <objects>
+                <viewController id="FGu-eG-9g3" customClass="OverlayViewController" customModule="Colr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Q0X-CL-gxc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MQq-Hz-UbP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ywa-b6-FEH">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MQq-Hz-UbP" firstAttribute="bottom" secondItem="Etp-SA-PGX" secondAttribute="bottom" id="GB8-9K-mle"/>
+                            <constraint firstItem="MQq-Hz-UbP" firstAttribute="leading" secondItem="Etp-SA-PGX" secondAttribute="leading" id="hxw-Xj-DLG"/>
+                            <constraint firstItem="MQq-Hz-UbP" firstAttribute="trailing" secondItem="Etp-SA-PGX" secondAttribute="trailing" id="m25-Ik-F61"/>
+                            <constraint firstItem="MQq-Hz-UbP" firstAttribute="top" secondItem="Q0X-CL-gxc" secondAttribute="top" id="umo-fa-hoQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Etp-SA-PGX"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="MQq-Hz-UbP" id="vRJ-pT-MaP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="to8-lw-ykW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4597.6000000000004" y="36.431784107946029"/>
         </scene>
         <!--Crop View Controller-->
         <scene sceneID="Wn9-ay-htP">
@@ -308,7 +346,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CfK-Mc-brI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4381.6000000000004" y="-2060.4197901049479"/>
+            <point key="canvasLocation" x="4569" y="-2068"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="gok-uQ-yF7">
