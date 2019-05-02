@@ -52,6 +52,7 @@
 		40934273225F1E1D00009FEA /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934272225F1E1D00009FEA /* Slider.swift */; };
 		40934276225F1E5B00009FEA /* HSLSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934275225F1E5B00009FEA /* HSLSlider.swift */; };
 		40934278225F24BD00009FEA /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40934277225F24BD00009FEA /* extension.swift */; };
+		40B5F4B4227AB42E005F96E9 /* OverlayValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B5F4B3227AB42E005F96E9 /* OverlayValue.swift */; };
 		40B988712269C9A00047ADC9 /* lightning.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988702269C99F0047ADC9 /* lightning.jpg */; };
 		40B988772269CB680047ADC9 /* Art3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988722269CB670047ADC9 /* Art3.jpg */; };
 		40B988782269CB680047ADC9 /* bokeh2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40B988732269CB680047ADC9 /* bokeh2.jpg */; };
@@ -144,6 +145,7 @@
 		40934272225F1E1D00009FEA /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		40934275225F1E5B00009FEA /* HSLSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLSlider.swift; sourceTree = "<group>"; };
 		40934277225F24BD00009FEA /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		40B5F4B3227AB42E005F96E9 /* OverlayValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayValue.swift; sourceTree = "<group>"; };
 		40B988702269C99F0047ADC9 /* lightning.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lightning.jpg; sourceTree = "<group>"; };
 		40B988722269CB670047ADC9 /* Art3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Art3.jpg; sourceTree = "<group>"; };
 		40B988732269CB680047ADC9 /* bokeh2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bokeh2.jpg; sourceTree = "<group>"; };
@@ -314,7 +316,7 @@
 				40934255225EEFE700009FEA /* HSL */,
 				40934252225EEF6100009FEA /* ProfileController */,
 				400F576E225DD2CB007A0DB6 /* Cropr */,
-				40CCEC21221E605F007498C5 /* Button & Label */,
+				40CCEC21221E605F007498C5 /* Button & Label & Overlay */,
 				4011BB6E221D226E0004CE44 /* Collection */,
 				401B4C25221BD98400F5E2C9 /* Photos */,
 				400F577D225DDB7A007A0DB6 /* ButtonBlendMode.swift */,
@@ -439,7 +441,7 @@
 			path = EditorController;
 			sourceTree = "<group>";
 		};
-		40CCEC21221E605F007498C5 /* Button & Label */ = {
+		40CCEC21221E605F007498C5 /* Button & Label & Overlay */ = {
 			isa = PBXGroup;
 			children = (
 				40CCEC22221E607B007498C5 /* CustomButton.swift */,
@@ -450,8 +452,9 @@
 				408F57212227CE560000A7D6 /* PresetLabel.swift */,
 				40934272225F1E1D00009FEA /* Slider.swift */,
 				40934275225F1E5B00009FEA /* HSLSlider.swift */,
+				40B5F4B3227AB42E005F96E9 /* OverlayValue.swift */,
 			);
-			path = "Button & Label";
+			path = "Button & Label & Overlay";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -641,6 +644,7 @@
 				40BF48772262D0E100CE4899 /* LightCollectCell.swift in Sources */,
 				40BF48732262CDD400CE4899 /* LightCell.swift in Sources */,
 				40E479642269AF530015533C /* OverlayViewController.swift in Sources */,
+				40B5F4B4227AB42E005F96E9 /* OverlayValue.swift in Sources */,
 				4075D0B32269891D00EDFCB8 /* CollectionDataSource.swift in Sources */,
 				400F577C225DD420007A0DB6 /* Rotation.swift in Sources */,
 				408EC0722226890B00729533 /* MenuCell.swift in Sources */,

@@ -70,7 +70,7 @@ extension EditorViewController: UICollectionViewDataSource {
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Cells.MenuCell.rawValue, for: indexPath) as! MenuCell
             cell.delegate = self
-            cell.images = [#imageLiteral(resourceName: "Filter"),#imageLiteral(resourceName: "preset"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "overlay"), #imageLiteral(resourceName: "crop")]
+            cell.images = [#imageLiteral(resourceName: "Filter"), #imageLiteral(resourceName: "hsl"), #imageLiteral(resourceName: "light"), #imageLiteral(resourceName: "3d"), #imageLiteral(resourceName: "crop")]
             return cell
         default:
             fatalError()

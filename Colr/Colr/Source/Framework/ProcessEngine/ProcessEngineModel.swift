@@ -18,9 +18,13 @@ public enum Filter:Int {
     case P5
     case P6
     case P7
+    case P8
+    case P9
+    case P10
+    case P11
     
     var count: Int {
-        return 8
+        return 12
     }
 }
 
@@ -66,6 +70,19 @@ public struct HSLModel {
     var purple:HSLVector?
     var magenta:HSLVector?
     
+    mutating func update(color:Color.HSLColorSet, value: HSLVector?) {
+        switch color {
+        case .red: self.red = value
+        case .green: self.green = value
+        case .blue: self.blue = value
+        case .orange: self.orange = value
+        case .yellow: self.yellow = value
+        case .aque: self.aqua = value
+        case .purple: self.purple = value
+        case .magenta: self.magenta = value
+        }
+    }
+    
     var json: [String:Any?] {
         return ["red":red?.json, "green":green?.json, "blue": blue?.json, "orange": orange?.json, "yellow": yellow?.json, "aque":aqua?.json, "purple": purple?.json, "magenta": magenta?.json]
     }
@@ -90,6 +107,8 @@ struct ChromaticModel {
 }
 
 public struct ProcessEngineProfileModel {
+    var filter: Int?
+    
     var HSL: HSLModel?
     var Chromatic:ChromaticModel?
     var TransverseChromatic:TransverseChromaticModel?

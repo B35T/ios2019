@@ -29,6 +29,14 @@ extension ProcessEngine {
             return P6(ciimage: ciimage)
         case .P7:
             return P7(ciimage: ciimage)
+        case .P8:
+            return P8(ciimage: ciimage)
+        case .P9:
+            return P9(ciimage: ciimage)
+        case .P10:
+            return P10(ciimage: ciimage)
+        case .P11:
+            return P11(ciimage: ciimage)
         }
     }
     
@@ -45,9 +53,17 @@ extension ProcessEngine {
     
     func P6(ciimage: CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
-        let c = colorControls(inputImage: ciimage, inputSaturation: 1.4, inputContrast: 1.03)
-        let p = CIColorPolynomial(ciimage: c, r: .init(x: 0, y: 1.2, z: 0, w: 0), g: .init(x: 0, y: 1.25, z: 0.13, w: -0.2))
-        return p
+        let c = colorControls(inputImage: ciimage, inputSaturation: 1, inputContrast: 1.03)
+        
+        let multi = MultiBandHSV()
+        multi.inputImage = c
+        multi.inputOrangeShift = .init(x: 0.01, y: 1.02, z: 1)
+        multi.inputGreenShift = .init(x: -0.10,  y: 1.1, z: 0.95)
+        multi.inputYellowShift = .init(x: -0.10, y: 1.1, z: 0.95)
+        multi.inputBlueShift = .init(x: -0.03, y: 1.3, z: 1)
+        multi.inputAquaShift = .init(x: -0.03, y: 1.3, z: 1)
+        multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
+        return multi.outputImage
     }
     
     func P7(ciimage: CIImage?) -> CIImage? {
@@ -55,6 +71,67 @@ extension ProcessEngine {
         let c = colorControls(inputImage: ciimage, inputSaturation: 1.2,inputBrightness: 0.01, inputContrast: 1.03)
         let m = CIColorMatrix(ciimage: c, r: .init(x: 0.85, y: -0.08595, z: 0, w: -0.014),a: .init(x: 0, y: 0, z: 0, w: 1.1))
         return m
+    }
+    
+    func P8(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        let c = colorControls(inputImage: ciimage, inputSaturation: 1,inputBrightness: 0.01, inputContrast: 1.03)
+        let m = CIColorMatrix(ciimage: c, r: .init(x: 0.85, y: -0.08595, z: 0, w: -0.014),a: .init(x: 0, y: 0, z: 0, w: 1.1))
+        let multi = MultiBandHSV()
+        multi.inputImage = m
+        multi.inputOrangeShift = .init(x: 0.015, y: 1.02, z: 1)
+        multi.inputGreenShift = .init(x: 0.02,  y: 1, z: 1)
+        multi.inputYellowShift = .init(x: -0.02, y: 1, z: 1)
+        multi.inputBlueShift = .init(x: -0.010, y: 1.1, z: 1)
+        multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
+        return multi.outputImage
+    }
+    
+    func P9(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        let multi = MultiBandHSV()
+        multi.inputImage = ciimage
+        multi.inputOrangeShift = .init(x: 0.005, y: 1.02, z: 1)
+        multi.inputGreenShift = .init(x: 0.04,  y: 1, z: 1)
+        multi.inputYellowShift = .init(x: -0.03, y: 1, z: 1)
+        multi.inputBlueShift = .init(x: -0.010, y: 1.1, z: 1)
+        multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
+        
+        let c = colorControls(inputImage: multi.outputImage!, inputSaturation: 0.9,inputBrightness: 0, inputContrast: 1.03)
+        let m = CIColorMatrix(ciimage: c, r: .init(x: 0.85, y: -0.08595, z: 0, w: -0.014),a: .init(x: 0, y: 0, z: 0, w: 1.1))
+       
+        return m
+    }
+    
+    func P10(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+//        let e = self.exposureAdjust(inputImage: ciimage, inputEV: -0.1)
+        let p = self.CIPhotoEffectChrome(ciimage: ciimage)
+        let multi = MultiBandHSV()
+        multi.inputImage = p
+        multi.inputOrangeShift = .init(x: 0.01, y: 1.02, z: 1)
+        multi.inputGreenShift = .init(x: 0.05,  y: 1, z: 1)
+        multi.inputYellowShift = .init(x: 0.05, y: 1, z: 1)
+        multi.inputBlueShift = .init(x: -0.03, y: 1.2, z: 1)
+        multi.inputAquaShift = .init(x: -0.03, y: 1.2, z: 1)
+        multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
+        let c = colorControls(inputImage: multi.outputImage!, inputSaturation: 0.9,inputBrightness: 0.01, inputContrast: 1.02)
+        return c
+    }
+    
+    func P11(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        
+        let fade = self.CIPhotoEffectFade(ciimage: ciimage)
+        let multi = MultiBandHSV()
+        multi.inputImage = fade
+        multi.inputOrangeShift = .init(x: 0.01, y: 1.02, z: 1)
+        multi.inputGreenShift = .init(x: -0.10,  y: 1.1, z: 0.95)
+        multi.inputYellowShift = .init(x: -0.10, y: 1.1, z: 0.95)
+        multi.inputBlueShift = .init(x: -0.03, y: 1.3, z: 1)
+        multi.inputAquaShift = .init(x: -0.03, y: 1.3, z: 1)
+        multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
+        return multi.outputImage
     }
     
     func CIColorMatrix(ciimage: CIImage?, r:CIVector = CIVector(x: 1, y: 0, z: 0, w: 0), g:CIVector = CIVector(x: 0, y: 1, z: 0, w: 0), b:CIVector = CIVector(x: 0, y: 0, z: 1, w: 0), a:CIVector = CIVector(x: 0, y: 0, z: 0, w: 1)) -> CIImage? {

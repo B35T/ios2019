@@ -38,6 +38,7 @@ class HSLViewControllers: UIViewController {
     var select = 0
     // for sender
     var HSLModelValue:HSLModel?
+    var profile:ProcessEngineProfileModel?
     var Engine: ProcessEngine!
     
     var delegate: HSLViewControllerDelegate?
@@ -291,7 +292,7 @@ extension HSLViewControllers {
             Multi.inputYellowShift = self.HSLModelValue?.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
         }
         
-        guard let output = Multi.outputImage else {print("no output");return}
+        guard let output = ProcessEngine().toolCreate(ciimage: ciimage, Profile: profile) else {return}
         self.delegate?.HSLResult(image: UIImage(ciImage: output), model: HSLModelValue)
     }
     
@@ -331,7 +332,7 @@ extension HSLViewControllers {
             Multi.inputYellowShift = self.HSLModelValue?.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
         }
         
-        guard let output = Multi.outputImage else {print("no output");return}
+        guard let output = ProcessEngine().toolCreate(ciimage: ciimage, Profile: profile) else {return}
         self.delegate?.HSLResult(image: UIImage(ciImage: output), model: HSLModelValue)
 
     }

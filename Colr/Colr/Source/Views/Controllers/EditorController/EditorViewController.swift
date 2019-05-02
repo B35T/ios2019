@@ -26,11 +26,13 @@ class EditorViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var underImageView: UIImageView!
     @IBOutlet weak var closeBtn: CloseButton!
     @IBOutlet weak var saveBtn: SaveButton!
     @IBOutlet weak var label: PresetLabel!
+    @IBOutlet weak var presetlabel: PresetLabel!
     @IBOutlet weak var background: UIView!
-//    @IBOutlet weak var overlayLayer: UIView!
+
     var HSLmodelValue: HSLModel? = HSLModel()
     var ProcessEngineProfile: ProcessEngineProfileModel? = ProcessEngineProfileModel()
     var Engine:ProcessEngine!
@@ -44,8 +46,13 @@ class EditorViewController: UIViewController {
     private var image: UIImage? {
         didSet {
             if let img = image {
+                self.underImageView.image = img
                 self.imageView.image = img
                 self.ciimage = CIImage(image: img)
+                self.value = (1.0, "none")
+                OverlayValue.shared.label.alpha = 0
+                self.HSLmodelValue = HSLModel()
+                self.ProcessEngineProfile = ProcessEngineProfileModel()
             } else {
                 print("no image")
             }
@@ -61,6 +68,14 @@ class EditorViewController: UIViewController {
     
     var selected:select = .filter
     var checkSelect:select = .filter
+    
+    var value: (CGFloat, String) = (1.0 , "none") {
+        didSet {
+            self.imageView.alpha = self.value.0
+            OverlayValue.shared.showOverlay(view: self.view, value: self.value.0, center: self.imageView.center)
+            self.presetlabel.text = "\(self.value.1) / 𝜶 \(String(format: "%0.0f", self.value.0 * 100))%"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,12 +93,22 @@ class EditorViewController: UIViewController {
         PHPhotoLibrary.shared().register(self)
         
         self.view.backgroundColor = .black
-
+        
         let imageView = UIImageView(frame: .init(x: 0, y: 0, width: view.w, height: view.h.persen(p: 76)))
         imageView.contentMode = .scaleAspectFit
-        self.imageView = imageView
-        self.imageView.isUserInteractionEnabled = true
-        self.view.addSubview(self.imageView)
+
+        self.underImageView = imageView
+        self.view.addSubview(underImageView)
+        
+        let imageView2 = UIImageView(frame: .init(x: 0, y: 0, width: view.w, height: view.h.persen(p: 76)))
+        imageView2.contentMode = .scaleAspectFit
+        self.imageView = imageView2
+        self.underImageView.isUserInteractionEnabled = true
+        self.underImageView.addSubview(self.imageView)
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(panUpper(_:)))
+        self.underImageView.addGestureRecognizer(pan)
+        
         
         let closeBtn = CloseButton()
         closeBtn.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
@@ -94,6 +119,11 @@ class EditorViewController: UIViewController {
         saveBtn.add(view: view, .init(x: view.w.minus(n: 120), y: 10))
         self.saveBtn = saveBtn
         
+        let presetlabel = PresetLabel()
+        presetlabel.add(view: view, .init(x: 0, y: view.h.persen(p: 70)))
+        presetlabel.center.x = self.view.center.x
+        self.presetlabel = presetlabel
+        self.presetlabel.text = "none / 𝜶 100%"
     }
     
     func updateStaticPhotos() {
@@ -137,11 +167,13 @@ class EditorViewController: UIViewController {
             guard let HSL = segue.destination as? HSLViewControllers else {return}
             HSL.delegate = self
             HSL.Engine = self.Engine
-            HSL.image = self.image
             HSL.prevoidimage = self.imageView.image
+            HSL.profile = ProcessEngineProfile
             HSL.HSLModelValue = self.HSLmodelValue
+            HSL.image = self.image
             HSL.modalPresentationStyle = .overCurrentContext
             self.imageView.scale(view: view, persen: 50, duration: 0.2)
+            self.underImageView.scale(view: view, persen: 50, duration: 0.2)
             self.closeBtn.animatedHidden()
             self.saveBtn.animatedHidden()
         }
@@ -154,14 +186,17 @@ class EditorViewController: UIViewController {
 }
 
 extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, FilterCellDelegate, MenuCellDelegate, CropViewControllerDelegate {
-    //HSL
     func HSLResult(image: UIImage?, model: HSLModel?) {
-        self.imageView.image = image
+        guard let ciimage = self.ciimage else {return}
         self.HSLmodelValue = model
+        self.ProcessEngineProfile?.HSL = model
+        
+        let result = Engine.toolCreate(ciimage: ciimage, Profile: self.ProcessEngineProfile)
+        self.imageView.image = UIImage(ciImage: result!)
     }
-    
     func HSLViewBack() {
         self.imageView.scale(view: view, persen: 76, duration: 0.3)
+        self.underImageView.scale(view: view, persen: 76, duration: 0.3)
         self.closeBtn.animatedHidden(action: false)
         self.saveBtn.animatedHidden(action: false)
     }
@@ -175,10 +210,15 @@ extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, F
     func FilterSelectItem(indexPath: IndexPath, identifier: String) {
         switch indexPath.section {
         case 0:
-            return self.imageView.image = self.image
-        case 1:
-            let filter = Engine.filter(index: indexPath.item, ciimage: ciimage!)
+            self.ProcessEngineProfile?.filter = nil
+            let filter = Engine.toolCreate(ciimage: ciimage!, Profile: self.ProcessEngineProfile)
             self.imageView.image = UIImage(ciImage: filter!)
+        case 1:
+            self.ProcessEngineProfile?.filter = indexPath.item
+            let filter = Engine.toolCreate(ciimage: ciimage!, Profile: self.ProcessEngineProfile)
+            self.imageView.image = UIImage(ciImage: filter!)
+            self.value = (1.0, "\(identifier)\(indexPath.item)")
+            OverlayValue.shared.hidden()
         default:
             break
         }
@@ -190,17 +230,17 @@ extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, F
         case 0:
             self.selected = .filter
             self.animetion()
+//        case 1:
+//            self.selected = .preset
+//            self.animetion()
         case 1:
-            self.selected = .preset
-            self.animetion()
-        case 2:
             self.performSegue(withIdentifier: "HSL2", sender: nil)
-        case 3:
+        case 2:
             self.selected = .tools
             self.animetion()
-        case 5:
-            self.performSegue(withIdentifier: "overlay", sender: nil)
-        case 6:
+//        case 5:
+//            self.performSegue(withIdentifier: "overlay", sender: nil)
+        case 4:
             self.performSegue(withIdentifier: "CropPage", sender: nil)
         default:
             break
@@ -211,6 +251,30 @@ extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, F
         self.image = image
     }
     
+}
+
+extension EditorViewController {
+    @objc internal func panUpper(_ sender: UIPanGestureRecognizer) {
+        guard let _ = sender.view else {return}
+        let translation = sender.translation(in: self.view)
+        
+        self.value.0 += (-translation.y / self.view.frame.height)
+        
+        if self.value.0 >= 1 {
+            self.value.0 = 1
+        } else if value.0 <= 0 {
+            self.value.0 = 0
+        }
+        
+        switch sender.state {
+        case .ended:
+            OverlayValue.shared.hidden()
+        default:
+            break
+        }
+        
+        sender.setTranslation(.zero, in: self.view)
+    }
 }
 
 extension EditorViewController: OverlayViewControllerDelegate {
@@ -279,7 +343,7 @@ extension EditorViewController: OverlayViewControllerDelegate {
 
 extension EditorViewController: LightCollectCellDelegate {
     func lightAction(title: String, tag: Int, value: Float, profile: ProcessEngineProfileModel?) {
-        let result = Engine.toolCreate(t: tool(rawValue: tag)!, ciimage: self.ciimage!, Profile: profile!, value: value)
+        let result = Engine.toolCreate(ciimage: self.ciimage!, Profile: profile)
         self.imageView.image = UIImage(ciImage: result!)
     }
 

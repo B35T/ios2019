@@ -19,7 +19,11 @@ class LightCollectCell: UICollectionViewCell {
     
     var delegate: LightCollectCellDelegate?
     var titles:[String]?
-    var ProcessEngineProfile: ProcessEngineProfileModel?
+    var ProcessEngineProfile: ProcessEngineProfileModel? {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     var cells:[String:LightCell] = [:]
     var viewController:UIViewController!
     

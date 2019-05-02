@@ -52,45 +52,93 @@ extension ProcessEngine {
         }
     }
     
-    func toolCreate(t:tool, ciimage:CIImage, Profile:ProcessEngineProfileModel, value:Float) -> CIImage? {
-//        switch t {
-//        case .exposure:
-//            return self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: Float(Profile.exposure ?? 0)))
-//        case .saturation, .brightness, .contrast:
-//            let s = NSNumber(value: Float(Profile.saturation ?? 1))
-//            let b = NSNumber(value: Float(Profile.brightness ?? 0))
-//            let c = NSNumber(value: Float(Profile.contrast ?? 1))
-//            return self.colorControls(inputImage: ciimage, inputSaturation: s, inputBrightness: b, inputContrast: c)
-//        case .highlight, .shadow:
-//            let h = NSNumber(value: Float(Profile.highlight ?? 0))
-//            let s = NSNumber(value: Float(Profile.shadow ?? 0))
-//            return self.highlightShadowAdjust(inputImage: ciimage, inputShadowAmount: s, inputHighlightAmount: h)
-//        case .temperature, .tint:
-//            let n = CIVector(x: Profile.temperature ?? 6500, y: 0)
-//            let t = CIVector(x: Profile.tint ?? 6500, y: 0)
-//            return self.temperatureAndTint(inputImage: ciimage, inputNeutral: n, inputTargetNeutral: t)
-//        case .vibrance:
-//            return self.vibrance(inputImage: ciimage, inputAmount: NSNumber(value: Profile.vibrance?.toFloat ?? 0))
-//        case .gamma:
-//            return self.gammaAdjust(inputImage: ciimage, inputPower: NSNumber(value: Profile.gamma?.toFloat ?? 1))
-//        case .sharpan:
-//            return self.sharpenLuminance(inputImage: ciimage, inputSharpness: NSNumber(value: Profile.sharpen?.toFloat ?? 1))
-//        }
+    func toolCreate(ciimage:CIImage, Profile:ProcessEngineProfileModel?) -> CIImage? {
+        var ci:CIImage = ciimage
+        if let exposure = Profile?.exposure {
+            print("exposure")
+            ci = self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: exposure.toFloat))!
+        }
         
-        var ci:CIImage = self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: Float(Profile.exposure ?? 0)))!
-        let s = NSNumber(value: Float(Profile.saturation ?? 1))
-        let b = NSNumber(value: Float(Profile.brightness ?? 0))
-        let c = NSNumber(value: Float(Profile.contrast ?? 1))
-        ci = self.colorControls(inputImage: ci, inputSaturation: s, inputBrightness: b, inputContrast: c)!
-        let h = NSNumber(value: Float(Profile.highlight ?? 1))
-        let sh = NSNumber(value: Float(Profile.shadow ?? 0))
-        ci = self.highlightShadowAdjust(inputImage: ci, inputShadowAmount: sh, inputHighlightAmount: h)!
-        let n = CIVector(x: Profile.temperature ?? 6500, y: 0)
-        let t = CIVector(x: Profile.tint ?? 6500, y: 0)
-        ci = self.temperatureAndTint(inputImage: ci, inputNeutral: n, inputTargetNeutral: t)!
-        ci = self.vibrance(inputImage: ci, inputAmount: NSNumber(value: Profile.vibrance?.toFloat ?? 0))!
-        ci = self.gammaAdjust(inputImage: ci, inputPower: NSNumber(value: Profile.gamma?.toFloat ?? 1))!
-        ci = self.sharpenLuminance(inputImage: ci, inputSharpness: NSNumber(value: Profile.sharpen?.toFloat ?? 0))!
+        var s = NSNumber(value: 1)
+        var b = NSNumber(value: 0)
+        var c = NSNumber(value: 1)
+        
+        if let saturation = Profile?.saturation {
+            print("saturation")
+            s = NSNumber(value: saturation.toFloat)
+            ci = self.colorControls(inputImage: ci, inputSaturation: s, inputBrightness: b, inputContrast: c)!
+        }
+        
+        if let brightness = Profile?.brightness {
+            print("brightness")
+            b = NSNumber(value: brightness.toFloat)
+            ci = self.colorControls(inputImage: ci, inputSaturation: s, inputBrightness: b, inputContrast: c)!
+        }
+        
+        if let contrast = Profile?.contrast {
+            print("constast")
+            c = NSNumber(value: contrast.toFloat)
+            ci = self.colorControls(inputImage: ci, inputSaturation: s, inputBrightness: b, inputContrast: c)!
+        }
+        
+        var h = NSNumber(value: 1)
+        var sh = NSNumber(value: 0)
+        
+        if let highlight = Profile?.highlight {
+            h = NSNumber(value: highlight.toFloat)
+            ci = self.highlightShadowAdjust(inputImage: ci, inputShadowAmount: sh, inputHighlightAmount: h)!
+        }
+        
+        if let shadow = Profile?.shadow {
+            sh = NSNumber(value: shadow.toFloat)
+            ci = self.highlightShadowAdjust(inputImage: ci, inputShadowAmount: sh, inputHighlightAmount: h)!
+        }
+        
+        var n = CIVector(x: 6500, y: 0)
+        var t = CIVector(x: 6500, y: 0)
+        if let temperature = Profile?.temperature {
+            n = CIVector(x: temperature, y: 0)
+            ci = self.temperatureAndTint(inputImage: ci, inputNeutral: n, inputTargetNeutral: t)!
+        }
+        
+        if let tint = Profile?.tint {
+            t = CIVector(x: tint, y: 0)
+            ci = self.temperatureAndTint(inputImage: ci, inputNeutral: n, inputTargetNeutral: t)!
+        }
+        
+        if let vibrance = Profile?.vibrance {
+            ci = self.vibrance(inputImage: ci, inputAmount: NSNumber(value: vibrance.toFloat))!
+        }
+        
+        if let gamma = Profile?.gamma {
+            ci = self.gammaAdjust(inputImage: ci, inputPower: NSNumber(value: gamma.toFloat))!
+        }
+        
+        if let sharpen = Profile?.sharpen {
+            ci = self.sharpenLuminance(inputImage: ci, inputSharpness: NSNumber(value: sharpen.toFloat))!
+        }
+        
+        if let HSL = Profile?.HSL {
+            print("HSL")
+            let m = MultiBandHSV()
+            m.inputImage = ci
+ 
+            m.inputRedShift = HSL.red?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputOrangeShift = HSL.orange?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputYellowShift = HSL.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputGreenShift = HSL.green?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputAquaShift = HSL.aqua?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputBlueShift = HSL.blue?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputPurpleShift = HSL.purple?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputMagentaShift = HSL.magenta?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            
+            ci = m.outputImage!
+        }
+        
+        if let filter = Profile?.filter {
+            ci = self.filter(index: filter, ciimage: ci) ?? ci
+        }
+        
         return ci
     }
     

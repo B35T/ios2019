@@ -29,6 +29,9 @@ class FilterCell: UICollectionViewCell {
     var original:UIImage? {
         didSet {
             self.collectionView.reloadData()
+            if self.original != nil {
+                self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: false)
+            }
         }
     }
     
@@ -70,7 +73,7 @@ extension FilterCell: UICollectionViewDataSource {
         case .OG:
             return 1
         case .P:
-            return 8
+            return 12
         }
     }
     
@@ -79,7 +82,7 @@ extension FilterCell: UICollectionViewDataSource {
         case .OG:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCells, for: indexPath) as! PhotosCell
             cell.thumbnailImage = self.original
-            cell.addText(str: "OG")
+            cell.addText(str: "none")
             cell.useIsSelect = .color
             cell.layer.cornerRadius = 4
             return cell

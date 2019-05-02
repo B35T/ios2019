@@ -17,7 +17,11 @@ class MenuCell: UICollectionViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var delegate: MenuCellDelegate?
-    var images: [UIImage]?
+    var images: [UIImage]? {
+        didSet {
+//            self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: false)
+        }
+    }
     let phCell = "PhotosCell"
     
     var phCells: [Int:PhotosCell] = [:]

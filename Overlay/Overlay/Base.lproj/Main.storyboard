@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Overlay" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-8E-NMc">
+                                <rect key="frame" x="36" y="617" width="42" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="image"/>
+                                <connections>
+                                    <action selector="pickerAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BRC-6B-gdV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uLU-xf-SNp">
+                                <rect key="frame" x="274" y="617" width="79" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="add overlay"/>
+                                <connections>
+                                    <action selector="addImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DUo-tG-X5g"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFr-Tb-X4c">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="576"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="mainImageView" destination="nFr-Tb-X4c" id="SlF-Nq-MVd"/>
+                        <outlet property="overlayScroll" destination="pca-MU-NG1" id="1Qt-W9-eRR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="pca-MU-NG1">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <gestureRecognizers/>
+                    <viewLayoutGuide key="safeArea" id="RhN-Gu-qFh"/>
+                </scrollView>
+                <tapGestureRecognizer id="kj9-MU-aLL">
+                    <connections>
+                        <action selector="handleTapWithReconizer:" destination="BYZ-38-t0r" id="tU7-oi-Qws"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="TgX-Ld-xEL"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pinchGestureRecognizer id="c9P-Xx-X3m">
+                    <connections>
+                        <action selector="handlePinchWithReconizer:" destination="BYZ-38-t0r" id="vvt-mu-0cQ"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="f9M-B9-1rB"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <rotationGestureRecognizer id="rZo-wG-rsF">
+                    <connections>
+                        <action selector="handleRotationWithReconizer:" destination="BYZ-38-t0r" id="Wrg-ei-fBZ"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="PRX-ZH-JMa"/>
+                    </connections>
+                </rotationGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="wx3-aP-8Di">
+                    <connections>
+                        <action selector="handlePanWithRecognizer:" destination="BYZ-38-t0r" id="LMQ-lg-OVS"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="uVM-Fu-5yR"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="133.59999999999999" y="32.833583208395808"/>
+        </scene>
+    </scenes>
+</document>
