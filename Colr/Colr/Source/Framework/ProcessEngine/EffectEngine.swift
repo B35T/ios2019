@@ -40,6 +40,14 @@ extension ProcessEngine {
         }
     }
     
+    func scaleFilter(_ input:CIImage, aspectRatio : Double, scale : Double) -> CIImage {
+        let scaleFilter = CIFilter(name:"CILanczosScaleTransform")!
+        scaleFilter.setValue(input, forKey: kCIInputImageKey)
+        scaleFilter.setValue(scale, forKey: kCIInputScaleKey)
+        scaleFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
+        return scaleFilter.outputImage!
+    }
+    
     func blend(mode:CGBlendMode = CGBlendMode.colorDodge, alpha:CGFloat = 1, top:UIImage, bottom: UIImage) -> CIImage? {
         let size = bottom.size
         UIGraphicsBeginImageContext(size)
@@ -75,16 +83,16 @@ extension ProcessEngine {
     
     func P8(ciimage: CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
-        let c = colorControls(inputImage: ciimage, inputSaturation: 1,inputBrightness: 0.01, inputContrast: 1.03)
-        let m = CIColorMatrix(ciimage: c, r: .init(x: 0.85, y: -0.08595, z: 0, w: -0.014),a: .init(x: 0, y: 0, z: 0, w: 1.1))
-        let multi = MultiBandHSV()
-        multi.inputImage = m
-        multi.inputOrangeShift = .init(x: 0.015, y: 1.02, z: 1)
-        multi.inputGreenShift = .init(x: 0.02,  y: 1, z: 1)
-        multi.inputYellowShift = .init(x: -0.02, y: 1, z: 1)
-        multi.inputBlueShift = .init(x: -0.010, y: 1.1, z: 1)
-        multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
-        return multi.outputImage
+        let convert = UIImage(ciImage: ciimage)
+        
+        let bloom = CIFilter(name: "CIBloom")
+        bloom?.setDefaults()
+        bloom?.setValue(ciimage, forKey: kCIInputImageKey)
+        bloom?.setValue(10, forKey: "inputRadius")
+        bloom?.setValue(1, forKey: "inputIntensity")
+        
+        let crop = bloom?.outputImage?.cropped(to: .init(x: 0, y: 0, width: convert.size.width, height: convert.size.height))
+        return crop
     }
     
     func P9(ciimage: CIImage?) -> CIImage? {
