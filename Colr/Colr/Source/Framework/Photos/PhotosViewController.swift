@@ -34,7 +34,10 @@ class PhotosViewController: UICollectionViewController {
 
         let smart = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
         let cameraRoll = smart.object(at: 0)
-        self.fetchResults = PHAsset.fetchAssets(in: cameraRoll, options: nil)
+        
+        let option = PHFetchOptions()
+        option.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        self.fetchResults = PHAsset.fetchAssets(in: cameraRoll, options: option)
         collectionView.register(UINib(nibName: cells, bundle: nil), forCellWithReuseIdentifier: cells)
         self.countimage = self.fetchResults.count
     }
