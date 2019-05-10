@@ -24,10 +24,8 @@ open class OverlayImage: UIView {
         self.imageview.image = image
 
         self.layer.compositingFilter = "screenBlendMode"
-//        self.imageview.layer.compositingFilter = "screenBlendMode"
         self.center = view.center
         self.addSubview(self.imageview)
         view.addSubview(self)
-        
     }
 }

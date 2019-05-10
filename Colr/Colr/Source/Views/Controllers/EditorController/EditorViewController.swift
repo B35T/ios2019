@@ -247,8 +247,16 @@ extension EditorViewController: PresetCellDelegate, HSLViewControllerDelegate, F
         }
     }
     
+    
+    // crop
     func cropResult(image: UIImage, zone: CGRect) {
-        self.image = image
+        guard let ciimage = CIImage(image: image) else {return}
+        guard let result = self.Engine.toolCreate(ciimage: ciimage, Profile: self.ProcessEngineProfile) else {return}
+        
+        self.ciimage = ciimage
+        self.underImageView.image = image
+        self.imageView.image = UIImage(ciImage: result)
+        
     }
     
 }

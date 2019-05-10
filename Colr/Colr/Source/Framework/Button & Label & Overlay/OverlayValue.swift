@@ -24,7 +24,7 @@ open class OverlayValue {
         self.label.center = center
         self.label.textColor = .white
         self.label.font = UIFont.boldSystemFont(ofSize: 56)
-        self.label.text = String(format: "%0.0f", value * 100)
+        self.label.text = "𝜶 \(String(format: "%0.0f", value * 100))%"
         self.label.alpha = 1
         self.label.textAlignment = .center
         
