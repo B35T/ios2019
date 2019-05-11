@@ -13,15 +13,15 @@ import CoreImage
 public enum tool:Int {
     case exposure = 0
     case saturation
-    case brightness
     case contrast
     case highlight
     case shadow
     case temperature
-    case tint
     case vibrance
     case gamma
     case sharpan
+    case bloom
+    case grian
 }
 
 extension ProcessEngine {
@@ -31,17 +31,13 @@ extension ProcessEngine {
             return (0, 1, 0)
         case .saturation:
             return (0, 2, 1)
-        case .brightness:
-            return (-0.5, 0.5, 0)
         case .contrast:
-            return (0, 2, 1)
+            return (0.5, 1.5, 1)
         case .highlight:
             return (0, 1, 1)
         case .shadow:
             return (-1, 1,0)
         case .temperature:
-            return (3500, 9500, 6500)
-        case .tint:
             return (3500, 9500, 6500)
         case .vibrance:
             return (-1, 1, 0)
@@ -49,11 +45,33 @@ extension ProcessEngine {
             return (0, 2, 1)
         case .sharpan:
             return (-2, 2, 0)
+        case .bloom:
+            return (0, 10, 0)
+        case .grian:
+            return (0, 1, 0)
         }
     }
     
     func toolCreate(ciimage:CIImage, Profile:ProcessEngineProfileModel?) -> CIImage? {
         var ci:CIImage = ciimage
+        
+        if let HSL = Profile?.HSL {
+            print("HSL")
+            let m = MultiBandHSV()
+            m.inputImage = ci
+            
+            m.inputRedShift = HSL.red?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputOrangeShift = HSL.orange?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputYellowShift = HSL.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputGreenShift = HSL.green?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputAquaShift = HSL.aqua?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputBlueShift = HSL.blue?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputPurpleShift = HSL.purple?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputMagentaShift = HSL.magenta?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            
+            ci = m.outputImage!
+        }
+        
         if let exposure = Profile?.exposure {
             print("exposure")
             ci = self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: exposure.toFloat))!
@@ -118,21 +136,8 @@ extension ProcessEngine {
             ci = self.sharpenLuminance(inputImage: ci, inputSharpness: NSNumber(value: sharpen.toFloat))!
         }
         
-        if let HSL = Profile?.HSL {
-            print("HSL")
-            let m = MultiBandHSV()
-            m.inputImage = ci
- 
-            m.inputRedShift = HSL.red?.vector ?? CIVector(x: 0, y: 1, z: 1)
-            m.inputOrangeShift = HSL.orange?.vector ?? CIVector(x: 0, y: 1, z: 1)
-            m.inputYellowShift = HSL.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
-            m.inputGreenShift = HSL.green?.vector ??  CIVector(x: 0, y: 1, z: 1)
-            m.inputAquaShift = HSL.aqua?.vector ??  CIVector(x: 0, y: 1, z: 1)
-            m.inputBlueShift = HSL.blue?.vector ??  CIVector(x: 0, y: 1, z: 1)
-            m.inputPurpleShift = HSL.purple?.vector ??  CIVector(x: 0, y: 1, z: 1)
-            m.inputMagentaShift = HSL.magenta?.vector ??  CIVector(x: 0, y: 1, z: 1)
-            
-            ci = m.outputImage!
+        if let bloom = Profile?.bloom {
+            ci = self.bloom(inputImage: ci, inputRadius: NSNumber(value: bloom.toFloat))!
         }
         
         if let filter = Profile?.filter {
@@ -140,6 +145,20 @@ extension ProcessEngine {
         }
         
         return ci
+    }
+    
+    func bloom(inputImage: CIImage?, inputRadius: NSNumber, inputIntensity: NSNumber = 0.5) -> CIImage? {
+        guard let ciimage = inputImage else {return nil}
+        let convert = UIImage(ciImage: ciimage)
+        
+        let bloom = CIFilter(name: "CIBloom")
+        bloom?.setDefaults()
+        bloom?.setValue(ciimage, forKey: kCIInputImageKey)
+        bloom?.setValue(inputRadius, forKey: "inputRadius")
+        bloom?.setValue(inputIntensity, forKey: "inputIntensity")
+        
+        let crop = bloom?.outputImage?.cropped(to: .init(x: 0, y: 0, width: convert.size.width, height: convert.size.height))
+        return crop
     }
     
     func colorControls(inputImage: CIImage, inputSaturation: NSNumber = 1, inputBrightness: NSNumber = 0, inputContrast: NSNumber = 1) -> CIImage? {

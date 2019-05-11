@@ -45,6 +45,8 @@ extension MenuCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: phCell, for: indexPath) as! PhotosCell
+        cell.tag = indexPath.item
+        cell.skip = [1, 4]
         cell.thumbnailImage = images?[indexPath.item]
         cell.imageview.alpha = 0.5
         cell.useIsSelect = .highlight
@@ -58,6 +60,11 @@ extension MenuCell: UICollectionViewDataSource {
 
 extension MenuCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.item == 1 {
+            self.delegate?.MenuCellSelected(indexPath: indexPath)
+            return
+        }
+        
         let pre = self.select
         self.phCells[pre]?.isSelected = false
         

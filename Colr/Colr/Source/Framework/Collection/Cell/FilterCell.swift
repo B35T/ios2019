@@ -73,7 +73,7 @@ extension FilterCell: UICollectionViewDataSource {
         case .OG:
             return 1
         case .P:
-            return 12
+            return 13
         }
     }
     

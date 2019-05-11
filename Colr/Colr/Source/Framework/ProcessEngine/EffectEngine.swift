@@ -24,7 +24,7 @@ extension ProcessEngine {
         case .P4:
             return CIPhotoEffectMono(ciimage: ciimage)
         case .P5:
-            return CIPhotoEffectNoir(ciimage: ciimage)
+            return P5(ciimage: ciimage)
         case .P6:
             return P6(ciimage: ciimage)
         case .P7:
@@ -37,6 +37,8 @@ extension ProcessEngine {
             return P10(ciimage: ciimage)
         case .P11:
             return P11(ciimage: ciimage)
+        case .P12:
+            return P12(ciimage: ciimage)
         }
     }
     
@@ -83,16 +85,23 @@ extension ProcessEngine {
     
     func P8(ciimage: CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
-        let convert = UIImage(ciImage: ciimage)
         
-        let bloom = CIFilter(name: "CIBloom")
-        bloom?.setDefaults()
-        bloom?.setValue(ciimage, forKey: kCIInputImageKey)
-        bloom?.setValue(10, forKey: "inputRadius")
-        bloom?.setValue(1, forKey: "inputIntensity")
+        let ToneCurve = CIFilter(name: "CIToneCurve")
+        ToneCurve?.setDefaults()
+        ToneCurve?.setValue(ciimage, forKey: kCIInputImageKey)
+        ToneCurve?.setValue(CIVector(x: 0, y: 0.15), forKey: "inputPoint0")
+        ToneCurve?.setValue(CIVector(x: 0.2, y: 0.25), forKey: "inputPoint1")
+        ToneCurve?.setValue(CIVector(x: 0.45, y: 0.55), forKey: "inputPoint2")
+        ToneCurve?.setValue(CIVector(x: 0.75, y: 0.78), forKey: "inputPoint3")
+        ToneCurve?.setValue(CIVector(x: 1, y: 1), forKey: "inputPoint4")
         
-        let crop = bloom?.outputImage?.cropped(to: .init(x: 0, y: 0, width: convert.size.width, height: convert.size.height))
-        return crop
+        let ColorPolynomial = CIFilter(name: "CIColorPolynomial")
+        
+        let red = CIVector(x: -0.05, y: 1.25, z: 0, w: 0.05)
+        ColorPolynomial?.setDefaults()
+        ColorPolynomial?.setValue(ToneCurve!.outputImage!, forKey: kCIInputImageKey)
+        ColorPolynomial?.setValue(red, forKey: "inputRedCoefficients")
+        return ColorPolynomial?.outputImage
     }
     
     func P9(ciimage: CIImage?) -> CIImage? {
@@ -140,6 +149,55 @@ extension ProcessEngine {
         multi.inputAquaShift = .init(x: -0.03, y: 1.3, z: 1)
         multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
         return multi.outputImage
+    }
+    
+    func P12(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        
+        let ToneCurve = CIFilter(name: "CIToneCurve")
+        ToneCurve?.setDefaults()
+        ToneCurve?.setValue(ciimage, forKey: kCIInputImageKey)
+        ToneCurve?.setValue(CIVector(x: 0, y: 0.15), forKey: "inputPoint0")
+        ToneCurve?.setValue(CIVector(x: 0.25, y: 0.3), forKey: "inputPoint1")
+        ToneCurve?.setValue(CIVector(x: 0.49, y: 0.51), forKey: "inputPoint2")
+        ToneCurve?.setValue(CIVector(x: 0.75, y: 0.75), forKey: "inputPoint3")
+        ToneCurve?.setValue(CIVector(x: 1, y: 1), forKey: "inputPoint4")
+        
+        let ColorPolynomial = CIFilter(name: "CIColorPolynomial")
+        
+        let red = CIVector(x: -0.05, y: 1.25, z: 0, w: 0.05)
+        ColorPolynomial?.setDefaults()
+        ColorPolynomial?.setValue(ToneCurve!.outputImage!, forKey: kCIInputImageKey)
+        ColorPolynomial?.setValue(red, forKey: "inputRedCoefficients")
+        
+        let p = self.CIPhotoEffectChrome(ciimage: ColorPolynomial?.outputImage!)
+        return p
+    }
+    
+    func P5(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        
+        let ToneCurve = CIFilter(name: "CIToneCurve")
+        ToneCurve?.setDefaults()
+        ToneCurve?.setValue(ciimage, forKey: kCIInputImageKey)
+        ToneCurve?.setValue(CIVector(x: 0, y: 0), forKey: "inputPoint0")
+        ToneCurve?.setValue(CIVector(x: 0.25, y: 0.3), forKey: "inputPoint1")
+        ToneCurve?.setValue(CIVector(x: 0.49, y: 0.51), forKey: "inputPoint2")
+        ToneCurve?.setValue(CIVector(x: 0.75, y: 0.75), forKey: "inputPoint3")
+        ToneCurve?.setValue(CIVector(x: 1.1, y: 1), forKey: "inputPoint4")
+        
+        let ColorPolynomial = CIFilter(name: "CIColorPolynomial")
+        
+        let red = CIVector(x: -0.05, y: 1.25, z: 0, w: 0.05)
+        let green = CIVector(x: 0, y: 1.2, z: 0, w: 0)
+        ColorPolynomial?.setDefaults()
+        ColorPolynomial?.setValue(ToneCurve!.outputImage!, forKey: kCIInputImageKey)
+        ColorPolynomial?.setValue(red, forKey: "inputRedCoefficients")
+        ColorPolynomial?.setValue(green, forKey: "inputGreenCoefficients")
+        
+        
+        let p = self.CIPhotoEffectChrome(ciimage: ColorPolynomial?.outputImage!)
+        return p
     }
     
     func CIColorMatrix(ciimage: CIImage?, r:CIVector = CIVector(x: 1, y: 0, z: 0, w: 0), g:CIVector = CIVector(x: 0, y: 1, z: 0, w: 0), b:CIVector = CIVector(x: 0, y: 0, z: 1, w: 0), a:CIVector = CIVector(x: 0, y: 0, z: 0, w: 1)) -> CIImage? {

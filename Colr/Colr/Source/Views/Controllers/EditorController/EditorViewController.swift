@@ -42,6 +42,8 @@ class EditorViewController: UIViewController {
     var selectMenu: Int = 0
     var section:Int = 2
     
+    
+    var cells:MenuCell!
     private var ciimage:CIImage?
     private var image: UIImage? {
         didSet {
@@ -53,6 +55,16 @@ class EditorViewController: UIViewController {
                 OverlayValue.shared.label.alpha = 0
                 self.HSLmodelValue = HSLModel()
                 self.ProcessEngineProfile = ProcessEngineProfileModel()
+                
+                // menu cell
+                self.selected = .filter
+                self.cells.select = 0
+                self.cells.collectionView.reloadData()
+                
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
+                    self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
+                }, completion: nil)
             } else {
                 print("no image")
             }
@@ -151,6 +163,8 @@ class EditorViewController: UIViewController {
 //        self.dismiss(animated: true, completion: nil)
         UIView.animate(withDuration: 0.3) {
             self.view.alpha = 0
+            self.imageView.image = nil
+            self.underImageView.image = nil
         }
     }
 

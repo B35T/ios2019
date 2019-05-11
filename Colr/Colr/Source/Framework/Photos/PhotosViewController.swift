@@ -25,8 +25,6 @@ class PhotosViewController: UICollectionViewController {
     }
     var delegate: PhotosViewCollectionDelegate?
     
-    var countimage = 0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,9 +35,9 @@ class PhotosViewController: UICollectionViewController {
         
         let option = PHFetchOptions()
         option.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        
         self.fetchResults = PHAsset.fetchAssets(in: cameraRoll, options: option)
         collectionView.register(UINib(nibName: cells, bundle: nil), forCellWithReuseIdentifier: cells)
-        self.countimage = self.fetchResults.count
     }
     
     
@@ -58,10 +56,9 @@ extension PhotosViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let i = self.countimage - indexPath.item
-        let asset = self.fetchResults.object(at: i - 1)
+        let asset = self.fetchResults.object(at: (self.fetchResults.count - indexPath.item) - 1)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cells, for: indexPath) as! PhotosCell
-        imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, _) in
+        imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, info) in
             cell.imageview.image = image
         }
         return cell
@@ -70,13 +67,12 @@ extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let w = UIScreen.main.bounds.width
         let s = w * UIScreen.main.scale
-        let i = self.countimage - indexPath.item
-        let asset = self.fetchResults.object(at: i - 1)
+        let asset = self.fetchResults.object(at: (self.fetchResults.count - indexPath.item) - 1)
         
-        self.collectionView.scrollToItem(at: IndexPath(item: indexPath.item, section: 0), at: .top, animated: true)
+        self.collectionView.scrollToItem(at: IndexPath(item: indexPath.item, section: 0), at: .bottom, animated: true)
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .aspectFill, options: nil) { (image, _) in
-            self.delegate?.photosResult(image: image, index: i - 1)
+            self.delegate?.photosResult(image: image, index: (self.fetchResults.count - indexPath.item) - 1)
         }
     }
 }
@@ -110,7 +106,6 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
         DispatchQueue.main.sync {
             // Hang on to the new fetch result.
             fetchResults = changes.fetchResultAfterChanges
-            self.countimage = fetchResults.count
             // If we have incremental changes, animate them in the collection view.
             if changes.hasIncrementalChanges {
                 guard let collectionView = self.collectionView else { fatalError() }

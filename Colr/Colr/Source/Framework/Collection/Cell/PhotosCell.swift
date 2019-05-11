@@ -25,8 +25,16 @@ class PhotosCell: UICollectionViewCell {
     }
     
     let select:CALayer = CALayer()
+    
+    var skip:[Int]?
     override var isSelected: Bool {
         didSet {
+            if let s = self.skip {
+                for i in s {
+                    if i == self.tag {return}
+                }
+            }
+            
             switch self.useIsSelect {
             case .line:
                 if self.isSelected {

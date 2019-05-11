@@ -22,9 +22,11 @@ public enum Filter:Int {
     case P9
     case P10
     case P11
+    case P12
     
     var count: Int {
-        return 12
+        return 13
+        
     }
 }
 
@@ -129,9 +131,10 @@ public struct ProcessEngineProfileModel {
     var gamma:CGFloat?
     var tint:CGFloat?
     var split:CGFloat?
+    var bloom:CGFloat?
     
     var json: [String:Any?] {
-        return ["HSL":HSL?.json,"Chromatic":Chromatic?.json, "TransverseChromatic":TransverseChromatic?.json, "white": white, "saturation":saturation, "fade":fade, "exposure": exposure, "contrast":contrast, "hue":hue, "sharpen":sharpen, "highlight": highlight, "shadow":shadow, "temperature":temperature, "vibrance":vibrance, "grain":grain, "gamma":gamma]
+        return ["HSL":HSL?.json,"Chromatic":Chromatic?.json, "TransverseChromatic":TransverseChromatic?.json, "white": white, "saturation":saturation, "fade":fade, "exposure": exposure, "contrast":contrast, "hue":hue, "sharpen":sharpen, "highlight": highlight, "shadow":shadow, "temperature":temperature, "vibrance":vibrance, "grain":grain, "gamma":gamma, "bloom":bloom]
     }
     
     func get(name:String) -> CGFloat? {
@@ -152,6 +155,7 @@ public struct ProcessEngineProfileModel {
         case "Tint":return self.tint
         case "Sharpan":return self.sharpen
         case "Split Tone":return self.split
+        case "Bloom": return self.bloom
         default:
             return 0.0
         }
@@ -175,6 +179,7 @@ public struct ProcessEngineProfileModel {
         case "Tint":self.tint = value
         case "Sharpan":self.sharpen = value
         case "Split Tone":self.split = value
+        case "Bloom": self.bloom = value
         default:
             break
         }

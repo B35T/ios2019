@@ -29,14 +29,19 @@ class ValueAdjustViewController: UIViewController {
     var ovalue:Float = 0.5
     var value:Float = 0.5 {
         didSet {
-            var f = "%0.2f"
+            var f = "%0.0f"
             if self.value > 100 {
                 f = "%0.0f"
+                let str = String(format: f, self.value)
+                self.sliderValue.value = self.value
+                self.labelValue.text = str
+            } else {
+                let str = String(format: f, self.value * 100)
+                self.sliderValue.value = self.value
+                self.labelValue.text = str
             }
             
-            let str = String(format: f, self.value)
-            self.sliderValue.value = self.value
-            self.labelValue.text = str
+            
         }
     }
     
