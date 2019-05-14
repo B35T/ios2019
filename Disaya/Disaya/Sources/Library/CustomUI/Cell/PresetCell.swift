@@ -8,12 +8,20 @@
 
 import UIKit
 
+protocol PresetCellDelegate {
+    func PresetDidSelect(indexPath: IndexPath)
+}
+
 class PresetCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var delegate: PresetCellDelegate?
+    
+    var ciimage: CIImage?
     var thumbnail: UIImage? {
         didSet {
+            self.ciimage = CIImage(image: self.thumbnail!)
             self.reset()
         }
     }
@@ -46,6 +54,8 @@ extension PresetCell: UICollectionViewDelegate {
         self.select = indexPath
         self.cells[self.select]?.indexPath = indexPath
         self.cells[self.select]?.isSelected = true
+        
+        self.delegate?.PresetDidSelect(indexPath: indexPath)
     }
 }
 
@@ -57,8 +67,8 @@ extension PresetCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 5
-        case 2: return 5
+        case 1: return 7
+        case 2: return 7
         default:
             return 0
         }
@@ -67,9 +77,16 @@ extension PresetCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PresetPreviewCell", for: indexPath) as! PresetPreviewCell
         cell.layer.cornerRadius = 3
-        cell.imageview.image = self.thumbnail
+        
+        let preset = PresetLibrary()
+        let result = preset.filter(indexPath: indexPath, ciimage: ciimage!)
+        cell.imageview.image = UIImage(ciImage: result!)
         switch indexPath.section {
-        case 0: cell.labelTitle.text = "NONE"; cell.labelTitle.textColor = black; if select == IndexPath(item: 0, section: 0)  { cell.isSelected = true }
+        case 0:
+            cell.labelTitle.text = "NONE"
+            cell.labelTitle.textColor = black
+            
+            if select == IndexPath(item: 0, section: 0)  { cell.isSelected = true }
         case 1: cell.labelTitle.text = "P\(indexPath.item)"; cell.labelTitle.textColor = yellow
         case 2: cell.labelTitle.text = "FILM\(indexPath.item)"; cell.labelTitle.textColor = red
         default:

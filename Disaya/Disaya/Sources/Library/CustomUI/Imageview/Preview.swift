@@ -45,19 +45,19 @@ open class Preview: UIView {
     }
     
     func initailize() {
-        let topView = UIImageView()
-        self.topView = topView
-        self.topView.frame.size = self.frame.size
-        self.topView.clipsToBounds = true
-        self.topView.contentMode = .scaleAspectFit
-        self.addSubview(self.topView)
-        
         let bommView = UIImageView()
         self.bommView = bommView
         self.bommView.frame.size = self.frame.size
         self.bommView.clipsToBounds = true
         self.bommView.contentMode = .scaleAspectFit
         self.addSubview(self.bommView)
+        
+        let topView = UIImageView()
+        self.topView = topView
+        self.topView.frame.size = self.frame.size
+        self.topView.clipsToBounds = true
+        self.topView.contentMode = .scaleAspectFit
+        self.addSubview(self.topView)
     }
     
     open func animation(point: CGPoint, duration: TimeInterval) {

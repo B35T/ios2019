@@ -14,12 +14,15 @@ class EditorViewControllers: Editor {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var closeBtn:UIButton!
     
+    var ciimage: CIImage?
     public var asset: PHAsset? {
         didSet {
             if let asset = asset {
                 PHImageManager.default().requestImage(for: asset, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
                     guard let image = image else {return}
                     self.imagePreview.image = image
+                    
+                    self.ciimage = CIImage(image: image)
                     self.collectionView.reloadData()
                 }
             }
@@ -45,10 +48,7 @@ class EditorViewControllers: Editor {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
     }
-    
-    
-    
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
@@ -57,5 +57,15 @@ class EditorViewControllers: Editor {
     
     @objc internal func dismissBack() {
         self.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension EditorViewControllers: PresetCellDelegate {
+    func PresetDidSelect(indexPath: IndexPath) {
+        guard let ciimage = ciimage else {return}
+        let preset = PresetLibrary()
+        if let result = preset.filter(indexPath: indexPath, ciimage: ciimage) {
+            self.imagePreview.top = UIImage(ciImage: result)
+        }
     }
 }

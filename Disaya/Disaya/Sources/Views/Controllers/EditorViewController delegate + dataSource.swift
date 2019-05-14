@@ -23,6 +23,7 @@ extension EditorViewControllers: UICollectionViewDataSource, UICollectionViewDel
         switch indexPath.section {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PresetCell", for: indexPath) as! PresetCell
+            cell.delegate = self
             PHImageManager.default().requestImage(for: asset!, targetSize: .init(width: 100, height: 100), contentMode: .aspectFill, options: nil) { (img, _) in
                 cell.thumbnail = img
             }

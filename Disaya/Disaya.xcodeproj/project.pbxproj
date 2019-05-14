@@ -31,6 +31,8 @@
 		40025051228AA11900E4FCB1 /* crop.png in Resources */ = {isa = PBXBuildFile; fileRef = 4002504B228AA11900E4FCB1 /* crop.png */; };
 		40025055228AA3D400E4FCB1 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 40025053228AA3D400E4FCB1 /* save.png */; };
 		40025057228AAF6200E4FCB1 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 40025056228AAF6200E4FCB1 /* close.png */; };
+		4002505A228AB65600E4FCB1 /* PresetLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40025059228AB65600E4FCB1 /* PresetLibrary.swift */; };
+		4002505C228AB6DD00E4FCB1 /* MutiBandHSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */; };
 		404F0900228A7AF400AC15DE /* EditorViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */; };
 		404F0902228A7C5B00AC15DE /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F0901228A7C5B00AC15DE /* Editor.swift */; };
 		404F0905228A858000AC15DE /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F0903228A858000AC15DE /* MenuCell.swift */; };
@@ -97,6 +99,8 @@
 		4002504B228AA11900E4FCB1 /* crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crop.png; sourceTree = "<group>"; };
 		40025053228AA3D400E4FCB1 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		40025056228AAF6200E4FCB1 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		40025059228AB65600E4FCB1 /* PresetLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetLibrary.swift; sourceTree = "<group>"; };
+		4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutiBandHSV.swift; sourceTree = "<group>"; };
 		404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewControllers.swift; sourceTree = "<group>"; };
 		404F0901228A7C5B00AC15DE /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		404F0903228A858000AC15DE /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 		40010E602287E90C003EB199 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				40025058228AB63400E4FCB1 /* PresetLibrary */,
 				40A96C092287EFAE005F066C /* StaticFile */,
 				40010E612287E91C003EB199 /* CustomUI */,
 			);
@@ -345,6 +350,15 @@
 				40025046228AA11800E4FCB1 /* preset.png */,
 			);
 			path = icon;
+			sourceTree = "<group>";
+		};
+		40025058228AB63400E4FCB1 /* PresetLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				40025059228AB65600E4FCB1 /* PresetLibrary.swift */,
+				4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */,
+			);
+			path = PresetLibrary;
 			sourceTree = "<group>";
 		};
 		40A96C092287EFAE005F066C /* StaticFile */ = {
@@ -531,6 +545,8 @@
 				40010E6D2287EA9F003EB199 /* PhotosAsset.swift in Sources */,
 				40025044228A9A1900E4FCB1 /* Color.swift in Sources */,
 				404F0902228A7C5B00AC15DE /* Editor.swift in Sources */,
+				4002505A228AB65600E4FCB1 /* PresetLibrary.swift in Sources */,
+				4002505C228AB6DD00E4FCB1 /* MutiBandHSV.swift in Sources */,
 				404F0911228A8A3500AC15DE /* ImageCell.swift in Sources */,
 				404F0905228A858000AC15DE /* MenuCell.swift in Sources */,
 				4002503E228A90D700E4FCB1 /* PresetPreviewCell.swift in Sources */,
@@ -719,6 +735,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -737,6 +754,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
