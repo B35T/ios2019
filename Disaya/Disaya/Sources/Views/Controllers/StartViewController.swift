@@ -42,7 +42,7 @@ class StartViewController: PhotosAsset {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let image = UIImage(named: "ether.jpg")
+        let image = #imageLiteral(resourceName: "LaunchImagesNoFont")
         self.cover.image = image
     }
 }

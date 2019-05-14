@@ -21,7 +21,6 @@
 		4002503B228A8BAE00E4FCB1 /* EditorViewController delegate + dataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4002503A228A8BAE00E4FCB1 /* EditorViewController delegate + dataSource.swift */; };
 		4002503E228A90D700E4FCB1 /* PresetPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4002503C228A90D700E4FCB1 /* PresetPreviewCell.swift */; };
 		4002503F228A90D700E4FCB1 /* PresetPreviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4002503D228A90D700E4FCB1 /* PresetPreviewCell.xib */; };
-		40025041228A997800E4FCB1 /* s.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40025040228A997800E4FCB1 /* s.jpg */; };
 		40025044228A9A1900E4FCB1 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40025043228A9A1900E4FCB1 /* Color.swift */; };
 		4002504C228AA11900E4FCB1 /* preset.png in Resources */ = {isa = PBXBuildFile; fileRef = 40025046228AA11800E4FCB1 /* preset.png */; };
 		4002504D228AA11900E4FCB1 /* apperation.png in Resources */ = {isa = PBXBuildFile; fileRef = 40025047228AA11900E4FCB1 /* apperation.png */; };
@@ -43,11 +42,9 @@
 		404F090E228A85A000AC15DE /* LightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F090C228A85A000AC15DE /* LightCell.xib */; };
 		404F0911228A8A3500AC15DE /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F090F228A8A3500AC15DE /* ImageCell.swift */; };
 		404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F0910228A8A3500AC15DE /* ImageCell.xib */; };
-		40A96C0B2287EFBD005F066C /* ether.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40A96C0A2287EFBD005F066C /* ether.jpg */; };
-		40A96C0D2287F0B3005F066C /* DisaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A96C0C2287F0B3005F066C /* DisaLogo.png */; };
+		40A82842228ADF710024F835 /* DisaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A82841228ADF710024F835 /* DisaLogo.png */; };
 		40A96C102288048D005F066C /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C0F2288048D005F066C /* Cover.swift */; };
 		40A96C122288086A005F066C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C112288086A005F066C /* Preview.swift */; };
-		40A96C1422880A19005F066C /* kim.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40A96C1322880A19005F066C /* kim.jpg */; };
 		40A96C1722880AB2005F066C /* NextBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C1622880AB2005F066C /* NextBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +86,6 @@
 		4002503A228A8BAE00E4FCB1 /* EditorViewController delegate + dataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorViewController delegate + dataSource.swift"; sourceTree = "<group>"; };
 		4002503C228A90D700E4FCB1 /* PresetPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetPreviewCell.swift; sourceTree = "<group>"; };
 		4002503D228A90D700E4FCB1 /* PresetPreviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetPreviewCell.xib; sourceTree = "<group>"; };
-		40025040228A997800E4FCB1 /* s.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = s.jpg; sourceTree = "<group>"; };
 		40025043228A9A1900E4FCB1 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		40025046228AA11800E4FCB1 /* preset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preset.png; sourceTree = "<group>"; };
 		40025047228AA11900E4FCB1 /* apperation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apperation.png; sourceTree = "<group>"; };
@@ -111,11 +107,9 @@
 		404F090C228A85A000AC15DE /* LightCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCell.xib; sourceTree = "<group>"; };
 		404F090F228A8A3500AC15DE /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		404F0910228A8A3500AC15DE /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
-		40A96C0A2287EFBD005F066C /* ether.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ether.jpg; sourceTree = "<group>"; };
-		40A96C0C2287F0B3005F066C /* DisaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisaLogo.png; sourceTree = "<group>"; };
+		40A82841228ADF710024F835 /* DisaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisaLogo.png; sourceTree = "<group>"; };
 		40A96C0F2288048D005F066C /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		40A96C112288086A005F066C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
-		40A96C1322880A19005F066C /* kim.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kim.jpg; sourceTree = "<group>"; };
 		40A96C1622880AB2005F066C /* NextBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -232,8 +226,8 @@
 		40010E602287E90C003EB199 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				40025058228AB63400E4FCB1 /* PresetLibrary */,
 				40A96C092287EFAE005F066C /* StaticFile */,
+				40025058228AB63400E4FCB1 /* PresetLibrary */,
 				40010E612287E91C003EB199 /* CustomUI */,
 			);
 			path = Library;
@@ -364,11 +358,8 @@
 		40A96C092287EFAE005F066C /* StaticFile */ = {
 			isa = PBXGroup;
 			children = (
+				40A82841228ADF710024F835 /* DisaLogo.png */,
 				40025045228AA0EE00E4FCB1 /* icon */,
-				40025040228A997800E4FCB1 /* s.jpg */,
-				40A96C1322880A19005F066C /* kim.jpg */,
-				40A96C0C2287F0B3005F066C /* DisaLogo.png */,
-				40A96C0A2287EFBD005F066C /* ether.jpg */,
 			);
 			path = StaticFile;
 			sourceTree = "<group>";
@@ -500,17 +491,14 @@
 				4002504D228AA11900E4FCB1 /* apperation.png in Resources */,
 				40025055228AA3D400E4FCB1 /* save.png in Resources */,
 				4002504F228AA11900E4FCB1 /* light.png in Resources */,
-				40A96C1422880A19005F066C /* kim.jpg in Resources */,
 				404F0906228A858000AC15DE /* MenuCell.xib in Resources */,
 				40010E382287E85B003EB199 /* LaunchScreen.storyboard in Resources */,
-				40025041228A997800E4FCB1 /* s.jpg in Resources */,
 				4002504E228AA11900E4FCB1 /* HSL.png in Resources */,
 				404F090A228A858F00AC15DE /* PresetCell.xib in Resources */,
-				40A96C0D2287F0B3005F066C /* DisaLogo.png in Resources */,
 				40025051228AA11900E4FCB1 /* crop.png in Resources */,
 				40010E712287EAEA003EB199 /* PhotoPreviewCell.xib in Resources */,
-				40A96C0B2287EFBD005F066C /* ether.jpg in Resources */,
 				40010E352287E85B003EB199 /* Assets.xcassets in Resources */,
+				40A82842228ADF710024F835 /* DisaLogo.png in Resources */,
 				404F090E228A85A000AC15DE /* LightCell.xib in Resources */,
 				40025057228AAF6200E4FCB1 /* close.png in Resources */,
 				40010E302287E859003EB199 /* Main.storyboard in Resources */,
@@ -743,7 +731,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.Disaya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -762,7 +750,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.Disaya;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

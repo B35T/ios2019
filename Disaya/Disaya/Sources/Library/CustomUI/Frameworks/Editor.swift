@@ -24,15 +24,27 @@ open class Editor: UIViewController {
         self.imagePreview = imagePreview
         self.view.addSubview(self.imagePreview)
         
-     
         self.view.backgroundColor = .black
     }
     
     override open func viewDidLoad() {
         super.viewDidLoad()
+        
+        let long = UILongPressGestureRecognizer(target: self, action: #selector(LongPressHide(_:)))
+        long.minimumPressDuration = 0.1
+        self.imagePreview.isUserInteractionEnabled = true
+        self.imagePreview.addGestureRecognizer(long)
     }
  
     open override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    @objc internal func LongPressHide(_ sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .ended: self.imagePreview.topView.alpha = 1
+        default:
+            self.imagePreview.topView.alpha = 0
+        }
     }
 }
