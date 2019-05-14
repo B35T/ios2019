@@ -56,8 +56,9 @@ extension PhotosViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let asset = self.fetchResults.object(at: (self.fetchResults.count - indexPath.item) - 1)
+        let asset = self.fetchResults.object(at: fetchResults.count - indexPath.item - 1)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cells, for: indexPath) as! PhotosCell
+        
         imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, info) in
             cell.imageview.image = image
         }
@@ -67,12 +68,12 @@ extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let w = UIScreen.main.bounds.width
         let s = w * UIScreen.main.scale
-        let asset = self.fetchResults.object(at: (self.fetchResults.count - indexPath.item) - 1)
+        let asset = self.fetchResults.object(at: fetchResults.count - indexPath.item - 1)
         
         self.collectionView.scrollToItem(at: IndexPath(item: indexPath.item, section: 0), at: .bottom, animated: true)
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: s, height: s), contentMode: .aspectFill, options: nil) { (image, _) in
-            self.delegate?.photosResult(image: image, index: (self.fetchResults.count - indexPath.item) - 1)
+            self.delegate?.photosResult(image: image, index: self.fetchResults.count - indexPath.item - 1)
         }
     }
 }
@@ -145,3 +146,29 @@ extension Date {
     }
 }
 //
+
+
+extension UICollectionView {
+    func lastIndexPath() -> IndexPath? {
+        for sectionIndex in (0..<self.numberOfSections).reversed() {
+            if self.numberOfItems(inSection: sectionIndex) > 0 {
+                return IndexPath.init(item: self.numberOfItems(inSection: sectionIndex)-1, section: sectionIndex)
+            }
+        }
+        
+        return nil
+    }
+    
+    func scrollToLastIndexPath(position:UICollectionView.ScrollPosition, animated: Bool) {
+        self.layoutIfNeeded()
+        
+        for sectionIndex in (0..<self.numberOfSections).reversed() {
+            if self.numberOfItems(inSection: sectionIndex) > 0 {
+                self.scrollToItem(at: IndexPath.init(item: self.numberOfItems(inSection: sectionIndex)-1, section: sectionIndex),
+                                  at: position,
+                                  animated: animated)
+                break
+            }
+        }
+    }
+}

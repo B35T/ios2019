@@ -39,6 +39,8 @@ extension ProcessEngine {
             return P11(ciimage: ciimage)
         case .P12:
             return P12(ciimage: ciimage)
+        case .P13:
+            return P13(ciimage: ciimage)
         }
     }
     
@@ -174,6 +176,28 @@ extension ProcessEngine {
         return p
     }
     
+    func P13(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        let H = self.highlightShadowAdjust(inputImage: ciimage, inputShadowAmount: -0.3602985143661499, inputHighlightAmount: 0.68217909336090088)
+        let Con = self.colorControls(inputImage: H!, inputSaturation: 0.85611945390701294, inputContrast: 1.0223881006240845)
+        let Temp = self.temperatureAndTint(inputImage: Con!, inputNeutral: .init(x: 6089.40283203125, y: 0))
+        
+        let multi = MultiBandHSV()
+        multi.inputImage = Temp!
+        multi.inputOrangeShift = .init(x: -0.018059698864817619, y: 1.090746283531189, z: 1)
+        multi.inputGreenShift = .init(x: -0.20029851794242859,  y: 1.2623881101608276, z: 1)
+        multi.inputYellowShift = .init(x: -0.094179101288318634, y: 1.0322387218475342, z: 1)
+        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 0.75283581018447876, z: 1)
+        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 0.67850750684738159, z: 1)
+        multi.inputRedShift = .init(x: 0.01, y: 1, z: 1)
+        
+        let Ex = self.exposureAdjust(inputImage: multi.outputImage!, inputEV: -0.35820895433425903)
+        let Sharp = self.sharpenLuminance(inputImage: Ex!, inputSharpness: 0.12507465481758118)
+        let grain = self.Grain(value: 0.34268656373023987, buttom: Sharp!)
+        
+        return grain
+    }
+    
     func P5(ciimage: CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
         
@@ -198,6 +222,48 @@ extension ProcessEngine {
         
         let p = self.CIPhotoEffectChrome(ciimage: ColorPolynomial?.outputImage!)
         return p
+    }
+    
+    func GrainGenerator(size:CGSize) -> CIImage? {
+        var newsize = size
+        if newsize.width > 1500 || newsize.height > 1500 {
+            newsize = CGSize.init(width: size.width * 0.6, height: size.height * 0.6)
+        }
+        let s = CIVector.init(x: 0, y: 0, z: newsize.width, w: newsize.height)
+        let grain = CIFilter.init(name: "CIRandomGenerator")?.outputImage
+        let crop = CIFilter.init(name: "CICrop")
+        crop?.setValue(grain!, forKey: kCIInputImageKey)
+        crop?.setValue(s, forKey: "inputRectangle")
+        let mono = crop?.outputImage?.applyingFilter("CIPhotoEffectMono", parameters: [:])
+        return mono
+    }
+    
+    func Grain(value:CGFloat, buttom ciimage:CIImage) -> CIImage? {
+        if value == 0 {
+            return ciimage
+        }
+        
+        let b = UIImage(ciImage: ciimage)
+        if let g = self.GrainGenerator(size: ciimage.extent.size) {
+            let img = self.Merge(top: UIImage(ciImage: g), buttom: b, alpha: value, blandMode: .overlay)
+            return CIImage(image: img!)
+        }
+        return ciimage
+    }
+    
+    func Merge(top:UIImage, buttom:UIImage, alpha:CGFloat, blandMode:CGBlendMode) -> UIImage? {
+        if alpha == 0 {
+            return buttom
+        }
+        
+        let size = buttom.size
+        UIGraphicsBeginImageContext(size)
+        let area = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+        buttom.draw(in: area)
+        top.draw(in: area, blendMode: blandMode, alpha: alpha)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
     }
     
     func CIColorMatrix(ciimage: CIImage?, r:CIVector = CIVector(x: 1, y: 0, z: 0, w: 0), g:CIVector = CIVector(x: 0, y: 1, z: 0, w: 0), b:CIVector = CIVector(x: 0, y: 0, z: 1, w: 0), a:CIVector = CIVector(x: 0, y: 0, z: 0, w: 1)) -> CIImage? {
@@ -284,5 +350,28 @@ extension ProcessEngine {
         let filter = CIFilter(name: "CIPhotoEffectTransfer")
         filter?.setValue(ciimage, forKey: kCIInputImageKey)
         return filter?.outputImage
+    }
+}
+
+
+extension CIImage {
+    public var context:CIContext? {
+        guard let device = MTLCreateSystemDefaultDevice() else {
+            return nil
+        }
+        
+        return CIContext.init(mtlDevice: device)
+    }
+    
+    func clear() {
+        self.context?.clearCaches()
+    }
+    
+    public var RanderImage:UIImage? {
+        if let r = self.context?.createCGImage(self, from: self.extent) {
+            self.clear()
+            return UIImage(cgImage: r)
+        }
+        return nil
     }
 }
