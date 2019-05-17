@@ -32,6 +32,19 @@
 		40025057228AAF6200E4FCB1 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 40025056228AAF6200E4FCB1 /* close.png */; };
 		4002505A228AB65600E4FCB1 /* PresetLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40025059228AB65600E4FCB1 /* PresetLibrary.swift */; };
 		4002505C228AB6DD00E4FCB1 /* MutiBandHSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */; };
+		400C90AA228E796800074251 /* CroprViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90A9228E796800074251 /* CroprViewController.swift */; };
+		400C90AC228E797F00074251 /* margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90AB228E797F00074251 /* margin.swift */; };
+		400C90AE228E799600074251 /* GridOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90AD228E799600074251 /* GridOverlay.swift */; };
+		400C90B0228E79B800074251 /* view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90AF228E79B800074251 /* view.swift */; };
+		400C90B2228E79CA00074251 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90B1228E79CA00074251 /* ImageScrollView.swift */; };
+		400C90B4228E79DB00074251 /* DimmingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90B3228E79DB00074251 /* DimmingOverlay.swift */; };
+		400C90B6228E7AC600074251 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90B5228E7AC600074251 /* CropViewController.swift */; };
+		400C90B9228E846A00074251 /* RatioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90B7228E846A00074251 /* RatioCell.swift */; };
+		400C90BA228E846A00074251 /* RatioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 400C90B8228E846A00074251 /* RatioCell.xib */; };
+		400C90BF228E91FE00074251 /* ImageRatioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90BD228E91FE00074251 /* ImageRatioCell.swift */; };
+		400C90C0228E91FE00074251 /* ImageRatioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 400C90BE228E91FE00074251 /* ImageRatioCell.xib */; };
+		400C90C3228E9F7800074251 /* StraightenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90C1228E9F7800074251 /* StraightenCell.swift */; };
+		400C90C4228E9F7800074251 /* StraightenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 400C90C2228E9F7800074251 /* StraightenCell.xib */; };
 		404F0900228A7AF400AC15DE /* EditorViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */; };
 		404F0902228A7C5B00AC15DE /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F0901228A7C5B00AC15DE /* Editor.swift */; };
 		404F0905228A858000AC15DE /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F0903228A858000AC15DE /* MenuCell.swift */; };
@@ -97,6 +110,19 @@
 		40025056228AAF6200E4FCB1 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		40025059228AB65600E4FCB1 /* PresetLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetLibrary.swift; sourceTree = "<group>"; };
 		4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutiBandHSV.swift; sourceTree = "<group>"; };
+		400C90A9228E796800074251 /* CroprViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroprViewController.swift; sourceTree = "<group>"; };
+		400C90AB228E797F00074251 /* margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = margin.swift; sourceTree = "<group>"; };
+		400C90AD228E799600074251 /* GridOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOverlay.swift; sourceTree = "<group>"; };
+		400C90AF228E79B800074251 /* view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = view.swift; sourceTree = "<group>"; };
+		400C90B1228E79CA00074251 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		400C90B3228E79DB00074251 /* DimmingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingOverlay.swift; sourceTree = "<group>"; };
+		400C90B5228E7AC600074251 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
+		400C90B7228E846A00074251 /* RatioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioCell.swift; sourceTree = "<group>"; };
+		400C90B8228E846A00074251 /* RatioCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatioCell.xib; sourceTree = "<group>"; };
+		400C90BD228E91FE00074251 /* ImageRatioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRatioCell.swift; sourceTree = "<group>"; };
+		400C90BE228E91FE00074251 /* ImageRatioCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageRatioCell.xib; sourceTree = "<group>"; };
+		400C90C1228E9F7800074251 /* StraightenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraightenCell.swift; sourceTree = "<group>"; };
+		400C90C2228E9F7800074251 /* StraightenCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StraightenCell.xib; sourceTree = "<group>"; };
 		404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewControllers.swift; sourceTree = "<group>"; };
 		404F0901228A7C5B00AC15DE /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		404F0903228A858000AC15DE /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
@@ -278,6 +304,12 @@
 				404F0908228A858F00AC15DE /* PresetCell.xib */,
 				4002503C228A90D700E4FCB1 /* PresetPreviewCell.swift */,
 				4002503D228A90D700E4FCB1 /* PresetPreviewCell.xib */,
+				400C90B7228E846A00074251 /* RatioCell.swift */,
+				400C90B8228E846A00074251 /* RatioCell.xib */,
+				400C90BD228E91FE00074251 /* ImageRatioCell.swift */,
+				400C90BE228E91FE00074251 /* ImageRatioCell.xib */,
+				400C90C1228E9F7800074251 /* StraightenCell.swift */,
+				400C90C2228E9F7800074251 /* StraightenCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -310,6 +342,7 @@
 				40010E2C2287E859003EB199 /* StartViewController.swift */,
 				404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */,
 				4002503A228A8BAE00E4FCB1 /* EditorViewController delegate + dataSource.swift */,
+				400C90B5228E7AC600074251 /* CropViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -317,6 +350,7 @@
 		40010E692287EA17003EB199 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				400C90A8228E795900074251 /* Cropr */,
 				40010E6C2287EA9F003EB199 /* PhotosAsset.swift */,
 				404F0901228A7C5B00AC15DE /* Editor.swift */,
 			);
@@ -353,6 +387,19 @@
 				4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */,
 			);
 			path = PresetLibrary;
+			sourceTree = "<group>";
+		};
+		400C90A8228E795900074251 /* Cropr */ = {
+			isa = PBXGroup;
+			children = (
+				400C90A9228E796800074251 /* CroprViewController.swift */,
+				400C90AB228E797F00074251 /* margin.swift */,
+				400C90AD228E799600074251 /* GridOverlay.swift */,
+				400C90AF228E79B800074251 /* view.swift */,
+				400C90B1228E79CA00074251 /* ImageScrollView.swift */,
+				400C90B3228E79DB00074251 /* DimmingOverlay.swift */,
+			);
+			path = Cropr;
 			sourceTree = "<group>";
 		};
 		40A96C092287EFAE005F066C /* StaticFile */ = {
@@ -486,6 +533,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40025050228AA11900E4FCB1 /* overlay.png in Resources */,
+				400C90C0228E91FE00074251 /* ImageRatioCell.xib in Resources */,
 				4002504C228AA11900E4FCB1 /* preset.png in Resources */,
 				404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */,
 				4002504D228AA11900E4FCB1 /* apperation.png in Resources */,
@@ -494,10 +542,12 @@
 				404F0906228A858000AC15DE /* MenuCell.xib in Resources */,
 				40010E382287E85B003EB199 /* LaunchScreen.storyboard in Resources */,
 				4002504E228AA11900E4FCB1 /* HSL.png in Resources */,
+				400C90C4228E9F7800074251 /* StraightenCell.xib in Resources */,
 				404F090A228A858F00AC15DE /* PresetCell.xib in Resources */,
 				40025051228AA11900E4FCB1 /* crop.png in Resources */,
 				40010E712287EAEA003EB199 /* PhotoPreviewCell.xib in Resources */,
 				40010E352287E85B003EB199 /* Assets.xcassets in Resources */,
+				400C90BA228E846A00074251 /* RatioCell.xib in Resources */,
 				40A82842228ADF710024F835 /* DisaLogo.png in Resources */,
 				404F090E228A85A000AC15DE /* LightCell.xib in Resources */,
 				40025057228AAF6200E4FCB1 /* close.png in Resources */,
@@ -527,7 +577,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				400C90B9228E846A00074251 /* RatioCell.swift in Sources */,
 				404F0900228A7AF400AC15DE /* EditorViewControllers.swift in Sources */,
+				400C90B0228E79B800074251 /* view.swift in Sources */,
 				40010E332287E859003EB199 /* Disaya.xcdatamodeld in Sources */,
 				40A96C102288048D005F066C /* Cover.swift in Sources */,
 				40010E6D2287EA9F003EB199 /* PhotosAsset.swift in Sources */,
@@ -536,15 +588,23 @@
 				4002505A228AB65600E4FCB1 /* PresetLibrary.swift in Sources */,
 				4002505C228AB6DD00E4FCB1 /* MutiBandHSV.swift in Sources */,
 				404F0911228A8A3500AC15DE /* ImageCell.swift in Sources */,
+				400C90AA228E796800074251 /* CroprViewController.swift in Sources */,
 				404F0905228A858000AC15DE /* MenuCell.swift in Sources */,
 				4002503E228A90D700E4FCB1 /* PresetPreviewCell.swift in Sources */,
+				400C90AC228E797F00074251 /* margin.swift in Sources */,
 				40010E2D2287E859003EB199 /* StartViewController.swift in Sources */,
+				400C90B4228E79DB00074251 /* DimmingOverlay.swift in Sources */,
+				400C90B6228E7AC600074251 /* CropViewController.swift in Sources */,
 				40A96C1722880AB2005F066C /* NextBar.swift in Sources */,
 				404F090D228A85A000AC15DE /* LightCell.swift in Sources */,
 				40A96C122288086A005F066C /* Preview.swift in Sources */,
 				40010E702287EAEA003EB199 /* PhotoPreviewCell.swift in Sources */,
 				404F0909228A858F00AC15DE /* PresetCell.swift in Sources */,
+				400C90C3228E9F7800074251 /* StraightenCell.swift in Sources */,
 				40010E2B2287E859003EB199 /* AppDelegate.swift in Sources */,
+				400C90B2228E79CA00074251 /* ImageScrollView.swift in Sources */,
+				400C90BF228E91FE00074251 /* ImageRatioCell.swift in Sources */,
+				400C90AE228E799600074251 /* GridOverlay.swift in Sources */,
 				4002503B228A8BAE00E4FCB1 /* EditorViewController delegate + dataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -723,7 +783,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -742,7 +802,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

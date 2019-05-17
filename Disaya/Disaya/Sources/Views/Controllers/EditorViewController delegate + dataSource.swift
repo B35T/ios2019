@@ -30,6 +30,7 @@ extension EditorViewControllers: UICollectionViewDataSource, UICollectionViewDel
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuCell", for: indexPath) as! MenuCell
+            cell.delegate = self
             return cell
         }
         

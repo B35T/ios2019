@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol MenuCellDelegate {
+    func MenuDidSelect(indexPath: IndexPath)
+}
+
+
 class MenuCell: UICollectionViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
     var select = 0
+    
+    var delegate: MenuCellDelegate?
     
     let icons = ["preset","HSL","light","apperation","overlay","crop"]
     override func awakeFromNib() {
@@ -26,9 +33,12 @@ class MenuCell: UICollectionViewCell {
 }
 
 extension MenuCell: UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.isSelected = true
+        
+        self.delegate?.MenuDidSelect(indexPath: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -38,8 +48,7 @@ extension MenuCell: UICollectionViewDelegate {
 }
 
 extension MenuCell: UICollectionViewDataSource {
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.icons.count
     }

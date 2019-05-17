@@ -27,6 +27,7 @@ class PresetCell: UICollectionViewCell {
     }
     var select = IndexPath(item: 0, section: 0)
     var cells:[IndexPath: PresetPreviewCell] = [:]
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -45,8 +46,6 @@ class PresetCell: UICollectionViewCell {
 
 extension PresetCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        
         let pre = self.select
         self.cells[pre]?.indexPath = pre
         self.cells[pre]?.isSelected = false
@@ -57,18 +56,25 @@ extension PresetCell: UICollectionViewDelegate {
         
         self.delegate?.PresetDidSelect(indexPath: indexPath)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        self.cells[indexPath]?.indexPath = indexPath
+        self.cells[indexPath]?.isSelected = false
+    }
 }
 
 extension PresetCell: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 7
-        case 2: return 7
+        case 1: return 6
+        case 2: return 4
+        case 3: return 3
+        case 4: return 4
         default:
             return 0
         }
@@ -87,8 +93,10 @@ extension PresetCell: UICollectionViewDataSource {
             cell.labelTitle.textColor = black
             
             if select == IndexPath(item: 0, section: 0)  { cell.isSelected = true }
-        case 1: cell.labelTitle.text = "P\(indexPath.item)"; cell.labelTitle.textColor = yellow
-        case 2: cell.labelTitle.text = "FILM\(indexPath.item)"; cell.labelTitle.textColor = red
+        case 1: cell.labelTitle.text = "S\(indexPath.item)"; cell.labelTitle.textColor = yellow // start
+        case 2: cell.labelTitle.text = "P\(indexPath.item)"; cell.labelTitle.textColor = red // 
+        case 3: cell.labelTitle.text = "G\(indexPath.item)"; cell.labelTitle.textColor = black // grain
+        case 4: cell.labelTitle.text = "C\(indexPath.item)"; cell.labelTitle.textColor = blue // color
         default:
             break
         }
