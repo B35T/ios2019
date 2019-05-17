@@ -121,7 +121,7 @@ open class CroprViewController: UIViewController {
             if let image = self.image {
                 
                 self.imageView.image = image
-                self.imageView.rect = .init(x: 20, y: 20, width: view.frame.width - 40, height: view.frame.height / 100 * 75)
+                self.imageView.rect = .init(x: 20, y: 30, width: view.frame.width - 40, height: view.frame.height - 220)
                 self.maxScope = self.imageView.frame
                 self.Grid.rect = self.maxScope
                 self.Grid.updateContent()

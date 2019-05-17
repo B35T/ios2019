@@ -37,7 +37,7 @@ class CropViewController: CroprViewController {
         
         self.collectionView.register(UINib(nibName: "StraightenCell", bundle: nil), forCellWithReuseIdentifier: "StraightenCell")
         self.collectionView.register(UINib(nibName: "ImageRatioCell", bundle: nil), forCellWithReuseIdentifier: "ImageRatioCell")
-        self.collectionView.frame = .init(x: 0, y: view.frame.height - 190, width: view.frame.width, height: 150)
+        self.collectionView.frame = .init(x: 0, y: view.frame.height - 170, width: view.frame.width, height: 150)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.view.insertSubview(self.collectionView, at: 5)
@@ -95,8 +95,8 @@ extension CropViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StraightenCell", for: indexPath) as! StraightenCell
             cell.delegate = self
-            cell.slider.minimumValue = -45
-            cell.slider.maximumValue = 45
+            cell.slider.minimumValue = -30
+            cell.slider.maximumValue = 30
             cell.slider.value = 0
             return cell
         case 1:
