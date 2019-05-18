@@ -13,6 +13,7 @@ open class Preview: UIView {
     @IBOutlet open weak var topView: UIImageView!
     @IBOutlet open weak var bommView: UIImageView!
     
+    var saveRect: CGRect = .zero
     var image: UIImage? {
         didSet {
             self.topView.image = self.image
@@ -42,6 +43,25 @@ open class Preview: UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func scale(from: CGFloat = 0, persen:CGFloat = 100, duration: TimeInterval = 0, y:CGFloat = 0) {
+        UIView.animate(withDuration: duration) {
+            self.frame.size.height = from / 100 * persen
+            self.frame.origin.y = y
+            self.topView.frame.size = self.frame.size
+            self.bommView.frame.size = self.frame.size
+            
+        }
+    }
+    
+    func scale(h: CGFloat = 0, minus: CGFloat = 0, y:CGFloat) {
+        UIView.animate(withDuration: 0.2) {
+            self.frame.origin.y = y
+            self.frame.size.height = h - minus
+            self.topView.frame.size = self.frame.size
+            self.bommView.frame.size = self.frame.size
+        }
     }
     
     func initailize() {

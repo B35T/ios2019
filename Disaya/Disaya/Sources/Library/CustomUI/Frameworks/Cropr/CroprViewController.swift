@@ -127,7 +127,6 @@ open class CroprViewController: UIViewController {
                 self.Grid.updateContent()
                 self.updateMargin()
                 
-                
                 self.scaleRatio = .image
             }
         }
@@ -243,16 +242,15 @@ open class CroprViewController: UIViewController {
         self.Grid.center = self.imageView.center
     }
     
-    func cropping() -> UIImage? {
-        guard let image = image else {return nil}
+    func cropping() -> (CGSize?,CGRect?) {
+        guard let image = image else {return (.zero,.zero)}
         let rect = Grid.frame
         let imageScale:CGFloat = Swift.max(image.size.width / self.maxScope.width , image.size.height / self.maxScope.height)
         
         let cropZone = CGRect(x: (rect.origin.x - self.maxScope.origin.x) * imageScale, y: (rect.origin.y - self.maxScope.origin.y) * imageScale, width: rect.width * imageScale, height: rect.height * imageScale)
         
-        guard let cropImage = image.cgImage?.cropping(to: cropZone) else {return nil}
         self.cropZone = cropZone
-        return UIImage(cgImage: cropImage)
+        return (image.size, cropZone)
     }
 }
 

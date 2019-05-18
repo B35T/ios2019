@@ -16,7 +16,9 @@ class EditorViewControllers: Editor {
     @IBOutlet weak var saveBtn:UIButton!
     
     var ciimage: CIImage?
+    let profile = DisayaProfile.shared
     
+    var cropData:(CGRect?, Float?)
     let preset = PresetLibrary()
     var index:IndexPath?
     public var asset: PHAsset? {
@@ -25,7 +27,6 @@ class EditorViewControllers: Editor {
                 PHImageManager.default().requestImage(for: asset, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
                     guard let image = image else {return}
                     self.imagePreview.image = image
-                    
                     self.ciimage = CIImage(image: image)
                     self.collectionView.reloadData()
                 }
@@ -78,8 +79,38 @@ class EditorViewControllers: Editor {
         PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, oriatation, info) in
             guard let data = data else {return}
             if let image = UIImage(data: data) {
-                if let result = self.preset.filter(indexPath: index, ciimage: CIImage(image: image))?.RanderImage {
-                    UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
+                if let crop = self.cropData.0, let straighten = self.cropData.1 {
+                    if straighten != 0 {
+                        guard let ciimage = CIImage(image: image) else {return}
+                        let filter = CIFilter(name: "CIStraightenFilter")
+                        
+                        filter?.setDefaults()
+                        filter?.setValue(ciimage, forKey: "inputImage")
+                        filter?.setValue(straighten, forKey: "inputAngle")
+                        let size = filter!.outputImage!.RanderImage
+                        
+                        let min = Swift.max(size!.size.width / self.imagePreview.image!.size.width , size!.size.height / self.imagePreview.image!.size.height)
+                        let cropZone = CGRect(x: crop.origin.x * min, y: crop.origin.y * min, width: crop.width * min, height: crop.height * min)
+                        guard let result = size?.cgImage?.cropping(to: cropZone) else {return}
+                        let i = UIImage(cgImage: result)
+                        if let result = self.preset.filter(indexPath: index, ciimage: CIImage(image: i))?.RanderImage {
+                            UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
+                        }
+                    } else {
+                        let min = Swift.max(image.size.width / self.imagePreview.image!.size.width , image.size.height / self.imagePreview.image!.size.height)
+                        let cropZone = CGRect(x: crop.origin.x * min, y: crop.origin.y * min, width: crop.width * min, height: crop.height * min)
+                        guard let result = image.cgImage?.cropping(to: cropZone) else {return}
+                        let i = UIImage(cgImage: result)
+                        if let result = self.preset.filter(indexPath: index, ciimage: CIImage(image: i))?.RanderImage {
+                            UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
+                        }
+                    }
+                    
+                } else {
+                    if let result = self.preset.filter(indexPath: index, ciimage: CIImage(image: image))?.RanderImage {
+                        UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
+                    }
+                    
                 }
             }
         }
@@ -89,7 +120,66 @@ class EditorViewControllers: Editor {
         if segue.identifier == "Crop" {
             guard let crop = segue.destination as? CropViewController else {return}
             guard let asset = asset else {return}
+            crop.delegate = self
             crop.asset = asset
+        }
+        
+        if segue.identifier == "HSL" {
+            guard let HSL = segue.destination as? HSLViewController else {return}
+            HSL.profile = self.profile
+            HSL.delegate = self
+            HSL.modalPresentationStyle = .overCurrentContext
+            
+            self.closeBtn.alpha = 0
+            self.saveBtn.alpha = 0
+            self.imagePreview.scale(h: view.frame.height, minus: 370, y: 10)
+            
+        }
+    }
+}
+
+extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDelegate {
+    func cropResult(imageSize: CGSize, zone: CGRect, straighten: Float) {
+        PHImageManager.default().requestImage(for: asset!, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
+            self.cropData = (zone, straighten)
+            guard let image = image else {return}
+            if straighten != 0 {
+                guard let ciimage = CIImage(image: image) else {return}
+                let filter = CIFilter(name: "CIStraightenFilter")
+                
+                filter?.setDefaults()
+                filter?.setValue(ciimage, forKey: "inputImage")
+                filter?.setValue(straighten, forKey: "inputAngle")
+                let size = filter!.outputImage!.RanderImage
+                
+                let min = Swift.max(size!.size.width / imageSize.width , size!.size.height / imageSize.height)
+                let cropZone = CGRect(x: zone.origin.x * min, y: zone.origin.y * min, width: zone.width * min, height: zone.height * min)
+                guard let result = size?.cgImage?.cropping(to: cropZone) else {return}
+                let i = UIImage(cgImage: result)
+                self.imagePreview.image = i
+                self.ciimage = CIImage(image: i)
+            } else {
+                let min = Swift.max(image.size.width / imageSize.width , image.size.height / imageSize.height)
+                let cropZone = CGRect(x: zone.origin.x * min, y: zone.origin.y * min, width: zone.width * min, height: zone.height * min)
+                guard let result = image.cgImage?.cropping(to: cropZone) else {return}
+                let i = UIImage(cgImage: result)
+                self.imagePreview.image = i
+                self.ciimage = CIImage(image: i)
+            }
+            
+            
+        }
+    }
+    
+    func HSLResult(model: DisayaProfile?) {
+        
+    }
+    
+    func HSLShow(action: Bool) {
+        if !action {
+            self.imagePreview.scale(from: view.frame.height, persen: 69, duration: 0.2, y: 40)
+            self.closeBtn.alpha = 1
+            self.saveBtn.alpha = 1
         }
     }
 }
@@ -107,6 +197,8 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
         switch indexPath.item {
         case 5:
             self.performSegue(withIdentifier: "Crop", sender: nil)
+        case 1:
+            self.performSegue(withIdentifier: "HSL", sender: nil)
         default:
             break
         }

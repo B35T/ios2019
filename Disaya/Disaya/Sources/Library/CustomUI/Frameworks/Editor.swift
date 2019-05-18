@@ -20,7 +20,7 @@ open class Editor: UIViewController {
     override open func loadView() {
         super.loadView()
         
-        let imagePreview = Preview(frame: .init(x: 0, y: 40, width: view.frame.width, height: (view.frame.height / 100 * 73) - 40))
+        let imagePreview = Preview(frame: .init(x: 0, y: 40, width: view.frame.width, height: view.frame.height / 100 * 69))
         self.imagePreview = imagePreview
         self.view.addSubview(self.imagePreview)
         

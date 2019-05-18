@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 public protocol CropViewControllerDelegate {
-    func cropResult(image:UIImage, zone:CGRect)
+    func cropResult(imageSize:CGSize, zone:CGRect, straighten:Float)
 }
 
 
@@ -23,11 +23,15 @@ class CropViewController: CroprViewController {
     public var delegate: CropViewControllerDelegate?
     
     var preimage: UIImage?
+    var Straighten:Float = 0
 
+    var size: CGSize {
+        return .init(width: view.frame.width, height: view.frame.height)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if let asset = asset {
-            PHImageManager.default().requestImage(for: asset, targetSize: .init(width: view.frame.width / 2, height: view.frame.height / 2), contentMode: .aspectFit, options: nil) { (img, _) in
+            PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFit, options: nil) { (img, _) in
                 self.image = img
                 self.preimage = img
             }
@@ -46,6 +50,11 @@ class CropViewController: CroprViewController {
         close.setBackgroundImage(UIImage(named: "close.png"), for: .normal)
         close.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
         self.view.insertSubview(close, at: 6)
+        
+        let choose = UIButton(frame: .init(x: view.frame.width - 45, y: view.frame.height - 40, width: 35, height: 35))
+        choose.setBackgroundImage(UIImage(named: "close.png"), for: .normal)
+        choose.addTarget(self, action: #selector(cropAction), for: .touchUpInside)
+        self.view.insertSubview(choose, at: 6)
     }
     
     @objc internal func closeAction() {
@@ -53,12 +62,9 @@ class CropViewController: CroprViewController {
     }
     
     @objc internal func cropAction() {
-        if let image = self.cropping() {
-            self.delegate?.cropResult(image: image, zone: self.cropZone)
-            self.dismiss(animated: true, completion: nil)
-        } else {
-            print("error")
-        }
+        let crop = self.cropping()
+        self.delegate?.cropResult(imageSize: crop.0!, zone: crop.1!, straighten: Straighten)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -66,22 +72,27 @@ class CropViewController: CroprViewController {
     }
 }
 
-extension CropViewController: StraightenCellDelegate {
+extension CropViewController: StraightenCellDelegate, ImageRatioCellDelegate {
+    func ImageRatio(ratio: setScale) {
+        self.scaleRatio = ratio
+    }
+    
     func StraightenAction(value: Float) {
         if let cimage = CIImage(image: image!) {
             let filter = CIFilter(name: "CIStraightenFilter")
             let cal = value * Float.pi / 180
+            
             filter?.setDefaults()
             filter?.setValue(cimage, forKey: "inputImage")
             filter?.setValue(cal, forKey: "inputAngle")
             
+            self.Straighten = cal
             self.imageView.image = UIImage(ciImage: filter!.outputImage!)
         }
     }
 }
 
 extension CropViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
@@ -101,6 +112,7 @@ extension CropViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageRatioCell", for: indexPath) as! ImageRatioCell
+            cell.delegate = self
             return cell
         default:
             return UICollectionViewCell()

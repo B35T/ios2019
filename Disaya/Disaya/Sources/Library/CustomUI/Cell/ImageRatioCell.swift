@@ -8,10 +8,15 @@
 
 import UIKit
 
+public protocol ImageRatioCellDelegate {
+    func ImageRatio(ratio:setScale)
+}
+
 class ImageRatioCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var delegate: ImageRatioCellDelegate?
     
     let ratioSet:[String] = ["image","free","square","3:2","2:3","4:3","3:4","16:9","9:16","21:9","9:21"]
 
@@ -26,6 +31,10 @@ class ImageRatioCell: UICollectionViewCell {
 }
 
 extension ImageRatioCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.delegate?.ImageRatio(ratio: setScale(rawValue: indexPath.item) ?? .image)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.ratioSet.count
     }

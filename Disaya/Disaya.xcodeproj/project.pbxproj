@@ -59,6 +59,12 @@
 		40A96C102288048D005F066C /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C0F2288048D005F066C /* Cover.swift */; };
 		40A96C122288086A005F066C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C112288086A005F066C /* Preview.swift */; };
 		40A96C1722880AB2005F066C /* NextBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C1622880AB2005F066C /* NextBar.swift */; };
+		40C35E62228FB5F900F3C3BD /* DisayaProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E61228FB5F900F3C3BD /* DisayaProfile.swift */; };
+		40C35E64228FB74100F3C3BD /* HSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E63228FB74100F3C3BD /* HSLViewController.swift */; };
+		40C35E66228FB7D300F3C3BD /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E65228FB7D300F3C3BD /* Slider.swift */; };
+		40C35E68228FB7EE00F3C3BD /* HSLSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E67228FB7EE00F3C3BD /* HSLSlider.swift */; };
+		40C35E6A228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E69228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift */; };
+		40C35E6C228FC0CB00F3C3BD /* HSLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E6B228FC0CB00F3C3BD /* HSLCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +143,12 @@
 		40A96C0F2288048D005F066C /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		40A96C112288086A005F066C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		40A96C1622880AB2005F066C /* NextBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextBar.swift; sourceTree = "<group>"; };
+		40C35E61228FB5F900F3C3BD /* DisayaProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisayaProfile.swift; sourceTree = "<group>"; };
+		40C35E63228FB74100F3C3BD /* HSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLViewController.swift; sourceTree = "<group>"; };
+		40C35E65228FB7D300F3C3BD /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		40C35E67228FB7EE00F3C3BD /* HSLSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLSlider.swift; sourceTree = "<group>"; };
+		40C35E69228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSLViewController DataSource + Delegate.swift"; sourceTree = "<group>"; };
+		40C35E6B228FC0CB00F3C3BD /* HSLCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +241,7 @@
 		40010E5D2287E8E5003EB199 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				40C35E61228FB5F900F3C3BD /* DisayaProfile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,6 +298,8 @@
 		40010E632287E92F003EB199 /* Slider */ = {
 			isa = PBXGroup;
 			children = (
+				40C35E65228FB7D300F3C3BD /* Slider.swift */,
+				40C35E67228FB7EE00F3C3BD /* HSLSlider.swift */,
 			);
 			path = Slider;
 			sourceTree = "<group>";
@@ -310,6 +325,7 @@
 				400C90BE228E91FE00074251 /* ImageRatioCell.xib */,
 				400C90C1228E9F7800074251 /* StraightenCell.swift */,
 				400C90C2228E9F7800074251 /* StraightenCell.xib */,
+				40C35E6B228FC0CB00F3C3BD /* HSLCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -343,6 +359,8 @@
 				404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */,
 				4002503A228A8BAE00E4FCB1 /* EditorViewController delegate + dataSource.swift */,
 				400C90B5228E7AC600074251 /* CropViewController.swift */,
+				40C35E63228FB74100F3C3BD /* HSLViewController.swift */,
+				40C35E69228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -585,14 +603,19 @@
 				40010E6D2287EA9F003EB199 /* PhotosAsset.swift in Sources */,
 				40025044228A9A1900E4FCB1 /* Color.swift in Sources */,
 				404F0902228A7C5B00AC15DE /* Editor.swift in Sources */,
+				40C35E62228FB5F900F3C3BD /* DisayaProfile.swift in Sources */,
 				4002505A228AB65600E4FCB1 /* PresetLibrary.swift in Sources */,
+				40C35E66228FB7D300F3C3BD /* Slider.swift in Sources */,
 				4002505C228AB6DD00E4FCB1 /* MutiBandHSV.swift in Sources */,
+				40C35E6C228FC0CB00F3C3BD /* HSLCell.swift in Sources */,
 				404F0911228A8A3500AC15DE /* ImageCell.swift in Sources */,
 				400C90AA228E796800074251 /* CroprViewController.swift in Sources */,
+				40C35E64228FB74100F3C3BD /* HSLViewController.swift in Sources */,
 				404F0905228A858000AC15DE /* MenuCell.swift in Sources */,
 				4002503E228A90D700E4FCB1 /* PresetPreviewCell.swift in Sources */,
 				400C90AC228E797F00074251 /* margin.swift in Sources */,
 				40010E2D2287E859003EB199 /* StartViewController.swift in Sources */,
+				40C35E6A228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift in Sources */,
 				400C90B4228E79DB00074251 /* DimmingOverlay.swift in Sources */,
 				400C90B6228E7AC600074251 /* CropViewController.swift in Sources */,
 				40A96C1722880AB2005F066C /* NextBar.swift in Sources */,
@@ -600,6 +623,7 @@
 				40A96C122288086A005F066C /* Preview.swift in Sources */,
 				40010E702287EAEA003EB199 /* PhotoPreviewCell.swift in Sources */,
 				404F0909228A858F00AC15DE /* PresetCell.swift in Sources */,
+				40C35E68228FB7EE00F3C3BD /* HSLSlider.swift in Sources */,
 				400C90C3228E9F7800074251 /* StraightenCell.swift in Sources */,
 				40010E2B2287E859003EB199 /* AppDelegate.swift in Sources */,
 				400C90B2228E79CA00074251 /* ImageScrollView.swift in Sources */,
