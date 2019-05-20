@@ -18,7 +18,7 @@ class EditorViewControllers: Editor {
     var ciimage: CIImage?
     let profile = DisayaProfile.shared
     
-    var cropData:(CGRect?, Float?)
+    var cropData:(CGRect?, Float?, CGSize?)
     let preset = PresetLibrary()
     var index:IndexPath?
     public var asset: PHAsset? {
@@ -26,7 +26,9 @@ class EditorViewControllers: Editor {
             if let asset = asset {
                 PHImageManager.default().requestImage(for: asset, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
                     guard let image = image else {return}
+                    self.cropData.2 = image.size
                     self.imagePreview.image = image
+                    
                     self.ciimage = CIImage(image: image)
                     self.collectionView.reloadData()
                 }
@@ -72,45 +74,41 @@ class EditorViewControllers: Editor {
     @objc internal func dismissBack() {
         self.dismiss(animated: true, completion: nil)
     }
+    func cropMultiply(ago:CGSize, new:CGSize, cropData:CGRect) -> CGRect {
+        let c = Swift.max(new.width / ago.width, new.height / ago.height)
+        let crop = CGRect(x: cropData.origin.x * c, y: cropData.origin.y * c, width: cropData.width * c, height: cropData.height * c)
+        return crop
+        
+    }
     
     @objc internal func saveExportImage() {
         guard let asset = asset else {return}
         guard let index = index else {return}
-        PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, oriatation, info) in
-            guard let data = data else {return}
-            if let image = UIImage(data: data) {
-                if let crop = self.cropData.0, let straighten = self.cropData.1 {
-                    if straighten != 0 {
-                        guard let ciimage = CIImage(image: image) else {return}
-                        let filter = CIFilter(name: "CIStraightenFilter")
-                        
-                        filter?.setDefaults()
-                        filter?.setValue(ciimage, forKey: "inputImage")
-                        filter?.setValue(straighten, forKey: "inputAngle")
-                        let size = filter!.outputImage!.RanderImage
-                        
-                        let min = Swift.max(size!.size.width / self.imagePreview.image!.size.width , size!.size.height / self.imagePreview.image!.size.height)
-                        let cropZone = CGRect(x: crop.origin.x * min, y: crop.origin.y * min, width: crop.width * min, height: crop.height * min)
-                        guard let result = size?.cgImage?.cropping(to: cropZone) else {return}
-                        let i = UIImage(cgImage: result)
-                        if let result = self.preset.filter(indexPath: index, ciimage: CIImage(image: i))?.RanderImage {
-                            UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
-                        }
-                    } else {
-                        let min = Swift.max(image.size.width / self.imagePreview.image!.size.width , image.size.height / self.imagePreview.image!.size.height)
-                        let cropZone = CGRect(x: crop.origin.x * min, y: crop.origin.y * min, width: crop.width * min, height: crop.height * min)
-                        guard let result = image.cgImage?.cropping(to: cropZone) else {return}
-                        let i = UIImage(cgImage: result)
-                        if let result = self.preset.filter(indexPath: index, ciimage: CIImage(image: i))?.RanderImage {
-                            UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
-                        }
-                    }
+        
+        PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
+            if self.cropData.1 != 0 {
+                print("a")
+                guard let ciimage = CIImage(data: data!) else {return}
+                let filter = CIFilter(name: "CIStraightenFilter")
+                
+                filter?.setDefaults()
+                filter?.setValue(ciimage, forKey: "inputImage")
+                filter?.setValue(self.cropData.1, forKey: "inputAngle")
+                
+                let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
+                if let result = self.preset.filter(indexPath: index, ciimage: filter?.outputImage!)?.toCGImage?.cropping(to: rect) {
+                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
+                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                }
+                
+            } else {
+                print("b")
+                guard let ciimage = CIImage(data: data!) else {return}
+                let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
+                if let result = self.preset.filter(indexPath: index, ciimage: ciimage)?.toCGImage?.cropping(to: rect) {
+                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
                     
-                } else {
-                    if let result = self.preset.filter(indexPath: index, ciimage: CIImage(image: image))?.RanderImage {
-                        UIImageWriteToSavedPhotosAlbum(result, nil, nil, nil)
-                    }
-                    
+                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
                 }
             }
         }
@@ -141,7 +139,7 @@ class EditorViewControllers: Editor {
 extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDelegate {
     func cropResult(imageSize: CGSize, zone: CGRect, straighten: Float) {
         PHImageManager.default().requestImage(for: asset!, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
-            self.cropData = (zone, straighten)
+           
             guard let image = image else {return}
             if straighten != 0 {
                 guard let ciimage = CIImage(image: image) else {return}
@@ -154,10 +152,14 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
                 
                 let min = Swift.max(size!.size.width / imageSize.width , size!.size.height / imageSize.height)
                 let cropZone = CGRect(x: zone.origin.x * min, y: zone.origin.y * min, width: zone.width * min, height: zone.height * min)
+                
                 guard let result = size?.cgImage?.cropping(to: cropZone) else {return}
                 let i = UIImage(cgImage: result)
                 self.imagePreview.image = i
                 self.ciimage = CIImage(image: i)
+                
+                self.cropData.0 = cropZone
+                self.cropData.1 = straighten
             } else {
                 let min = Swift.max(image.size.width / imageSize.width , image.size.height / imageSize.height)
                 let cropZone = CGRect(x: zone.origin.x * min, y: zone.origin.y * min, width: zone.width * min, height: zone.height * min)
@@ -165,6 +167,9 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
                 let i = UIImage(cgImage: result)
                 self.imagePreview.image = i
                 self.ciimage = CIImage(image: i)
+                
+                self.cropData.0 = cropZone
+                self.cropData.1 = 0
             }
             
             

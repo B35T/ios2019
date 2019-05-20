@@ -547,6 +547,14 @@ extension CIImage {
         self.context?.clearCaches()
     }
     
+    public var toCGImage: CGImage? {
+        if let r = self.context?.createCGImage(self, from: self.extent) {
+            self.clear()
+            return r
+        }
+        return nil
+    }
+    
     public var RanderImage:UIImage? {
         if let r = self.context?.createCGImage(self, from: self.extent) {
             self.clear()
