@@ -47,6 +47,10 @@ class PresetLibrary {
             return C2(ciimage: ciimage)
         case IndexPath(item: 3, section: 4):
             return C3(ciimage: ciimage)
+        case IndexPath(item: 4, section: 4):
+            return C4(ciimage: ciimage)
+        case IndexPath(item: 5, section: 4):
+            return C5(ciimage: ciimage)
         default: return ciimage
         }
     }
@@ -301,6 +305,41 @@ class PresetLibrary {
         
         let p = self.CIPhotoEffectChrome(ciimage: ColorPolynomial?.outputImage!)
         return p
+    }
+    
+    func C4(ciimage:CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        
+        let c = self.C3(ciimage: ciimage)
+        
+        let r = CIVector.init(x: 1.3, y: -0.5, z: 0, w: 0)
+        let g = CIVector.init(x: -0.05, y: 0.9, z: -0.03, w: 0.02)
+        let b = CIVector.init(x: 0, y: -0.2126, z: 1.312, w: 0.01)
+        
+        let colorMatrix = CIFilter(name: "CIColorMatrix")
+        colorMatrix?.setDefaults()
+        colorMatrix?.setValue(c, forKey: kCIInputImageKey)
+        colorMatrix?.setValue(r, forKey: "inputRVector")
+        colorMatrix?.setValue(g, forKey: "inputGVector")
+        colorMatrix?.setValue(b, forKey: "inputBVector")
+        
+        return colorMatrix?.outputImage
+    }
+    
+    func C5(ciimage:CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+
+        let r = CIVector.init(x: 1.4, y: 0.2, z: -0.8, w: 0)
+        let b = CIVector.init(x: -0.05, y: -0.15, z: 1.9, w: 0)
+    
+        let colorMatrix = CIFilter(name: "CIColorMatrix")
+        colorMatrix?.setDefaults()
+        colorMatrix?.setValue(ciimage, forKey: kCIInputImageKey)
+        colorMatrix?.setValue(r, forKey: "inputRVector")
+        colorMatrix?.setValue(b, forKey: "inputBVector")
+
+        let h = self.highlightShadowAdjust(inputImage: colorMatrix!.outputImage!, inputShadowAmount: 0.3, inputHighlightAmount: 1)
+        return self.C3(ciimage: h)
     }
     
     func GrainGenerator(size:CGSize) -> CIImage? {
