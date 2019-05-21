@@ -63,11 +63,14 @@ extension StartViewController: UIGestureRecognizerDelegate {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.3) {
-            self.editorView.asset = self.fetchResults.object(at: self.fetchResults.count - indexPath.item - 1)
+            self.editorView.asset = self.fetchResults.object(at: indexPath.item)
             self.editorView.view.alpha = 1
+            DisayaProfile.shared.defualt()
             self.show(self.editorView, sender: nil)
         }
     }
+    
+    
 }
 
 class Colors {

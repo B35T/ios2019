@@ -227,6 +227,7 @@ class HSLViewController: UIViewController {
             profile.yellow = self.value
         }
         
+        self.delegate?.HSLResult(model: self.profile)
     }
     
     @objc internal func button(_ sender: UIButton) {
@@ -265,6 +266,8 @@ class HSLViewController: UIViewController {
         case .yellow:
             profile.yellow = self.value
         }
+        
+        self.delegate?.HSLResult(model: self.profile)
     }
     
     func getValue() {

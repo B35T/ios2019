@@ -16,11 +16,15 @@ class EditorViewControllers: Editor {
     @IBOutlet weak var saveBtn:UIButton!
     
     var ciimage: CIImage?
-    let profile = DisayaProfile.shared
+    var profile = DisayaProfile.shared
     
     var cropData:(CGRect?, Float?, CGSize?)
     let preset = PresetLibrary()
-    var index:IndexPath?
+    var index:IndexPath? {
+        didSet{
+            self.profile.filter = self.index
+        }
+    }
     public var asset: PHAsset? {
         didSet {
             if let asset = asset {
@@ -87,7 +91,6 @@ class EditorViewControllers: Editor {
         
         PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
             if self.cropData.1 != 0 {
-                print("a")
                 guard let ciimage = CIImage(data: data!) else {return}
                 let filter = CIFilter(name: "CIStraightenFilter")
                 
@@ -102,7 +105,6 @@ class EditorViewControllers: Editor {
                 }
                 
             } else {
-                print("b")
                 guard let ciimage = CIImage(data: data!) else {return}
                 let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
                 if let result = self.preset.filter(indexPath: index, ciimage: ciimage)?.toCGImage?.cropping(to: rect) {
@@ -155,8 +157,14 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
                 
                 guard let result = size?.cgImage?.cropping(to: cropZone) else {return}
                 let i = UIImage(cgImage: result)
-                self.imagePreview.image = i
                 self.ciimage = CIImage(image: i)
+                if self.profile.filter != nil {
+                    self.imagePreview.image = self.preset.toolCreate(ciimage: self.ciimage!, Profile: self.profile)?.RanderImage
+                } else {
+                    self.imagePreview.image = i
+                }
+                
+                
                 
                 self.cropData.0 = cropZone
                 self.cropData.1 = straighten
@@ -177,7 +185,8 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
     }
     
     func HSLResult(model: DisayaProfile?) {
-        
+        guard let result = self.preset.toolCreate(ciimage: self.ciimage!, Profile: self.profile) else {return}
+        self.imagePreview.top = UIImage(ciImage: result)
     }
     
     func HSLShow(action: Bool) {
@@ -193,9 +202,8 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
     func PresetDidSelect(indexPath: IndexPath) {
         guard let ciimage = ciimage else {return}
         self.index = indexPath
-        if let result = preset.filter(indexPath: indexPath, ciimage: ciimage) {
-            self.imagePreview.top = UIImage(ciImage: result)
-        }
+        guard let result = self.preset.toolCreate(ciimage: ciimage, Profile: self.profile) else {return}
+        self.imagePreview.top = UIImage(ciImage: result)
     }
     
     func MenuDidSelect(indexPath: IndexPath) {

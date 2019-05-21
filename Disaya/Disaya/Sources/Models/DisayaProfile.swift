@@ -64,17 +64,16 @@ public struct HSLModel {
     var purple:HSLVector?
     var magenta:HSLVector?
     
-    mutating func update(color:Color.HSLColorSet, value: HSLVector?) {
-        switch color {
-        case .red: self.red = value
-        case .green: self.green = value
-        case .blue: self.blue = value
-        case .orange: self.orange = value
-        case .yellow: self.yellow = value
-        case .aque: self.aqua = value
-        case .purple: self.purple = value
-        case .magenta: self.magenta = value
-        }
+    mutating func defualt() {
+        self.red = nil
+        self.green = nil
+        self.blue = nil
+        self.orange = nil
+        self.yellow = nil
+        self.aqua = nil
+        self.purple = nil
+        self.magenta = nil
+        
     }
     
     var json: [String:Any?] {
@@ -102,10 +101,12 @@ struct ChromaticModel {
 
 open class DisayaProfile {
     
-    var filter: Int?
     var HSL: HSLModel?
     var chromatic: ChromaticModel?
     var transverseChromatic:TransverseChromaticModel?
+    
+    var filter: IndexPath?
+    
     var white:CGFloat?
     var brightness:CGFloat?
     var saturation:CGFloat?
@@ -123,22 +124,123 @@ open class DisayaProfile {
     var tint:CGFloat?
     var split:CGFloat?
     var bloom:CGFloat?
+
+    var chromatic_angle: CGFloat?
+    var chromatic_radius: CGFloat?
+    var transverse_falloff:CGFloat?
+    var transverse_blur:CGFloat?
     
-    var red: HSLVector?
-    var green:HSLVector?
-    var blue:HSLVector?
-    var orange:HSLVector?
-    var yellow:HSLVector?
-    var aqua:HSLVector?
-    var purple:HSLVector?
-    var magenta:HSLVector?
+    var red: HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
+    var green:HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
+    var blue:HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
+    var orange:HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
+    var yellow:HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
+    var aqua:HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
+    var purple:HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
+    var magenta:HSLVector? {
+        didSet {
+            self.update_HSL()
+        }
+    }
     
     static let shared: DisayaProfile = DisayaProfile()
     
     var json: [String:Any?] {
         return ["HSL":HSL?.json,"Chromatic":chromatic?.json, "TransverseChromatic":transverseChromatic?.json, "white": white, "saturation":saturation, "fade":fade, "exposure": exposure, "contrast":contrast, "hue":hue, "sharpen":sharpen, "highlight": highlight, "shadow":shadow, "temperature":temperature, "vibrance":vibrance, "grain":grain, "gamma":gamma, "bloom":bloom]
     }
+ 
+    func update_HSL() {
+        let r = self.red ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        let g = self.green ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        let b = self.blue ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        let o = self.orange ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        let y = self.yellow ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        let a = self.aqua ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        let p = self.purple ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        let m = self.magenta ?? HSLVector(hue: 0, saturation: 1, lightness: 1)
+        DisayaProfile.shared.HSL = HSLModel(red: r, green:g, blue: b, orange: o, yellow: y, aqua: a, purple: p, magenta: m)
+    }
     
+    func update_chromatic() {
+        let a = self.chromatic_angle ?? 0
+        let r = self.chromatic_radius ?? 0
+        self.chromatic = ChromaticModel(angle: a, radius: r)
+    }
+    
+    func update_transverse() {
+        let fall = self.transverse_falloff ?? 0
+        let blur = self.transverse_blur ?? 0
+        self.transverseChromatic = TransverseChromaticModel(falloff: fall, blur: blur)
+    }
+    
+    func defualt() {
+        self.filter = nil
+        
+        self.white = nil
+        self.brightness = nil
+        self.saturation = nil
+        self.fade = nil
+        self.exposure = nil
+        self.contrast = nil
+        self.hue = nil
+        self.sharpen = nil
+        self.highlight = nil
+        self.shadow = nil
+        self.temperature = nil
+        self.vibrance = nil
+        self.grain = nil
+        self.gamma = nil
+        self.tint = nil
+        self.split = nil
+        self.bloom = nil
+        
+        //HSL
+        self.red = nil
+        self.green = nil
+        self.blue = nil
+        self.orange = nil
+        self.yellow = nil
+        self.aqua = nil
+        self.purple = nil
+        self.magenta = nil
+        
+        self.chromatic_angle = nil
+        self.chromatic_radius = nil
+        self.transverse_falloff = nil
+        self.transverse_blur = nil
+        
+        self.HSL = nil
+        self.chromatic = nil
+        self.transverseChromatic = nil
+    }
 }
 
 extension CGFloat {

@@ -36,7 +36,7 @@ class PhotosAsset: UICollectionViewController {
         
         let option = PHFetchOptions()
         option.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-//        option.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        option.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         self.fetchResults = PHAsset.fetchAssets(in: cameraRoll, options: option)
     }
 
@@ -70,7 +70,7 @@ class PhotosAsset: UICollectionViewController {
         cell.layer.cornerRadius = 2
         cell.imageview.backgroundColor = .clear
 
-        let asset = self.assetAtIndex(index: indexPath.item)
+        let asset = self.fetchResults.object(at: indexPath.item)
         imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, info) in
             cell.imageview.image = image
         }
