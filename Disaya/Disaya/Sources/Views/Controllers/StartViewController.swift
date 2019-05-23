@@ -69,8 +69,6 @@ extension StartViewController: UIGestureRecognizerDelegate {
             self.show(self.editorView, sender: nil)
         }
     }
-    
-    
 }
 
 class Colors {

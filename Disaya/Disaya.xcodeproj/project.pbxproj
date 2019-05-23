@@ -56,6 +56,8 @@
 		404F090E228A85A000AC15DE /* LightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F090C228A85A000AC15DE /* LightCell.xib */; };
 		404F0911228A8A3500AC15DE /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F090F228A8A3500AC15DE /* ImageCell.swift */; };
 		404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F0910228A8A3500AC15DE /* ImageCell.xib */; };
+		405449BE229652B10012CE57 /* LightCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405449BC229652B10012CE57 /* LightCollectCell.swift */; };
+		405449BF229652B10012CE57 /* LightCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405449BD229652B10012CE57 /* LightCollectCell.xib */; };
 		40A82842228ADF710024F835 /* DisaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A82841228ADF710024F835 /* DisaLogo.png */; };
 		40A96C102288048D005F066C /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C0F2288048D005F066C /* Cover.swift */; };
 		40A96C122288086A005F066C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C112288086A005F066C /* Preview.swift */; };
@@ -141,6 +143,8 @@
 		404F090C228A85A000AC15DE /* LightCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCell.xib; sourceTree = "<group>"; };
 		404F090F228A8A3500AC15DE /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		404F0910228A8A3500AC15DE /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		405449BC229652B10012CE57 /* LightCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCollectCell.swift; sourceTree = "<group>"; };
+		405449BD229652B10012CE57 /* LightCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCollectCell.xib; sourceTree = "<group>"; };
 		40A82841228ADF710024F835 /* DisaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisaLogo.png; sourceTree = "<group>"; };
 		40A96C0F2288048D005F066C /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		40A96C112288086A005F066C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
@@ -313,6 +317,8 @@
 				40010E6F2287EAEA003EB199 /* PhotoPreviewCell.xib */,
 				404F0903228A858000AC15DE /* MenuCell.swift */,
 				404F0904228A858000AC15DE /* MenuCell.xib */,
+				405449BC229652B10012CE57 /* LightCollectCell.swift */,
+				405449BD229652B10012CE57 /* LightCollectCell.xib */,
 				404F090B228A85A000AC15DE /* LightCell.swift */,
 				404F090C228A85A000AC15DE /* LightCell.xib */,
 				404F090F228A8A3500AC15DE /* ImageCell.swift */,
@@ -570,6 +576,7 @@
 				40010E352287E85B003EB199 /* Assets.xcassets in Resources */,
 				400C90BA228E846A00074251 /* RatioCell.xib in Resources */,
 				40A82842228ADF710024F835 /* DisaLogo.png in Resources */,
+				405449BF229652B10012CE57 /* LightCollectCell.xib in Resources */,
 				404F090E228A85A000AC15DE /* LightCell.xib in Resources */,
 				40025057228AAF6200E4FCB1 /* close.png in Resources */,
 				40010E302287E859003EB199 /* Main.storyboard in Resources */,
@@ -604,6 +611,7 @@
 				40010E332287E859003EB199 /* Disaya.xcdatamodeld in Sources */,
 				40A96C102288048D005F066C /* Cover.swift in Sources */,
 				40010E6D2287EA9F003EB199 /* PhotosAsset.swift in Sources */,
+				405449BE229652B10012CE57 /* LightCollectCell.swift in Sources */,
 				40025044228A9A1900E4FCB1 /* Color.swift in Sources */,
 				404F0902228A7C5B00AC15DE /* Editor.swift in Sources */,
 				40C35E62228FB5F900F3C3BD /* DisayaProfile.swift in Sources */,

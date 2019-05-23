@@ -241,6 +241,33 @@ open class DisayaProfile {
         self.chromatic = nil
         self.transverseChromatic = nil
     }
+    
+    func valueTools(t:tool) -> CGFloat? {
+        switch t {
+        case .exposure:
+            return DisayaProfile.shared.exposure
+        case .saturation:
+            return DisayaProfile.shared.saturation
+        case .contrast:
+            return DisayaProfile.shared.contrast
+        case .highlight:
+            return DisayaProfile.shared.highlight
+        case .shadow:
+            return DisayaProfile.shared.shadow
+        case .temperature:
+            return DisayaProfile.shared.temperature
+        case .vibrance:
+            return DisayaProfile.shared.vibrance
+        case .gamma:
+            return DisayaProfile.shared.gamma
+        case .sharpan:
+            return DisayaProfile.shared.shadow
+        case .bloom:
+            return DisayaProfile.shared.bloom
+        case .grian:
+            return DisayaProfile.shared.grain
+        }
+    }
 }
 
 extension CGFloat {

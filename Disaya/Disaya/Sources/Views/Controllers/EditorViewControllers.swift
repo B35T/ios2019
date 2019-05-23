@@ -41,6 +41,8 @@ class EditorViewControllers: Editor {
         }
     }
     
+    var selected:select = .filter
+
     override func loadView() {
         super.loadView()
         
@@ -62,7 +64,8 @@ class EditorViewControllers: Editor {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.collectionView.register(UINib(nibName: "LightCollectCell", bundle: nil), forCellWithReuseIdentifier: "LightCollectCell")
         self.collectionView.register(UINib(nibName: "PresetCell", bundle: nil), forCellWithReuseIdentifier: "PresetCell")
         self.collectionView.register(UINib(nibName: "MenuCell", bundle: nil), forCellWithReuseIdentifier: "MenuCell")
         self.collectionView.delegate = self
@@ -90,10 +93,10 @@ class EditorViewControllers: Editor {
         guard let index = index else {return}
         
         PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
-            if self.cropData.1 != 0 {
-                guard let ciimage = CIImage(data: data!) else {return}
+            guard let ciimage = CIImage(data: data!) else {return}
+            
+            if self.cropData.0 != nil && self.cropData.1 != 0 {
                 let filter = CIFilter(name: "CIStraightenFilter")
-                
                 filter?.setDefaults()
                 filter?.setValue(ciimage, forKey: "inputImage")
                 filter?.setValue(self.cropData.1, forKey: "inputAngle")
@@ -104,12 +107,15 @@ class EditorViewControllers: Editor {
                     UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
                 }
                 
-            } else {
-                guard let ciimage = CIImage(data: data!) else {return}
+            } else if self.cropData.1 == 0 && self.cropData.0 != nil {
                 let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
                 if let result = self.preset.filter(indexPath: index, ciimage: ciimage)?.toCGImage?.cropping(to: rect) {
                     let img = UIImage(cgImage: result, scale: 1, orientation: or)
-                    
+                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                }
+            } else {
+                if let result = self.preset.filter(indexPath: index, ciimage: ciimage)?.toCGImage {
+                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
                     UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
                 }
             }
@@ -159,12 +165,11 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
                 let i = UIImage(cgImage: result)
                 self.ciimage = CIImage(image: i)
                 if self.profile.filter != nil {
-                    self.imagePreview.image = self.preset.toolCreate(ciimage: self.ciimage!, Profile: self.profile)?.RanderImage
+                    self.imagePreview.top = self.preset.toolCreate(ciimage: self.ciimage!, Profile: self.profile)?.RanderImage
+                    self.imagePreview.bottom = i
                 } else {
                     self.imagePreview.image = i
                 }
-                
-                
                 
                 self.cropData.0 = cropZone
                 self.cropData.1 = straighten
@@ -173,19 +178,23 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
                 let cropZone = CGRect(x: zone.origin.x * min, y: zone.origin.y * min, width: zone.width * min, height: zone.height * min)
                 guard let result = image.cgImage?.cropping(to: cropZone) else {return}
                 let i = UIImage(cgImage: result)
-                self.imagePreview.image = i
                 self.ciimage = CIImage(image: i)
+                if self.profile.filter != nil {
+                    self.imagePreview.image = self.preset.toolCreate(ciimage: self.ciimage!, Profile: self.profile)?.RanderImage
+                    self.imagePreview.bottom = i
+                } else {
+                    self.imagePreview.image = i
+                }
                 
                 self.cropData.0 = cropZone
                 self.cropData.1 = 0
             }
-            
-            
         }
     }
     
     func HSLResult(model: DisayaProfile?) {
-        guard let result = self.preset.toolCreate(ciimage: self.ciimage!, Profile: self.profile) else {return}
+        print("HSL")
+        guard let result = self.preset.toolCreate(ciimage: self.ciimage!, Profile: model) else {print("no image");return}
         self.imagePreview.top = UIImage(ciImage: result)
     }
     
@@ -208,6 +217,20 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
     
     func MenuDidSelect(indexPath: IndexPath) {
         switch indexPath.item {
+        case 0:
+            if self.selected == .preset { return }
+            self.selected = .preset
+            self.collectionView.performBatchUpdates({
+                self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
+                self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
+            }, completion: nil)
+        case 2:
+            if self.selected == .tools { return }
+            self.selected = .tools
+            self.collectionView.performBatchUpdates({
+                self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
+                self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
+            }, completion: nil)
         case 5:
             self.performSegue(withIdentifier: "Crop", sender: nil)
         case 1:

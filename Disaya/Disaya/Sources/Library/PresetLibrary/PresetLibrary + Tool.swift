@@ -24,6 +24,8 @@ public enum tool:Int {
 }
 
 extension PresetLibrary {
+
+    
     func toolmin(t:tool) -> (min:Float, max:Float, value:Float) {
         switch t {
         case .exposure:
@@ -139,7 +141,7 @@ extension PresetLibrary {
         }
         
         if let filter = Profile?.filter {
-            ci = self.filter(indexPath: filter, ciimage: ciimage) ?? ci
+            ci = self.filter(indexPath: filter, ciimage: ci) ?? ci
         }
         
         return ci

@@ -9,10 +9,13 @@
 import UIKit
 
 class LightCell: UICollectionViewCell {
-
+    @IBOutlet weak var value: UILabel!
+    @IBOutlet weak var title: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        self.backgroundColor = black
     }
 
 }
