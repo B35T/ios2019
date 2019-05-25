@@ -8,7 +8,12 @@
 
 import UIKit
 
-class PresetLibrary {
+public protocol ProcessEngineProtocal: class {
+}
+
+
+
+open class PresetLibrary:ProcessEngineProtocal  {
     
     func filter(indexPath: IndexPath, ciimage:CIImage?) -> CIImage? {
        

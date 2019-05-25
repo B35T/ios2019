@@ -32,18 +32,15 @@ class LightSliderViewController: UIViewController {
     var delegate: LightSliderDelegate?
  
     
-    override func loadView() {
-        super.loadView()
-        self.view.backgroundColor = .clear
- 
-    }
-    
     var values:(Float, Float) = (0,0)
     var oldA:Float = 0
     var oldB:(Float, Float) = (0,0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .clear
+        
         let background = UIView()
         self.background = background
         self.background.backgroundColor = .clear
@@ -67,8 +64,6 @@ class LightSliderViewController: UIViewController {
             self.value.backgroundColor = yellow
             self.value.layer.cornerRadius = 4
             self.value.clipsToBounds = true
-            
-            
             
             let sliderA = UISlider()
             self.sliderA = sliderA

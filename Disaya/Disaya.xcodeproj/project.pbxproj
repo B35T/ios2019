@@ -58,6 +58,7 @@
 		404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F0910228A8A3500AC15DE /* ImageCell.xib */; };
 		405449BE229652B10012CE57 /* LightCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405449BC229652B10012CE57 /* LightCollectCell.swift */; };
 		405449BF229652B10012CE57 /* LightCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405449BD229652B10012CE57 /* LightCollectCell.xib */; };
+		4075653C22996FD500FEFCAF /* grain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4075653B22996FD500FEFCAF /* grain.jpg */; };
 		40A82842228ADF710024F835 /* DisaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A82841228ADF710024F835 /* DisaLogo.png */; };
 		40A96C102288048D005F066C /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C0F2288048D005F066C /* Cover.swift */; };
 		40A96C122288086A005F066C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C112288086A005F066C /* Preview.swift */; };
@@ -147,6 +148,7 @@
 		404F0910228A8A3500AC15DE /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		405449BC229652B10012CE57 /* LightCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCollectCell.swift; sourceTree = "<group>"; };
 		405449BD229652B10012CE57 /* LightCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCollectCell.xib; sourceTree = "<group>"; };
+		4075653B22996FD500FEFCAF /* grain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grain.jpg; sourceTree = "<group>"; };
 		40A82841228ADF710024F835 /* DisaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisaLogo.png; sourceTree = "<group>"; };
 		40A96C0F2288048D005F066C /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		40A96C112288086A005F066C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 		40A96C092287EFAE005F066C /* StaticFile */ = {
 			isa = PBXGroup;
 			children = (
+				4075653B22996FD500FEFCAF /* grain.jpg */,
 				40A82841228ADF710024F835 /* DisaLogo.png */,
 				40025045228AA0EE00E4FCB1 /* icon */,
 			);
@@ -574,6 +577,7 @@
 				4002504F228AA11900E4FCB1 /* light.png in Resources */,
 				404F0906228A858000AC15DE /* MenuCell.xib in Resources */,
 				40010E382287E85B003EB199 /* LaunchScreen.storyboard in Resources */,
+				4075653C22996FD500FEFCAF /* grain.jpg in Resources */,
 				4002504E228AA11900E4FCB1 /* HSL.png in Resources */,
 				400C90C4228E9F7800074251 /* StraightenCell.xib in Resources */,
 				404F090A228A858F00AC15DE /* PresetCell.xib in Resources */,
@@ -827,7 +831,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -846,7 +850,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

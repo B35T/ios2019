@@ -24,38 +24,11 @@ public enum tool:Int {
 }
 
 extension PresetLibrary {
-    
-    func toolmin(t:tool) -> (min:Float, max:Float, value:Float) {
-        switch t {
-        case .exposure:
-            return (0, 1, Float(DisayaProfile.shared.exposure ?? 0))
-        case .saturation:
-            return (0, 2, Float(DisayaProfile.shared.saturation ?? 1))
-        case .contrast:
-            return (0.5, 1.5, Float(DisayaProfile.shared.contrast ?? 1))
-        case .highlight:
-            return (0, 1, Float(DisayaProfile.shared.highlight ?? 1))
-        case .shadow:
-            return (-1, 1,Float(DisayaProfile.shared.shadow ?? 0))
-        case .temperature:
-            return (3500, 9500, Float(DisayaProfile.shared.temperature ?? 6500))
-        case .vibrance:
-            return (-1, 1, Float(DisayaProfile.shared.vibrance ?? 0))
-        case .gamma:
-            return (0, 2, Float(DisayaProfile.shared.gamma ?? 1))
-        case .sharpan:
-            return (-2, 2, Float(DisayaProfile.shared.sharpen ?? 0))
-        case .bloom:
-            return (0, 10, Float(DisayaProfile.shared.bloom ?? 0))
-        case .grian:
-            return (0, 1, Float(DisayaProfile.shared.grain ?? 0))
-        }
-    }
-    
-    func toolCreate(ciimage:CIImage, Profile:DisayaProfile?) -> CIImage? {
+    func toolCreate2(ciimage:CIImage, Profile:DisayaProfile?) -> CIImage? {
         var ci:CIImage = ciimage
         
         if let HSL = Profile?.HSL {
+            print("HSL")
             let m = MultiBandHSV()
             m.inputImage = ci
             
@@ -72,6 +45,7 @@ extension PresetLibrary {
         }
         
         if let exposure = Profile?.exposure {
+            print("exposure")
             ci = self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: exposure.toFloat))!
         }
         
@@ -142,6 +116,128 @@ extension PresetLibrary {
             ci = self.filter(indexPath: filter, ciimage: ci) ?? ci
         }
         
+        return ci
+    }
+    
+    func toolmin(t:tool) -> (min:Float, max:Float, value:Float) {
+        switch t {
+        case .exposure:
+            return (0, 1, Float(DisayaProfile.shared.exposure ?? 0))
+        case .saturation:
+            return (0, 2, Float(DisayaProfile.shared.saturation ?? 1))
+        case .contrast:
+            return (0.5, 1.5, Float(DisayaProfile.shared.contrast ?? 1))
+        case .highlight:
+            return (0, 1, Float(DisayaProfile.shared.highlight ?? 1))
+        case .shadow:
+            return (-1, 1,Float(DisayaProfile.shared.shadow ?? 0))
+        case .temperature:
+            return (3500, 9500, Float(DisayaProfile.shared.temperature ?? 6500))
+        case .vibrance:
+            return (-1, 1, Float(DisayaProfile.shared.vibrance ?? 0))
+        case .gamma:
+            return (0, 2, Float(DisayaProfile.shared.gamma ?? 1))
+        case .sharpan:
+            return (-2, 2, Float(DisayaProfile.shared.sharpen ?? 0))
+        case .bloom:
+            return (0, 10, Float(DisayaProfile.shared.bloom ?? 0))
+        case .grian:
+            return (0, 1, Float(DisayaProfile.shared.grain ?? 0))
+        }
+    }
+    
+    func toolCreate(ciimage:CIImage, Profile:DisayaProfile?) -> CIImage? {
+        var ci:CIImage = ciimage
+        
+        if let HSL = Profile?.HSL {
+            let m = MultiBandHSV()
+            m.inputImage = ci
+            
+            m.inputRedShift = HSL.red?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputOrangeShift = HSL.orange?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputYellowShift = HSL.yellow?.vector ?? CIVector(x: 0, y: 1, z: 1)
+            m.inputGreenShift = HSL.green?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputAquaShift = HSL.aqua?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputBlueShift = HSL.blue?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputPurpleShift = HSL.purple?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            m.inputMagentaShift = HSL.magenta?.vector ??  CIVector(x: 0, y: 1, z: 1)
+            
+            ci = m.outputImage!
+        }
+        
+        if let exposure = Profile?.exposure {
+            ci = self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: exposure.toFloat))!
+        }
+        
+        var s = NSNumber(value: 1)
+        var b = NSNumber(value: 0)
+        var c = NSNumber(value: 1)
+        
+        if let saturation = Profile?.saturation {
+            s = NSNumber(value: saturation.toFloat)
+            ci = self.colorControls(inputImage: ci, inputSaturation: s, inputBrightness: b, inputContrast: c)!
+        }
+        
+        if let brightness = Profile?.brightness {
+            b = NSNumber(value: brightness.toFloat)
+            ci = self.colorControls(inputImage: ci, inputSaturation: s, inputBrightness: b, inputContrast: c)!
+        }
+        
+        if let contrast = Profile?.contrast {
+            c = NSNumber(value: contrast.toFloat)
+            ci = self.colorControls(inputImage: ci, inputSaturation: s, inputBrightness: b, inputContrast: c)!
+        }
+        
+        var h = NSNumber(value: 1)
+        var sh = NSNumber(value: 0)
+        
+        if let highlight = Profile?.highlight {
+            h = NSNumber(value: highlight.toFloat)
+            ci = self.highlightShadowAdjust(inputImage: ci, inputShadowAmount: sh, inputHighlightAmount: h)!
+        }
+        
+        if let shadow = Profile?.shadow {
+            sh = NSNumber(value: shadow.toFloat)
+            ci = self.highlightShadowAdjust(inputImage: ci, inputShadowAmount: sh, inputHighlightAmount: h)!
+        }
+    
+        if let temperature = Profile?.temperature {
+            ci = self.temperatureAndTint(inputImage: ci, inputNeutral: CIVector(x: temperature, y: 0), inputTargetNeutral: CIVector(x: 6500, y: 0))!
+        }
+        
+        if let vibrance = Profile?.vibrance {
+            ci = self.vibrance(inputImage: ci, inputAmount: NSNumber(value: vibrance.toFloat))!
+        }
+        
+        if let gamma = Profile?.gamma {
+            ci = self.gammaAdjust(inputImage: ci, inputPower: NSNumber(value: gamma.toFloat))!
+        }
+        
+        if let filter = Profile?.filter {
+            ci = self.filter(indexPath: filter, ciimage: ci) ?? ci
+        }
+        
+        if let sharpen = Profile?.sharpen {
+            ci = self.sharpenLuminance(inputImage: ci, inputSharpness: NSNumber(value: sharpen.toFloat))!
+        }
+        
+        if let bloom = Profile?.bloom {
+            ci = self.bloom(inputImage: ci, inputRadius: NSNumber(value: bloom.toFloat))!
+        }
+        
+        if let grain = Profile?.grain {
+            ci = self.Grain(value: grain, buttom: ci)!
+//
+//            let filter = CIFilter(name: "CIMultiplyCompositing")
+//            let colorFilter = CIFilter(name: "CIConstantColorGenerator")
+//            let ciColor = CIColor(color: yellow.withAlphaComponent(0.3))
+//            colorFilter?.setValue(ciColor, forKey: kCIInputColorKey)
+//            let colorImage = colorFilter?.outputImage
+//            filter?.setValue(colorImage, forKey: kCIInputImageKey)
+//            filter?.setValue(ci, forKey: kCIInputBackgroundImageKey)
+//            ci = filter!.outputImage!
+            
+        }
         return ci
     }
     

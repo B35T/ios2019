@@ -17,11 +17,7 @@ class LightCollectCell: UICollectionViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var delegate: LightCellDelegate?
-    var profile: DisayaProfile? {
-        didSet {
-            self.reset()
-        }
-    }
+    var profile: DisayaProfile?
     
     var viewEditor: EditorViewControllers?
     var select:IndexPath?
@@ -36,10 +32,6 @@ class LightCollectCell: UICollectionViewCell {
         self.collectionView.backgroundColor = .clear
     }
     
-    func reset() {
-        self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: false)
-        self.collectionView.reloadData()
-    }
 }
 
 extension LightCollectCell: UICollectionViewDelegate {
@@ -58,10 +50,6 @@ extension LightCollectCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LightCell", for: indexPath) as! LightCell
         cell.layer.cornerRadius = 4
         cell.title.text = tools[indexPath.item]
-        
-        collectionView.performBatchUpdates({
-            collectionView.reloadItems(at: [indexPath])
-        }, completion: nil)
         return cell
     }
     
