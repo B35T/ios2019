@@ -31,13 +31,14 @@ class PhotosAsset: UICollectionViewController {
         super.loadView()
         PHPhotoLibrary.shared().register(self)
         
-        let smart = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
-        let cameraRoll = smart.object(at: 0)
-        
+//        let smart = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: nil)
+//        let cameraRoll = smart.object(at: 0)
+//
         let option = PHFetchOptions()
-        option.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         option.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        self.fetchResults = PHAsset.fetchAssets(in: cameraRoll, options: option)
+//        option.predicate = NSPredicate(format: "mediaType = %d", argumentArray: [PHAssetMediaType.image.rawValue])
+//        self.fetchResults = PHAsset.fetchAssets(in: cameraRoll, options: option)
+        self.fetchResults = PHAsset.fetchAssets(with: .image, options: option)
     }
 
     override func viewDidLoad() {
@@ -61,8 +62,8 @@ class PhotosAsset: UICollectionViewController {
 
     //data source
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return self.fetchResults.count
+        
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

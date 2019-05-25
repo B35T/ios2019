@@ -9,6 +9,14 @@
 import UIKit
 import Photos
 
+var device: CGFloat {
+    if UIScreen.main.bounds.height > 736 {
+        return 200
+    } else {
+        return 160
+    }
+}
+
 class EditorViewControllers: Editor {
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -30,6 +38,7 @@ class EditorViewControllers: Editor {
             if let asset = asset {
                 PHImageManager.default().requestImage(for: asset, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
                     guard let image = image else {return}
+                    print(image.size)
                     self.cropData.2 = image.size
                     self.imagePreview.image = image
                     
@@ -42,7 +51,8 @@ class EditorViewControllers: Editor {
     }
     
     var selected:select = .filter
-
+    var selectedTool:IndexPath?
+    var coll:UICollectionView?
     override func loadView() {
         super.loadView()
         
@@ -75,7 +85,7 @@ class EditorViewControllers: Editor {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        self.collectionView.frame = .init(x: 0, y: view.frame.height - 160, width: view.frame.width, height: 160)
+        self.collectionView.frame = .init(x: 0, y: view.frame.height - device, width: view.frame.width, height: 160)
     }
     
     @objc internal func dismissBack() {
@@ -139,7 +149,15 @@ class EditorViewControllers: Editor {
             self.closeBtn.alpha = 0
             self.saveBtn.alpha = 0
             self.imagePreview.scale(h: view.frame.height, minus: 370, y: 10)
-            
+        }
+        
+        if segue.identifier == "LightSlider" {
+            guard let slider = segue.destination as? LightSliderViewController else {return}
+            slider.modalPresentationStyle = .overCurrentContext
+            slider.delegate = self
+            slider.title = self.title
+            slider.type = .A
+            slider.selectedTool = self.selectedTool
         }
     }
 }
@@ -193,7 +211,6 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
     }
     
     func HSLResult(model: DisayaProfile?) {
-        print("HSL")
         guard let result = self.preset.toolCreate(ciimage: self.ciimage!, Profile: model) else {print("no image");return}
         self.imagePreview.top = UIImage(ciImage: result)
     }
@@ -231,7 +248,7 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
                 self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
                 self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
             }, completion: nil)
-        case 5:
+        case 4:
             self.performSegue(withIdentifier: "Crop", sender: nil)
         case 1:
             self.performSegue(withIdentifier: "HSL", sender: nil)
@@ -239,4 +256,34 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
             break
         }
     }
+}
+
+extension EditorViewControllers: LightCellDelegate {
+    func LightDidSelect(indexPath: IndexPath, title:String) {
+        self.closeBtn.alpha = 0
+        self.saveBtn.alpha = 0
+        self.selectedTool = indexPath
+        self.title = title
+        self.performSegue(withIdentifier: "LightSlider", sender: nil)
+    }
+}
+
+extension EditorViewControllers: LightSliderDelegate {
+    func LightSliderTypeA(tag: Int, A: Float?, tool:tool) {
+        self.profile.updateTools(t: tool, value: CGFloat(A ?? 0.0))
+        guard let image = self.preset.toolCreate(ciimage: self.ciimage!, Profile: self.profile) else {
+            print("no image"); return
+        }
+        self.imagePreview.top = UIImage(ciImage: image)
+    }
+    
+    func LightSliderTypeB(tag: Int, A: Float?, B: Float?, tool:tool) {
+        
+    }
+    
+    func LightSliderClose() {
+        self.closeBtn.alpha = 1
+        self.saveBtn.alpha = 1
+    }
+    
 }

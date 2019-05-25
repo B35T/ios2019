@@ -32,7 +32,10 @@ extension EditorViewControllers: UICollectionViewDataSource, UICollectionViewDel
             switch self.selected {
             case .tools:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LightCollectCell", for: indexPath) as! LightCollectCell
+                cell.delegate = self
+                cell.viewEditor = self
                 cell.profile = self.profile
+               
                 return cell
             case .preset, .filter:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PresetCell", for: indexPath) as! PresetCell
@@ -60,5 +63,13 @@ extension EditorViewControllers: UICollectionViewDelegateFlowLayout {
         default:
             return .init(width: view.frame.width, height: 60)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(width: 0, height: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return .init(width: 0, height: 0)
     }
 }

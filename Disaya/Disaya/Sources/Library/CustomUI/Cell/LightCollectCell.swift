@@ -9,7 +9,7 @@
 import UIKit
 
 protocol LightCellDelegate {
-    func LightDidSelect(indexPath: IndexPath)
+    func LightDidSelect(indexPath: IndexPath, title:String)
 }
 
 class LightCollectCell: UICollectionViewCell {
@@ -23,7 +23,10 @@ class LightCollectCell: UICollectionViewCell {
         }
     }
     
+    var viewEditor: EditorViewControllers?
+    var select:IndexPath?
     let tools = ["Exposure","Saturation","Contrast","Highlight","Shadow","Temperature","Vibrance","Gamma","Sharpan","Bloom", "Grain"]
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -41,8 +44,7 @@ class LightCollectCell: UICollectionViewCell {
 
 extension LightCollectCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        self.delegate?.LightDidSelect(indexPath: indexPath)
+        self.delegate?.LightDidSelect(indexPath: indexPath, title: self.tools[indexPath.item])
     }
 }
 
@@ -54,17 +56,21 @@ extension LightCollectCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LightCell", for: indexPath) as! LightCell
-        cell.layer.cornerRadius = 3
-        let m = profile?.valueTools(t: tool(rawValue: indexPath.item)!)
-        cell.value.text = String(format: "%0.0f", m ?? 0)
+        cell.layer.cornerRadius = 4
         cell.title.text = tools[indexPath.item]
+        
+        collectionView.performBatchUpdates({
+            collectionView.reloadItems(at: [indexPath])
+        }, completion: nil)
         return cell
     }
+    
+
 }
 
 extension LightCollectCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 60, height: 80)
+        return .init(width: 90, height: 70)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

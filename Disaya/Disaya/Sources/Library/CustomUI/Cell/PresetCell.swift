@@ -71,9 +71,9 @@ extension PresetCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 6
-        case 2: return 4
-        case 3: return 3
+        case 1: return 7
+        case 2: return 5
+        case 3: return 4
         case 4: return 6
         default:
             return 0

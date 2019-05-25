@@ -181,7 +181,7 @@ class HSLViewController: UIViewController {
         self.collectionView.dataSource = self
         self.view.addSubview(collectionView)
         
-        let close = UIButton(frame: .init(x: 10, y: view.frame.height - 40, width: 35, height: 35))
+        let close = UIButton(frame: .init(x: view.frame.width / 2 - 17.5, y: view.frame.height - 40, width: 35, height: 35))
         close.setBackgroundImage(UIImage(named: "close.png"), for: .normal)
         close.addTarget(self, action: #selector(closeAction), for: .touchUpInside)
         close.layer.compositingFilter = "screenBlendMode"

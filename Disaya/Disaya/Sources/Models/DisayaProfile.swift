@@ -268,6 +268,33 @@ open class DisayaProfile {
             return DisayaProfile.shared.grain
         }
     }
+    
+    func updateTools(t:tool, value:CGFloat){
+        switch t {
+        case .exposure:
+            DisayaProfile.shared.exposure = value
+        case .saturation:
+            DisayaProfile.shared.saturation = value
+        case .contrast:
+            DisayaProfile.shared.contrast = value
+        case .highlight:
+            DisayaProfile.shared.highlight = value
+        case .shadow:
+            DisayaProfile.shared.shadow = value
+        case .temperature:
+            DisayaProfile.shared.temperature = value
+        case .vibrance:
+            DisayaProfile.shared.vibrance = value
+        case .gamma:
+            DisayaProfile.shared.gamma = value
+        case .sharpan:
+            DisayaProfile.shared.shadow = value
+        case .bloom:
+            DisayaProfile.shared.bloom = value
+        case .grian:
+            DisayaProfile.shared.grain = value
+        }
+    }
 }
 
 extension CGFloat {

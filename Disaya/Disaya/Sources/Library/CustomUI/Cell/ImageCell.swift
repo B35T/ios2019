@@ -13,12 +13,12 @@ class ImageCell: UICollectionViewCell {
     @IBOutlet weak var imageview: UIImageView!
     @IBOutlet weak var labelTitle: UILabel!
     
-    let calayer = CALayer()
-    override var isSelected: Bool {
-        didSet {
-            self.calayer.backgroundColor = self.isSelected ? UIColor.white.cgColor  : UIColor.clear.cgColor
-        }
-    }
+//    let calayer = CALayer()
+//    override var isSelected: Bool {
+//        didSet {
+//            self.calayer.backgroundColor = self.isSelected ? UIColor.white.cgColor  : UIColor.clear.cgColor
+//        }
+//    }
     
     var thumbnail: UIImage? {
         didSet {
@@ -29,8 +29,8 @@ class ImageCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        calayer.frame = .init(x: 0, y: frame.height - 1.5, width: frame.width, height: 1.5)
-        self.layer.addSublayer(calayer)
+//        calayer.frame = .init(x: 0, y: frame.height - 1.5, width: frame.width, height: 1.5)
+//        self.layer.addSublayer(calayer)
     }
 
     override func prepareForReuse() {

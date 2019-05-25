@@ -19,41 +19,26 @@
                 <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qyV-GR-Pg4">
-                        <rect key="frame" x="0.0" y="0.0" width="60" height="40"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="qyV-GR-Pg4" secondAttribute="height" multiplier="3:2" id="Xl8-by-jBi"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oco-kk-Ul9">
-                        <rect key="frame" x="0.0" y="40" width="60" height="20"/>
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="oco-kk-Ul9" secondAttribute="height" multiplier="3:1" id="tmD-if-ddJ"/>
+                            <constraint firstAttribute="width" secondItem="oco-kk-Ul9" secondAttribute="height" multiplier="3:1" constant="-120" id="tmD-if-ddJ"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="qyV-GR-Pg4" secondAttribute="bottom" constant="20" id="BkZ-56-s91"/>
                 <constraint firstAttribute="bottom" secondItem="oco-kk-Ul9" secondAttribute="bottom" id="JHO-4o-Dyg"/>
                 <constraint firstAttribute="trailing" secondItem="oco-kk-Ul9" secondAttribute="trailing" id="Mdi-dn-s9t"/>
                 <constraint firstItem="oco-kk-Ul9" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Pwg-Os-6Ug"/>
-                <constraint firstItem="oco-kk-Ul9" firstAttribute="top" secondItem="qyV-GR-Pg4" secondAttribute="bottom" id="Xhs-Wd-L0e"/>
-                <constraint firstAttribute="trailing" secondItem="qyV-GR-Pg4" secondAttribute="trailing" id="Yoa-R3-VWO"/>
-                <constraint firstItem="qyV-GR-Pg4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ZPY-Vv-qOi"/>
-                <constraint firstItem="qyV-GR-Pg4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Zzf-Kk-1QX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="75" height="70"/>
             <connections>
                 <outlet property="title" destination="oco-kk-Ul9" id="HJJ-nw-pZa"/>
-                <outlet property="value" destination="qyV-GR-Pg4" id="iEe-bZ-a7O"/>
             </connections>
             <point key="canvasLocation" x="149.27536231884059" y="132.58928571428572"/>
         </collectionViewCell>

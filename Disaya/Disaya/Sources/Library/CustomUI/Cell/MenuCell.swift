@@ -20,7 +20,7 @@ class MenuCell: UICollectionViewCell {
     
     var delegate: MenuCellDelegate?
     
-    let icons = ["preset","HSL","light","apperation","overlay","crop"]
+    let icons = ["preset","HSL","light","apperation","crop"]
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -76,10 +76,18 @@ extension MenuCell: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: 5, height: 5)
+        let c = (CGFloat(self.icons.count) * 70)
+        print(c)
+        if c > self.frame.width {
+            return .init(width: 5, height: 0)
+        } else {
+            let a = frame.width - c
+            return .init(width: (a / 2) + 10, height: 0)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return .init(width: 5, height: 5)
+        return .init(width: 5, height: 0)
     }
 }

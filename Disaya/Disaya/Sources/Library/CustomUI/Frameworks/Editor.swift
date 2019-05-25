@@ -14,7 +14,7 @@ open class Editor: UIViewController {
     var imagePreview: Preview!
     
     var size: CGSize {
-        return .init(width: view.frame.width * UIScreen.main.scale, height: view.frame.height * UIScreen.main.scale)
+        return .init(width: view.frame.width * UIScreen.main.scale, height: view.frame.width * UIScreen.main.scale)
     }
     
     override open func loadView() {

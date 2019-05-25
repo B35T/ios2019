@@ -24,32 +24,31 @@ public enum tool:Int {
 }
 
 extension PresetLibrary {
-
     
     func toolmin(t:tool) -> (min:Float, max:Float, value:Float) {
         switch t {
         case .exposure:
-            return (0, 1, 0)
+            return (0, 1, Float(DisayaProfile.shared.exposure ?? 0))
         case .saturation:
-            return (0, 2, 1)
+            return (0, 2, Float(DisayaProfile.shared.saturation ?? 1))
         case .contrast:
-            return (0.5, 1.5, 1)
+            return (0.5, 1.5, Float(DisayaProfile.shared.contrast ?? 1))
         case .highlight:
-            return (0, 1, 1)
+            return (0, 1, Float(DisayaProfile.shared.highlight ?? 1))
         case .shadow:
-            return (-1, 1,0)
+            return (-1, 1,Float(DisayaProfile.shared.shadow ?? 0))
         case .temperature:
-            return (3500, 9500, 6500)
+            return (3500, 9500, Float(DisayaProfile.shared.temperature ?? 6500))
         case .vibrance:
-            return (-1, 1, 0)
+            return (-1, 1, Float(DisayaProfile.shared.vibrance ?? 0))
         case .gamma:
-            return (0, 2, 1)
+            return (0, 2, Float(DisayaProfile.shared.gamma ?? 1))
         case .sharpan:
-            return (-2, 2, 0)
+            return (-2, 2, Float(DisayaProfile.shared.sharpen ?? 0))
         case .bloom:
-            return (0, 10, 0)
+            return (0, 10, Float(DisayaProfile.shared.bloom ?? 0))
         case .grian:
-            return (0, 1, 0)
+            return (0, 1, Float(DisayaProfile.shared.grain ?? 0))
         }
     }
     
@@ -73,7 +72,6 @@ extension PresetLibrary {
         }
         
         if let exposure = Profile?.exposure {
-            print("exposure")
             ci = self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: exposure.toFloat))!
         }
         

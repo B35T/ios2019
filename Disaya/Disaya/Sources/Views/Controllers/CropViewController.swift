@@ -52,7 +52,7 @@ class CropViewController: CroprViewController {
         self.view.insertSubview(close, at: 6)
         
         let choose = UIButton(frame: .init(x: view.frame.width - 45, y: view.frame.height - 40, width: 35, height: 35))
-        choose.setBackgroundImage(UIImage(named: "close.png"), for: .normal)
+        choose.setBackgroundImage(UIImage(named: "choose.png"), for: .normal)
         choose.addTarget(self, action: #selector(cropAction), for: .touchUpInside)
         self.view.insertSubview(choose, at: 6)
     }
