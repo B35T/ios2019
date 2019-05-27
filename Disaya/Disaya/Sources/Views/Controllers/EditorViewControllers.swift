@@ -9,6 +9,12 @@
 import UIKit
 import Photos
 
+enum SliderOption {
+    case CA
+    case TA
+    case L
+}
+
 var device: CGFloat {
     if UIScreen.main.bounds.height > 736 {
         return 200
@@ -26,7 +32,7 @@ class EditorViewControllers: Editor {
     var ciimage: CIImage?
     var profile = DisayaProfile.shared
     
-    var cropData:(CGRect?, Float?, CGSize?)
+    var cropData:(rect:CGRect?, straighten:Float?, imageAgo:CGSize?)
     var index:IndexPath? {
         didSet{
             self.profile.filter = self.index
@@ -37,18 +43,19 @@ class EditorViewControllers: Editor {
             if let asset = asset {
                 PHImageManager.default().requestImage(for: asset, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
                     guard let image = image else {return}
-                    print(image.size)
-                    self.cropData.2 = image.size
                     self.imagePreview.image = image
                     
                     self.ciimage = CIImage(image: image)
                     self.collectionView.reloadData()
+                    
+                    self.cropData = (nil,nil,image.size)
                 }
                 self.index = nil
             }
         }
     }
     
+    var select_slliderOption:SliderOption = .L
     var selected:select = .filter
     var selectedTool:IndexPath?
     var coll:UICollectionView?
@@ -96,7 +103,7 @@ class EditorViewControllers: Editor {
     @objc internal func saveExportImage() {
         let alert = UIAlertController(title: "Save To Photos", message:nil, preferredStyle: .actionSheet)
         
-        let hq = UIAlertAction(title: "HigtQuality", style: .default) { (action) in
+        let hq = UIAlertAction(title: "Maximum ImageQuality", style: .default) { (action) in
             self.highQulityRender(self.asset!, cropData: self.cropData, profile: self.profile)
         }
         
@@ -136,8 +143,15 @@ class EditorViewControllers: Editor {
             slider.modalPresentationStyle = .overCurrentContext
             slider.delegate = self
             slider.title = self.title
-            slider.type = .A
-            slider.selectedTool = self.selectedTool
+            
+            switch self.select_slliderOption {
+            case .CA, .TA:
+                print("slider CA , TA")
+                slider.type = .CA
+            case .L:
+                slider.type = .L
+                slider.selectedTool = self.selectedTool
+            }
         }
     }
 }
@@ -230,6 +244,11 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
                 self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
                 self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
             }, completion: nil)
+        case 3:
+            self.select_slliderOption = .CA
+            self.title = "Crom"
+            self.performSegue(withIdentifier: "LightSlider", sender: nil)
+            break
         case 4:
             self.performSegue(withIdentifier: "Crop", sender: nil)
         case 1:
@@ -246,11 +265,30 @@ extension EditorViewControllers: LightCellDelegate {
         self.saveBtn.alpha = 0
         self.selectedTool = indexPath
         self.title = title
+        self.select_slliderOption = .L
         self.performSegue(withIdentifier: "LightSlider", sender: nil)
     }
 }
 
 extension EditorViewControllers: LightSliderDelegate {
+    func LightSliderTypeB(A: Float?, B: Float?, option: SliderOption) {
+        switch option {
+        case .CA:
+            self.profile.chromatic_angle = CGFloat(A ?? 0)
+            self.profile.chromatic_radius = CGFloat(B ?? 0)
+        case .TA:
+            self.profile.transverse_falloff = CGFloat(A ?? 0)
+            self.profile.transverse_blur = CGFloat(B ?? 0)
+            break
+        default:
+            break
+        }
+        
+        if let result = PresetLibrary().toolCreate(ciimage: self.ciimage!, Profile: self.profile) {
+            self.imagePreview.top = UIImage(ciImage: result)
+        }
+    }
+    
     func LightSliderTypeA(tag: Int, A: Float?, tool:tool) {
         self.profile.updateTools(t: tool, value: CGFloat(A ?? 0.0))
         guard let image = PresetLibrary().toolCreate(ciimage: self.ciimage!, Profile: self.profile) else {
@@ -258,11 +296,7 @@ extension EditorViewControllers: LightSliderDelegate {
         }
         self.imagePreview.top = UIImage(ciImage: image)
     }
-    
-    func LightSliderTypeB(tag: Int, A: Float?, B: Float?, tool:tool) {
-        
-    }
-    
+
     func LightSliderClose() {
         self.closeBtn.alpha = 1
         self.saveBtn.alpha = 1

@@ -82,19 +82,19 @@ public struct HSLModel {
 }
 
 public struct TransverseChromaticModel {
-    var falloff:CGFloat
-    var blur:CGFloat
+    var falloff:CGFloat?
+    var blur:CGFloat?
     
-    var json:[String:Any] {
+    var json:[String:Any?] {
         return ["falloff":falloff, "blur":blur]
     }
 }
 
 struct ChromaticModel {
-    var angle:CGFloat
-    var radius:CGFloat
+    var angle:CGFloat?
+    var radius:CGFloat?
     
-    var json:[String:Any] {
+    var json:[String:Any?] {
         return ["angle":angle, "radius":radius]
     }
 }
@@ -125,10 +125,26 @@ open class DisayaProfile {
     var split:CGFloat?
     var bloom:CGFloat?
 
-    var chromatic_angle: CGFloat?
-    var chromatic_radius: CGFloat?
-    var transverse_falloff:CGFloat?
-    var transverse_blur:CGFloat?
+    var chromatic_angle: CGFloat? {
+        didSet {
+            self.update_chromatic()
+        }
+    }
+    var chromatic_radius: CGFloat? {
+        didSet {
+            self.update_chromatic()
+        }
+    }
+    var transverse_falloff:CGFloat? {
+        didSet{
+            self.update_transverse()
+        }
+    }
+    var transverse_blur:CGFloat? {
+        didSet {
+            self.update_transverse()
+        }
+    }
     
     var red: HSLVector? {
         didSet {

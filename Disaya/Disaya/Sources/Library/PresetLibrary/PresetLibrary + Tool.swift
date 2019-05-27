@@ -52,7 +52,7 @@ extension PresetLibrary {
         }
     }
     
-    func toolCreate(ciimage:CIImage, Profile:DisayaProfile?) -> CIImage? {
+    func toolCreate(ciimage:CIImage, Profile:DisayaProfile?, scale:CGFloat = 1) -> CIImage? {
         var ci:CIImage = ciimage
         
         if let HSL = Profile?.HSL {
@@ -144,6 +144,25 @@ extension PresetLibrary {
 //            ci = filter!.outputImage!
             
         }
+        
+        if let a = Profile?.chromatic_angle, let r = Profile?.chromatic_radius {
+            let ca = ChromaticAberration()
+            ca.inputImage = ci
+            ca.inputAngle = a
+            ca.inputRadius = r * scale
+            
+            ci = ca.outputImage
+        }
+        
+        if let b = Profile?.transverse_blur, let off = Profile?.transverse_falloff {
+            let ta = TransverseChromaticAberration()
+            ta.inputImage = ci
+            ta.inputFalloff = off * scale
+            ta.inputBlur = b * scale
+            
+            ci = ta.outputImage!
+        }
+        
         return ci
     }
     

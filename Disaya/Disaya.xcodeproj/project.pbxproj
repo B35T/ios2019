@@ -58,6 +58,8 @@
 		404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F0910228A8A3500AC15DE /* ImageCell.xib */; };
 		405449BE229652B10012CE57 /* LightCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405449BC229652B10012CE57 /* LightCollectCell.swift */; };
 		405449BF229652B10012CE57 /* LightCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405449BD229652B10012CE57 /* LightCollectCell.xib */; };
+		407014C7229BCF41009C1B23 /* ChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407014C6229BCF41009C1B23 /* ChromaticAberration.swift */; };
+		407014C9229BD178009C1B23 /* TransverseChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */; };
 		4075653C22996FD500FEFCAF /* grain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4075653B22996FD500FEFCAF /* grain.jpg */; };
 		4075653E22999A6500FEFCAF /* cover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4075653D22999A6500FEFCAF /* cover.jpg */; };
 		40A82842228ADF710024F835 /* DisaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A82841228ADF710024F835 /* DisaLogo.png */; };
@@ -149,6 +151,8 @@
 		404F0910228A8A3500AC15DE /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		405449BC229652B10012CE57 /* LightCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCollectCell.swift; sourceTree = "<group>"; };
 		405449BD229652B10012CE57 /* LightCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCollectCell.xib; sourceTree = "<group>"; };
+		407014C6229BCF41009C1B23 /* ChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaticAberration.swift; sourceTree = "<group>"; };
+		407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseChromaticAberration.swift; sourceTree = "<group>"; };
 		4075653B22996FD500FEFCAF /* grain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grain.jpg; sourceTree = "<group>"; };
 		4075653D22999A6500FEFCAF /* cover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover.jpg; sourceTree = "<group>"; };
 		40A82841228ADF710024F835 /* DisaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisaLogo.png; sourceTree = "<group>"; };
@@ -422,6 +426,8 @@
 				40025059228AB65600E4FCB1 /* PresetLibrary.swift */,
 				40414AD22293B2710004B34D /* PresetLibrary + Tool.swift */,
 				4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */,
+				407014C6229BCF41009C1B23 /* ChromaticAberration.swift */,
+				407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */,
 			);
 			path = PresetLibrary;
 			sourceTree = "<group>";
@@ -638,7 +644,9 @@
 				400C90AA228E796800074251 /* CroprViewController.swift in Sources */,
 				40C35E64228FB74100F3C3BD /* HSLViewController.swift in Sources */,
 				404F0905228A858000AC15DE /* MenuCell.swift in Sources */,
+				407014C7229BCF41009C1B23 /* ChromaticAberration.swift in Sources */,
 				4002503E228A90D700E4FCB1 /* PresetPreviewCell.swift in Sources */,
+				407014C9229BD178009C1B23 /* TransverseChromaticAberration.swift in Sources */,
 				400C90AC228E797F00074251 /* margin.swift in Sources */,
 				40010E2D2287E859003EB199 /* StartViewController.swift in Sources */,
 				40C35E6A228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift in Sources */,
