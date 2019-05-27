@@ -246,7 +246,7 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
             }, completion: nil)
         case 3:
             self.select_slliderOption = .CA
-            self.title = "Crom"
+            self.title = "Chromatic Aberration"
             self.performSegue(withIdentifier: "LightSlider", sender: nil)
             break
         case 4:
