@@ -26,8 +26,9 @@ class CropViewController: CroprViewController {
     var Straighten:Float = 0
 
     var size: CGSize {
-        return .init(width: view.frame.width, height: view.frame.height)
+        return .init(width: view.frame.width * UIScreen.main.scale, height: view.frame.width * UIScreen.main.scale)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let asset = asset {

@@ -59,6 +59,7 @@
 		405449BE229652B10012CE57 /* LightCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405449BC229652B10012CE57 /* LightCollectCell.swift */; };
 		405449BF229652B10012CE57 /* LightCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405449BD229652B10012CE57 /* LightCollectCell.xib */; };
 		4075653C22996FD500FEFCAF /* grain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4075653B22996FD500FEFCAF /* grain.jpg */; };
+		4075653E22999A6500FEFCAF /* cover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4075653D22999A6500FEFCAF /* cover.jpg */; };
 		40A82842228ADF710024F835 /* DisaLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A82841228ADF710024F835 /* DisaLogo.png */; };
 		40A96C102288048D005F066C /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C0F2288048D005F066C /* Cover.swift */; };
 		40A96C122288086A005F066C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C112288086A005F066C /* Preview.swift */; };
@@ -149,6 +150,7 @@
 		405449BC229652B10012CE57 /* LightCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCollectCell.swift; sourceTree = "<group>"; };
 		405449BD229652B10012CE57 /* LightCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCollectCell.xib; sourceTree = "<group>"; };
 		4075653B22996FD500FEFCAF /* grain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grain.jpg; sourceTree = "<group>"; };
+		4075653D22999A6500FEFCAF /* cover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover.jpg; sourceTree = "<group>"; };
 		40A82841228ADF710024F835 /* DisaLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DisaLogo.png; sourceTree = "<group>"; };
 		40A96C0F2288048D005F066C /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		40A96C112288086A005F066C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 		40A96C092287EFAE005F066C /* StaticFile */ = {
 			isa = PBXGroup;
 			children = (
+				4075653D22999A6500FEFCAF /* cover.jpg */,
 				4075653B22996FD500FEFCAF /* grain.jpg */,
 				40A82841228ADF710024F835 /* DisaLogo.png */,
 				40025045228AA0EE00E4FCB1 /* icon */,
@@ -570,6 +573,7 @@
 			files = (
 				40025050228AA11900E4FCB1 /* overlay.png in Resources */,
 				400C90C0228E91FE00074251 /* ImageRatioCell.xib in Resources */,
+				4075653E22999A6500FEFCAF /* cover.jpg in Resources */,
 				4002504C228AA11900E4FCB1 /* preset.png in Resources */,
 				404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */,
 				4002504D228AA11900E4FCB1 /* apperation.png in Resources */,

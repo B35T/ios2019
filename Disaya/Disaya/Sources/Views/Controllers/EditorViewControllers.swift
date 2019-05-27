@@ -90,71 +90,26 @@ class EditorViewControllers: Editor {
     @objc internal func dismissBack() {
         self.dismiss(animated: true, completion: nil)
     }
-    func cropMultiply(ago:CGSize, new:CGSize, cropData:CGRect) -> CGRect {
-        let c = Swift.max(new.width / ago.width, new.height / ago.height)
-        let crop = CGRect(x: cropData.origin.x * c, y: cropData.origin.y * c, width: cropData.width * c, height: cropData.height * c)
-        return crop
-        
-    }
+    
+
     
     @objc internal func saveExportImage() {
-//        guard let asset = asset else {return}
-        guard let ciimage = ciimage else {return}
+        let alert = UIAlertController(title: "Save To Photos", message:nil, preferredStyle: .actionSheet)
         
-        if self.cropData.0 != nil && self.cropData.1 != 0 {
-            let filter = CIFilter(name: "CIStraightenFilter")
-            filter?.setDefaults()
-            filter?.setValue(ciimage, forKey: "inputImage")
-            filter?.setValue(self.cropData.1, forKey: "inputAngle")
-            
-            let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
-            if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: self.profile)?.toCGImage?.cropping(to: rect) {
-                let img = UIImage(cgImage: result)
-                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-            }
-            
-        } else if self.cropData.1 == 0 && self.cropData.0 != nil {
-            let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
-            if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: self.profile)?.toCGImage?.cropping(to: rect) {
-                let img = UIImage(cgImage: result)
-                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-            }
-        } else {
-            if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: self.profile)?.toCGImage {
-                let img = UIImage(cgImage: result)
-                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-            }
+        let hq = UIAlertAction(title: "HigtQuality", style: .default) { (action) in
+            self.highQulityRender(self.asset!, cropData: self.cropData, profile: self.profile)
         }
         
+        let normal = UIAlertAction(title: "Normal", style: .default) { (action) in
+            self.nornalRender(ciimage: self.ciimage!, cropData: self.cropData, profile: self.profile)
+        }
         
-//        PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
-//            guard let ciimage = CIImage(data: data!) else {return}
-//
-//            if self.cropData.0 != nil && self.cropData.1 != 0 {
-//                let filter = CIFilter(name: "CIStraightenFilter")
-//                filter?.setDefaults()
-//                filter?.setValue(ciimage, forKey: "inputImage")
-//                filter?.setValue(self.cropData.1, forKey: "inputAngle")
-//
-//                let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
-//                if let result = self.preset.toolCreate(ciimage: ciimage, Profile: self.profile)?.toCGImage?.cropping(to: rect) {
-//                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
-//                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-//                }
-//
-//            } else if self.cropData.1 == 0 && self.cropData.0 != nil {
-//                let rect = self.cropMultiply(ago: self.cropData.2!, new: ciimage.extent.size, cropData: self.cropData.0!)
-//                if let result = self.preset.toolCreate(ciimage: ciimage, Profile: self.profile)?.toCGImage?.cropping(to: rect) {
-//                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
-//                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-//                }
-//            } else {
-//                if let result = self.preset.toolCreate(ciimage: ciimage, Profile: self.profile)?.toCGImage {
-//                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
-//                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-//                }
-//            }
-//        }
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        alert.addAction(hq)
+        alert.addAction(normal)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -216,6 +171,7 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
                 
                 self.cropData.0 = cropZone
                 self.cropData.1 = straighten
+                self.cropData.2 = image.size
             } else {
                 let min = Swift.max(image.size.width / imageSize.width , image.size.height / imageSize.height)
                 let cropZone = CGRect(x: zone.origin.x * min, y: zone.origin.y * min, width: zone.width * min, height: zone.height * min)
@@ -231,13 +187,13 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
                 
                 self.cropData.0 = cropZone
                 self.cropData.1 = 0
+                self.cropData.2 = image.size
             }
         }
     }
     
     func HSLResult(model: DisayaProfile?) {
-        print("loop")
-        guard let result = PresetLibrary().toolCreate2(ciimage: self.ciimage!, Profile: model) else {print("no image");return}
+        guard let result = PresetLibrary().toolCreate(ciimage: self.ciimage!, Profile: model) else {print("no image");return}
         self.imagePreview.top = UIImage(ciImage: result)
     }
     

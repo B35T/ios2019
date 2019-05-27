@@ -35,6 +35,75 @@ open class Editor: UIViewController {
         self.imagePreview.isUserInteractionEnabled = true
         self.imagePreview.addGestureRecognizer(long)
     }
+    
+    open func cropMultiply(ago:CGSize, new:CGSize, cropData:CGRect) -> CGRect {
+        let c = Swift.max(new.width / ago.width, new.height / ago.height)
+        let crop = CGRect(x: cropData.origin.x * c, y: cropData.origin.y * c, width: cropData.width * c, height: cropData.height * c)
+        return crop
+        
+    }
+    
+    open func nornalRender(ciimage:CIImage?, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile) {
+        guard let ciimage = ciimage else {return}
+        
+        if cropData.0 != nil && cropData.1 != 0 {
+            let filter = CIFilter(name: "CIStraightenFilter")
+            filter?.setDefaults()
+            filter?.setValue(ciimage, forKey: "inputImage")
+            filter?.setValue(cropData.1, forKey: "inputAngle")
+            
+            let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+            if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage?.cropping(to: rect) {
+                let img = UIImage(cgImage: result)
+                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+            }
+            
+        } else if cropData.1 == 0 && cropData.0 != nil {
+            let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+            if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage?.cropping(to: rect) {
+                let img = UIImage(cgImage: result)
+                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+            }
+        } else {
+            if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage {
+                let img = UIImage(cgImage: result)
+                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+            }
+        }
+    }
+    
+    open func highQulityRender(_ asset: PHAsset, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile) {
+        print("daa crop \(cropData)")
+        PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
+            guard let ciimage = CIImage(data: data!) else {return}
+            
+            if cropData.0 != nil && cropData.1 != 0 {
+                let filter = CIFilter(name: "CIStraightenFilter")
+                filter?.setDefaults()
+                filter?.setValue(ciimage, forKey: "inputImage")
+                filter?.setValue(cropData.1, forKey: "inputAngle")
+                
+                let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+                if let result = PresetLibrary().toolCreate(ciimage: filter!.outputImage!, Profile: profile)?.toCGImage?.cropping(to: rect) {
+                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
+                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                }
+                
+            } else if cropData.1 == 0 && cropData.0 != nil {
+                let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+                if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage?.cropping(to: rect) {
+                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
+                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                }
+            } else {
+                if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage {
+                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
+                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                }
+            }
+        }
+
+    }
  
     open override var prefersStatusBarHidden: Bool {
         return true
