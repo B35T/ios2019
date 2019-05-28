@@ -20,7 +20,7 @@ class MenuCell: UICollectionViewCell {
     
     var delegate: MenuCellDelegate?
     
-    let icons = ["preset","HSL","light","apperation","crop"]
+    let icons = ["preset","HSL","light","apperation","transverse","crop"]
     override func awakeFromNib() {
         super.awakeFromNib()
         

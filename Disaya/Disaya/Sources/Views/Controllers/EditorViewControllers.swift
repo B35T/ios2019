@@ -145,9 +145,10 @@ class EditorViewControllers: Editor {
             slider.title = self.title
             
             switch self.select_slliderOption {
-            case .CA, .TA:
-                print("slider CA , TA")
+            case .CA:
                 slider.type = .CA
+            case .TA:
+                slider.type = .TA
             case .L:
                 slider.type = .L
                 slider.selectedTool = self.selectedTool
@@ -250,6 +251,10 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
             self.performSegue(withIdentifier: "LightSlider", sender: nil)
             break
         case 4:
+            self.select_slliderOption = .TA
+            self.title = "Transvers Aberration"
+            self.performSegue(withIdentifier: "LightSlider", sender: nil)
+        case 5:
             self.performSegue(withIdentifier: "Crop", sender: nil)
         case 1:
             self.performSegue(withIdentifier: "HSL", sender: nil)

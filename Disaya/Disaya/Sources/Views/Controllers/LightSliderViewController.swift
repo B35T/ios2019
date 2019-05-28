@@ -50,7 +50,7 @@ class LightSliderViewController: UIViewController {
         
         let blur = UIBlurEffect(style: .dark)
         let blurView = UIVisualEffectView(effect: blur)
-        blurView.frame.size = .init(width: view.frame.width, height: 200)
+        blurView.frame.size = .init(width: view.frame.width, height: 250)
         self.background.addSubview(blurView)
         
         if self.type == .L {
@@ -108,17 +108,17 @@ class LightSliderViewController: UIViewController {
             self.background.addSubview(self.sliderA)
             self.view.addSubview(self.background)
         } else {
-            self.background.frame = .init(x: 0, y: view.frame.height - 200, width: view.frame.width, height: 200)
+            self.background.frame = .init(x: 0, y: view.frame.height - 220, width: view.frame.width, height: 220)
             let titleA = UILabel()
-            titleA.frame = .init(x: 10, y: 10, width: 60, height: 25)
-            titleA.font = UIFont.boldSystemFont(ofSize: 12)
+            titleA.frame = .init(x: 10, y: 20, width: 60, height: 25)
+            titleA.font = UIFont.systemFont(ofSize: 12)
             titleA.textColor = .white
             self.titleA = titleA
             self.background.addSubview(titleA)
             
             let titleB = UILabel()
-            titleB.frame = .init(x: 10, y: 95, width: 60, height: 25)
-            titleB.font = UIFont.boldSystemFont(ofSize: 12)
+            titleB.frame = .init(x: 10, y: 95, width: 70, height: 25)
+            titleB.font = UIFont.systemFont(ofSize: 12)
             titleB.textColor = .white
             self.titleB = titleB
             self.background.addSubview(self.titleB)
@@ -126,43 +126,61 @@ class LightSliderViewController: UIViewController {
             
             let valueA = UILabel()
             self.valueA = valueA
-            self.valueA.frame = .init(x: view.frame.width / 2 - 25, y: 10, width: 50, height: 25)
-            self.valueA.font = UIFont.boldSystemFont(ofSize: 14)
+            self.valueA.frame = .init(x: view.frame.width / 2 - 25, y: 20, width: 50, height: 25)
+            self.valueA.font = UIFont.systemFont(ofSize: 12)
             self.valueA.textAlignment = .center
-            self.valueA.textColor = .black
-            self.valueA.backgroundColor = yellow
-            self.valueA.layer.cornerRadius = 4
-            self.valueA.clipsToBounds = true
+            self.valueA.textColor = .white
             
             let sliderA = UISlider()
             self.sliderA = sliderA
             self.sliderA.tag = 0
-            self.sliderA.frame = .init(x: 10, y: 40, width: view.frame.width - 20, height: 30)
+            self.sliderA.frame = .init(x: 10, y: 50, width: view.frame.width - 20, height: 30)
             self.sliderA.addTarget(self, action: #selector(sliderAction(_:)), for: .valueChanged)
             
             let valueB = UILabel()
             self.valueB = valueB
-            self.valueB.frame = .init(x: view.frame.width / 2 - 25, y: 90, width: 50, height: 25)
-            self.valueB.font = UIFont.boldSystemFont(ofSize: 14)
+            self.valueB.frame = .init(x: view.frame.width / 2 - 25, y: 100, width: 50, height: 25)
+            self.valueB.font = UIFont.systemFont(ofSize: 12)
             self.valueB.textAlignment = .center
-            self.valueB.textColor = .black
-            self.valueB.backgroundColor = yellow
-            self.valueB.layer.cornerRadius = 4
-            self.valueB.clipsToBounds = true
+            self.valueB.textColor = .white
+            
             
             let sliderB = UISlider()
             self.sliderB = sliderB
             self.sliderB.tag = 1
-            self.sliderB.frame = .init(x: 10, y: 120, width: view.frame.width - 20, height: 30)
+            self.sliderB.frame = .init(x: 10, y: 130, width: view.frame.width - 20, height: 30)
             self.sliderB.addTarget(self, action: #selector(sliderAction(_:)), for: .valueChanged)
             
             let titles = UILabel()
             self.titles = titles
-            self.titles.frame = .init(x: view.frame.width / 2 - 100, y: 160, width: 200, height: 30)
+            self.titles.frame = .init(x: view.frame.width / 2 - 100, y: 180, width: 200, height: 30)
             self.titles.textAlignment = .center
             self.titles.textColor = .white
-            self.titles.font = UIFont.boldSystemFont(ofSize: 13)
+            self.titles.font = UIFont.systemFont(ofSize: 13)
             self.titles.text = self.title
+            
+            let resetA = UIButton()
+            resetA.frame = .init(x: view.frame.width - 80, y: 20, width: 60, height: 25)
+            resetA.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            resetA.setTitleColor(.white, for: .normal)
+            resetA.setTitle("Reset", for: .normal)
+            resetA.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            resetA.layer.cornerRadius = 4
+            resetA.tag = 0
+            resetA.addTarget(self, action: #selector(buttonResetAction(_:)), for: .touchUpInside)
+            self.background.addSubview(resetA)
+            
+            let resetB = UIButton()
+            resetB.frame = .init(x: view.frame.width - 80, y: 100, width: 60, height: 25)
+            resetB.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            resetB.setTitleColor(.white, for: .normal)
+            resetB.setTitle("Reset", for: .normal)
+            resetB.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            resetB.layer.cornerRadius = 4
+            resetB.tag = 1
+            resetB.addTarget(self, action: #selector(buttonResetAction(_:)), for: .touchUpInside)
+            self.background.addSubview(resetB)
+            
             self.background.addSubview(self.titles)
             self.background.addSubview(self.valueA)
             self.background.addSubview(self.valueB)
@@ -208,9 +226,9 @@ class LightSliderViewController: UIViewController {
         case .TA:
             let f = DisayaProfile.shared.transverse_falloff
             let b = DisayaProfile.shared.transverse_blur
-            self.oldB.0 = Float(f ?? 0.2)
+            self.oldB.0 = Float(f ?? 0)
             self.oldB.1 = Float(b ?? 0)
-            self.values.0 = Float(f ?? 0.2)
+            self.values.0 = Float(f ?? 0)
             self.values.1 = Float(b ?? 0)
             self.text = ("\(String(format: "%0.1f", f ?? 0))", "\(String(format: "%0.1f", b ?? 0))")
             self.titleA.text = "Falloff"
@@ -283,5 +301,35 @@ class LightSliderViewController: UIViewController {
     @objc internal func chooseAction() {
         self.delegate?.LightSliderClose()
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc internal func buttonResetAction(_ sender:UIButton) {
+        switch self.type {
+        case .CA:
+            if sender.tag == 0 {
+                self.values.0 = 0
+                self.sliderA.value = 0
+                self.valueA.text = "0.0"
+            } else if sender.tag == 1 {
+                self.values.1 = 0
+                self.sliderB.value = 0
+                self.valueB.text = "0.0"
+            }
+            self.delegate?.LightSliderTypeB(A: self.values.0, B: self.values.1, option: .CA)
+        case .TA:
+            if sender.tag == 0 {
+                self.values.0 = 0
+                self.sliderA.value = 0
+                self.valueB.text = "0.0"
+            } else if sender.tag == 1 {
+                self.values.1 = 0
+                self.sliderB.value = 0
+                self.valueB.text = "0.0"
+            }
+            self.delegate?.LightSliderTypeB(A: self.values.0, B: self.values.1, option: .TA)
+        default:
+            break
+        }
+        
     }
 }
