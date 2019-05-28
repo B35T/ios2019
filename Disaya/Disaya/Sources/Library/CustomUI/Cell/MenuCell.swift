@@ -20,7 +20,12 @@ class MenuCell: UICollectionViewCell {
     
     var delegate: MenuCellDelegate?
     
-    let icons = ["preset","HSL","light","apperation","transverse","crop"]
+    var icons:[String]? {
+        didSet {
+            self.reset()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -28,6 +33,11 @@ class MenuCell: UICollectionViewCell {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.backgroundColor = .clear
+    }
+    
+    func reset() {
+        self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .left, animated: false)
+        self.collectionView.reloadData()
     }
     
 }
@@ -50,13 +60,13 @@ extension MenuCell: UICollectionViewDelegate {
 extension MenuCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.icons.count
+        return self.icons?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        cell.thumbnail = UIImage(named: "\(icons[indexPath.item]).png")
-        cell.labelTitle.text = icons[indexPath.item]
+        cell.thumbnail = UIImage(named: "\(icons![indexPath.item]).png")
+        cell.labelTitle.text = icons![indexPath.item]
         cell.frame.size = .init(width: 60, height: 60)
         return cell
     }
@@ -76,7 +86,7 @@ extension MenuCell: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let c = (CGFloat(self.icons.count) * 70)
+        let c = (CGFloat(self.icons?.count ?? 0) * 70)
         print(c)
         if c > self.frame.width {
             return .init(width: 5, height: 0)

@@ -47,6 +47,7 @@ extension EditorViewControllers: UICollectionViewDataSource, UICollectionViewDel
             }
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MenuCell", for: indexPath) as! MenuCell
+            cell.icons = ["preset","HSL","light","apperation","transverse","crop"]
             cell.delegate = self
             return cell
         default:

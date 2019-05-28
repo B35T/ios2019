@@ -46,6 +46,13 @@ class EditorViewControllers: Editor {
                     self.imagePreview.image = image
                     
                     self.ciimage = CIImage(image: image)
+                    
+                    self.selected = .preset
+                    self.collectionView.performBatchUpdates({
+                        self.collectionView.deleteSections(IndexSet.init(arrayLiteral: 0))
+                        self.collectionView.insertSections(IndexSet.init(arrayLiteral: 0))
+                    }, completion: nil)
+                    
                     self.collectionView.reloadData()
                     
                     self.cropData = (nil,nil,image.size)
@@ -101,10 +108,12 @@ class EditorViewControllers: Editor {
 
     
     @objc internal func saveExportImage() {
+        guard let asset = self.asset else { return }
+        
         let alert = UIAlertController(title: "Save To Photos", message:nil, preferredStyle: .actionSheet)
         
-        let hq = UIAlertAction(title: "Maximum ImageQuality", style: .default) { (action) in
-            self.highQulityRender(self.asset!, cropData: self.cropData, profile: self.profile)
+        let hq = UIAlertAction(title: "Maximum", style: .default) { (action) in
+            self.highQulityRender(asset, cropData: self.cropData, profile: self.profile)
         }
         
         let normal = UIAlertAction(title: "Normal", style: .default) { (action) in

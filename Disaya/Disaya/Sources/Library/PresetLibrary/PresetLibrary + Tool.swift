@@ -157,7 +157,7 @@ extension PresetLibrary {
         if let b = Profile?.transverse_blur, let off = Profile?.transverse_falloff {
             let ta = TransverseChromaticAberration()
             ta.inputImage = ci
-            ta.inputFalloff = off * scale
+            ta.inputFalloff = off
             ta.inputBlur = b * scale
             
             ci = ta.outputImage!
