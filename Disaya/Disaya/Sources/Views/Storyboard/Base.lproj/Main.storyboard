@@ -64,6 +64,7 @@
                         <segue destination="Oxq-Pq-NiY" kind="showDetail" identifier="Crop" id="aia-rq-qZH"/>
                         <segue destination="n5T-Zb-ccP" kind="show" identifier="HSL" id="abv-JX-UhX"/>
                         <segue destination="YnZ-1f-uUr" kind="show" identifier="LightSlider" id="0XC-eo-XN8"/>
+                        <segue destination="1ch-jd-U3b" kind="show" identifier="OptionSave" id="1E9-7X-Bli"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="inO-TX-qO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -101,6 +102,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfd-IT-9zy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2444" y="118"/>
+        </scene>
+        <!--Save Option View Controller-->
+        <scene sceneID="Kte-l7-sbC">
+            <objects>
+                <viewController id="1ch-jd-U3b" customClass="SaveOptionViewController" customModule="Disaya" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ttq-t7-O9m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ixI-Xz-2oJ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e6R-y4-bzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1160.8" y="1124.8875562218891"/>
         </scene>
         <!--Light Slider View Controller-->
         <scene sceneID="dMg-XS-fyR">

@@ -47,11 +47,10 @@ open class Editor: UIViewController {
         
     }
     
-    open func nornalRender(ciimage:CIImage?, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile) {
+    open func nornalRender(ciimage:CIImage?, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile, completion: ((Bool) -> Void)? = nil) {
         guard let ciimage = ciimage else {return}
         
-        if let rect = cropData.0 {
-            print(rect)
+        if cropData.0 != nil {
             if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage {
                 let img = UIImage(cgImage: result)
                 UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
@@ -62,9 +61,10 @@ open class Editor: UIViewController {
                 UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
             }
         }
+        completion!(true)
     }
     
-    open func highQulityRender(_ asset: PHAsset, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile) {
+    open func highQulityRender(_ asset: PHAsset, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile, completion: ((Bool) -> Void)? = nil) {
         PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
             guard let ciimage = CIImage(data: data!) else {return}
             let scale = self.maxCal(ago: cropData.2!, new: ciimage.extent.size)
@@ -98,6 +98,7 @@ open class Editor: UIViewController {
                     UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
                 }
             }
+            completion!(true)
         }
 
     }

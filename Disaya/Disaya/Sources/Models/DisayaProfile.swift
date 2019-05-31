@@ -304,7 +304,7 @@ open class DisayaProfile {
         case .gamma:
             DisayaProfile.shared.gamma = value
         case .sharpan:
-            DisayaProfile.shared.shadow = value
+            DisayaProfile.shared.sharpen = value
         case .bloom:
             DisayaProfile.shared.bloom = value
         case .grian:

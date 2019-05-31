@@ -26,8 +26,6 @@ class LightCollectCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        print("Initialization code")
-        
         self.collectionView.register(UINib(nibName: "LightCell", bundle: nil), forCellWithReuseIdentifier: "LightCell")
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -36,7 +34,6 @@ class LightCollectCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print("layoutSubviews")
     }
 }
 

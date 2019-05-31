@@ -124,7 +124,8 @@ extension PresetLibrary {
         }
         
         if let sharpen = Profile?.sharpen {
-            ci = self.sharpenLuminance(inputImage: ci, inputSharpness: NSNumber(value: sharpen.toFloat))!
+            let c = sharpen
+            ci = self.sharpenLuminance(inputImage: ci, inputSharpness: NSNumber(value: Float(c)))!
         }
         
         if let bloom = Profile?.bloom {
@@ -255,14 +256,13 @@ extension PresetLibrary {
         return filter.outputImage
     }
     
-    func sharpenLuminance(inputImage: CIImage, inputSharpness: NSNumber = 0.4, inputRadius: NSNumber = 1.69) -> CIImage? {
+    func sharpenLuminance(inputImage: CIImage, inputSharpness: NSNumber = 2) -> CIImage? {
         guard let filter = CIFilter(name: "CISharpenLuminance") else {
             return nil
         }
         filter.setDefaults()
         filter.setValue(inputImage, forKey: kCIInputImageKey)
-        filter.setValue(inputSharpness, forKey: kCIInputSharpnessKey)
-        filter.setValue(inputRadius, forKey: kCIInputRadiusKey)
+        filter.setValue(inputSharpness, forKey: "inputSharpness")
         return filter.outputImage
     }
 }

@@ -108,24 +108,27 @@ class EditorViewControllers: Editor {
 
     
     @objc internal func saveExportImage() {
-        guard let asset = self.asset else { return }
+
+        self.performSegue(withIdentifier: "OptionSave", sender: nil)
         
-        let alert = UIAlertController(title: "Save To Photos", message:nil, preferredStyle: .actionSheet)
-        
-        let hq = UIAlertAction(title: "Maximum", style: .default) { (action) in
-            self.highQulityRender(asset, cropData: self.cropData, profile: self.profile)
-        }
-        
-        let normal = UIAlertAction(title: "Normal", style: .default) { (action) in
-            self.nornalRender(ciimage: self.ciimage!, cropData: self.cropData, profile: self.profile)
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        
-        alert.addAction(hq)
-        alert.addAction(normal)
-        alert.addAction(cancel)
-        self.present(alert, animated: true, completion: nil)
+//        guard let asset = self.asset else { return }
+
+//        let alert = UIAlertController(title: "Save To Photos", message:nil, preferredStyle: .actionSheet)
+//
+//        let hq = UIAlertAction(title: "Maximum", style: .default) { (action) in
+//            self.highQulityRender(asset, cropData: self.cropData, profile: self.profile)
+//        }
+
+//        let normal = UIAlertAction(title: "Normal", style: .default) { (action) in
+//            self.nornalRender(ciimage: self.ciimage!, cropData: self.cropData, profile: self.profile)
+//        }
+//
+//        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+//
+//        alert.addAction(hq)
+//        alert.addAction(normal)
+//        alert.addAction(cancel)
+//        self.present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -162,6 +165,15 @@ class EditorViewControllers: Editor {
                 slider.type = .L
                 slider.selectedTool = self.selectedTool
             }
+            
+            self.closeBtn.alpha = 0
+            self.saveBtn.alpha = 0
+        }
+        
+        if segue.identifier == "OptionSave" {
+            guard let option = segue.destination as? SaveOptionViewController else {return}
+            option.modalPresentationStyle = .overCurrentContext
+            option.delegate = self
         }
     }
 }
@@ -316,4 +328,30 @@ extension EditorViewControllers: LightSliderDelegate {
         self.saveBtn.alpha = 1
     }
     
+}
+
+
+extension EditorViewControllers: SaveOptionViewControllerDelegate {
+    func saveMax(viewController: SaveOptionViewController) {
+        guard let asset = self.asset else { return }
+        self.highQulityRender(asset, cropData: self.cropData, profile: self.profile) { (_) in
+            viewController.activity.isHidden = true
+            viewController.activity.stopAnimating()
+            viewController.dismiss(animated: true, completion: nil)
+            LoadingOverlay.shared.showOverlay(view: self.view)
+        }
+    }
+    
+    func saveNormal(viewController: SaveOptionViewController) {
+        self.nornalRender(ciimage: self.ciimage!, cropData: self.cropData, profile: self.profile) { (_) in
+            viewController.activity.isHidden = true
+            viewController.activity.startAnimating()
+            viewController.dismiss(animated: true, completion: nil)
+            LoadingOverlay.shared.showOverlay(view: self.view)
+        }
+    }
+    
+    func saveOptionClose(viewController: SaveOptionViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
 }

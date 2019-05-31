@@ -57,6 +57,8 @@
 		404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F0910228A8A3500AC15DE /* ImageCell.xib */; };
 		405449BE229652B10012CE57 /* LightCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405449BC229652B10012CE57 /* LightCollectCell.swift */; };
 		405449BF229652B10012CE57 /* LightCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405449BD229652B10012CE57 /* LightCollectCell.xib */; };
+		406E1F7022A16D0800610CFE /* SaveOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406E1F6F22A16D0800610CFE /* SaveOptionViewController.swift */; };
+		406E1F7222A17EF500610CFE /* LoadingCompletedOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406E1F7122A17EF500610CFE /* LoadingCompletedOverlay.swift */; };
 		407014C7229BCF41009C1B23 /* ChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407014C6229BCF41009C1B23 /* ChromaticAberration.swift */; };
 		407014C9229BD178009C1B23 /* TransverseChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */; };
 		4075653C22996FD500FEFCAF /* grain.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4075653B22996FD500FEFCAF /* grain.jpg */; };
@@ -151,6 +153,8 @@
 		404F0910228A8A3500AC15DE /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		405449BC229652B10012CE57 /* LightCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCollectCell.swift; sourceTree = "<group>"; };
 		405449BD229652B10012CE57 /* LightCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCollectCell.xib; sourceTree = "<group>"; };
+		406E1F6F22A16D0800610CFE /* SaveOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveOptionViewController.swift; sourceTree = "<group>"; };
+		406E1F7122A17EF500610CFE /* LoadingCompletedOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCompletedOverlay.swift; sourceTree = "<group>"; };
 		407014C6229BCF41009C1B23 /* ChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaticAberration.swift; sourceTree = "<group>"; };
 		407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseChromaticAberration.swift; sourceTree = "<group>"; };
 		4075653B22996FD500FEFCAF /* grain.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grain.jpg; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				40010E642287E939003EB199 /* Cell */,
 				40010E632287E92F003EB199 /* Slider */,
 				40010E622287E92A003EB199 /* Button */,
+				406E1F7122A17EF500610CFE /* LoadingCompletedOverlay.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				40C35E63228FB74100F3C3BD /* HSLViewController.swift */,
 				40C35E69228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift */,
 				40D9E17D229937EC0006131A /* LightSliderViewController.swift */,
+				406E1F6F22A16D0800610CFE /* SaveOptionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -632,6 +638,7 @@
 			files = (
 				400C90B9228E846A00074251 /* RatioCell.swift in Sources */,
 				404F0900228A7AF400AC15DE /* EditorViewControllers.swift in Sources */,
+				406E1F7022A16D0800610CFE /* SaveOptionViewController.swift in Sources */,
 				400C90B0228E79B800074251 /* view.swift in Sources */,
 				40010E332287E859003EB199 /* Disaya.xcdatamodeld in Sources */,
 				40A96C102288048D005F066C /* Cover.swift in Sources */,
@@ -664,6 +671,7 @@
 				404F0909228A858F00AC15DE /* PresetCell.swift in Sources */,
 				40C35E68228FB7EE00F3C3BD /* HSLSlider.swift in Sources */,
 				400C90C3228E9F7800074251 /* StraightenCell.swift in Sources */,
+				406E1F7222A17EF500610CFE /* LoadingCompletedOverlay.swift in Sources */,
 				40010E2B2287E859003EB199 /* AppDelegate.swift in Sources */,
 				400C90B2228E79CA00074251 /* ImageScrollView.swift in Sources */,
 				400C90BF228E91FE00074251 /* ImageRatioCell.swift in Sources */,

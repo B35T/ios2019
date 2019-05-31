@@ -22,7 +22,7 @@ class StartViewController: PhotosAsset {
         self.cover = cover
         self.view.insertSubview(self.cover, at: 0)
         
-        let blur = UIBlurEffect.init(style: .light)
+        let blur = UIBlurEffect.init(style: .dark)
         let blurView = UIVisualEffectView(effect: blur)
         self.blurView = blurView
         self.blurView.frame = view.frame
