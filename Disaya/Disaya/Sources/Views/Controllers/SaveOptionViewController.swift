@@ -30,7 +30,7 @@ class SaveOptionViewController: UIViewController {
         
         let background = UIView()
         self.background = background
-        self.background.frame = .init(x: 0, y: view.frame.height - 230, width: view.frame.width, height: 230)
+        self.background.frame = .init(x: 0, y: view.frame.height - 210, width: view.frame.width, height: 210)
         
         let blur = UIBlurEffect(style: .dark)
         let blurView = UIVisualEffectView(effect: blur)
@@ -55,7 +55,7 @@ class SaveOptionViewController: UIViewController {
         
         let closeBtn = UIButton()
         self.closeBtn = closeBtn
-        self.closeBtn.frame = .init(x: 0, y: 160, width: view.frame.width, height: 55)
+        self.closeBtn.frame = .init(x: 0, y: 145, width: view.frame.width, height: 55)
         self.closeBtn.setTitle("Close", for: .normal)
         
         self.background.addSubview(self.MaxQualityBtn)
