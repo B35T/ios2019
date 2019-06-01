@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import Photos
 
 class StartViewController: PhotosAsset {
 
     @IBOutlet weak var cover: Cover!
     @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var titleLabel: UILabel!
     var editorView: EditorViewControllers!
     
     override func loadView() {
         super.loadView()
         
-     
         let cover = Cover(frame: .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height / 100 * 65))
         self.cover = cover
         self.view.insertSubview(self.cover, at: 0)
@@ -31,8 +32,49 @@ class StartViewController: PhotosAsset {
         
         self.view.insertSubview(collectionView, at: 2)
         
+        let titleLabel = UILabel()
+        self.titleLabel = titleLabel
+        self.titleLabel.frame.size = .init(width: 250, height: 30)
+        self.titleLabel.center.x = self.view.center.x
+        self.titleLabel.frame.origin.y = self.cover.frame.maxY - 10
+        self.titleLabel.layer.cornerRadius = 15
+        self.titleLabel.clipsToBounds = true
+        self.titleLabel.textColor = black
+        self.titleLabel.backgroundColor = .white
+        self.titleLabel.text = "TY img from unsplash.com/@damian_ivanovv"
+        self.titleLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        self.titleLabel.textAlignment = .center
+        
+        self.view.insertSubview(self.titleLabel, at: 1)
+        
         self.editorView = self.storyboard?.instantiateViewController(withIdentifier: "Editor") as? EditorViewControllers
         
+        if UserDefaults.standard.value(forKey: "first_time") != nil {
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .authorized: break
+            default:
+                let setting = UIButton()
+                setting.frame.size = .init(width: 250, height: 50)
+                setting.frame.origin.y = self.view.frame.maxY - 100
+                setting.center.x = self.view.center.x
+                setting.backgroundColor = .white
+                setting.setTitle("allow access to Photos", for: .normal)
+                setting.setTitleColor(.black, for: .normal)
+                setting.titleLabel?.font = .boldSystemFont(ofSize: 11)
+                setting.layer.cornerRadius = 4
+                setting.clipsToBounds = true
+                setting.addTarget(self, action: #selector(openSetting), for: .touchUpInside)
+                self.view.addSubview(setting)
+            }
+        }
+       
+        UserDefaults.standard.set(true, forKey: "first_time")
+    }
+    
+    @objc internal func openSetting() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
     
     @objc internal func closeAction() {
@@ -42,7 +84,7 @@ class StartViewController: PhotosAsset {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.cover.image = UIImage(named: "cover.jpg")
+        self.cover.image = UIImage(named: "cover2.jpg")
     }
 }
 

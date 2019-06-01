@@ -67,7 +67,8 @@ class SaveOptionViewController: UIViewController {
         let activity = UIActivityIndicatorView()
         self.activity = activity
         self.activity.frame.size = self.view.frame.size
-        self.activity.center = self.view.center
+        self.activity.center.x = self.view.center.x
+        self.activity.center.y = self.view.center.y - 50
         self.activity.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.activity.isHidden = true
         self.view.addSubview(self.activity)

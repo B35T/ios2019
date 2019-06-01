@@ -8,39 +8,37 @@
 
 import UIKit
 
-public class LoadingOverlay {
+public class SaveCompletedOverlay {
     
     var overlayView = UIView()
     private var label = UILabel()
-    private var line = CALayer()
     
     
-    class var shared: LoadingOverlay {
+    class var shared: SaveCompletedOverlay {
         struct Static {
-            static let instance: LoadingOverlay = LoadingOverlay()
+            static let instance: SaveCompletedOverlay = SaveCompletedOverlay()
         }
         return Static.instance
     }
     
     public func showOverlay(view: UIView) {
-        self.overlayView.frame.size = .init(width: view.frame.width - 30, height: 50)
-        self.overlayView.center = view.center
-        self.overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        self.overlayView.frame.size = .init(width: view.frame.width - 50, height: 50)
+        self.overlayView.center.x = view.center.x
+        self.overlayView.center.y = view.center.y - 50
+        self.overlayView.backgroundColor = .white
         self.overlayView.alpha = 1
+        self.overlayView.layer.cornerRadius = 4
         view.addSubview(self.overlayView)
         
         self.label.frame = .init(x: 0, y: 0, width: overlayView.frame.width, height: 50)
-        self.label.textColor = .white
+        self.label.textColor = .black
         self.label.text = "Save Finish"
-        self.label.font = UIFont.systemFont(ofSize: 14)
+        self.label.font = UIFont.boldSystemFont(ofSize: 15)
         self.label.textAlignment = .center
         self.overlayView.addSubview(self.label)
+   
         
-        self.line.frame = .init(x: 0, y: 0, width: overlayView.frame.width, height: 1)
-        self.line.backgroundColor = UIColor.white.cgColor
-        self.overlayView.layer.addSublayer(self.line)
-        
-        UIView.animate(withDuration: 0.3, delay: 2, options: .curveLinear, animations: {
+        UIView.animate(withDuration: 0.3, delay: 1, options: .curveLinear, animations: {
             self.overlayView.alpha = 0
         }, completion: nil)
         

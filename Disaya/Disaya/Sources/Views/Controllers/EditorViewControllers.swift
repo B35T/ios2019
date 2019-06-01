@@ -329,7 +329,7 @@ extension EditorViewControllers: SaveOptionViewControllerDelegate {
             viewController.activity.isHidden = true
             viewController.activity.stopAnimating()
             viewController.dismiss(animated: true, completion: nil)
-            LoadingOverlay.shared.showOverlay(view: self.view)
+            SaveCompletedOverlay.shared.showOverlay(view: self.view)
             
             self.closeBtn.alpha = 1
             self.saveBtn.alpha = 1
@@ -342,7 +342,7 @@ extension EditorViewControllers: SaveOptionViewControllerDelegate {
             viewController.activity.isHidden = true
             viewController.activity.startAnimating()
             viewController.dismiss(animated: true, completion: nil)
-            LoadingOverlay.shared.showOverlay(view: self.view)
+            SaveCompletedOverlay.shared.showOverlay(view: self.view)
             
             self.closeBtn.alpha = 1
             self.saveBtn.alpha = 1

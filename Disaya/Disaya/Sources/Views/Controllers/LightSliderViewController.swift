@@ -56,7 +56,6 @@ class LightSliderViewController: UIViewController {
         if self.type == .L {
             self.background.frame = .init(x: 0, y: view.frame.height - 160, width: view.frame.width, height: 160)
             
-            
             let value = UILabel()
             self.value = value
             self.value.frame = .init(x: view.frame.width / 2 - 35, y: 15, width: 70, height: 30)
@@ -72,6 +71,7 @@ class LightSliderViewController: UIViewController {
             self.sliderA = sliderA
             self.sliderA.tag = 0
             self.sliderA.frame = .init(x: 10, y: 70, width: view.frame.width - 20, height: 30)
+            self.sliderA.minimumTrackTintColor = .white
             
             if let i = selectedTool {
                 
@@ -123,7 +123,6 @@ class LightSliderViewController: UIViewController {
             self.titleB = titleB
             self.background.addSubview(self.titleB)
             
-            
             let valueA = UILabel()
             self.valueA = valueA
             self.valueA.frame = .init(x: view.frame.width / 2 - 25, y: 20, width: 50, height: 25)
@@ -136,6 +135,7 @@ class LightSliderViewController: UIViewController {
             self.sliderA.tag = 0
             self.sliderA.frame = .init(x: 10, y: 50, width: view.frame.width - 20, height: 30)
             self.sliderA.addTarget(self, action: #selector(sliderAction(_:)), for: .valueChanged)
+            self.sliderA.minimumTrackTintColor = .white
             
             let valueB = UILabel()
             self.valueB = valueB
@@ -144,12 +144,12 @@ class LightSliderViewController: UIViewController {
             self.valueB.textAlignment = .center
             self.valueB.textColor = .white
             
-            
             let sliderB = UISlider()
             self.sliderB = sliderB
             self.sliderB.tag = 1
             self.sliderB.frame = .init(x: 10, y: 130, width: view.frame.width - 20, height: 30)
             self.sliderB.addTarget(self, action: #selector(sliderAction(_:)), for: .valueChanged)
+            self.sliderB.minimumTrackTintColor = .white
             
             let titles = UILabel()
             self.titles = titles

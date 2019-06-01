@@ -41,7 +41,7 @@ open class Cover: UIImageView {
         self.logoImageView.contentMode = .scaleAspectFit
         self.insertSubview(self.logoImageView, at: 0)
         
-        let logo = UIImage(named: "DisaLogo.png")
+        let logo = UIImage(named: "Logo.png")
         self.logoImageView.image = logo
         
         let colorTop =  UIColor.black.withAlphaComponent(0).cgColor

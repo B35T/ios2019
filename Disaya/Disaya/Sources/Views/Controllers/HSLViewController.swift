@@ -123,6 +123,7 @@ class HSLViewController: UIViewController {
         self.hue.minimumValue = -0.5
         self.hue.maximumValue = 0.5
         self.hue.value = 0
+        self.hue.minimumTrackTintColor = .white
         self.background.addSubview(self.hue)
         
         let saturation = HSLSlider(frame: .zero)
@@ -134,6 +135,7 @@ class HSLViewController: UIViewController {
         self.saturation.minimumValue = 0
         self.saturation.maximumValue = 2
         self.saturation.value = 1
+        self.saturation.minimumTrackTintColor = .white
         self.background.addSubview(self.saturation)
         
         let lightness = HSLSlider(frame: .zero)
@@ -145,6 +147,7 @@ class HSLViewController: UIViewController {
         self.lightness.minimumValue = 0
         self.lightness.maximumValue = 2
         self.lightness.value = 1
+        self.lightness.minimumTrackTintColor = .white
         self.background.addSubview(self.lightness)
         
         let hueValueLabel = UILabel()
