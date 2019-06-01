@@ -101,34 +101,16 @@ class EditorViewControllers: Editor {
         self.collectionView.frame = .init(x: 0, y: view.frame.height - device, width: view.frame.width, height: 160)
     }
     
-    @objc internal func dismissBack() {
+    @objc internal func discardAction() {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc internal func dismissBack() {
+        self.performSegue(withIdentifier: "OptionBack", sender: nil)
+    }
 
-    
     @objc internal func saveExportImage() {
-
         self.performSegue(withIdentifier: "OptionSave", sender: nil)
-        
-//        guard let asset = self.asset else { return }
-
-//        let alert = UIAlertController(title: "Save To Photos", message:nil, preferredStyle: .actionSheet)
-//
-//        let hq = UIAlertAction(title: "Maximum", style: .default) { (action) in
-//            self.highQulityRender(asset, cropData: self.cropData, profile: self.profile)
-//        }
-
-//        let normal = UIAlertAction(title: "Normal", style: .default) { (action) in
-//            self.nornalRender(ciimage: self.ciimage!, cropData: self.cropData, profile: self.profile)
-//        }
-//
-//        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-//
-//        alert.addAction(hq)
-//        alert.addAction(normal)
-//        alert.addAction(cancel)
-//        self.present(alert, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -172,6 +154,15 @@ class EditorViewControllers: Editor {
         
         if segue.identifier == "OptionSave" {
             guard let option = segue.destination as? SaveOptionViewController else {return}
+            option.modalPresentationStyle = .overCurrentContext
+            option.delegate = self
+            
+            self.closeBtn.alpha = 0
+            self.saveBtn.alpha = 0
+        }
+        
+        if segue.identifier == "OptionBack" {
+            guard let option = segue.destination as? OptionBackViewController else {return}
             option.modalPresentationStyle = .overCurrentContext
             option.delegate = self
         }
@@ -339,7 +330,11 @@ extension EditorViewControllers: SaveOptionViewControllerDelegate {
             viewController.activity.stopAnimating()
             viewController.dismiss(animated: true, completion: nil)
             LoadingOverlay.shared.showOverlay(view: self.view)
+            
+            self.closeBtn.alpha = 1
+            self.saveBtn.alpha = 1
         }
+        
     }
     
     func saveNormal(viewController: SaveOptionViewController) {
@@ -348,10 +343,21 @@ extension EditorViewControllers: SaveOptionViewControllerDelegate {
             viewController.activity.startAnimating()
             viewController.dismiss(animated: true, completion: nil)
             LoadingOverlay.shared.showOverlay(view: self.view)
+            
+            self.closeBtn.alpha = 1
+            self.saveBtn.alpha = 1
         }
     }
     
     func saveOptionClose(viewController: SaveOptionViewController) {
         viewController.dismiss(animated: true, completion: nil)
+        self.closeBtn.alpha = 1
+        self.saveBtn.alpha = 1
+    }
+}
+
+extension EditorViewControllers: OptionBackViewControllerDelegate {
+    func backOptionDiscard() {
+        self.dismiss(animated: true, completion: nil)
     }
 }

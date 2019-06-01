@@ -44,6 +44,7 @@
 		400C90C0228E91FE00074251 /* ImageRatioCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 400C90BE228E91FE00074251 /* ImageRatioCell.xib */; };
 		400C90C3228E9F7800074251 /* StraightenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90C1228E9F7800074251 /* StraightenCell.swift */; };
 		400C90C4228E9F7800074251 /* StraightenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 400C90C2228E9F7800074251 /* StraightenCell.xib */; };
+		4035ED7122A21C2300CE8773 /* OptionBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4035ED7022A21C2300CE8773 /* OptionBackViewController.swift */; };
 		40414AD32293B2710004B34D /* PresetLibrary + Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40414AD22293B2710004B34D /* PresetLibrary + Tool.swift */; };
 		404F0900228A7AF400AC15DE /* EditorViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */; };
 		404F0902228A7C5B00AC15DE /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F0901228A7C5B00AC15DE /* Editor.swift */; };
@@ -140,6 +141,7 @@
 		400C90BE228E91FE00074251 /* ImageRatioCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageRatioCell.xib; sourceTree = "<group>"; };
 		400C90C1228E9F7800074251 /* StraightenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraightenCell.swift; sourceTree = "<group>"; };
 		400C90C2228E9F7800074251 /* StraightenCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StraightenCell.xib; sourceTree = "<group>"; };
+		4035ED7022A21C2300CE8773 /* OptionBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionBackViewController.swift; sourceTree = "<group>"; };
 		40414AD22293B2710004B34D /* PresetLibrary + Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresetLibrary + Tool.swift"; sourceTree = "<group>"; };
 		404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewControllers.swift; sourceTree = "<group>"; };
 		404F0901228A7C5B00AC15DE /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				40C35E69228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift */,
 				40D9E17D229937EC0006131A /* LightSliderViewController.swift */,
 				406E1F6F22A16D0800610CFE /* SaveOptionViewController.swift */,
+				4035ED7022A21C2300CE8773 /* OptionBackViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				40C35E6A228FBFC700F3C3BD /* HSLViewController DataSource + Delegate.swift in Sources */,
 				400C90B4228E79DB00074251 /* DimmingOverlay.swift in Sources */,
 				400C90B6228E7AC600074251 /* CropViewController.swift in Sources */,
+				4035ED7122A21C2300CE8773 /* OptionBackViewController.swift in Sources */,
 				40A96C1722880AB2005F066C /* NextBar.swift in Sources */,
 				404F090D228A85A000AC15DE /* LightCell.swift in Sources */,
 				40A96C122288086A005F066C /* Preview.swift in Sources */,

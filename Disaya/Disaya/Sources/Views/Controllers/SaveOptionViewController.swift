@@ -85,6 +85,10 @@ class SaveOptionViewController: UIViewController {
         self.MaxQualityBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         self.NormalQualityBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
         self.closeBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closeAction))
+        self.view.addGestureRecognizer(tap)
+        self.view.isUserInteractionEnabled = true
     }
 
     @objc internal func maxQualityAction() {

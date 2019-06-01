@@ -35,6 +35,21 @@
             </objects>
             <point key="canvasLocation" x="-304" y="119"/>
         </scene>
+        <!--Option Back View Controller-->
+        <scene sceneID="1pR-cE-Xy7">
+            <objects>
+                <viewController id="nDg-29-O6I" customClass="OptionBackViewController" customModule="Disaya" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f9V-al-UVo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="x7C-K7-eSO"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="211-hK-n3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="396" y="1125"/>
+        </scene>
         <!--Editor View Controllers-->
         <scene sceneID="pq0-9N-ehZ">
             <objects>
@@ -65,6 +80,7 @@
                         <segue destination="n5T-Zb-ccP" kind="show" identifier="HSL" id="abv-JX-UhX"/>
                         <segue destination="YnZ-1f-uUr" kind="show" identifier="LightSlider" id="0XC-eo-XN8"/>
                         <segue destination="1ch-jd-U3b" kind="show" identifier="OptionSave" id="1E9-7X-Bli"/>
+                        <segue destination="nDg-29-O6I" kind="show" identifier="OptionBack" id="YXT-nq-Gyk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="inO-TX-qO9" userLabel="First Responder" sceneMemberID="firstResponder"/>
