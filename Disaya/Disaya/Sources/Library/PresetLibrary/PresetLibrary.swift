@@ -53,6 +53,8 @@ open class PresetLibrary {
             return G4(ciimage: ciimage)
         case IndexPath(item: 5, section: 3):
             return G5(ciimage: ciimage)
+        case IndexPath(item: 6, section: 3):
+            return G6(ciimage: ciimage)
         case IndexPath(item: 0, section: 4):
             return C0(ciimage: ciimage)
         case IndexPath(item: 1, section: 4):
@@ -67,6 +69,8 @@ open class PresetLibrary {
             return C5(ciimage: ciimage)
         case IndexPath(item: 6, section: 4):
             return C6(ciimage: ciimage)
+        case IndexPath(item: 7, section: 4):
+            return C7(ciimage: ciimage)
         default: return ciimage
         }
     }
@@ -371,6 +375,27 @@ open class PresetLibrary {
         let fade = self.CIPhotoEffectFade(ciimage: multi.outputImage)
         return fade
     }
+    
+    func G6(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        let H = self.highlightShadowAdjust(inputImage: ciimage, inputShadowAmount: -0.3602985143661499, inputHighlightAmount: 0.9)
+        let Con = self.colorControls(inputImage: H!, inputSaturation: 0.90537309646606445, inputContrast: 1.015)
+        let Temp = self.temperatureAndTint(inputImage: Con!, inputNeutral: .init(x: 7653.4326171875, y: 0))
+        
+        let multi = MultiBandHSV()
+        multi.inputImage = Temp!
+        multi.inputOrangeShift = .init(x: -0.02, y: 1.16, z: 1)
+        multi.inputGreenShift = .init(x: 0.1,  y: 0.85, z: 1)
+        multi.inputYellowShift = .init(x: 0, y: 0.9, z: 1)
+        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 1.1, z: 1)
+        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 1.1, z: 1)
+        multi.inputRedShift = .init(x: 0, y: 0.9, z: 1)
+        
+        let Ex = self.exposureAdjust(inputImage: multi.outputImage!, inputEV: -0.2)
+        let Sharp = self.sharpenLuminance(inputImage: Ex!, inputSharpness: 0.12507465481758118)
+        
+        return Sharp
+    }
 
     func C0(ciimage: CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
@@ -532,7 +557,33 @@ open class PresetLibrary {
         return CIPhotoEffectChrome(ciimage: Temp)
     }
     
-    
+    func C7(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        
+        
+        let ToneCurve = CIFilter(name: "CIToneCurve")
+        ToneCurve?.setDefaults()
+        ToneCurve?.setValue(ciimage, forKey: kCIInputImageKey)
+        ToneCurve?.setValue(CIVector(x: 0, y: 0), forKey: "inputPoint0")
+        ToneCurve?.setValue(CIVector(x: 0.25, y: 0.3), forKey: "inputPoint1")
+        ToneCurve?.setValue(CIVector(x: 0.49, y: 0.51), forKey: "inputPoint2")
+        ToneCurve?.setValue(CIVector(x: 0.75, y: 0.75), forKey: "inputPoint3")
+        ToneCurve?.setValue(CIVector(x: 1.1, y: 1), forKey: "inputPoint4")
+        
+        let ColorPolynomial = CIFilter(name: "CIColorPolynomial")
+        
+        let red = CIVector(x: -0.05, y: 1.25, z: 0, w: 0.05)
+        let green = CIVector(x: 0, y: 1.2, z: 0, w: 0)
+        ColorPolynomial?.setDefaults()
+        ColorPolynomial?.setValue(ToneCurve!.outputImage!, forKey: kCIInputImageKey)
+        ColorPolynomial?.setValue(red, forKey: "inputRedCoefficients")
+        ColorPolynomial?.setValue(green, forKey: "inputGreenCoefficients")
+        
+        let H = self.highlightShadowAdjust(inputImage: ColorPolynomial!.outputImage!, inputShadowAmount: 0.10865668207406998, inputHighlightAmount: 0.9)
+        
+        let c6 = self.C6(ciimage: H!)
+        return c6
+    }
     
     func GrainGenerator(size:CGSize) -> CIImage? {
         var newsize = size
