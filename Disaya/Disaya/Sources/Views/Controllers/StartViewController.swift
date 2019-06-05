@@ -58,8 +58,8 @@ class StartViewController: PhotosAsset {
                 setting.frame.origin.y = self.view.frame.maxY - 100
                 setting.center.x = self.view.center.x
                 setting.backgroundColor = .white
-                setting.setTitle("allow access to Photos", for: .normal)
-                setting.setTitleColor(.black, for: .normal)
+                setting.setTitle("Allow access to Photos", for: .normal)
+                setting.setTitleColor(blue, for: .normal)
                 setting.titleLabel?.font = .boldSystemFont(ofSize: 11)
                 setting.layer.cornerRadius = 4
                 setting.clipsToBounds = true

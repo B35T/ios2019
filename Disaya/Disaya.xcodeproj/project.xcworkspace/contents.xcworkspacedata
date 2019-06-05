@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Disaya.xcodeproj">
+      location = "group:/Users/best/workspace/ios2019/Disaya/Disaya/Sources/Library/StaticFile/DarinLogo.png">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

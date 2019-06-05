@@ -65,7 +65,7 @@ extension PresetCell: UICollectionViewDelegate {
 
 extension PresetCell: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        return 6
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -75,6 +75,7 @@ extension PresetCell: UICollectionViewDataSource {
         case 2: return 6
         case 3: return 7
         case 4: return 8
+        case 5: return 2
         default:
             return 0
         }
@@ -97,6 +98,7 @@ extension PresetCell: UICollectionViewDataSource {
         case 2: cell.labelTitle.text = "P\(indexPath.item)"; cell.labelTitle.textColor = red // 
         case 3: cell.labelTitle.text = "G\(indexPath.item)"; cell.labelTitle.textColor = black // grain
         case 4: cell.labelTitle.text = "C\(indexPath.item)"; cell.labelTitle.textColor = blue // color
+        case 5: cell.labelTitle.text = "H\(indexPath.item)"; cell.labelTitle.textColor = indigo // color
         default:
             break
         }

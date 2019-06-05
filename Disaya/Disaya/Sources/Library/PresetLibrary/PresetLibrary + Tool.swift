@@ -134,16 +134,6 @@ extension PresetLibrary {
         
         if let grain = Profile?.grain {
             ci = self.Grain(value: grain, buttom: ci)!
-//
-//            let filter = CIFilter(name: "CIMultiplyCompositing")
-//            let colorFilter = CIFilter(name: "CIConstantColorGenerator")
-//            let ciColor = CIColor(color: yellow.withAlphaComponent(0.3))
-//            colorFilter?.setValue(ciColor, forKey: kCIInputColorKey)
-//            let colorImage = colorFilter?.outputImage
-//            filter?.setValue(colorImage, forKey: kCIInputImageKey)
-//            filter?.setValue(ci, forKey: kCIInputBackgroundImageKey)
-//            ci = filter!.outputImage!
-            
         }
         
         if let a = Profile?.chromatic_angle, let r = Profile?.chromatic_radius {

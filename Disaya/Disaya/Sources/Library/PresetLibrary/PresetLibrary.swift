@@ -71,6 +71,11 @@ open class PresetLibrary {
             return C6(ciimage: ciimage)
         case IndexPath(item: 7, section: 4):
             return C7(ciimage: ciimage)
+        case IndexPath(item: 0, section: 5):
+            return RB0(ciimage: ciimage)
+        case IndexPath(item: 1, section: 5):
+            return RB1(ciimage: ciimage)
+        
         default: return ciimage
         }
     }
@@ -585,6 +590,34 @@ open class PresetLibrary {
         return c6
     }
     
+    func RB0(ciimage:CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        
+        let c7 = self.C2(ciimage: ciimage)
+        
+        let angle:Float = -15 * .pi / 180
+        
+        let Hue = CIFilter(name: "CIHueAdjust")
+        Hue?.setDefaults()
+        Hue?.setValue(c7, forKey: kCIInputImageKey)
+        Hue?.setValue(NSNumber(value: angle), forKey: "inputAngle")
+        
+        return Hue?.outputImage
+    }
+
+    
+    func RB1(ciimage:CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        let c7 = self.C1(ciimage: ciimage)
+        let angle:Float = 15 * .pi / 180
+        
+        let Hue = CIFilter(name: "CIHueAdjust")
+        Hue?.setDefaults()
+        Hue?.setValue(c7, forKey: kCIInputImageKey)
+        Hue?.setValue(NSNumber(value: angle), forKey: "inputAngle")
+        return Hue?.outputImage
+    }
+    
     func GrainGenerator(size:CGSize) -> CIImage? {
         var newsize = size
         if newsize.width > 1500 || newsize.height > 1500 {
@@ -764,3 +797,40 @@ func F2(ciimage:CIImage) -> CIImage {
     
     return ToneCurve
 }
+
+//
+//func filter() {
+//    guard let ciimage = ciimage else {return nil}
+//
+//    let c7 = self.C7(ciimage: ciimage)
+//
+//    let angle:Float = -15 * .pi / 180
+//
+//    let Hue = CIFilter(name: "CIHueAdjust")
+//    Hue?.setDefaults()
+//    Hue?.setValue(c7, forKey: kCIInputImageKey)
+//    Hue?.setValue(NSNumber(value: angle), forKey: "inputAngle")
+//
+//    let colorTop = UIColor(red: 255.0/255.0, green: 178/255.0, blue: 134/255.0, alpha: 0.5).cgColor
+//    let colorBottom = UIColor(red: 250/255.0, green: 97/255.0, blue: 97/255.0, alpha: 0.5).cgColor
+//
+//    let gradientLayer = CAGradientLayer()
+//    gradientLayer.colors = [colorTop, colorBottom]
+//    gradientLayer.locations = [0.0, 1.0]
+//    gradientLayer.startPoint = .init(x: 0.25, y: 0.25)
+//    gradientLayer.endPoint = .init(x: 1, y: 1)
+//    gradientLayer.frame.size = ciimage.extent.size
+//
+//    //start
+//    UIGraphicsBeginImageContext(ciimage.extent.size)
+//
+//    gradientLayer.render(in: UIGraphicsGetCurrentContext()!)
+//
+//    let image = UIGraphicsGetImageFromCurrentImageContext()
+//    UIGraphicsEndImageContext()
+//    //end
+//
+//    let filter = CIFilter(name: "CIMultiplyCompositing")
+//    filter?.setValue(CIImage(image: image!), forKey: kCIInputImageKey)
+//    filter?.setValue(Hue?.outputImage, forKey: kCIInputBackgroundImageKey)
+//}
