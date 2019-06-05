@@ -68,7 +68,7 @@ class SaveOptionViewController: UIViewController {
         self.activity = activity
         self.activity.frame.size = self.view.frame.size
         self.activity.center.x = self.view.center.x
-        self.activity.center.y = self.view.center.y - 50
+        self.activity.center.y = self.view.center.y
         self.activity.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         self.activity.isHidden = true
         self.view.addSubview(self.activity)
