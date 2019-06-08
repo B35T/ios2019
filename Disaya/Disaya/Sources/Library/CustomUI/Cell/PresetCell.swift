@@ -27,6 +27,7 @@ class PresetCell: UICollectionViewCell {
     }
     var select = IndexPath(item: 0, section: 0)
     var cells:[IndexPath: PresetPreviewCell] = [:]
+    let H = ["Hue -15", "Hue +15"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -73,8 +74,8 @@ extension PresetCell: UICollectionViewDataSource {
         case 0: return 1
         case 1: return 7
         case 2: return 6
-        case 3: return 7
-        case 4: return 8
+        case 3: return 8
+        case 4: return 9
         case 5: return 2
         default:
             return 0
@@ -98,7 +99,7 @@ extension PresetCell: UICollectionViewDataSource {
         case 2: cell.labelTitle.text = "P\(indexPath.item)"; cell.labelTitle.textColor = red // 
         case 3: cell.labelTitle.text = "G\(indexPath.item)"; cell.labelTitle.textColor = black // grain
         case 4: cell.labelTitle.text = "C\(indexPath.item)"; cell.labelTitle.textColor = blue // color
-        case 5: cell.labelTitle.text = "H\(indexPath.item)"; cell.labelTitle.textColor = indigo // color
+        case 5: cell.labelTitle.text = self.H[indexPath.item]; cell.labelTitle.textColor = indigo // color
         default:
             break
         }

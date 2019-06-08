@@ -55,6 +55,10 @@ open class PresetLibrary {
             return G5(ciimage: ciimage)
         case IndexPath(item: 6, section: 3):
             return G6(ciimage: ciimage)
+            //
+        case IndexPath(item: 7, section: 3):
+            return C9(ciimage: ciimage)
+            //
         case IndexPath(item: 0, section: 4):
             return C0(ciimage: ciimage)
         case IndexPath(item: 1, section: 4):
@@ -71,6 +75,9 @@ open class PresetLibrary {
             return C6(ciimage: ciimage)
         case IndexPath(item: 7, section: 4):
             return C7(ciimage: ciimage)
+        case IndexPath(item: 8, section: 4):
+            return C8(ciimage: ciimage)
+        
         case IndexPath(item: 0, section: 5):
             return RB0(ciimage: ciimage)
         case IndexPath(item: 1, section: 5):
@@ -302,7 +309,6 @@ open class PresetLibrary {
     
     let Ex = self.exposureAdjust(inputImage: multi.outputImage!, inputEV: -0.35820895433425903)
     let Sharp = self.sharpenLuminance(inputImage: Ex!, inputSharpness: 0.12507465481758118)
-//    let grain = self.Grain(value: 0.34268656373023987, buttom: Sharp!)
     
     return Sharp
     }
@@ -378,30 +384,31 @@ open class PresetLibrary {
         multi.inputRedShift = .init(x: 0, y: 1, z: 1)
         
         let fade = self.CIPhotoEffectFade(ciimage: multi.outputImage)
-        return fade
+        return F19(ciimage: fade!)
     }
-    
+
+    // tone 16
     func G6(ciimage: CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
-        let H = self.highlightShadowAdjust(inputImage: ciimage, inputShadowAmount: -0.3602985143661499, inputHighlightAmount: 0.9)
-        let Con = self.colorControls(inputImage: H!, inputSaturation: 0.90537309646606445, inputContrast: 1.015)
-        let Temp = self.temperatureAndTint(inputImage: Con!, inputNeutral: .init(x: 7653.4326171875, y: 0))
+        let H = self.highlightShadowAdjust(inputImage: ciimage, inputShadowAmount: -0.22149257361888885, inputHighlightAmount: 0.67601495981216431)
+        let Con = self.colorControls(inputImage: H!, inputSaturation: 0.85611945390701294, inputContrast: 1.0143283605575562)
+        let Temp = self.temperatureAndTint(inputImage: Con!, inputNeutral: .init(x: 6089.40283203125, y: 0))
         
         let multi = MultiBandHSV()
         multi.inputImage = Temp!
-        multi.inputOrangeShift = .init(x: -0.02, y: 1.16, z: 1)
-        multi.inputGreenShift = .init(x: 0.1,  y: 0.85, z: 1)
-        multi.inputYellowShift = .init(x: 0, y: 0.9, z: 1)
-        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 1.1, z: 1)
-        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 1.1, z: 1)
-        multi.inputRedShift = .init(x: 0, y: 0.9, z: 1)
+        multi.inputOrangeShift = .init(x: -0.018059698864817619, y: 1.090746283531189, z: 1)
+        multi.inputGreenShift = .init(x: -0.20029851794242859,  y: 1.2623881101608276, z: 1)
+        multi.inputYellowShift = .init(x: -0.094179101288318634, y: 1.0322387218475342, z: 1)
+        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 0.75283581018447876, z: 1)
+        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 0.67850750684738159, z: 1)
+        multi.inputRedShift = .init(x: 0, y: 1, z: 1)
         
-        let Ex = self.exposureAdjust(inputImage: multi.outputImage!, inputEV: -0.2)
+        let Ex = self.exposureAdjust(inputImage: multi.outputImage!, inputEV: -0.012835784815251827)
         let Sharp = self.sharpenLuminance(inputImage: Ex!, inputSharpness: 0.12507465481758118)
         
-        return Sharp
+        return F19(ciimage: Sharp!)
     }
-
+    
     func C0(ciimage: CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
         
@@ -588,6 +595,50 @@ open class PresetLibrary {
         
         let c6 = self.C6(ciimage: H!)
         return c6
+    }
+    
+    // like tone 14
+    func C8(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        let H = self.highlightShadowAdjust(inputImage: ciimage, inputShadowAmount: -0.22149257361888885, inputHighlightAmount: 0.67601495981216431)
+        let Con = self.colorControls(inputImage: H!, inputSaturation: 0.85611945390701294, inputContrast: 1.0143283605575562)
+        let Temp = self.temperatureAndTint(inputImage: Con!, inputNeutral: .init(x: 6089.40283203125, y: 0))
+        
+        let multi = MultiBandHSV()
+        multi.inputImage = Temp!
+        multi.inputOrangeShift = .init(x: -0.030447764322161664, y: 1.1289552450180054, z: 1)
+        multi.inputGreenShift = .init(x: 0.10298509150743484,  y: 1, z: 1)
+        multi.inputYellowShift = .init(x: -0.021492522209882729, y: 1.0125373601913452, z: 1)
+        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 0.75283581018447876, z: 1)
+        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 0.67850750684738159, z: 1)
+        multi.inputRedShift = .init(x: 0, y: 1.0480597019195557, z: 1)
+        
+        let Ex = self.exposureAdjust(inputImage: multi.outputImage!, inputEV: -0.012835784815251827)
+        let Sharp = self.sharpenLuminance(inputImage: Ex!, inputSharpness: 0.12507465481758118)
+        
+        return F19(ciimage: Sharp!)
+    }
+    
+    // tone 11
+    func C9(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        let H = self.highlightShadowAdjust(inputImage: ciimage, inputShadowAmount: -0.22149257361888885, inputHighlightAmount: 0.67601495981216431)
+        let Con = self.colorControls(inputImage: H!, inputSaturation: 0.85611945390701294, inputContrast: 1.0143283605575562)
+        let Temp = self.temperatureAndTint(inputImage: Con!, inputNeutral: .init(x: 7000, y: 0))
+        
+        let multi = MultiBandHSV()
+        multi.inputImage = Temp!
+        multi.inputOrangeShift = .init(x: -0.030447764322161664, y: 1.1289552450180054, z: 1)
+        multi.inputGreenShift = .init(x: -0.086567163467407199,  y: 0.80985075235366821, z: 1)
+        multi.inputYellowShift = .init(x: -0.078955218195915194, y: 0.97074621915817261, z: 1)
+        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 0.75283581018447876, z: 1)
+        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 0.67850750684738159, z: 1)
+        multi.inputRedShift = .init(x: 0, y: 1.0480597019195557, z: 1)
+        
+        let Ex = self.exposureAdjust(inputImage: multi.outputImage!, inputEV: 0.15)
+        let Sharp = self.sharpenLuminance(inputImage: Ex!, inputSharpness: 0.12507465481758118)
+        
+        return F19(ciimage: Sharp!)
     }
     
     func RB0(ciimage:CIImage?) -> CIImage? {
@@ -778,6 +829,13 @@ extension CIImage {
         }
         return nil
     }
+}
+
+func F19 (ciimage:CIImage) -> CIImage {
+    let value:[String:Any] = ["inputRedCoefficients":CIVector.init(x: -0.015, y: 1, z: -0.1, w: -0.1), "inputGreenCoefficients":CIVector.init(x: 0, y: 1.05, z: -0.1, w: 0), "inputBlueCoefficients":CIVector.init(x: 0, y: 1, z: 0.2, w: 0), "inputAlphaCoefficients":CIVector.init(x: 0, y: 1, z: 0, w: 0)]
+    let ColorPolynomial = ciimage.applyingFilter("CIColorPolynomial", parameters: value)
+    let ColorControl = ColorPolynomial.applyingFilter("CIColorControls", parameters: ["inputSaturation":1.2, "inputContrast":1.01, "inputBrightness":0])
+    return ColorControl
 }
 
 func F2(ciimage:CIImage) -> CIImage {
