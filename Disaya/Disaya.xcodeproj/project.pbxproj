@@ -65,7 +65,6 @@
 		407014C9229BD178009C1B23 /* TransverseChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */; };
 		40789E0C229CF53400E5B9EC /* apperation.png in Resources */ = {isa = PBXBuildFile; fileRef = 40789E0A229CF53300E5B9EC /* apperation.png */; };
 		40789E0D229CF53400E5B9EC /* transverse.png in Resources */ = {isa = PBXBuildFile; fileRef = 40789E0B229CF53400E5B9EC /* transverse.png */; };
-		40A38A4922A77BA900B29557 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40A38A4822A77BA900B29557 /* Logo.png */; };
 		40A96C102288048D005F066C /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C0F2288048D005F066C /* Cover.swift */; };
 		40A96C122288086A005F066C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C112288086A005F066C /* Preview.swift */; };
 		40A96C1722880AB2005F066C /* NextBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C1622880AB2005F066C /* NextBar.swift */; };
@@ -77,6 +76,7 @@
 		40C35E6C228FC0CB00F3C3BD /* HSLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E6B228FC0CB00F3C3BD /* HSLCell.swift */; };
 		40D9E17C229933D00006131A /* choose.png in Resources */ = {isa = PBXBuildFile; fileRef = 40D9E17B229933D00006131A /* choose.png */; };
 		40D9E17E229937EC0006131A /* LightSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D9E17D229937EC0006131A /* LightSliderViewController.swift */; };
+		40EB9FDB22AE861300032893 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 40EB9FDA22AE861300032893 /* Logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,7 +161,6 @@
 		407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransverseChromaticAberration.swift; sourceTree = "<group>"; };
 		40789E0A229CF53300E5B9EC /* apperation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apperation.png; sourceTree = "<group>"; };
 		40789E0B229CF53400E5B9EC /* transverse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transverse.png; sourceTree = "<group>"; };
-		40A38A4822A77BA900B29557 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		40A96C0F2288048D005F066C /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		40A96C112288086A005F066C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		40A96C1622880AB2005F066C /* NextBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextBar.swift; sourceTree = "<group>"; };
@@ -173,6 +172,7 @@
 		40C35E6B228FC0CB00F3C3BD /* HSLCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLCell.swift; sourceTree = "<group>"; };
 		40D9E17B229933D00006131A /* choose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choose.png; sourceTree = "<group>"; };
 		40D9E17D229937EC0006131A /* LightSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightSliderViewController.swift; sourceTree = "<group>"; };
+		40EB9FDA22AE861300032893 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -458,7 +458,7 @@
 		40A96C092287EFAE005F066C /* StaticFile */ = {
 			isa = PBXGroup;
 			children = (
-				40A38A4822A77BA900B29557 /* Logo.png */,
+				40EB9FDA22AE861300032893 /* Logo.png */,
 				4035ED7222A2486700CE8773 /* cover2.jpg */,
 				40025045228AA0EE00E4FCB1 /* icon */,
 			);
@@ -608,8 +608,8 @@
 				40025057228AAF6200E4FCB1 /* close.png in Resources */,
 				40789E0C229CF53400E5B9EC /* apperation.png in Resources */,
 				40D9E17C229933D00006131A /* choose.png in Resources */,
+				40EB9FDB22AE861300032893 /* Logo.png in Resources */,
 				40010E302287E859003EB199 /* Main.storyboard in Resources */,
-				40A38A4922A77BA900B29557 /* Logo.png in Resources */,
 				4002503F228A90D700E4FCB1 /* PresetPreviewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
