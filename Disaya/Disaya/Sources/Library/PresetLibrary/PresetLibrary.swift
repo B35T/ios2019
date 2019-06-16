@@ -82,6 +82,14 @@ open class PresetLibrary {
             return RB0(ciimage: ciimage)
         case IndexPath(item: 1, section: 5):
             return RB1(ciimage: ciimage)
+        case IndexPath(item: 0, section: 6):
+            return M0(ciimage: ciimage)
+        case IndexPath(item: 1, section: 6):
+            return M1(ciimage: ciimage)
+        case IndexPath(item: 2, section: 6):
+            return M2(ciimage: ciimage)
+        case IndexPath(item: 3, section: 6):
+            return M3(ciimage: ciimage)
         
         default: return ciimage
         }
@@ -667,6 +675,77 @@ open class PresetLibrary {
         Hue?.setValue(c7, forKey: kCIInputImageKey)
         Hue?.setValue(NSNumber(value: angle), forKey: "inputAngle")
         return Hue?.outputImage
+    }
+    
+    func M0(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {
+            return nil
+        }
+        
+        let p = self.CIPhotoEffectMono(ciimage: ciimage)
+        
+        let r = CIVector.init(x: 1, y: 0, z: 0, w: 0.03)
+        
+        let colorMatrix = CIFilter(name: "CIColorMatrix")
+        colorMatrix?.setDefaults()
+        colorMatrix?.setValue(p!, forKey: kCIInputImageKey)
+        colorMatrix?.setValue(r, forKey: "inputRVector")
+       
+        
+        return self.G6(ciimage: colorMatrix?.outputImage)
+    }
+    
+    func M1(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {
+            return nil
+        }
+        
+        let min = CIVector(x: 0.05, y: 0, z: 0, w: 0)
+        
+        let colorClamp = CIFilter(name: "CIColorClamp")
+        colorClamp?.setDefaults()
+        colorClamp?.setValue(ciimage, forKey: "inputImage")
+        colorClamp?.setValue(min, forKey: "inputMinComponents")
+//        colorClamp?.setValue(, forKey: "inputMaxComponents")
+        
+        let colorControl = self.colorControls(inputImage: colorClamp!.outputImage!, inputSaturation: 0.6)
+        return self.G6(ciimage: colorControl)
+    }
+    
+    func M2(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {
+            return nil
+        }
+        
+        let min = CIVector(x: 0.08, y: 0.04, z: 0.04, w: 0)
+        let max = CIVector(x: 0.6, y: 0.6, z: 0.6, w: 1)
+        
+        let colorClamp = CIFilter(name: "CIColorClamp")
+        colorClamp?.setDefaults()
+        colorClamp?.setValue(ciimage, forKey: "inputImage")
+        colorClamp?.setValue(min, forKey: "inputMinComponents")
+        colorClamp?.setValue(max, forKey: "inputMaxComponents")
+        
+        let colorControl = self.colorControls(inputImage: colorClamp!.outputImage!, inputSaturation: 0.8)
+        return self.G6(ciimage: colorControl)
+    }
+    
+    func M3(ciimage: CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {
+            return nil
+        }
+        
+        let min = CIVector(x: 0.01, y: 0.04, z: 0.04, w: 0)
+        let max = CIVector(x: 0.6, y: 0.6, z: 0.6, w: 1)
+        
+        let colorClamp = CIFilter(name: "CIColorClamp")
+        colorClamp?.setDefaults()
+        colorClamp?.setValue(ciimage, forKey: "inputImage")
+        colorClamp?.setValue(min, forKey: "inputMinComponents")
+        colorClamp?.setValue(max, forKey: "inputMaxComponents")
+        
+        let colorControl = self.colorControls(inputImage: colorClamp!.outputImage!, inputSaturation: 0.8)
+        return self.G6(ciimage: colorControl)
     }
     
     func GrainGenerator(size:CGSize) -> CIImage? {
