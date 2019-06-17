@@ -76,8 +76,8 @@ extension PresetCell: UICollectionViewDataSource {
         case 2: return 6
         case 3: return 8
         case 4: return 9
-        case 5: return 2
-        case 6: return 4
+        case 5: return 1
+        case 6: return 5
         default:
             return 0
         }

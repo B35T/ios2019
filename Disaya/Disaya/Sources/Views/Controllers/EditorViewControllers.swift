@@ -32,6 +32,8 @@ class EditorViewControllers: Editor {
     var ciimage: CIImage?
     var profile = DisayaProfile.shared
     
+    var panScale:PanScale!
+    
     var cropData:(rect:CGRect?, straighten:Float?, imageAgo:CGSize?)
     var index:IndexPath? {
         didSet{
@@ -44,6 +46,8 @@ class EditorViewControllers: Editor {
                 PHImageManager.default().requestImage(for: asset, targetSize: self.size, contentMode: .aspectFit, options: nil) { (image, _) in
                     guard let image = image else {return}
                     self.imagePreview.image = image
+                    self.imagePreview.topView.alpha = 1
+                    self.alphaScale = 1
                     
                     self.ciimage = CIImage(image: image)
                     
@@ -93,6 +97,9 @@ class EditorViewControllers: Editor {
         self.collectionView.register(UINib(nibName: "MenuCell", bundle: nil), forCellWithReuseIdentifier: "MenuCell")
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        
+        self.panScale = PanScale.init(view: self.imagePreview)
+        self.panScale.delegate = self
     }
 
     override func viewWillLayoutSubviews() {
@@ -356,8 +363,13 @@ extension EditorViewControllers: SaveOptionViewControllerDelegate {
     }
 }
 
-extension EditorViewControllers: OptionBackViewControllerDelegate {
+extension EditorViewControllers: OptionBackViewControllerDelegate, PanScaleDelegetes {
     func backOptionDiscard() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func PanAction(value: CGFloat) {
+        self.imagePreview.topView.alpha = value
+        self.alphaScale = value
     }
 }

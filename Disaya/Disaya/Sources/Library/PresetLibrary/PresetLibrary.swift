@@ -80,8 +80,7 @@ open class PresetLibrary {
         
         case IndexPath(item: 0, section: 5):
             return RB0(ciimage: ciimage)
-        case IndexPath(item: 1, section: 5):
-            return RB1(ciimage: ciimage)
+        
         case IndexPath(item: 0, section: 6):
             return M0(ciimage: ciimage)
         case IndexPath(item: 1, section: 6):
@@ -90,6 +89,8 @@ open class PresetLibrary {
             return M2(ciimage: ciimage)
         case IndexPath(item: 3, section: 6):
             return M3(ciimage: ciimage)
+        case IndexPath(item: 4, section: 6):
+            return M4(ciimage: ciimage)
         
         default: return ciimage
         }
@@ -665,16 +666,34 @@ open class PresetLibrary {
     }
 
     
-    func RB1(ciimage:CIImage?) -> CIImage? {
+    func M4(ciimage:CIImage?) -> CIImage? {
         guard let ciimage = ciimage else {return nil}
-        let c7 = self.C1(ciimage: ciimage)
         let angle:Float = 15 * .pi / 180
         
         let Hue = CIFilter(name: "CIHueAdjust")
         Hue?.setDefaults()
-        Hue?.setValue(c7, forKey: kCIInputImageKey)
+        Hue?.setValue(ciimage, forKey: kCIInputImageKey)
         Hue?.setValue(NSNumber(value: angle), forKey: "inputAngle")
-        return Hue?.outputImage
+        
+        let multi = MultiBandHSV()
+        multi.inputImage = Hue?.outputImage
+        multi.inputOrangeShift = .init(x: 0, y: 1, z: 1)
+        multi.inputGreenShift = .init(x: -0.02477613091468811,  y: 1.130149245262146, z: 1)
+        multi.inputYellowShift = .init(x: 0, y: 0.31283584237098694, z: 1)
+        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 1.2, z: 1)
+        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 1.1, z: 1)
+        multi.inputRedShift = .init(x: 0, y: 1, z: 1)
+        
+        let min = CIVector(x: 0.01, y: 0.03, z: 0.02, w: 0)
+        let max = CIVector(x: 1, y: 1, z: 1, w: 1)
+        
+        let colorClamp = CIFilter(name: "CIColorClamp")
+        colorClamp?.setDefaults()
+        colorClamp?.setValue(multi.outputImage, forKey: "inputImage")
+        colorClamp?.setValue(min, forKey: "inputMinComponents")
+        colorClamp?.setValue(max, forKey: "inputMaxComponents")
+        
+        return self.CIPhotoEffectFade(ciimage:colorClamp?.outputImage)
     }
     
     func M0(ciimage: CIImage?) -> CIImage? {
@@ -692,7 +711,7 @@ open class PresetLibrary {
         colorMatrix?.setValue(r, forKey: "inputRVector")
        
         
-        return self.G6(ciimage: colorMatrix?.outputImage)
+        return self.CIPhotoEffectFade(ciimage: colorMatrix?.outputImage)
     }
     
     func M1(ciimage: CIImage?) -> CIImage? {
@@ -709,7 +728,7 @@ open class PresetLibrary {
 //        colorClamp?.setValue(, forKey: "inputMaxComponents")
         
         let colorControl = self.colorControls(inputImage: colorClamp!.outputImage!, inputSaturation: 0.6)
-        return self.G6(ciimage: colorControl)
+        return self.G5(ciimage: colorControl)
     }
     
     func M2(ciimage: CIImage?) -> CIImage? {
@@ -717,8 +736,8 @@ open class PresetLibrary {
             return nil
         }
         
-        let min = CIVector(x: 0.08, y: 0.04, z: 0.04, w: 0)
-        let max = CIVector(x: 0.6, y: 0.6, z: 0.6, w: 1)
+        let min = CIVector(x: 0.03, y: 0.03, z: 0.03, w: 0)
+        let max = CIVector(x: 0.9, y: 0.9, z: 0.9, w: 1)
         
         let colorClamp = CIFilter(name: "CIColorClamp")
         colorClamp?.setDefaults()
@@ -727,7 +746,7 @@ open class PresetLibrary {
         colorClamp?.setValue(max, forKey: "inputMaxComponents")
         
         let colorControl = self.colorControls(inputImage: colorClamp!.outputImage!, inputSaturation: 0.8)
-        return self.G6(ciimage: colorControl)
+        return self.G5(ciimage: colorControl)
     }
     
     func M3(ciimage: CIImage?) -> CIImage? {
@@ -735,8 +754,8 @@ open class PresetLibrary {
             return nil
         }
         
-        let min = CIVector(x: 0.01, y: 0.04, z: 0.04, w: 0)
-        let max = CIVector(x: 0.6, y: 0.6, z: 0.6, w: 1)
+        let min = CIVector(x: 0.06, y: 0.02, z: 0.02, w: 0)
+        let max = CIVector(x: 1, y: 1, z: 1, w: 1)
         
         let colorClamp = CIFilter(name: "CIColorClamp")
         colorClamp?.setDefaults()
@@ -745,7 +764,18 @@ open class PresetLibrary {
         colorClamp?.setValue(max, forKey: "inputMaxComponents")
         
         let colorControl = self.colorControls(inputImage: colorClamp!.outputImage!, inputSaturation: 0.8)
-        return self.G6(ciimage: colorControl)
+        let multi = MultiBandHSV()
+        multi.inputImage = colorControl
+        multi.inputOrangeShift = .init(x: -0.018059698864817619, y: 1.1635820865631104, z: 1)
+        multi.inputGreenShift = .init(x: -0.02477613091468811,  y: 1.130149245262146, z: 1)
+        multi.inputYellowShift = .init(x: 0, y: 0.31283584237098694, z: 1)
+        multi.inputBlueShift = .init(x: -0.036268647760152817, y: 0.75283581018447876, z: 1)
+        multi.inputAquaShift = .init(x: -0.034477628767490387, y: 0.67850750684738159, z: 1)
+        multi.inputRedShift = .init(x: 0, y: 1, z: 1)
+        
+        let fade = self.CIPhotoEffectFade(ciimage: multi.outputImage)
+        
+        return fade
     }
     
     func GrainGenerator(size:CGSize) -> CIImage? {

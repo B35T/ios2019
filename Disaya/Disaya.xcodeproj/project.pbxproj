@@ -57,6 +57,7 @@
 		404F090E228A85A000AC15DE /* LightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F090C228A85A000AC15DE /* LightCell.xib */; };
 		404F0911228A8A3500AC15DE /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F090F228A8A3500AC15DE /* ImageCell.swift */; };
 		404F0912228A8A3500AC15DE /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 404F0910228A8A3500AC15DE /* ImageCell.xib */; };
+		40517E4E22B77AF3001E694F /* PanScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40517E4D22B77AF2001E694F /* PanScale.swift */; };
 		405449BE229652B10012CE57 /* LightCollectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405449BC229652B10012CE57 /* LightCollectCell.swift */; };
 		405449BF229652B10012CE57 /* LightCollectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405449BD229652B10012CE57 /* LightCollectCell.xib */; };
 		406E1F7022A16D0800610CFE /* SaveOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406E1F6F22A16D0800610CFE /* SaveOptionViewController.swift */; };
@@ -153,6 +154,7 @@
 		404F090C228A85A000AC15DE /* LightCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCell.xib; sourceTree = "<group>"; };
 		404F090F228A8A3500AC15DE /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		404F0910228A8A3500AC15DE /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		40517E4D22B77AF2001E694F /* PanScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanScale.swift; sourceTree = "<group>"; };
 		405449BC229652B10012CE57 /* LightCollectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightCollectCell.swift; sourceTree = "<group>"; };
 		405449BD229652B10012CE57 /* LightCollectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LightCollectCell.xib; sourceTree = "<group>"; };
 		406E1F6F22A16D0800610CFE /* SaveOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveOptionViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				40010E632287E92F003EB199 /* Slider */,
 				40010E622287E92A003EB199 /* Button */,
 				406E1F7122A17EF500610CFE /* LoadingCompletedOverlay.swift */,
+				40517E4D22B77AF2001E694F /* PanScale.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				404F0900228A7AF400AC15DE /* EditorViewControllers.swift in Sources */,
 				406E1F7022A16D0800610CFE /* SaveOptionViewController.swift in Sources */,
 				400C90B0228E79B800074251 /* view.swift in Sources */,
+				40517E4E22B77AF3001E694F /* PanScale.swift in Sources */,
 				40010E332287E859003EB199 /* Disaya.xcdatamodeld in Sources */,
 				40A96C102288048D005F066C /* Cover.swift in Sources */,
 				40010E6D2287EA9F003EB199 /* PhotosAsset.swift in Sources */,

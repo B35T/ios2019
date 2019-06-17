@@ -12,7 +12,7 @@ import Photos
 open class Editor: UIViewController {
     
     var imagePreview: Preview!
-    
+    var alphaScale:CGFloat = 1
     var size: CGSize {
         return .init(width: view.frame.width * UIScreen.main.scale, height: view.frame.width * UIScreen.main.scale)
     }
@@ -109,7 +109,7 @@ open class Editor: UIViewController {
     
     @objc internal func LongPressHide(_ sender: UILongPressGestureRecognizer) {
         switch sender.state {
-        case .ended: self.imagePreview.topView.alpha = 1
+        case .ended: self.imagePreview.topView.alpha = self.alphaScale
         default:
             self.imagePreview.topView.alpha = 0
         }
