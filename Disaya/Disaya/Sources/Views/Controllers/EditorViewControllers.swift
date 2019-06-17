@@ -48,6 +48,7 @@ class EditorViewControllers: Editor {
                     self.imagePreview.image = image
                     self.imagePreview.topView.alpha = 1
                     self.alphaScale = 1
+                    self.panScale.value = 1
                     
                     self.ciimage = CIImage(image: image)
                     
@@ -243,6 +244,10 @@ extension EditorViewControllers: HSLViewControllerDelegate, CropViewControllerDe
 extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
     func PresetDidSelect(indexPath: IndexPath) {
         guard let ciimage = ciimage else {return}
+        self.panScale.value = 1
+        self.alphaScale = 1
+        self.imagePreview.topView.alpha = 1
+        
         self.index = indexPath
         guard let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: self.profile) else {return}
         self.imagePreview.top = UIImage(ciImage: result)
@@ -369,6 +374,7 @@ extension EditorViewControllers: OptionBackViewControllerDelegate, PanScaleDeleg
     }
     
     func PanAction(value: CGFloat) {
+        ShowScaleOverlay.shared.showOverlay(view: self.view, text: String(format: "%0.0f", value * 100))
         self.imagePreview.topView.alpha = value
         self.alphaScale = value
     }
