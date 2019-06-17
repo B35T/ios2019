@@ -247,6 +247,8 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
         self.panScale.value = 1
         self.alphaScale = 1
         self.imagePreview.topView.alpha = 1
+        ShowScaleOverlay.shared.showOverlay(view: self.view, text: String(format: "%0.0f", 100))
+        
         
         self.index = indexPath
         guard let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: self.profile) else {return}
