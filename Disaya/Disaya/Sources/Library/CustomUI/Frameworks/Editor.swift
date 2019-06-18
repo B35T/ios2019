@@ -64,43 +64,102 @@ open class Editor: UIViewController {
         completion!(true)
     }
     
-    open func highQulityRender(_ asset: PHAsset, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile, completion: ((Bool) -> Void)? = nil) {
-        PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
-            guard let ciimage = CIImage(data: data!) else {return}
-            let scale = self.maxCal(ago: cropData.2!, new: ciimage.extent.size)
-            if cropData.0 != nil && cropData.1 != 0 {
-                let filter = CIFilter(name: "CIStraightenFilter")
-                filter?.setDefaults()
-                filter?.setValue(ciimage, forKey: "inputImage")
-                filter?.setValue(cropData.1, forKey: "inputAngle")
+    open func highQulityRender(_ asset: PHAsset, cropData:(CGRect?, Float?, CGSize?), alpha:CGFloat = 1, profile:DisayaProfile, completion: ((Bool) -> Void)? = nil) {
+        print("alpha \(alpha)")
+        if alpha < 0.95 {
+            print("A")
+            PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
+                guard let ciimage = CIImage(data: data!) else {return}
+                let scale = self.maxCal(ago: cropData.2!, new: ciimage.extent.size)
                 
-                let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
-                let cgimage = filter?.outputImage?.toCGImage?.cropping(to: rect)
-                
-                if let result = PresetLibrary().toolCreate(ciimage: CIImage(cgImage: cgimage!), Profile: profile, scale: scale)?.toCGImage {
-                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
-                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-                }
-                
-            } else if cropData.1 == 0 && cropData.0 != nil {
-                
-                let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
-                let cgimage = ciimage.toCGImage?.cropping(to: rect)
-                
-                if let result = PresetLibrary().toolCreate(ciimage: CIImage(cgImage: cgimage!), Profile: profile,scale: scale)?.toCGImage {
-                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
-                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-                }
-            } else {
-                
-                if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile, scale: scale)?.toCGImage {
-                    let img = UIImage(cgImage: result, scale: 1, orientation: or)
-                    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
-                }
-            }
-            completion!(true)
-        }
+                if cropData.0 != nil && cropData.1 != 0 {
+                    let filter = CIFilter(name: "CIStraightenFilter")
+                    filter?.setDefaults()
+                    filter?.setValue(ciimage, forKey: "inputImage")
+                    filter?.setValue(cropData.1, forKey: "inputAngle")
+                    
+                    let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+                    let cgimage = filter?.outputImage?.toCGImage?.cropping(to: rect)
+                    
+                    let imageBottom = UIImage(cgImage: cgimage!, scale: 1, orientation: or)
+                    
+                    if let result = PresetLibrary().toolCreate(ciimage: CIImage(cgImage: cgimage!), Profile: profile, scale: scale)?.toCGImage {
+                        
+                        let imageTop = UIImage(cgImage: result, scale: 1, orientation: or)
+                        
+                        let merge = PresetLibrary().Merge(top: imageTop, buttom: imageBottom, alpha: alpha, blandMode: .normal)
+                        UIImageWriteToSavedPhotosAlbum(merge!, nil, nil, nil)
+                    }
+                    
+                } else if cropData.1 == 0 && cropData.0 != nil {
+                    
+                    let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+                    let cgimage = ciimage.toCGImage?.cropping(to: rect)
+                    
+                    let imageBottom = UIImage(cgImage: cgimage!, scale: 1, orientation: or)
+                    
+                    if let result = PresetLibrary().toolCreate(ciimage: CIImage(cgImage: cgimage!), Profile: profile,scale: scale)?.toCGImage {
+                        let imageTop = UIImage(cgImage: result, scale: 1, orientation: or)
+                        
+                        let merge = PresetLibrary().Merge(top: imageTop, buttom: imageBottom, alpha: alpha, blandMode: .normal)
+                        UIImageWriteToSavedPhotosAlbum(merge!, nil, nil, nil)
+                    }
+                } else {
+                    
+                    if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile, scale: scale)?.toCGImage {
+                        let imageBottom = UIImage(cgImage: ciimage.toCGImage!, scale: 1, orientation: or)
 
+                        let imageTop = UIImage(cgImage: result, scale: 1, orientation: or)
+                        
+                        let merge = PresetLibrary().Merge(top: imageTop, buttom: imageBottom, alpha: alpha, blandMode: .normal)
+                        UIImageWriteToSavedPhotosAlbum(merge!, nil, nil, nil)
+                    }
+                }
+                completion!(true)
+            }
+
+        } else {
+            //normal scale
+            PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
+                guard let ciimage = CIImage(data: data!) else {return}
+                let scale = self.maxCal(ago: cropData.2!, new: ciimage.extent.size)
+                if cropData.0 != nil && cropData.1 != 0 {
+                    let filter = CIFilter(name: "CIStraightenFilter")
+                    filter?.setDefaults()
+                    filter?.setValue(ciimage, forKey: "inputImage")
+                    filter?.setValue(cropData.1, forKey: "inputAngle")
+                    
+                    let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+                    let cgimage = filter?.outputImage?.toCGImage?.cropping(to: rect)
+                    
+                    if let result = PresetLibrary().toolCreate(ciimage: CIImage(cgImage: cgimage!), Profile: profile, scale: scale)?.toCGImage {
+                        let img = UIImage(cgImage: result, scale: 1, orientation: or)
+                        UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                    }
+                    
+                } else if cropData.1 == 0 && cropData.0 != nil {
+                    
+                    let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)
+                    let cgimage = ciimage.toCGImage?.cropping(to: rect)
+                    
+                    if let result = PresetLibrary().toolCreate(ciimage: CIImage(cgImage: cgimage!), Profile: profile,scale: scale)?.toCGImage {
+                        let img = UIImage(cgImage: result, scale: 1, orientation: or)
+                        UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                    }
+                } else {
+                    
+                    if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile, scale: scale)?.toCGImage {
+                        let img = UIImage(cgImage: result, scale: 1, orientation: or)
+                        UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                    }
+                }
+                completion!(true)
+            }
+
+        }
+        
+        
+        
     }
  
     open override var prefersStatusBarHidden: Bool {

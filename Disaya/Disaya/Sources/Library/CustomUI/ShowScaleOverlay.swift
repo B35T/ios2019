@@ -33,7 +33,7 @@ public class ShowScaleOverlay {
         self.label.frame = .init(x: 0, y: 0, width: overlayView.frame.width, height: 60)
         self.label.textColor = black
         self.label.text = text
-        self.label.font = UIFont.boldSystemFont(ofSize: 26)
+        self.label.font = UIFont.boldSystemFont(ofSize: 22)
         self.label.textAlignment = .center
         self.overlayView.addSubview(self.label)
         

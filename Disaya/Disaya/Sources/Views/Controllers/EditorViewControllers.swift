@@ -247,9 +247,8 @@ extension EditorViewControllers: PresetCellDelegate, MenuCellDelegate {
         self.panScale.value = 1
         self.alphaScale = 1
         self.imagePreview.topView.alpha = 1
-        ShowScaleOverlay.shared.showOverlay(view: self.view, text: String(format: "%0.0f", 100))
-        
-        
+        ShowScaleOverlay.shared.showOverlay(view: self.view, text: "100")
+
         self.index = indexPath
         guard let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: self.profile) else {return}
         self.imagePreview.top = UIImage(ciImage: result)
@@ -339,7 +338,7 @@ extension EditorViewControllers: LightSliderDelegate {
 extension EditorViewControllers: SaveOptionViewControllerDelegate {
     func saveMax(viewController: SaveOptionViewController) {
         guard let asset = self.asset else { return }
-        self.highQulityRender(asset, cropData: self.cropData, profile: self.profile) { (_) in
+        self.highQulityRender(asset, cropData: self.cropData, alpha: self.alphaScale, profile: self.profile) { (_) in
             viewController.activity.isHidden = true
             viewController.activity.stopAnimating()
             viewController.dismiss(animated: true, completion: nil)

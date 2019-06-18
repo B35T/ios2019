@@ -68,11 +68,13 @@ extension PresetLibrary {
             m.inputPurpleShift = HSL.purple?.vector ??  CIVector(x: 0, y: 1, z: 1)
             m.inputMagentaShift = HSL.magenta?.vector ??  CIVector(x: 0, y: 1, z: 1)
             
-            ci = m.outputImage!
+            if let me = m.outputImage {
+                ci = me
+            }
         }
         
         if let exposure = Profile?.exposure {
-            ci = self.exposureAdjust(inputImage: ciimage, inputEV: NSNumber(value: exposure.toFloat))!
+            ci = self.exposureAdjust(inputImage: ci, inputEV: NSNumber(value: exposure.toFloat))!
         }
         
         var s = NSNumber(value: 1)
