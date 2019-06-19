@@ -46,7 +46,7 @@ class PhotosAsset: UICollectionViewController {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .white
         self.collectionView.backgroundColor = .clear
         self.collectionView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellWithReuseIdentifier: reuseIdentifier)
     }

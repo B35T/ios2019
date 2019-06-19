@@ -36,16 +36,16 @@ open class Cover: UIImageView {
         
         let logoImageView = UIImageView()
         self.logoImageView = logoImageView
-        self.logoImageView.frame.size = .init(width: 184, height: 87)
+        self.logoImageView.frame.size = .init(width: 350 , height: 200)
         self.logoImageView.center = self.center
         self.logoImageView.contentMode = .scaleAspectFit
         self.insertSubview(self.logoImageView, at: 0)
         
-        let logo = UIImage(named: "Logo.png")
+        let logo = UIImage(named: "LogoLight.png")
         self.logoImageView.image = logo
         
-        let colorTop =  UIColor.black.withAlphaComponent(0).cgColor
-        let colorBottom = UIColor.black.cgColor
+        let colorTop =  UIColor.white.withAlphaComponent(0).cgColor
+        let colorBottom = UIColor.white.cgColor
         
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [colorTop, colorBottom]

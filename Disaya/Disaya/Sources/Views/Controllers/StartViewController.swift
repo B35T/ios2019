@@ -23,7 +23,7 @@ class StartViewController: PhotosAsset {
         self.cover = cover
         self.view.insertSubview(self.cover, at: 0)
         
-        let blur = UIBlurEffect.init(style: .dark)
+        let blur = UIBlurEffect.init(style: .extraLight)
         let blurView = UIVisualEffectView(effect: blur)
         self.blurView = blurView
         self.blurView.frame = view.frame
@@ -41,7 +41,7 @@ class StartViewController: PhotosAsset {
         self.titleLabel.clipsToBounds = true
         self.titleLabel.textColor = black
         self.titleLabel.backgroundColor = .white
-        self.titleLabel.text = "TY img from unsplash.com/@damian_ivanovv"
+        self.titleLabel.text = ".day image filter, preset and editor"
         self.titleLabel.font = UIFont.boldSystemFont(ofSize: 10)
         self.titleLabel.textAlignment = .center
         
@@ -57,11 +57,11 @@ class StartViewController: PhotosAsset {
                 setting.frame.size = .init(width: 250, height: 50)
                 setting.frame.origin.y = self.view.frame.maxY - 100
                 setting.center.x = self.view.center.x
-                setting.backgroundColor = .white
+                setting.backgroundColor = blue
                 setting.setTitle("Allow access to Photos", for: .normal)
-                setting.setTitleColor(blue, for: .normal)
-                setting.titleLabel?.font = .boldSystemFont(ofSize: 11)
-                setting.layer.cornerRadius = 4
+                setting.setTitleColor(.white, for: .normal)
+                setting.titleLabel?.font = .boldSystemFont(ofSize: 12)
+                setting.layer.cornerRadius = 6
                 setting.clipsToBounds = true
                 setting.addTarget(self, action: #selector(openSetting), for: .touchUpInside)
                 self.view.addSubview(setting)
@@ -84,7 +84,7 @@ class StartViewController: PhotosAsset {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.cover.image = UIImage(named: "cover2.jpg")
+        self.cover.image = UIImage(named: "cover1.jpg")
     }
 }
 
