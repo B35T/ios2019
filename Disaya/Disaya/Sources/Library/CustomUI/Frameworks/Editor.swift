@@ -47,27 +47,29 @@ open class Editor: UIViewController {
         
     }
     
-    open func nornalRender(ciimage:CIImage?, cropData:(CGRect?, Float?, CGSize?), profile:DisayaProfile, completion: ((Bool) -> Void)? = nil) {
+    open func nornalRender(ciimage:CIImage?, cropData:(CGRect?, Float?, CGSize?), alpha:CGFloat = 1, profile:DisayaProfile, completion: ((Bool) -> Void)? = nil) {
         guard let ciimage = ciimage else {return}
-        
-        if cropData.0 != nil {
+        if alpha < 0.95 {
             if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage {
-                let img = UIImage(cgImage: result)
-                UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
+                
+                let imageBottom = UIImage(cgImage: ciimage.toCGImage!)
+                
+                let imageTop = UIImage(cgImage: result)
+                let merge = PresetLibrary().Merge(top: imageTop, buttom: imageBottom, alpha: alpha, blandMode: .normal)
+                UIImageWriteToSavedPhotosAlbum(merge!, nil, nil, nil)
             }
+            completion!(true)
         } else {
             if let result = PresetLibrary().toolCreate(ciimage: ciimage, Profile: profile)?.toCGImage {
                 let img = UIImage(cgImage: result)
                 UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil)
             }
+            completion!(true)
         }
-        completion!(true)
     }
     
     open func highQulityRender(_ asset: PHAsset, cropData:(CGRect?, Float?, CGSize?), alpha:CGFloat = 1, profile:DisayaProfile, completion: ((Bool) -> Void)? = nil) {
-        print("alpha \(alpha)")
         if alpha < 0.95 {
-            print("A")
             PHImageManager.default().requestImageData(for: asset, options: nil) { (data, str, or, info) in
                 guard let ciimage = CIImage(data: data!) else {return}
                 let scale = self.maxCal(ago: cropData.2!, new: ciimage.extent.size)
@@ -90,7 +92,6 @@ open class Editor: UIViewController {
                         let merge = PresetLibrary().Merge(top: imageTop, buttom: imageBottom, alpha: alpha, blandMode: .normal)
                         UIImageWriteToSavedPhotosAlbum(merge!, nil, nil, nil)
                     }
-                    
                 } else if cropData.1 == 0 && cropData.0 != nil {
                     
                     let rect = self.cropMultiply(ago: cropData.2!, new: ciimage.extent.size, cropData: cropData.0!)

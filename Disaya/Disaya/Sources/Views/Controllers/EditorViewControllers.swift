@@ -351,7 +351,7 @@ extension EditorViewControllers: SaveOptionViewControllerDelegate {
     }
     
     func saveNormal(viewController: SaveOptionViewController) {
-        self.nornalRender(ciimage: self.ciimage!, cropData: self.cropData, profile: self.profile) { (_) in
+        self.nornalRender(ciimage: self.ciimage!, cropData: self.cropData,alpha: self.alphaScale, profile: self.profile) { (_) in
             viewController.activity.isHidden = true
             viewController.activity.startAnimating()
             viewController.dismiss(animated: true, completion: nil)
