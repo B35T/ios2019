@@ -45,7 +45,6 @@
 		400C90C3228E9F7800074251 /* StraightenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90C1228E9F7800074251 /* StraightenCell.swift */; };
 		400C90C4228E9F7800074251 /* StraightenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 400C90C2228E9F7800074251 /* StraightenCell.xib */; };
 		4035ED7122A21C2300CE8773 /* OptionBackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4035ED7022A21C2300CE8773 /* OptionBackViewController.swift */; };
-		4035ED7322A2486700CE8773 /* cover2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4035ED7222A2486700CE8773 /* cover2.jpg */; };
 		40414AD32293B2710004B34D /* PresetLibrary + Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40414AD22293B2710004B34D /* PresetLibrary + Tool.swift */; };
 		404F0900228A7AF400AC15DE /* EditorViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */; };
 		404F0902228A7C5B00AC15DE /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404F0901228A7C5B00AC15DE /* Editor.swift */; };
@@ -144,7 +143,6 @@
 		400C90C1228E9F7800074251 /* StraightenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StraightenCell.swift; sourceTree = "<group>"; };
 		400C90C2228E9F7800074251 /* StraightenCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StraightenCell.xib; sourceTree = "<group>"; };
 		4035ED7022A21C2300CE8773 /* OptionBackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionBackViewController.swift; sourceTree = "<group>"; };
-		4035ED7222A2486700CE8773 /* cover2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cover2.jpg; sourceTree = "<group>"; };
 		40414AD22293B2710004B34D /* PresetLibrary + Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresetLibrary + Tool.swift"; sourceTree = "<group>"; };
 		404F08FF228A7AF400AC15DE /* EditorViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewControllers.swift; sourceTree = "<group>"; };
 		404F0901228A7C5B00AC15DE /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
@@ -468,7 +466,6 @@
 			children = (
 				408A63AA22BA17FD006FA990 /* cover1.jpg */,
 				408A63A822BA1793006FA990 /* LogoLight.png */,
-				4035ED7222A2486700CE8773 /* cover2.jpg */,
 				40025045228AA0EE00E4FCB1 /* icon */,
 			);
 			path = StaticFile;
@@ -605,7 +602,6 @@
 				404F0906228A858000AC15DE /* MenuCell.xib in Resources */,
 				40010E382287E85B003EB199 /* LaunchScreen.storyboard in Resources */,
 				4002504E228AA11900E4FCB1 /* HSL.png in Resources */,
-				4035ED7322A2486700CE8773 /* cover2.jpg in Resources */,
 				400C90C4228E9F7800074251 /* StraightenCell.xib in Resources */,
 				404F090A228A858F00AC15DE /* PresetCell.xib in Resources */,
 				40025051228AA11900E4FCB1 /* crop.png in Resources */,
@@ -837,7 +833,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -864,6 +860,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
@@ -872,7 +869,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.Darin;
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -883,6 +880,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H7CF9VVF6X;
 				INFOPLIST_FILE = Disaya/Info.plist;
@@ -891,7 +889,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.Darin;
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.Day;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
