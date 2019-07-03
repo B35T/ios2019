@@ -20,6 +20,7 @@ class CameraViewController: CameraViewModels {
     @IBOutlet weak var shutterBtn: UIButton!
     @IBOutlet weak var tutorialBtn: UIButton!
     @IBOutlet weak var loadBtn: UIButton!
+    @IBOutlet weak var filmView:UIView!
     
     
     var save:CGRect = .zero
@@ -107,13 +108,27 @@ class CameraViewController: CameraViewModels {
         self.AFBtn.addTarget(self, action: #selector(AFAction(_:)), for: .touchUpInside)
         self.FlashBtn.addTarget(self, action: #selector(flashAction(_:)), for: .touchUpInside)
         self.loadBtn.addTarget(self, action: #selector(loadAction(_:)), for: .touchUpInside)
+        self.shutterBtn.addTarget(self, action: #selector(shutterAction), for: .touchUpInside)
+    }
+    
+    @objc internal func shutterAction() {
+        UIView.animate(withDuration: 0.3) {
+            if self.isLoad {
+                self.bgBottom.frame.origin.y = 0
+                self.loadBtn.transform = .init(rotationAngle: .pi / 180 * 0)
+            }
+            self.isLoad = false
+        }
+        
     }
     
     @objc internal func loadAction(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.2) {
+        UIView.animate(withDuration: 0.3) {
             if self.isLoad {
+                self.bgBottom.frame.origin.y = 0
                 sender.transform = .init(rotationAngle: .pi / 180 * 0)
             } else {
+                self.bgBottom.frame.origin.y = -self.view.frame.height
                 sender.transform = .init(rotationAngle: .pi / 180 * 90)
             }
             self.isLoad = !self.isLoad
