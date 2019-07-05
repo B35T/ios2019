@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		405BE2C922CEFF4E0014AB55 /* PhotosViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2C822CEFF4E0014AB55 /* PhotosViewModels.swift */; };
+		405BE2CB22CEFF5F0014AB55 /* CatalogViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2CA22CEFF5F0014AB55 /* CatalogViewModels.swift */; };
+		405BE2CD22CEFFF20014AB55 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2CC22CEFFF20014AB55 /* PhotosViewController.swift */; };
+		405BE2CF22CEFFFC0014AB55 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2CE22CEFFFC0014AB55 /* CatalogViewController.swift */; };
+		405BE2D122CF00A20014AB55 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2D022CF00A20014AB55 /* ImageCell.swift */; };
+		405BE2D322CF03B10014AB55 /* imagepreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2D222CF03B10014AB55 /* imagepreviewCell.swift */; };
+		405BE2D522CF15180014AB55 /* PHLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2D422CF15180014AB55 /* PHLibrary.swift */; };
+		405BE2D722CF285E0014AB55 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2D622CF285E0014AB55 /* FileManager.swift */; };
 		40784D9222CDB3BD0074CC43 /* FilmPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40784D9122CDB3BD0074CC43 /* FilmPreviewCell.swift */; };
 		40784D9422CDBB4C0074CC43 /* color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40784D9322CDBB4C0074CC43 /* color.swift */; };
 		40784D9822CDC8350074CC43 /* AddNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 40784D9522CDC8340074CC43 /* AddNew.png */; };
@@ -59,6 +67,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		405BE2C822CEFF4E0014AB55 /* PhotosViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModels.swift; sourceTree = "<group>"; };
+		405BE2CA22CEFF5F0014AB55 /* CatalogViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModels.swift; sourceTree = "<group>"; };
+		405BE2CC22CEFFF20014AB55 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
+		405BE2CE22CEFFFC0014AB55 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		405BE2D022CF00A20014AB55 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		405BE2D222CF03B10014AB55 /* imagepreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imagepreviewCell.swift; sourceTree = "<group>"; };
+		405BE2D422CF15180014AB55 /* PHLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHLibrary.swift; sourceTree = "<group>"; };
+		405BE2D622CF285E0014AB55 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		40784D9122CDB3BD0074CC43 /* FilmPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmPreviewCell.swift; sourceTree = "<group>"; };
 		40784D9322CDBB4C0074CC43 /* color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = color.swift; sourceTree = "<group>"; };
 		40784D9522CDC8340074CC43 /* AddNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddNew.png; sourceTree = "<group>"; };
@@ -128,6 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				40784D9122CDB3BD0074CC43 /* FilmPreviewCell.swift */,
+				405BE2D022CF00A20014AB55 /* ImageCell.swift */,
+				405BE2D222CF03B10014AB55 /* imagepreviewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -199,6 +217,7 @@
 		40C7B2A622CC6766001EEEFA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				405BE2D622CF285E0014AB55 /* FileManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +227,8 @@
 			children = (
 				40784D9022CDB2F60074CC43 /* Cells */,
 				40C7B2AB22CC67A4001EEEFA /* CameraViewController.swift */,
+				405BE2CC22CEFFF20014AB55 /* PhotosViewController.swift */,
+				405BE2CE22CEFFFC0014AB55 /* CatalogViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +237,8 @@
 			isa = PBXGroup;
 			children = (
 				40C7B2A922CC6791001EEEFA /* CameraViewModels.swift */,
+				405BE2C822CEFF4E0014AB55 /* PhotosViewModels.swift */,
+				405BE2CA22CEFF5F0014AB55 /* CatalogViewModels.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -225,6 +248,7 @@
 			children = (
 				40C7B2AE22CC687E001EEEFA /* Other.swift */,
 				40784D9322CDBB4C0074CC43 /* color.swift */,
+				405BE2D422CF15180014AB55 /* PHLibrary.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -423,13 +447,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				405BE2D722CF285E0014AB55 /* FileManager.swift in Sources */,
 				40784D9422CDBB4C0074CC43 /* color.swift in Sources */,
+				405BE2D522CF15180014AB55 /* PHLibrary.swift in Sources */,
 				40C7B2AC22CC67A4001EEEFA /* CameraViewController.swift in Sources */,
 				40C7B2AA22CC6791001EEEFA /* CameraViewModels.swift in Sources */,
+				405BE2D322CF03B10014AB55 /* imagepreviewCell.swift in Sources */,
 				40C7B27D22CC6725001EEEFA /* FLIM2019.xcdatamodeld in Sources */,
+				405BE2CB22CEFF5F0014AB55 /* CatalogViewModels.swift in Sources */,
+				405BE2D122CF00A20014AB55 /* ImageCell.swift in Sources */,
 				40C7B2AF22CC687E001EEEFA /* Other.swift in Sources */,
+				405BE2C922CEFF4E0014AB55 /* PhotosViewModels.swift in Sources */,
+				405BE2CF22CEFFFC0014AB55 /* CatalogViewController.swift in Sources */,
 				40784D9222CDB3BD0074CC43 /* FilmPreviewCell.swift in Sources */,
 				40C7B27522CC6725001EEEFA /* AppDelegate.swift in Sources */,
+				405BE2CD22CEFFF20014AB55 /* PhotosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +644,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIM2019;
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIMClassic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -631,7 +663,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIM2019;
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIMClassic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

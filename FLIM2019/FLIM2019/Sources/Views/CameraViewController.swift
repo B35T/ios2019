@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class CameraViewController: CameraViewModels {
 
@@ -124,11 +125,12 @@ class CameraViewController: CameraViewModels {
         self.view.backgroundColor = bg
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        self.delegate = self
         
         self.bgTop.image = UIImage(named: "bgtop.png")
         self.bgBottom.image = UIImage(named: "skin.png")
         self.viewFinderFrame.image = UIImage(named: "ViewFider.png")
-        self.viewFinder.image = UIImage(named: "IMG_0327.JPG")
+//        self.viewFinder.image = UIImage(named: "IMG_0327.JPG")
         self.AFBtn.setBackgroundImage(UIImage(named: "AF.png"), for: .normal)
         self.FlashBtn.setBackgroundImage(UIImage(named: "Flash.png"), for: .normal)
         self.shutterBtn.setBackgroundImage(UIImage(named: "Shutter.png"), for: .normal)
@@ -148,6 +150,20 @@ class CameraViewController: CameraViewModels {
         self.FlashBtn.addTarget(self, action: #selector(flashAction(_:)), for: .touchUpInside)
         self.loadBtn.addTarget(self, action: #selector(loadAction(_:)), for: .touchUpInside)
         self.shutterBtn.addTarget(self, action: #selector(shutterAction), for: .touchUpInside)
+        self.toPhotos.addTarget(self, action: #selector(toPhotosAction), for: .touchUpInside)
+        
+        self.autoFocus(action:self.isAF)
+        self.initailize(preview: self.viewFinder)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "photos" {
+//            let destination = segue.destination as! PhotosViewController
+        }
+    }
+    
+    @objc internal func toPhotosAction() {
+        self.performSegue(withIdentifier: "photos", sender: nil)
     }
     
     @objc internal func fullViewAction(_ sender:UITapGestureRecognizer) {
@@ -158,7 +174,7 @@ class CameraViewController: CameraViewModels {
                 } else {
                     view.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.width * 1.3333)
                 }
-                
+                self.updatePreviewLayer(frame: view.frame)
                 self.isFullView.isFull = !self.isFullView.isFull
             }
             
@@ -170,6 +186,8 @@ class CameraViewController: CameraViewModels {
             if self.isLoad {
                 self.bgBottom.frame.origin.y = 0
                 self.loadBtn.transform = .init(rotationAngle: .pi / 180 * 0)
+            } else {
+                self.capture(flash: self.isFlash)
             }
             self.isLoad = false
         }
@@ -198,6 +216,7 @@ class CameraViewController: CameraViewModels {
         }
         
         self.isAF = !self.isAF
+        self.autoFocus(action: self.isAF)
     }
     
     @objc internal func flashAction(_ sender: UIButton) {
@@ -211,6 +230,16 @@ class CameraViewController: CameraViewModels {
     }
 }
 
+extension CameraViewController: CameraViewModeleDelegate {
+    func output(image: UIImage?) {
+        print("action")
+        guard let image = image else {print("no image");return}
+//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+        PHPhotoLibrary.shared().savePhoto(image: image, albumName: "FLIM-I")
+    }
+}
+
 
 extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -220,9 +249,7 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilmPreviewCell", for: indexPath) as! FilmPreviewCell
         cell.imageview.image = UIImage(named: "IMG_0327.JPG")?.ColorInvertFX
-        cell.imageview.alpha = 0.3
-//        cell.backgroundColor = .clear
-//        cell.layer.compositingFilter = "colorInvert"
+        cell.imageview.alpha = 0.5
         return cell
     }
     
