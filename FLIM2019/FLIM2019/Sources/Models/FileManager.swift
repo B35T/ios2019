@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 open class UserFileManager {
     
@@ -18,14 +20,122 @@ open class UserFileManager {
     }
     
 
+    var context: NSManagedObjectContext {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        return delegate.persistentContainer.viewContext
+    }
     
     func document() -> URL? {
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        return url
+    }
+    
+    func removeInPath(namePath path:String) {
+        let url = self.document()?.appendingPathComponent("/\(self.path())")
         do {
-            let url = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            return url
+            try FileManager.default.removeItem(atPath: url!.path)
         } catch {
-            return nil
+            fatalError("err delete path")
         }
+    }
+
+    
+    func saveInPath(image:UIImage, cover:UIImage, completion: (_ action: Bool) -> ()) {
+        self.counter_id()
+        let id = UserDefaults.standard.value(forKey: "counter") as! Int
+        
+        let insert = NSEntityDescription.insertNewObject(forEntityName: "Slot", into: self.context)
+        let dataCover = cover.jpegData(compressionQuality: 1)!
+        if let data = image.jpegData(compressionQuality: 1) {
+            
+            insert.setValue(data, forKey: "imageData")
+            insert.setValue(id, forKey: "id")
+            insert.setValue(dataCover, forKey: "coverData")
+            
+            do {
+                try context.save()
+            } catch {
+                fatalError("err save image")
+            }
+            
+            completion(true)
+        } else {
+            print("no image")
+        }
+    }
+    
+    func count() -> Int {
+        let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Slot")
+        fetch.returnsObjectsAsFaults = false
+        
+        var i:Int = 0
+        
+        let results = try! context.fetch(fetch)
+        
+        if results.count > 0 {
+            for _ in results as! [NSManagedObject] {
+                i += 1
+            }
+        } else {
+            print("no image ")
+        }
+        return i
+    }
+    
+    func findLast() -> UIImage? {
+        let id = UserDefaults.standard.value(forKey: "counter") as! Int
+        let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Slot")
+        fetch.predicate = NSPredicate(format: "id = %@", String(id))
+        fetch.returnsObjectsAsFaults = false
+     
+        
+        let results = try! context.fetch(fetch)
+        
+        if results.count > 0 {
+            for result in results as! [NSManagedObject] {
+                let data = result.value(forKey: "coverData")
+                return UIImage(data: data as! Data)
+            }
+        }
+        return nil
+    }
+    
+    func findCover() -> [UIImage?] {
+        let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Slot")
+        fetch.returnsObjectsAsFaults = false
+        
+        var image:[UIImage?] = []
+        
+        let results = try! context.fetch(fetch)
+        
+        if results.count > 0 {
+            for result in results as! [NSManagedObject] {
+                let data = result.value(forKey: "coverData")
+                image.append(UIImage(data: data as! Data))
+            }
+        } else {
+            print("no image ")
+        }
+        return image
+    }
+    
+    func findAll() -> [UIImage?] {
+        let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Slot")
+        fetch.returnsObjectsAsFaults = false
+        
+        var image:[UIImage?] = []
+        
+        let results = try! context.fetch(fetch)
+        
+        if results.count > 0 {
+            for result in results as! [NSManagedObject] {
+                let data = result.value(forKey: "imageData")
+                image.append(UIImage(data: data as! Data))
+            }
+        } else {
+            print("no image ")
+        }
+        return image
     }
     
     func get_value(key:String) -> Any? {
@@ -35,26 +145,37 @@ open class UserFileManager {
     func set_style(name:String) {
         UserDefaults.standard.set(name, forKey: "styles")
     }
+    
+    func path() -> Int {
+        return UserDefaults.standard.value(forKey: "path") as! Int
+    }
 
-    func generator_id() -> Int {
-        if var id = UserDefaults.standard.value(forKey: "id") as? Int {
-            id += 1
-            UserDefaults.standard.set(id, forKey: "id")
-            return id
+    func develop(status:Bool) {
+        UserDefaults.standard.set(status, forKey: "develop")
+    }
+
+    func generator_path() -> Int? {
+        if let dev = UserDefaults.standard.value(forKey: "develop") as? Bool, !dev {
+            if UserDefaults.standard.value(forKey: "path") == nil {
+                UserDefaults.standard.set(1, forKey: "path")
+                return 1
+            } else {
+                return UserDefaults.standard.value(forKey: "path") as? Int
+            }
         } else {
-            UserDefaults.standard.set(1, forKey: "id")
-            return 1
+            return nil
         }
+        
+            
     }
     
-    func counter(key:String, val:Int) {
+    func counter_id() {
         if var i = UserDefaults.standard.value(forKey: "counter") as? Int, i <= 35 {
             i += 1
             UserDefaults.standard.set(i , forKey: "counter")
         } else {
             UserDefaults.standard.set(1, forKey: "counter")
         }
-        
     }
     
     func setDefualt() {

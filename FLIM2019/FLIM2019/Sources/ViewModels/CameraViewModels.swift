@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol CameraViewModeleDelegate {
-    func output(image:UIImage?)
+    func output(image:UIImage?, cover: UIImage?)
 }
 
 open class CameraViewModels: UIViewController {
@@ -74,6 +74,13 @@ open class CameraViewModels: UIViewController {
     func capture(flash: Bool = false) {
         guard let device = self.photoOutput else {return}
         let setting = AVCapturePhotoSettings()
+        if setting.availablePreviewPhotoPixelFormatTypes.count > 0 {
+            setting.previewPhotoFormat = [
+                kCVPixelBufferPixelFormatTypeKey : setting.availablePreviewPhotoPixelFormatTypes.first!,
+                kCVPixelBufferWidthKey : 512,
+                kCVPixelBufferHeightKey : 512
+                ] as [String: Any]
+        }
         setting.flashMode = flash ? .on : .off
         device.capturePhoto(with: setting, delegate: self)
     }
@@ -105,10 +112,26 @@ extension CameraViewModels: AVCapturePhotoCaptureDelegate {
         }
         
         guard let imageDataInBuffer = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSimpleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer) else {return}
-        
+
+        let cover = previewPhotoSampleBuffer?.image()
+
         if let photo = UIImage.init(data: imageDataInBuffer) {
-//            UIImageWriteToSavedPhotosAlbum(photo, nil, nil, nil)
-            self.delegate?.output(image: photo)
+            print(cover?.size)
+            self.delegate?.output(image: photo, cover: cover)
         }
+    }
+}
+
+
+extension CMSampleBuffer {
+    func image(orientation: UIImage.Orientation = .up,
+               scale: CGFloat = 1.0) -> UIImage? {
+        if let buffer = CMSampleBufferGetImageBuffer(self) {
+            let ciImage = CIImage(cvPixelBuffer: buffer)
+            let colorInvert = ciImage.applyingFilter("CIColorInvert", parameters: [:])
+            return UIImage(cgImage: colorInvert.toCGImage!, scale: scale, orientation: orientation)
+        }
+        
+        return nil
     }
 }

@@ -37,8 +37,14 @@ class CameraViewController: CameraViewModels {
     var isAF = false
     var isFlash = false
     
+    var preview: [UIImage?] = []
     override func loadView() {
         super.loadView()
+        
+        self.preview = UserFileManager.shared.findCover()
+        
+        UserFileManager.shared.develop(status: false)
+        
         
         let r = self.view.frame
         
@@ -231,25 +237,31 @@ class CameraViewController: CameraViewModels {
 }
 
 extension CameraViewController: CameraViewModeleDelegate {
-    func output(image: UIImage?) {
-        print("action")
-        guard let image = image else {print("no image");return}
-//        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+    func output(image: UIImage?, cover: UIImage?) {
+        guard let image = image else {return}
+        UserFileManager.shared.saveInPath(image: image, cover: cover!) { (action) in
+            
+        }
+//        let img = UserFileManager.shared.findLast()
+        self.preview.append(cover)
         
-        PHPhotoLibrary.shared().savePhoto(image: image, albumName: "FLIM-I")
+        collectionView.performBatchUpdates({
+            self.collectionView.insertItems(at: [IndexPath(item: UserFileManager.shared.count() - 1, section: 0)])
+        })
     }
 }
 
 
 extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return UserFileManager.shared.count()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilmPreviewCell", for: indexPath) as! FilmPreviewCell
-        cell.imageview.image = UIImage(named: "IMG_0327.JPG")?.ColorInvertFX
         cell.imageview.alpha = 0.5
+        
+        cell.imageview.image = preview[indexPath.item]
         return cell
     }
     
@@ -281,5 +293,44 @@ extension UIImage {
         let ciimage = CIImage.init(image: self)
         let colorInvert = ciimage?.applyingFilter("CIColorInvert", parameters: [:])
         return UIImage.init(ciImage: colorInvert!)
+    }
+}
+
+
+extension CIImage {
+    var ColorInvertFX:UIImage? {
+        let colorInvert = self.applyingFilter("CIColorInvert", parameters: [:])
+        return UIImage(cgImage: colorInvert.toCGImage!)
+    }
+}
+
+
+extension CIImage {
+    public var context:CIContext? {
+        guard let device = MTLCreateSystemDefaultDevice() else {
+            return nil
+        }
+        
+        return CIContext.init(mtlDevice: device)
+    }
+    
+    func clear() {
+        self.context?.clearCaches()
+    }
+    
+    public var toCGImage: CGImage? {
+        if let r = self.context?.createCGImage(self, from: self.extent) {
+            self.clear()
+            return r
+        }
+        return nil
+    }
+    
+    public var RanderImage:UIImage? {
+        if let r = self.context?.createCGImage(self, from: self.extent) {
+            self.clear()
+            return UIImage(cgImage: r)
+        }
+        return nil
     }
 }

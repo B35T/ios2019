@@ -112,6 +112,7 @@ extension PhotosViewController: UICollectionViewDataSource {
         imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (image, _) in
             cell.imageview.image = image
         }
+
         
         return cell
     }
