@@ -162,6 +162,7 @@ class CameraViewController: CameraViewModels {
         self.shutterBtn.addTarget(self, action: #selector(shutterAction), for: .touchUpInside)
         self.toPhotos.addTarget(self, action: #selector(toPhotosAction), for: .touchUpInside)
         self.sendToDevelop.addTarget(self, action: #selector(sendToDevAction), for: .touchUpInside)
+        self.loadNewFilmBtn.addTarget(self, action: #selector(loadNewAction), for: .touchUpInside)
         
         self.autoFocus(action:self.isAF)
         self.initailize(preview: self.viewFinder)
@@ -171,6 +172,10 @@ class CameraViewController: CameraViewModels {
         if segue.identifier == "photos" {
 //            let destination = segue.destination as! PhotosViewController
         }
+    }
+    
+    @objc internal func loadNewAction() {
+        self.performSegue(withIdentifier: "catalog", sender: nil)
     }
     
     @objc internal func sendToDevAction() {
