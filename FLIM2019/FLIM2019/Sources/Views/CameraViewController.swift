@@ -127,6 +127,10 @@ class CameraViewController: CameraViewModels {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        PHPhotoLibrary.shared().createAlbum(albumName: "FLIM-I") { (coll) in
+            
+        }
 
         self.view.backgroundColor = bg
         self.collectionView.delegate = self
@@ -157,6 +161,7 @@ class CameraViewController: CameraViewModels {
         self.loadBtn.addTarget(self, action: #selector(loadAction(_:)), for: .touchUpInside)
         self.shutterBtn.addTarget(self, action: #selector(shutterAction), for: .touchUpInside)
         self.toPhotos.addTarget(self, action: #selector(toPhotosAction), for: .touchUpInside)
+        self.sendToDevelop.addTarget(self, action: #selector(sendToDevAction), for: .touchUpInside)
         
         self.autoFocus(action:self.isAF)
         self.initailize(preview: self.viewFinder)
@@ -166,6 +171,20 @@ class CameraViewController: CameraViewModels {
         if segue.identifier == "photos" {
 //            let destination = segue.destination as! PhotosViewController
         }
+    }
+    
+    @objc internal func sendToDevAction() {
+        let images = UserFileManager.shared.findAll()
+        for i in images {
+            if let i = i {
+                PHPhotoLibrary.shared().savePhoto(image: i, albumName: "FLIM-I")
+            }
+        }
+        
+        
+        UserFileManager.shared.setDefualt()
+        self.preview.removeAll()
+        self.collectionView.reloadData()
     }
     
     @objc internal func toPhotosAction() {
@@ -189,6 +208,17 @@ class CameraViewController: CameraViewModels {
     
     @objc internal func shutterAction() {
         UIView.animate(withDuration: 0.3) {
+            if UserDefaults.standard.value(forKey: "counter") as! Int == 36 {
+                let alert = UIAlertController(title: "Full", message: nil, preferredStyle: .actionSheet)
+                let send = UIAlertAction(title: "Send To Develop", style: .destructive, handler: { (action) in
+                    alert.dismiss(animated: true, completion: nil)
+                })
+                print("full")
+                alert.addAction(send)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
             if self.isLoad {
                 self.bgBottom.frame.origin.y = 0
                 self.loadBtn.transform = .init(rotationAngle: .pi / 180 * 0)
@@ -237,17 +267,15 @@ class CameraViewController: CameraViewModels {
 }
 
 extension CameraViewController: CameraViewModeleDelegate {
-    func output(image: UIImage?, cover: UIImage?) {
-        guard let image = image else {return}
-        UserFileManager.shared.saveInPath(image: image, cover: cover!) { (action) in
-            
-        }
-//        let img = UserFileManager.shared.findLast()
-        self.preview.append(cover)
+    func output(image: CIImage?, cover: UIImage?) {
+        guard let preset = PresetLibrary().M2(ciimage: image)?.toCGImage else {return}
+        guard let cover = cover else {print("nocover");return}
+        let image = UIImage(cgImage: preset, scale: 1, orientation: .up)
         
-        collectionView.performBatchUpdates({
-            self.collectionView.insertItems(at: [IndexPath(item: UserFileManager.shared.count() - 1, section: 0)])
-        })
+        UserFileManager.shared.saveInPath(image: image, cover: cover) { (action) in
+        }
+        self.preview.append(cover)
+        self.collectionView.reloadData()
     }
 }
 
@@ -259,7 +287,7 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilmPreviewCell", for: indexPath) as! FilmPreviewCell
-        cell.imageview.alpha = 0.5
+        cell.imageview.alpha = 0.7
         
         cell.imageview.image = preview[indexPath.item]
         return cell
@@ -300,37 +328,37 @@ extension UIImage {
 extension CIImage {
     var ColorInvertFX:UIImage? {
         let colorInvert = self.applyingFilter("CIColorInvert", parameters: [:])
-        return UIImage(cgImage: colorInvert.toCGImage!)
+        return UIImage(cgImage: colorInvert.toCGImage!, scale: 0.5, orientation: .right)
     }
 }
 
-
-extension CIImage {
-    public var context:CIContext? {
-        guard let device = MTLCreateSystemDefaultDevice() else {
-            return nil
-        }
-        
-        return CIContext.init(mtlDevice: device)
-    }
-    
-    func clear() {
-        self.context?.clearCaches()
-    }
-    
-    public var toCGImage: CGImage? {
-        if let r = self.context?.createCGImage(self, from: self.extent) {
-            self.clear()
-            return r
-        }
-        return nil
-    }
-    
-    public var RanderImage:UIImage? {
-        if let r = self.context?.createCGImage(self, from: self.extent) {
-            self.clear()
-            return UIImage(cgImage: r)
-        }
-        return nil
-    }
-}
+//
+//extension CIImage {
+//    public var context:CIContext? {
+//        guard let device = MTLCreateSystemDefaultDevice() else {
+//            return nil
+//        }
+//
+//        return CIContext.init(mtlDevice: device)
+//    }
+//
+//    func clear() {
+//        self.context?.clearCaches()
+//    }
+//
+//    public var toCGImage: CGImage? {
+//        if let r = self.context?.createCGImage(self, from: self.extent) {
+//            self.clear()
+//            return r
+//        }
+//        return nil
+//    }
+//
+//    public var RanderImage:UIImage? {
+//        if let r = self.context?.createCGImage(self, from: self.extent) {
+//            self.clear()
+//            return UIImage(cgImage: r)
+//        }
+//        return nil
+//    }
+//}

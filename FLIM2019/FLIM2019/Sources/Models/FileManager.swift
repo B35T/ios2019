@@ -45,8 +45,8 @@ open class UserFileManager {
         let id = UserDefaults.standard.value(forKey: "counter") as! Int
         
         let insert = NSEntityDescription.insertNewObject(forEntityName: "Slot", into: self.context)
-        let dataCover = cover.jpegData(compressionQuality: 1)!
-        if let data = image.jpegData(compressionQuality: 1) {
+        let dataCover = cover.jpegData(compressionQuality: 0.5)!
+        if let data = image.jpegData(compressionQuality: 0.5) {
             
             insert.setValue(data, forKey: "imageData")
             insert.setValue(id, forKey: "id")
@@ -100,6 +100,23 @@ open class UserFileManager {
         return nil
     }
     
+    func getimage(completion: (UIImage?) -> ()) {
+        let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Slot")
+        fetch.returnsObjectsAsFaults = false
+        
+        let results = try! context.fetch(fetch)
+        
+        if results.count > 0 {
+            for result in results as! [NSManagedObject] {
+                let data = result.value(forKey: "coverData")
+                completion(UIImage(data: data as! Data))
+            }
+        } else {
+            print("no image ")
+        }
+        
+    }
+    
     func findCover() -> [UIImage?] {
         let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Slot")
         fetch.returnsObjectsAsFaults = false
@@ -136,6 +153,28 @@ open class UserFileManager {
             print("no image ")
         }
         return image
+    }
+    
+    func removeCover() {
+        let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "Slot")
+        fetch.returnsObjectsAsFaults = false
+   
+        let results = try! context.fetch(fetch)
+        
+        if results.count > 0 {
+            for result in results as! [NSManagedObject] {
+                self.context.delete(result)
+                do {
+                    try self.context.save()
+                    
+                } catch {
+                    fatalError("err delegate Cover")
+                }
+            }
+        } else {
+            print("no image ")
+        }
+   
     }
     
     func get_value(key:String) -> Any? {
@@ -181,6 +220,7 @@ open class UserFileManager {
     func setDefualt() {
         UserDefaults.standard.set(0, forKey: "counter")
         UserDefaults.standard.set("none", forKey: "styles")
+        self.removeCover()
     }
     
 }

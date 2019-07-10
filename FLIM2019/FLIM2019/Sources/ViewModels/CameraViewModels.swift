@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol CameraViewModeleDelegate {
-    func output(image:UIImage?, cover: UIImage?)
+    func output(image:CIImage?, cover: UIImage?)
 }
 
 open class CameraViewModels: UIViewController {
@@ -35,8 +35,6 @@ open class CameraViewModels: UIViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
     
     func initailize(preview: UIView) {
@@ -115,8 +113,7 @@ extension CameraViewModels: AVCapturePhotoCaptureDelegate {
 
         let cover = previewPhotoSampleBuffer?.image()
 
-        if let photo = UIImage.init(data: imageDataInBuffer) {
-            print(cover?.size)
+        if let photo = CIImage(data: imageDataInBuffer)?.resize() {
             self.delegate?.output(image: photo, cover: cover)
         }
     }
@@ -133,5 +130,16 @@ extension CMSampleBuffer {
         }
         
         return nil
+    }
+}
+
+
+extension CIImage {
+    func resize() -> CIImage? {
+        let filter = CIFilter(name: "CILanczosScaleTransform")
+        filter?.setDefaults()
+        filter?.setValue(self, forKey: kCIInputImageKey)
+        filter?.setValue(0.7, forKey: kCIInputScaleKey)
+        return filter?.outputImage
     }
 }

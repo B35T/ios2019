@@ -52,7 +52,7 @@ extension PHPhotoLibrary {
         return photoAlbum
     }
     
-    fileprivate func createAlbum(albumName: String, completion: @escaping (PHAssetCollection?)->()) {
+    func createAlbum(albumName: String, completion: @escaping (PHAssetCollection?)->()) {
         var albumPlaceholder: PHObjectPlaceholder?
         PHPhotoLibrary.shared().performChanges({
             let createAlbumRequest = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)

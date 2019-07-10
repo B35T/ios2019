@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4059672D22D5C15D00B6B931 /* DisayaProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4059672C22D5C15D00B6B931 /* DisayaProfile.swift */; };
+		4059673422D5C17500B6B931 /* MutiBandHSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4059672F22D5C17400B6B931 /* MutiBandHSV.swift */; };
+		4059673522D5C17500B6B931 /* PresetLibrary + Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4059673022D5C17500B6B931 /* PresetLibrary + Tool.swift */; };
+		4059673622D5C17500B6B931 /* TransverseChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4059673122D5C17500B6B931 /* TransverseChromaticAberration.swift */; };
+		4059673722D5C17500B6B931 /* PresetLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4059673222D5C17500B6B931 /* PresetLibrary.swift */; };
+		4059673822D5C17500B6B931 /* ChromaticAberration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4059673322D5C17500B6B931 /* ChromaticAberration.swift */; };
 		405BE2C922CEFF4E0014AB55 /* PhotosViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2C822CEFF4E0014AB55 /* PhotosViewModels.swift */; };
 		405BE2CB22CEFF5F0014AB55 /* CatalogViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2CA22CEFF5F0014AB55 /* CatalogViewModels.swift */; };
 		405BE2CD22CEFFF20014AB55 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405BE2CC22CEFFF20014AB55 /* PhotosViewController.swift */; };
@@ -67,6 +73,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4059672C22D5C15D00B6B931 /* DisayaProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisayaProfile.swift; path = ../../../../../Disaya/Disaya/Sources/Models/DisayaProfile.swift; sourceTree = "<group>"; };
+		4059672F22D5C17400B6B931 /* MutiBandHSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutiBandHSV.swift; sourceTree = "<group>"; };
+		4059673022D5C17500B6B931 /* PresetLibrary + Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PresetLibrary + Tool.swift"; sourceTree = "<group>"; };
+		4059673122D5C17500B6B931 /* TransverseChromaticAberration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransverseChromaticAberration.swift; sourceTree = "<group>"; };
+		4059673222D5C17500B6B931 /* PresetLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetLibrary.swift; sourceTree = "<group>"; };
+		4059673322D5C17500B6B931 /* ChromaticAberration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromaticAberration.swift; sourceTree = "<group>"; };
 		405BE2C822CEFF4E0014AB55 /* PhotosViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModels.swift; sourceTree = "<group>"; };
 		405BE2CA22CEFF5F0014AB55 /* CatalogViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModels.swift; sourceTree = "<group>"; };
 		405BE2CC22CEFFF20014AB55 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +152,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4059672E22D5C17400B6B931 /* PresetLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				4059672F22D5C17400B6B931 /* MutiBandHSV.swift */,
+				4059673022D5C17500B6B931 /* PresetLibrary + Tool.swift */,
+				4059673122D5C17500B6B931 /* TransverseChromaticAberration.swift */,
+				4059673222D5C17500B6B931 /* PresetLibrary.swift */,
+				4059673322D5C17500B6B931 /* ChromaticAberration.swift */,
+			);
+			name = PresetLibrary;
+			path = ../../../../../Disaya/Disaya/Sources/Library/PresetLibrary;
+			sourceTree = "<group>";
+		};
+		4069658922D5C0920058054A /* Preset */ = {
+			isa = PBXGroup;
+			children = (
+				4059672E22D5C17400B6B931 /* PresetLibrary */,
+				4059672C22D5C15D00B6B931 /* DisayaProfile.swift */,
+			);
+			path = Preset;
+			sourceTree = "<group>";
+		};
 		40784D9022CDB2F60074CC43 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +280,7 @@
 		40C7B2AD22CC686F001EEEFA /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				4069658922D5C0920058054A /* Preset */,
 				40C7B2AE22CC687E001EEEFA /* Other.swift */,
 				40784D9322CDBB4C0074CC43 /* color.swift */,
 				405BE2D422CF15180014AB55 /* PHLibrary.swift */,
@@ -453,14 +488,20 @@
 				40C7B2AC22CC67A4001EEEFA /* CameraViewController.swift in Sources */,
 				40C7B2AA22CC6791001EEEFA /* CameraViewModels.swift in Sources */,
 				405BE2D322CF03B10014AB55 /* imagepreviewCell.swift in Sources */,
+				4059673722D5C17500B6B931 /* PresetLibrary.swift in Sources */,
 				40C7B27D22CC6725001EEEFA /* FLIM2019.xcdatamodeld in Sources */,
 				405BE2CB22CEFF5F0014AB55 /* CatalogViewModels.swift in Sources */,
 				405BE2D122CF00A20014AB55 /* ImageCell.swift in Sources */,
 				40C7B2AF22CC687E001EEEFA /* Other.swift in Sources */,
+				4059672D22D5C15D00B6B931 /* DisayaProfile.swift in Sources */,
 				405BE2C922CEFF4E0014AB55 /* PhotosViewModels.swift in Sources */,
+				4059673422D5C17500B6B931 /* MutiBandHSV.swift in Sources */,
+				4059673622D5C17500B6B931 /* TransverseChromaticAberration.swift in Sources */,
 				405BE2CF22CEFFFC0014AB55 /* CatalogViewController.swift in Sources */,
 				40784D9222CDB3BD0074CC43 /* FilmPreviewCell.swift in Sources */,
 				40C7B27522CC6725001EEEFA /* AppDelegate.swift in Sources */,
+				4059673822D5C17500B6B931 /* ChromaticAberration.swift in Sources */,
+				4059673522D5C17500B6B931 /* PresetLibrary + Tool.swift in Sources */,
 				405BE2CD22CEFFF20014AB55 /* PhotosViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
