@@ -40,7 +40,7 @@ open class UserFileManager {
     }
 
     
-    func saveInPath(image:UIImage, cover:UIImage, completion: (_ action: Bool) -> ()) {
+    func saveInPath(image:UIImage, cover:UIImage, imageOrientation: Int = 0, completion: (_ action: Bool) -> ()) {
         self.counter_id()
         let id = UserDefaults.standard.value(forKey: "counter") as! Int
         

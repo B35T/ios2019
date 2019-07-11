@@ -9,8 +9,16 @@
 import UIKit
 import AVFoundation
 
+enum imageOrientation: Int {
+    case up = 0
+    case down = 4
+    case right = 3
+    case left = 2
+    case unnkonw = 1
+}
+
 protocol CameraViewModeleDelegate {
-    func output(image:CIImage?, cover: UIImage?)
+    func output(image:CIImage?, cover: UIImage?, orientation: UIImage.Orientation)
 }
 
 open class CameraViewModels: UIViewController {
@@ -50,6 +58,8 @@ open class CameraViewModels: UIViewController {
         
         // setting preview
         self.previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+        self.previewLayer.videoGravity = .resizeAspect
+        self.previewLayer.connection?.videoOrientation = .portrait
         self.previewLayer.frame.size = preview.frame.size
 
         preview.layer.addSublayer(self.previewLayer)
@@ -98,6 +108,20 @@ open class CameraViewModels: UIViewController {
         return true
     }
 
+    func imageOrientation() -> UIImage.Orientation {
+        let device = UIDevice.current.orientation
+        switch device {
+        case .faceDown:return .up
+        case .faceUp:return .up
+        case .landscapeLeft:return .up
+        case .landscapeRight:return .down
+        case .portrait: return .right
+        case .portraitUpsideDown:return .rightMirrored
+        case .unknown:return .up
+        @unknown default:
+            return .up
+        }
+    }
 }
 
 extension CameraViewModels: AVCapturePhotoCaptureDelegate {
@@ -113,8 +137,9 @@ extension CameraViewModels: AVCapturePhotoCaptureDelegate {
 
         let cover = previewPhotoSampleBuffer?.image()
 
+        let orientation = self.imageOrientation()
         if let photo = CIImage(data: imageDataInBuffer)?.resize() {
-            self.delegate?.output(image: photo, cover: cover)
+            self.delegate?.output(image: photo, cover: cover, orientation: orientation)
         }
     }
 }

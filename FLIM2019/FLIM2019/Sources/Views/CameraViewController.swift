@@ -40,12 +40,14 @@ class CameraViewController: CameraViewModels {
     var preview: [UIImage?] = []
     override func loadView() {
         super.loadView()
-        
-        self.preview = UserFileManager.shared.findCover()
-        
-        UserFileManager.shared.develop(status: false)
-        
-        
+        if UserDefaults.standard.value(forKey: "first") == nil {
+            UserDefaults.standard.set(false, forKey: "first")
+            UserDefaults.standard.set(0, forKey: "counter")
+            UserFileManager.shared.develop(status: false)
+        } else {
+            self.preview = UserFileManager.shared.findCover()
+        }
+
         let r = self.view.frame
         
         let bgTop = UIImageView()
@@ -272,10 +274,10 @@ class CameraViewController: CameraViewModels {
 }
 
 extension CameraViewController: CameraViewModeleDelegate {
-    func output(image: CIImage?, cover: UIImage?) {
+    func output(image: CIImage?, cover: UIImage?, orientation: UIImage.Orientation) {
         guard let preset = PresetLibrary().M2(ciimage: image)?.toCGImage else {return}
         guard let cover = cover else {print("nocover");return}
-        let image = UIImage(cgImage: preset, scale: 1, orientation: .up)
+        let image = UIImage(cgImage: preset, scale: 1, orientation:orientation)
         
         UserFileManager.shared.saveInPath(image: image, cover: cover) { (action) in
         }
