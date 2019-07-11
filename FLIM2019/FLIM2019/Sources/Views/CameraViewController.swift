@@ -23,6 +23,7 @@ class CameraViewController: CameraViewModels {
     @IBOutlet weak var tutorialBtn: UIButton!
     @IBOutlet weak var loadBtn: UIButton!
     @IBOutlet weak var filmView:UIView!
+    @IBOutlet weak var counterView: UIImageView!
     
     // in bg
     
@@ -40,12 +41,16 @@ class CameraViewController: CameraViewModels {
     var preview: [UIImage?] = []
     override func loadView() {
         super.loadView()
+        
         if UserDefaults.standard.value(forKey: "first") == nil {
             UserDefaults.standard.set(false, forKey: "first")
             UserDefaults.standard.set(0, forKey: "counter")
-            UserFileManager.shared.develop(status: false)
+            UserDefaults.standard.set("none", forKey: "styles")
+            PHPhotoLibrary.shared().createAlbum(albumName: "FLIM-I") { (coll) in
+            }
         } else {
             self.preview = UserFileManager.shared.findCover()
+            UserDefaults.standard.set("1", forKey: "styles")
         }
 
         let r = self.view.frame
@@ -125,14 +130,20 @@ class CameraViewController: CameraViewModels {
         self.loadBtn = loadBtn
         self.loadBtn.frame = .init(x: 10, y: r.height.persent(82), width: 86, height: 86)
         self.view.addSubview(self.loadBtn)
+        
+        let conter = UserDefaults.standard.value(forKey: "counter") as! Int
+        
+        let counterView = UIImageView()
+        self.counterView = counterView
+        self.counterView.frame = .init(x: bgTop.center.x - 20, y: r.height.persent(70), width: 40, height: 50)
+        self.counterView.image = UIImage(named: "ShutterCount\(conter).png")
+        self.view.addSubview(self.counterView)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        PHPhotoLibrary.shared().createAlbum(albumName: "FLIM-I") { (coll) in
-            
-        }
+        
 
         self.view.backgroundColor = bg
         self.collectionView.delegate = self
@@ -215,9 +226,22 @@ class CameraViewController: CameraViewModels {
     
     @objc internal func shutterAction() {
         UIView.animate(withDuration: 0.3) {
+            
+            if UserDefaults.standard.value(forKey: "styles") as? String == "none" {
+                let alert = UIAlertController(title: "No FILM", message: "on film in slot", preferredStyle: .alert)
+                let add = UIAlertAction(title: "ADD NEW FILM", style: .default, handler: { (action) in
+                    
+                    self.performSegue(withIdentifier: "catalog", sender: nil)
+                })
+                alert.addAction(add)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            
             if UserDefaults.standard.value(forKey: "counter") as! Int == 36 {
                 let alert = UIAlertController(title: "Full", message: nil, preferredStyle: .actionSheet)
-                let send = UIAlertAction(title: "Send To Develop", style: .destructive, handler: { (action) in
+                let send = UIAlertAction(title: "Save To Photos", style: .default, handler: { (action) in
+                    self.sendToDevAction()
                     alert.dismiss(animated: true, completion: nil)
                 })
                 print("full")
@@ -283,6 +307,8 @@ extension CameraViewController: CameraViewModeleDelegate {
         }
         self.preview.append(cover)
         self.collectionView.reloadData()
+        let counter = UserDefaults.standard.value(forKey: "counter") as! Int
+        self.counterView.image = UIImage(named:"ShutterCount\(counter).png")
     }
 }
 

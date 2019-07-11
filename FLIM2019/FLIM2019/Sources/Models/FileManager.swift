@@ -189,10 +189,6 @@ open class UserFileManager {
         return UserDefaults.standard.value(forKey: "path") as! Int
     }
 
-    func develop(status:Bool) {
-        UserDefaults.standard.set(status, forKey: "develop")
-    }
-
     func generator_path() -> Int? {
         if let dev = UserDefaults.standard.value(forKey: "develop") as? Bool, !dev {
             if UserDefaults.standard.value(forKey: "path") == nil {
