@@ -50,7 +50,6 @@ class CameraViewController: CameraViewModels {
             }
         } else {
             self.preview = UserFileManager.shared.findCover()
-            UserDefaults.standard.set("1", forKey: "styles")
         }
 
         let r = self.view.frame
@@ -107,7 +106,7 @@ class CameraViewController: CameraViewModels {
         
         self.collectionView.frame = .init(x: r.width.persent(3.5), y: r.height.persent(20), width: r.width.persent(60), height: r.height.persent(60))
         self.collectionView.layer.cornerRadius = 6
-        self.collectionView.backgroundColor = film
+        
         
         let viewFiderFrame = UIImageView()
         self.viewFinderFrame = viewFiderFrame
@@ -142,7 +141,6 @@ class CameraViewController: CameraViewModels {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
 
         self.view.backgroundColor = bg
@@ -181,9 +179,24 @@ class CameraViewController: CameraViewModels {
         self.initailize(preview: self.viewFinder)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if UserDefaults.standard.value(forKey: "styles") as? String != "none" {
+            self.collectionView.backgroundColor = film
+        } else {
+            self.collectionView.backgroundColor = .black
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "photos" {
 //            let destination = segue.destination as! PhotosViewController
+        }
+        
+        if segue.identifier == "catalog" {
+            let destination = segue.destination as! CatalogViewController
+            destination.delegate = self
         }
     }
     
@@ -203,6 +216,7 @@ class CameraViewController: CameraViewModels {
         UserFileManager.shared.setDefualt()
         self.preview.removeAll()
         self.collectionView.reloadData()
+        self.collectionView.backgroundColor = .black
     }
     
     @objc internal func toPhotosAction() {
@@ -244,7 +258,6 @@ class CameraViewController: CameraViewModels {
                     self.sendToDevAction()
                     alert.dismiss(animated: true, completion: nil)
                 })
-                print("full")
                 alert.addAction(send)
                 self.present(alert, animated: true, completion: nil)
                 return
@@ -297,11 +310,22 @@ class CameraViewController: CameraViewModels {
     }
 }
 
+extension  CameraViewController:CatalogViewControllerDelegate {
+    func dismissCatalog(action:Bool) {
+        if action {
+            self.collectionView.backgroundColor = film
+        }
+        
+    }
+}
+
 extension CameraViewController: CameraViewModeleDelegate {
     func output(image: CIImage?, cover: UIImage?, orientation: UIImage.Orientation) {
-        guard let preset = PresetLibrary().M2(ciimage: image)?.toCGImage else {return}
+        let models = PresetModels()
+        let preset = UserDefaults.standard.value(forKey: "styles") as! String
+        guard let create = models.creator(ciimage: image, item: PresetModels.preset(rawValue: preset) ?? .none)?.toCGImage else {return}
         guard let cover = cover else {print("nocover");return}
-        let image = UIImage(cgImage: preset, scale: 1, orientation:orientation)
+        let image = UIImage(cgImage: create, scale: 1, orientation:orientation)
         
         UserFileManager.shared.saveInPath(image: image, cover: cover) { (action) in
         }
@@ -320,14 +344,14 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilmPreviewCell", for: indexPath) as! FilmPreviewCell
-        cell.imageview.alpha = 0.7
-        
+        cell.imageview.alpha = 0.5
+        cell.imageview.contentMode = .scaleAspectFill
         cell.imageview.image = preview[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: self.view.frame.width.persent(40), height: self.view.frame.width.persent(60))
+        return .init(width: self.view.frame.width.persent(50), height: self.view.frame.width.persent(60))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
