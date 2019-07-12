@@ -217,6 +217,7 @@ class CameraViewController: CameraViewModels {
         self.preview.removeAll()
         self.collectionView.reloadData()
         self.collectionView.backgroundColor = .black
+        self.counterView.image = UIImage(named: "ShutterCount0.png")
     }
     
     @objc internal func toPhotosAction() {

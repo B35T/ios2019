@@ -31,6 +31,7 @@
 		4078AD7322D8524500521CCC /* item1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4078AD6F22D8524500521CCC /* item1.jpg */; };
 		4078AD7422D8524500521CCC /* item4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4078AD7022D8524500521CCC /* item4.jpg */; };
 		4078AD7622D8624E00521CCC /* PresetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4078AD7522D8624E00521CCC /* PresetModels.swift */; };
+		40A41AF222D8E17E00CC0E9F /* item5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40A41AF122D8E17E00CC0E9F /* item5.jpg */; };
 		40C7B27522CC6725001EEEFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B27422CC6725001EEEFA /* AppDelegate.swift */; };
 		40C7B27A22CC6725001EEEFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C7B27822CC6725001EEEFA /* Main.storyboard */; };
 		40C7B27D22CC6725001EEEFA /* FLIM2019.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B27B22CC6725001EEEFA /* FLIM2019.xcdatamodeld */; };
@@ -136,6 +137,7 @@
 		4078AD6F22D8524500521CCC /* item1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item1.jpg; sourceTree = "<group>"; };
 		4078AD7022D8524500521CCC /* item4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item4.jpg; sourceTree = "<group>"; };
 		4078AD7522D8624E00521CCC /* PresetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetModels.swift; sourceTree = "<group>"; };
+		40A41AF122D8E17E00CC0E9F /* item5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item5.jpg; sourceTree = "<group>"; };
 		40C7B27122CC6725001EEEFA /* FLIM2019.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLIM2019.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C7B27422CC6725001EEEFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40C7B27922CC6725001EEEFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 		40C7B2B022CC69C0001EEEFA /* Statics */ = {
 			isa = PBXGroup;
 			children = (
+				40A41AF122D8E17E00CC0E9F /* item5.jpg */,
 				4078AD6F22D8524500521CCC /* item1.jpg */,
 				4078AD6D22D8524400521CCC /* item2.jpg */,
 				4078AD6E22D8524400521CCC /* item3.jpg */,
@@ -559,6 +562,7 @@
 				4078AD7122D8524500521CCC /* item2.jpg in Resources */,
 				40CA6B6222D6FEDD003299C3 /* ShutterCount17.png in Resources */,
 				40C7B2DE22CC6E19001EEEFA /* IMG_0327.JPG in Resources */,
+				40A41AF222D8E17E00CC0E9F /* item5.jpg in Resources */,
 				4078AD7222D8524500521CCC /* item3.jpg in Resources */,
 				40CA6B7E22D6FEDD003299C3 /* ShutterCount31.png in Resources */,
 				4078AD7322D8524500521CCC /* item1.jpg in Resources */,

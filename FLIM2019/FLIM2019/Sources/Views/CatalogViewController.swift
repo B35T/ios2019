@@ -17,7 +17,7 @@ class CatalogViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backBtn: UIButton!
     
-    let icon = ["item1","item2","item3","item4"]
+    let items = PresetModels().items
     
     var delegate: CatalogViewControllerDelegate?
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ extension CatalogViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let preset = icon[indexPath.item]
+        let preset = self.items[indexPath.item]
         
         UserDefaults.standard.set(preset, forKey: "styles")
         
@@ -64,7 +64,7 @@ extension CatalogViewController: UICollectionViewDelegate {
 
 extension CatalogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.icon.count
+        return self.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,7 +74,7 @@ extension CatalogViewController: UICollectionViewDataSource {
         cell.imageview.layer.cornerRadius = 4
         cell.imageview.clipsToBounds = true
         
-        cell.imageview.image = UIImage(named: "\(self.icon[indexPath.item]).jpg")
+        cell.imageview.image = UIImage(named: "\(self.items[indexPath.item]).jpg")
         return cell
     }
     
