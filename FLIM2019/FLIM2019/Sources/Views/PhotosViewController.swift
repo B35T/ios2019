@@ -34,24 +34,30 @@ class PhotosViewController: PhotosViewModels {
         
         let imageView = UIImageView()
         self.imageView = imageView
-        self.imageView.frame = .init(x: 0, y: 0, width: view.frame.width, height: 0)
+        self.imageView.frame = .init(x: 0, y: 70, width: view.frame.width, height: 0)
         self.imageView.contentMode = .scaleAspectFit
         self.imageView.clipsToBounds = true
-        self.imageView.backgroundColor = .red
         self.view.addSubview(self.imageView)
-        
+
+      
         self.view.addSubview(backBtn)
-        self.backBtn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.collectionView.backgroundColor = .black
-        self.collectionView.frame = .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        self.collectionView.frame = .init(x: 0, y: 70, width: view.frame.width, height: view.frame.height - 70)
         
         self.headerBar.backgroundColor = .black
-        self.backBtn.frame = .init(x: 5, y: 30, width: 60, height: 40)
+        self.backBtn.frame = .init(x: 5, y: 30, width: 70, height: 30)
         self.titleLabel.frame = .init(x: view.frame.width - 95, y: 30, width: 90, height: 40)
+        
+        self.backBtn.setTitle("", for: .normal)
+        self.backBtn.setBackgroundImage(UIImage(named: "back.png"), for: .normal)
+        self.backBtn.layer.compositingFilter = "sreeenBlendMode"
+        self.backBtn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -109,14 +115,11 @@ extension PhotosViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIView.animate(withDuration: 0.3) {
             self.imageView.frame.size.height = self.view.frame.width
-            self.collectionView.frame.origin.y = self.imageView.frame.height
+            self.collectionView.frame.origin.y = self.imageView.frame.height + 70
             let asset = self.fetchResult.object(at: indexPath.item)
             self.imageManager.requestImage(for: asset, targetSize: .init(width: 1000, height: 1000), contentMode: .aspectFit, options: nil, resultHandler: { (image, _) in
                 self.imageView.image = image
             })
-            
-            print(self.imageView.frame)
-            print(self.collectionView.frame)
         }
         
     }
@@ -156,10 +159,10 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return .init(width: 50, height: 100)
+        return .init(width: 100, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: 50, height: 100)
+        return .init(width: 0, height: 0)
     }
 }

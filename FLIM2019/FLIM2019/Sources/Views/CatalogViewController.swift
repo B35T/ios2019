@@ -23,7 +23,7 @@ class CatalogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.frame = .init(x: 0, y: 100, width: view.frame.width, height: view.frame.height - 100)
+        collectionView.frame = .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .black
@@ -32,8 +32,9 @@ class CatalogViewController: UIViewController {
         
         let backBtn = UIButton()
         self.backBtn = backBtn
-        self.backBtn.frame = .init(x: 5, y: 30, width: 60, height: 40)
-        self.backBtn.setTitle("back", for: .normal)
+        self.backBtn.frame = .init(x: 5, y: 30, width: 70, height: 30)
+        self.backBtn.setBackgroundImage(UIImage(named: "back.png"), for: .normal)
+        self.backBtn.layer.compositingFilter = "screenBlendMode"
         self.backBtn.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         self.view.addSubview(self.backBtn)
     }
@@ -93,5 +94,9 @@ extension CatalogViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(width: 100, height: 100)
     }
 }
