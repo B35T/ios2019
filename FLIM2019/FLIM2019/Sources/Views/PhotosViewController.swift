@@ -116,6 +116,7 @@ extension PhotosViewController: UICollectionViewDelegate {
         UIView.animate(withDuration: 0.3) {
             self.imageView.frame.size.height = self.view.frame.width
             self.collectionView.frame.origin.y = self.imageView.frame.height + 70
+            self.collectionView.frame.size.height = self.view.frame.height - self.imageView.frame.maxY
             let asset = self.fetchResult.object(at: indexPath.item)
             self.imageManager.requestImage(for: asset, targetSize: .init(width: 1000, height: 1000), contentMode: .aspectFit, options: nil, resultHandler: { (image, _) in
                 self.imageView.image = image

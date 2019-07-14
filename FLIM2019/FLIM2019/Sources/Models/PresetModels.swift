@@ -35,7 +35,7 @@ open class PresetModels {
             trans.inputImage = chrom.outputImage
             trans.inputFalloff = 0.6
             trans.inputBlur = 8
-            let grain = presets.Grain(value: 0.5, buttom: trans.outputImage!)
+            let grain = presets.Grain(value: 0.3, buttom: trans.outputImage!)
             return presets.M2(ciimage: grain)
         case .item2:
             let chrom = ChromaticAberration()
@@ -45,13 +45,13 @@ open class PresetModels {
             trans.inputImage = chrom.outputImage
             trans.inputFalloff = 0.6
             trans.inputBlur = 6
-            let grain = presets.Grain(value: 0.5, buttom: trans.outputImage!)
+            let grain = presets.Grain(value: 0.3, buttom: trans.outputImage!)
             return presets.RB0(ciimage: grain)
         case .item3:
-            let grain = presets.Grain(value: 0.5, buttom: ciimage)
+            let grain = presets.Grain(value: 0.2, buttom: ciimage)
             return presets.C1(ciimage: grain)
         case .item4:
-            let grain = presets.Grain(value: 0.5, buttom: ciimage)
+            let grain = presets.Grain(value: 0.3, buttom: ciimage)
             return presets.C5(ciimage: grain)
         case .item5:
             let chrom = ChromaticAberration()
@@ -61,7 +61,7 @@ open class PresetModels {
             trans.inputImage = chrom.outputImage
             trans.inputFalloff = 0.6
             trans.inputBlur = 6
-            let grain = presets.Grain(value: 0.3, buttom: trans.outputImage!)
+            let grain = presets.Grain(value: 0.5, buttom: trans.outputImage!)
             return presets.C4(ciimage: grain)
         case .item6:
             let chrom = ChromaticAberration()
