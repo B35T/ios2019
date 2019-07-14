@@ -13,6 +13,7 @@ class PhotosViewController: PhotosViewModels {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var headerBar: UIView!
@@ -31,6 +32,15 @@ class PhotosViewController: PhotosViewModels {
         self.headerBar.addSubview(self.titleLabel)
         self.view.addSubview(self.headerBar)
         
+        let imageView = UIImageView()
+        self.imageView = imageView
+        self.imageView.frame = .init(x: 0, y: 0, width: view.frame.width, height: 0)
+        self.imageView.contentMode = .scaleAspectFit
+        self.imageView.clipsToBounds = true
+        self.imageView.backgroundColor = .red
+        self.view.addSubview(self.imageView)
+        
+        self.view.addSubview(backBtn)
         self.backBtn.addTarget(self, action: #selector(backAction), for: .touchUpInside)
     }
     
@@ -96,7 +106,20 @@ extension PhotosViewController: PhotosViewModelsDelegate {
 }
 
 extension PhotosViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.3) {
+            self.imageView.frame.size.height = self.view.frame.width
+            self.collectionView.frame.origin.y = self.imageView.frame.height
+            let asset = self.fetchResult.object(at: indexPath.item)
+            self.imageManager.requestImage(for: asset, targetSize: .init(width: 1000, height: 1000), contentMode: .aspectFit, options: nil, resultHandler: { (image, _) in
+                self.imageView.image = image
+            })
+            
+            print(self.imageView.frame)
+            print(self.collectionView.frame)
+        }
+        
+    }
 }
 
 extension PhotosViewController: UICollectionViewDataSource {

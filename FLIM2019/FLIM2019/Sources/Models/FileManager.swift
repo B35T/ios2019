@@ -214,8 +214,7 @@ open class UserFileManager {
     }
     
     func setDefualt() {
-        UserDefaults.standard.set(0, forKey: "counter")
-        UserDefaults.standard.set("none", forKey: "styles")
+        UserDefaults.standard.set(0, forKey: "counter")        
         self.removeCover()
     }
     

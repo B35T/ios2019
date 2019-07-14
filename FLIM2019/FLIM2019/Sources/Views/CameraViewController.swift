@@ -46,10 +46,17 @@ class CameraViewController: CameraViewModels {
             UserDefaults.standard.set(false, forKey: "first")
             UserDefaults.standard.set(0, forKey: "counter")
             UserDefaults.standard.set("none", forKey: "styles")
-            PHPhotoLibrary.shared().createAlbum(albumName: "FLIM-I") { (coll) in
-            }
+            
+            
+            
         } else {
             self.preview = UserFileManager.shared.findCover()
+        }
+        
+        if let _ = PHPhotoLibrary.shared().findAlbum(albumName: "FLIM-I") {
+            
+        } else {
+            PHPhotoLibrary.shared().createAlbum(albumName: "FLIM-I") { (coll) in}
         }
 
         let r = self.view.frame
@@ -208,7 +215,9 @@ class CameraViewController: CameraViewModels {
         let images = UserFileManager.shared.findAll()
         for i in images {
             if let i = i {
-                PHPhotoLibrary.shared().savePhoto(image: i, albumName: "FLIM-I")
+                if let album = PHPhotoLibrary.shared().findAlbum(albumName: "FLIM-I") {
+                    PHPhotoLibrary.shared().saveImage(image: i, album: album)
+                }
             }
         }
         
@@ -218,6 +227,7 @@ class CameraViewController: CameraViewModels {
         self.collectionView.reloadData()
         self.collectionView.backgroundColor = .black
         self.counterView.image = UIImage(named: "ShutterCount0.png")
+        UserDefaults.standard.set("none", forKey: "styles")
     }
     
     @objc internal func toPhotosAction() {
@@ -316,7 +326,6 @@ extension  CameraViewController:CatalogViewControllerDelegate {
         if action {
             self.collectionView.backgroundColor = film
         }
-        
     }
 }
 

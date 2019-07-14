@@ -75,7 +75,7 @@ extension PHPhotoLibrary {
         })
     }
     
-    fileprivate func saveImage(image: UIImage, album: PHAssetCollection, completion:((PHAsset?)->())? = nil) {
+    func saveImage(image: UIImage, album: PHAssetCollection, completion:((PHAsset?)->())? = nil) {
         var placeholder: PHObjectPlaceholder?
         PHPhotoLibrary.shared().performChanges({
             let createAssetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)

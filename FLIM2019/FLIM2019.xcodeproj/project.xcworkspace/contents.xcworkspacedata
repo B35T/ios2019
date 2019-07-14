@@ -2,6 +2,24 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:FLIM2019.xcodeproj">
+      location = "group:/Users/best/workspace/ios2019/FLIM2019/FLIM2019/Sources/Statics/item1.jpg">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/best/workspace/ios2019/FLIM2019/FLIM2019/Sources/Statics/item2.jpg">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/best/workspace/ios2019/FLIM2019/FLIM2019/Sources/Statics/item3.jpg">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/best/workspace/ios2019/FLIM2019/FLIM2019/Sources/Statics/item4.jpg">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/best/workspace/ios2019/FLIM2019/FLIM2019/Sources/Statics/item5.jpg">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/best/workspace/ios2019/FLIM2019/FLIM2019/Sources/Statics/item6.jpg">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
