@@ -34,6 +34,8 @@
 		40AE000322DAE7370040D417 /* item3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40AEFFFD22DAE7360040D417 /* item3.jpg */; };
 		40AE000422DAE7370040D417 /* item2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40AEFFFE22DAE7360040D417 /* item2.jpg */; };
 		40AE000522DAE7370040D417 /* item4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 40AEFFFF22DAE7360040D417 /* item4.jpg */; };
+		40C6C4E522DC556F00C9DA72 /* previewCatalogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C6C4E422DC556F00C9DA72 /* previewCatalogCell.swift */; };
+		40C6C4E722DC55B700C9DA72 /* PreviewCatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C6C4E622DC55B700C9DA72 /* PreviewCatalogViewController.swift */; };
 		40C7B27522CC6725001EEEFA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B27422CC6725001EEEFA /* AppDelegate.swift */; };
 		40C7B27A22CC6725001EEEFA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C7B27822CC6725001EEEFA /* Main.storyboard */; };
 		40C7B27D22CC6725001EEEFA /* FLIM2019.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B27B22CC6725001EEEFA /* FLIM2019.xcdatamodeld */; };
@@ -142,6 +144,8 @@
 		40AEFFFD22DAE7360040D417 /* item3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item3.jpg; sourceTree = "<group>"; };
 		40AEFFFE22DAE7360040D417 /* item2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item2.jpg; sourceTree = "<group>"; };
 		40AEFFFF22DAE7360040D417 /* item4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item4.jpg; sourceTree = "<group>"; };
+		40C6C4E422DC556F00C9DA72 /* previewCatalogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = previewCatalogCell.swift; sourceTree = "<group>"; };
+		40C6C4E622DC55B700C9DA72 /* PreviewCatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCatalogViewController.swift; sourceTree = "<group>"; };
 		40C7B27122CC6725001EEEFA /* FLIM2019.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FLIM2019.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C7B27422CC6725001EEEFA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40C7B27922CC6725001EEEFA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -264,6 +268,7 @@
 				40784D9122CDB3BD0074CC43 /* FilmPreviewCell.swift */,
 				405BE2D022CF00A20014AB55 /* ImageCell.swift */,
 				405BE2D222CF03B10014AB55 /* imagepreviewCell.swift */,
+				40C6C4E422DC556F00C9DA72 /* previewCatalogCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				40C7B2AB22CC67A4001EEEFA /* CameraViewController.swift */,
 				405BE2CC22CEFFF20014AB55 /* PhotosViewController.swift */,
 				405BE2CE22CEFFFC0014AB55 /* CatalogViewController.swift */,
+				40C6C4E622DC55B700C9DA72 /* PreviewCatalogViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -653,7 +659,9 @@
 				405BE2D722CF285E0014AB55 /* FileManager.swift in Sources */,
 				40784D9422CDBB4C0074CC43 /* color.swift in Sources */,
 				405BE2D522CF15180014AB55 /* PHLibrary.swift in Sources */,
+				40C6C4E522DC556F00C9DA72 /* previewCatalogCell.swift in Sources */,
 				40C7B2AC22CC67A4001EEEFA /* CameraViewController.swift in Sources */,
+				40C6C4E722DC55B700C9DA72 /* PreviewCatalogViewController.swift in Sources */,
 				40C7B2AA22CC6791001EEEFA /* CameraViewModels.swift in Sources */,
 				405BE2D322CF03B10014AB55 /* imagepreviewCell.swift in Sources */,
 				4059673722D5C17500B6B931 /* PresetLibrary.swift in Sources */,

@@ -68,12 +68,12 @@ class CameraViewController: CameraViewModels {
         
         let loadNewFilmBtn = UIButton()
         self.loadNewFilmBtn = loadNewFilmBtn
-        self.loadNewFilmBtn.frame = .init(x: r.width.persent(25), y: r.height.persent(2), width: 40, height: 105)
+        self.loadNewFilmBtn.frame = .init(x: r.width.persent(25), y: appDefualt.shared.position, width: 40, height: 105)
         self.view.addSubview(self.loadNewFilmBtn)
         
         let sendToDevelop = UIButton()
         self.sendToDevelop = sendToDevelop
-        self.sendToDevelop.frame = .init(x: r.width.persent(40), y: r.height.persent(2), width: 40, height: 105)
+        self.sendToDevelop.frame = .init(x: r.width.persent(40), y: appDefualt.shared.position, width: 40, height: 105)
         self.view.addSubview(self.sendToDevelop)
         
         let toPhotos = UIButton()
@@ -129,6 +129,7 @@ class CameraViewController: CameraViewModels {
         self.viewFinder.contentMode = .scaleAspectFill
         self.viewFinder.layer.cornerRadius = 6
         self.viewFinder.clipsToBounds = true
+        self.viewFinder.image = UIImage(named: "IMG_5078.jpg")
         self.isFullView.rect = self.viewFinder.frame
         self.view.addSubview(self.viewFinder)
         
@@ -240,7 +241,7 @@ class CameraViewController: CameraViewModels {
                 if self.isFullView.isFull {
                     view.frame = self.isFullView.rect
                 } else {
-                    view.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.width * 1.3333)
+                    view.frame = .init(x: 0, y: appDefualt.shared.position, width: self.view.frame.width, height: self.view.frame.width * 1.3333)
                 }
                 self.updatePreviewLayer(frame: view.frame)
                 self.isFullView.isFull = !self.isFullView.isFull

@@ -16,14 +16,18 @@ class CatalogViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backBtn: UIButton!
+
+    var preview: PreviewCatalogViewController?
     
     let items = PresetModels().items
-    
     var delegate: CatalogViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.frame = .init(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        self.preview = self.storyboard?.instantiateViewController(withIdentifier: "preview_catalog") as? PreviewCatalogViewController
+        self.preview?.delegate = self
+        
+        collectionView.frame = .init(x: 0, y: appDefualt.shared.positionC, width: view.frame.width, height: view.frame.height)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .black
@@ -34,7 +38,8 @@ class CatalogViewController: UIViewController {
         self.backBtn = backBtn
         self.backBtn.frame = .init(x: 5, y: 30, width: 70, height: 30)
         self.backBtn.setBackgroundImage(UIImage(named: "back.png"), for: .normal)
-        self.backBtn.layer.compositingFilter = "screenBlendMode"
+        self.backBtn.layer.cornerRadius = 15
+        self.backBtn.clipsToBounds = true
         self.backBtn.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         self.view.addSubview(self.backBtn)
     }
@@ -47,19 +52,52 @@ class CatalogViewController: UIViewController {
         self.delegate?.dismissCatalog(action: false)
         self.dismiss(animated: true, completion: nil)
     }
+}
+extension CatalogViewController: PreviewCatalogViewControllerDelegate {
+    func PreviewBackAction() {
+        self.backBtn.alpha = 1
+        if let select = self.collectionView.indexPathsForSelectedItems {
+            self.collectionView.isScrollEnabled = true
+            self.collectionView.reloadItems(at: select)
+        }
+    }
     
-    
+    func PreviewChooseAction(item:String?) {
+        
+        if let item = item {
+            UserDefaults.standard.set(item, forKey: "styles")
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 extension CatalogViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.backBtn.alpha = 0
         
-        let preset = self.items[indexPath.item]
+        let item = self.items[indexPath.item]
         
-        UserDefaults.standard.set(preset, forKey: "styles")
+        let cell = collectionView.cellForItem(at: indexPath)!
+        cell.superview?.bringSubviewToFront(cell)
         
-        self.delegate?.dismissCatalog(action: true)
-        self.dismiss(animated: true, completion: nil)
+        if let vc = self.preview {
+            vc.rect = cell.frame
+            cell.addSubview(vc.view)
+            vc.view.alpha = 1
+            vc.collectionView.alpha = 1
+            vc.item = item
+            
+            UIView.animate(withDuration: 0.2) {
+                cell.frame = collectionView.bounds
+                self.collectionView.isScrollEnabled = false
+                
+                vc.view.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                vc.collectionView.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+                
+            }
+        }
+        
     }
 }
 
@@ -97,6 +135,6 @@ extension CatalogViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: 100, height: 100)
+        return .init(width: appDefualt.shared.positionB, height: appDefualt.shared.positionB)
     }
 }

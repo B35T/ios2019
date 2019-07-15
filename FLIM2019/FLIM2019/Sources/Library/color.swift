@@ -10,3 +10,4 @@ import UIKit
 
 let bg = UIColor(red: 29/255, green: 29/255, blue: 29/255, alpha: 1)
 let film = UIColor(red: 96/255, green: 42/255, blue: 42/255, alpha: 1)
+let blue = UIColor(red:0.00, green:0.46, blue:1.00, alpha:1.0)
