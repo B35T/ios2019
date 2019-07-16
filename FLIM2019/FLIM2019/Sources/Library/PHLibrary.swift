@@ -13,6 +13,7 @@ extension PHPhotoLibrary {
     // MARK: - PHPhotoLibrary+SaveImage
     
     // MARK: - Public
+ 
     
     func savePhoto(image:UIImage, albumName:String, completion:((PHAsset?)->())? = nil) {
         func save() {

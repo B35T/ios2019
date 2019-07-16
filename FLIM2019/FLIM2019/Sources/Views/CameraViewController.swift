@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import AVFoundation
 
 class CameraViewController: CameraViewModels {
 
@@ -42,23 +43,6 @@ class CameraViewController: CameraViewModels {
     override func loadView() {
         super.loadView()
         
-        if UserDefaults.standard.value(forKey: "first") == nil {
-            UserDefaults.standard.set(false, forKey: "first")
-            UserDefaults.standard.set(0, forKey: "counter")
-            UserDefaults.standard.set("none", forKey: "styles")
-            
-            
-            
-        } else {
-            self.preview = UserFileManager.shared.findCover()
-        }
-        
-        if let _ = PHPhotoLibrary.shared().findAlbum(albumName: "FLIM-I") {
-            
-        } else {
-            PHPhotoLibrary.shared().createAlbum(albumName: "FLIM-I") { (coll) in}
-        }
-
         let r = self.view.frame
         
         let bgTop = UIImageView()
@@ -129,7 +113,7 @@ class CameraViewController: CameraViewModels {
         self.viewFinder.contentMode = .scaleAspectFill
         self.viewFinder.layer.cornerRadius = 6
         self.viewFinder.clipsToBounds = true
-        self.viewFinder.image = UIImage(named: "IMG_5078.jpg")
+//        self.viewFinder.image = UIImage(named: "IMG_5078.jpg")
         self.isFullView.rect = self.viewFinder.frame
         self.view.addSubview(self.viewFinder)
         
@@ -137,6 +121,12 @@ class CameraViewController: CameraViewModels {
         self.loadBtn = loadBtn
         self.loadBtn.frame = .init(x: 10, y: r.height.persent(82), width: 86, height: 86)
         self.view.addSubview(self.loadBtn)
+        
+        if UserDefaults.standard.value(forKey: "first") == nil {
+            UserDefaults.standard.set(0, forKey: "counter")
+            UserDefaults.standard.set("none", forKey: "styles")
+            
+        }
         
         let conter = UserDefaults.standard.value(forKey: "counter") as! Int
         
@@ -183,8 +173,29 @@ class CameraViewController: CameraViewModels {
         self.sendToDevelop.addTarget(self, action: #selector(sendToDevAction), for: .touchUpInside)
         self.loadNewFilmBtn.addTarget(self, action: #selector(loadNewAction), for: .touchUpInside)
         
-        self.autoFocus(action:self.isAF)
-        self.initailize(preview: self.viewFinder)
+        
+        if UserDefaults.standard.value(forKey: "first") == nil {
+            UserDefaults.standard.set(false, forKey: "first")
+            
+            self.autoFocus(action:self.isAF)
+            self.initailize(preview: self.viewFinder)
+        } else {
+            self.preview = UserFileManager.shared.findCover()
+            
+            if PHPhotoLibrary.authorizationStatus() == .authorized, AVCaptureDevice.authorizationStatus(for: .video) == .authorized {
+                self.autoFocus(action:self.isAF)
+                self.initailize(preview: self.viewFinder)
+            } else {
+                let a = AllowView()
+                a.initialize(view: self.view)
+            }
+        }
+        
+        if let _ = PHPhotoLibrary.shared().findAlbum(albumName: "FLIM-I") {
+            
+        } else {
+            PHPhotoLibrary.shared().createAlbum(albumName: "FLIM-I") { (coll) in}
+        }
     }
     
     override func viewDidLayoutSubviews() {

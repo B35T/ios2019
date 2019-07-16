@@ -35,7 +35,7 @@ open class PresetModels {
             trans.inputImage = chrom.outputImage
             trans.inputFalloff = 0.6
             trans.inputBlur = 8
-            let grain = presets.Grain(value: 0.3, buttom: trans.outputImage!)
+            let grain = presets.Grain(value: 0.5, buttom: trans.outputImage!)
             return presets.M2(ciimage: grain)
         case .item2:
             let chrom = ChromaticAberration()
