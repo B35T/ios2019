@@ -51,7 +51,7 @@ class PhotosViewController: PhotosViewModels {
         self.collectionView.frame = .init(x: 0, y: 70, width: view.frame.width, height: view.frame.height - 70)
         
         self.headerBar.backgroundColor = .black
-        self.backBtn.frame = .init(x: 5, y: 30, width: 76, height: 35)
+        self.backBtn.frame = .init(x: 0, y: 30, width: 76, height: 35)
         self.titleLabel.frame = .init(x: view.frame.width - 95, y: 30, width: 90, height: 40)
         
         self.backBtn.setTitle("", for: .normal)

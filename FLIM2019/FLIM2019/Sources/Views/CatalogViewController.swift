@@ -68,7 +68,7 @@ extension CatalogViewController: PreviewCatalogViewControllerDelegate {
         if let item = item {
             UserDefaults.standard.set(item, forKey: "styles")
         }
-        
+        self.delegate?.dismissCatalog(action: true)
         self.dismiss(animated: true, completion: nil)
     }
 }

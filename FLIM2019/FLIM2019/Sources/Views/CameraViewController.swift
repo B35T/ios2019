@@ -337,7 +337,23 @@ class CameraViewController: CameraViewModels {
 extension  CameraViewController:CatalogViewControllerDelegate {
     func dismissCatalog(action:Bool) {
         if action {
+            print("action")
             self.collectionView.backgroundColor = film
+            
+            let images = UserFileManager.shared.findAll()
+            for i in images {
+                if let i = i {
+                    if let album = PHPhotoLibrary.shared().findAlbum(albumName: "FLIM-I") {
+                        PHPhotoLibrary.shared().saveImage(image: i, album: album)
+                    }
+                }
+            }
+            
+            
+            UserFileManager.shared.setDefualt()
+            self.preview.removeAll()
+            self.collectionView.reloadData()
+            self.counterView.image = UIImage(named: "ShutterCount0.png")
         }
     }
 }
