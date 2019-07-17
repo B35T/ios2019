@@ -36,7 +36,7 @@ class CatalogViewController: UIViewController {
         
         let backBtn = UIButton()
         self.backBtn = backBtn
-        self.backBtn.frame = .init(x: 5, y: 30, width: 76, height: 35)
+        self.backBtn.frame = .init(x: -10, y: 30, width: 76, height: 35)
         self.backBtn.setBackgroundImage(UIImage(named: "back.png"), for: .normal)
         self.backBtn.layer.cornerRadius = 15
         self.backBtn.clipsToBounds = true
@@ -83,22 +83,25 @@ extension CatalogViewController: UICollectionViewDelegate {
         cell.superview?.bringSubviewToFront(cell)
         
         if let vc = self.preview {
-            vc.rect = cell.frame
-            cell.addSubview(vc.view)
             vc.view.alpha = 1
             vc.collectionView.alpha = 1
             vc.item = item
-            
+            cell.addSubview(vc.view)
             UIView.animate(withDuration: 0.2) {
                 cell.frame = collectionView.bounds
-                self.collectionView.isScrollEnabled = false
                 
+                var y = cell.frame.origin.y
+                if y < 0 {
+                    y = 0
+                }
+                cell.frame.origin.y = y
+                
+                self.collectionView.isScrollEnabled = false
                 vc.view.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
                 vc.collectionView.frame = .init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
                 
             }
         }
-        
     }
 }
 
@@ -137,5 +140,9 @@ extension CatalogViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return .init(width: appDefualt.shared.positionB, height: appDefualt.shared.positionB)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return .init(width: 100, height: 100)
     }
 }

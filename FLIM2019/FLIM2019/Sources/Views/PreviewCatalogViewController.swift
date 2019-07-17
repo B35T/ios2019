@@ -25,11 +25,11 @@ class PreviewCatalogViewController: UIViewController {
             self.collectionView.reloadData()
         }
     }
-    var rect: CGRect = .zero {
-        didSet {
-            print(self.rect)
-        }
-    }
+//    var rect: CGRect = .zero {
+//        didSet {
+//            print(self.rect)
+//        }
+//    }
     
     var model = PresetModels()
     var delegate: PreviewCatalogViewControllerDelegate?
@@ -37,22 +37,30 @@ class PreviewCatalogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let d = UIScreen.main.bounds
+        
+        self.view.frame = .init(x: 0, y: 0, width: d.width, height: d.height)
+        self.collectionView.frame = .init(x: 0, y: 0, width: d.width, height: d.height)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
         let backBtn = UIButton()
         self.backBtn = backBtn
-        self.backBtn.frame = .init(x: 5, y: 30, width: 76, height: 35)
+        self.backBtn.frame = .init(x: -10, y: 30, width: 76, height: 35)
         self.backBtn.setBackgroundImage(UIImage(named: "back.png"), for: .normal)
         self.backBtn.layer.cornerRadius = 15
         self.backBtn.clipsToBounds = true
-        self.backBtn.layer.compositingFilter = "screenBlendMode"
+        
         self.backBtn.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         self.view.addSubview(self.backBtn)
         
+        if UIScreen.main.bounds.height < 800 {
+            self.backBtn.layer.compositingFilter = "screenBlendMode"
+        }
+        
         let chooseBtn = UIButton()
         self.chooseBtn = chooseBtn
-        self.chooseBtn.frame = .init(x: 10, y: view.frame.height - 65, width: view.frame.width - 20, height: 55)
+        self.chooseBtn.frame = .init(x: 10, y: d.height - 70, width: d.width - 20, height: 55)
         self.chooseBtn.setTitle("CHOOSE", for: .normal)
         self.chooseBtn.setTitleColor(.white, for: .normal)
         self.chooseBtn.backgroundColor = blue
@@ -61,8 +69,6 @@ class PreviewCatalogViewController: UIViewController {
         self.chooseBtn.clipsToBounds = true
         self.chooseBtn.addTarget(self, action: #selector(self.chooseAction), for: .touchUpInside)
         self.view.addSubview(self.chooseBtn)
-        
-        
     }
     
     override var prefersStatusBarHidden: Bool {
