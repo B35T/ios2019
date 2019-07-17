@@ -187,6 +187,7 @@ class CameraViewController: CameraViewModels {
                 self.initailize(preview: self.viewFinder)
             } else {
                 let a = AllowView()
+                a.vc = self
                 a.initialize(view: self.view)
             }
         }

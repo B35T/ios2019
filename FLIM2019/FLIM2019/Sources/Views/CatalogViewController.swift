@@ -19,7 +19,7 @@ class CatalogViewController: UIViewController {
 
     var preview: PreviewCatalogViewController?
     
-    let items = PresetModels().items
+    let model = PresetModels()
     var delegate: CatalogViewControllerDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +36,11 @@ class CatalogViewController: UIViewController {
         
         let backBtn = UIButton()
         self.backBtn = backBtn
-        self.backBtn.frame = .init(x: 5, y: 30, width: 70, height: 30)
+        self.backBtn.frame = .init(x: 5, y: 30, width: 76, height: 35)
         self.backBtn.setBackgroundImage(UIImage(named: "back.png"), for: .normal)
         self.backBtn.layer.cornerRadius = 15
         self.backBtn.clipsToBounds = true
+        self.backBtn.layer.compositingFilter = "screenBlendMode"
         self.backBtn.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         self.view.addSubview(self.backBtn)
     }
@@ -76,7 +77,7 @@ extension CatalogViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.backBtn.alpha = 0
         
-        let item = self.items[indexPath.item]
+        let item = self.model.item[indexPath.item]
         
         let cell = collectionView.cellForItem(at: indexPath)!
         cell.superview?.bringSubviewToFront(cell)
@@ -103,7 +104,7 @@ extension CatalogViewController: UICollectionViewDelegate {
 
 extension CatalogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.items.count
+        return self.model.item.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -113,7 +114,7 @@ extension CatalogViewController: UICollectionViewDataSource {
         cell.imageview.layer.cornerRadius = 4
         cell.imageview.clipsToBounds = true
         
-        cell.imageview.image = UIImage(named: "\(self.items[indexPath.item]).jpg")
+        cell.imageview.image = UIImage(named: "\(self.model.item[indexPath.item])_0.jpg")
         return cell
     }
     
@@ -123,7 +124,7 @@ extension CatalogViewController: UICollectionViewDataSource {
 extension CatalogViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let w = self.view.frame.width
-        return .init(width: w, height: w / 2.1)
+        return .init(width: w, height: w)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

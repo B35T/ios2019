@@ -36,7 +36,6 @@ open class appDefualt {
     }
     
     var positionC: CGFloat {
-        print(device)
         if device.height > 667 {
             return 50
         } else {
@@ -44,5 +43,5 @@ open class appDefualt {
         }
     }
     
-    var positionB: CGFloat = 50
+    var positionB: CGFloat = 70
 }

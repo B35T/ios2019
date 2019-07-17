@@ -19,18 +19,20 @@ class PreviewCatalogViewController: UIViewController {
     @IBOutlet weak var chooseBtn: UIButton!
 
 
-    var item:String?
+    var item:String = "" {
+        didSet {
+            self.collectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
+            self.collectionView.reloadData()
+        }
+    }
     var rect: CGRect = .zero {
         didSet {
             print(self.rect)
         }
     }
     
+    var model = PresetModels()
     var delegate: PreviewCatalogViewControllerDelegate?
-    
-    let url = URL(string: "https://images.unsplash.com/photo-1563093027-4f8d7eccd063?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1275&q=80")
-    
-    var preimage:[UIImage?] = [nil]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +42,11 @@ class PreviewCatalogViewController: UIViewController {
         
         let backBtn = UIButton()
         self.backBtn = backBtn
-        self.backBtn.frame = .init(x: 5, y: 30, width: 70, height: 30)
+        self.backBtn.frame = .init(x: 5, y: 30, width: 76, height: 35)
         self.backBtn.setBackgroundImage(UIImage(named: "back.png"), for: .normal)
         self.backBtn.layer.cornerRadius = 15
         self.backBtn.clipsToBounds = true
+        self.backBtn.layer.compositingFilter = "screenBlendMode"
         self.backBtn.addTarget(self, action: #selector(self.back), for: .touchUpInside)
         self.view.addSubview(self.backBtn)
         
@@ -59,8 +62,6 @@ class PreviewCatalogViewController: UIViewController {
         self.chooseBtn.addTarget(self, action: #selector(self.chooseAction), for: .touchUpInside)
         self.view.addSubview(self.chooseBtn)
         
-        let img = UIImage(data: try! Data(contentsOf: self.url!))
-        self.preimage = [img]
         
     }
     
@@ -87,13 +88,13 @@ extension PreviewCatalogViewController: UICollectionViewDelegate {
 
 extension PreviewCatalogViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.model.items[self.item] ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catalogCell", for: indexPath) as! previewCatalogCell
         
-        cell.imageview.image = self.preimage.first!
+        cell.imageview.image = UIImage(named: "\(self.item)_\(indexPath.item).jpg")
         cell.imageview.contentMode = .scaleAspectFill
         cell.imageview.clipsToBounds = true
         
@@ -112,5 +113,9 @@ extension PreviewCatalogViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return .init(width: 100, height: 100)
     }
 }
