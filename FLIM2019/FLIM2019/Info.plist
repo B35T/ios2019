@@ -23,11 +23,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string></string>
+	<string>This lets you capture images</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string></string>
+	<string>This lets you edit and publish images from your Camera Roll  </string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string></string>
+	<string>This lets you edit and publish images from your Camera Roll  </string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
