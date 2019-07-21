@@ -173,7 +173,6 @@ class CameraViewController: CameraViewModels {
         self.sendToDevelop.addTarget(self, action: #selector(sendToDevAction), for: .touchUpInside)
         self.loadNewFilmBtn.addTarget(self, action: #selector(loadNewAction), for: .touchUpInside)
         
-        
         if UserDefaults.standard.value(forKey: "first") == nil {
             UserDefaults.standard.set(false, forKey: "first")
             
@@ -201,6 +200,7 @@ class CameraViewController: CameraViewModels {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        ProcessingView.shared.initialize(view: self.view)
         
         if UserDefaults.standard.value(forKey: "styles") as? String != "none" {
             self.collectionView.backgroundColor = film
@@ -241,6 +241,7 @@ class CameraViewController: CameraViewModels {
         self.collectionView.backgroundColor = .black
         self.counterView.image = UIImage(named: "ShutterCount0.png")
         UserDefaults.standard.set("none", forKey: "styles")
+ 
     }
     
     @objc internal func toPhotosAction() {
@@ -263,10 +264,11 @@ class CameraViewController: CameraViewModels {
     }
     
     @objc internal func shutterAction() {
+        
+        
         UIView.animate(withDuration: 0.3) {
-            
             if UserDefaults.standard.value(forKey: "styles") as? String == "none" {
-                let alert = UIAlertController(title: "No FILM", message: "on film in slot", preferredStyle: .alert)
+                let alert = UIAlertController(title: "No FILM", message: "No film in slot", preferredStyle: .alert)
                 let add = UIAlertAction(title: "ADD NEW FILM", style: .default, handler: { (action) in
                     
                     self.performSegue(withIdentifier: "catalog", sender: nil)
@@ -291,10 +293,14 @@ class CameraViewController: CameraViewModels {
                 self.bgBottom.frame.origin.y = 0
                 self.loadBtn.transform = .init(rotationAngle: .pi / 180 * 0)
             } else {
+                ProcessingView.shared.show()
+                self.shutterBtn.isEnabled = false
                 self.capture(flash: self.isFlash)
             }
             self.isLoad = false
         }
+        
+        
         
     }
     
@@ -337,7 +343,6 @@ class CameraViewController: CameraViewModels {
 extension  CameraViewController:CatalogViewControllerDelegate {
     func dismissCatalog(action:Bool) {
         if action {
-            print("action")
             self.collectionView.backgroundColor = film
             
             let images = UserFileManager.shared.findAll()
@@ -359,6 +364,11 @@ extension  CameraViewController:CatalogViewControllerDelegate {
 }
 
 extension CameraViewController: CameraViewModeleDelegate {
+    func snapAction(action: Bool) {
+        
+    }
+
+    
     func output(image: CIImage?, cover: UIImage?, orientation: UIImage.Orientation) {
         let models = PresetModels()
         let preset = UserDefaults.standard.value(forKey: "styles") as! String
@@ -367,11 +377,17 @@ extension CameraViewController: CameraViewModeleDelegate {
         let image = UIImage(cgImage: create, scale: 1, orientation:orientation)
         
         UserFileManager.shared.saveInPath(image: image, cover: cover) { (action) in
+            if action {
+                ProcessingView.shared.hind()
+                self.shutterBtn.isEnabled = true
+            }
         }
         self.preview.append(cover)
         self.collectionView.reloadData()
         let counter = UserDefaults.standard.value(forKey: "counter") as! Int
         self.counterView.image = UIImage(named:"ShutterCount\(counter).png")
+        
+        
     }
 }
 

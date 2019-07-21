@@ -18,6 +18,7 @@ enum imageOrientation: Int {
 }
 
 protocol CameraViewModeleDelegate {
+    func snapAction(action: Bool)
     func output(image:CIImage?, cover: UIImage?, orientation: UIImage.Orientation)
 }
 
@@ -81,6 +82,8 @@ open class CameraViewModels: UIViewController {
     
     func capture(flash: Bool = false) {
         guard let device = self.photoOutput else {return}
+        self.delegate?.snapAction(action: true)
+        
         let setting = AVCapturePhotoSettings()
         if setting.availablePreviewPhotoPixelFormatTypes.count > 0 {
             setting.previewPhotoFormat = [

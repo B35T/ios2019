@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		400FFB1422E3FEC400D4B69F /* ProcessingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400FFB1322E3FEC400D4B69F /* ProcessingView.swift */; };
+		400FFB1822E4013600D4B69F /* processing.png in Resources */ = {isa = PBXBuildFile; fileRef = 400FFB1722E4013600D4B69F /* processing.png */; };
 		4058EBF822DF4A1200F88EA8 /* item0_4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4058EBF222DF4A1200F88EA8 /* item0_4.jpg */; };
 		4058EBF922DF4A1200F88EA8 /* item0_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4058EBF322DF4A1200F88EA8 /* item0_0.jpg */; };
 		4058EBFA22DF4A1200F88EA8 /* item0_5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4058EBF422DF4A1200F88EA8 /* item0_5.jpg */; };
@@ -143,6 +145,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		400FFB1322E3FEC400D4B69F /* ProcessingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingView.swift; sourceTree = "<group>"; };
+		400FFB1722E4013600D4B69F /* processing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = processing.png; sourceTree = "<group>"; };
 		4058EBF222DF4A1200F88EA8 /* item0_4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item0_4.jpg; sourceTree = "<group>"; };
 		4058EBF322DF4A1200F88EA8 /* item0_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item0_0.jpg; sourceTree = "<group>"; };
 		4058EBF422DF4A1200F88EA8 /* item0_5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = item0_5.jpg; sourceTree = "<group>"; };
@@ -493,6 +497,7 @@
 				405BE2CE22CEFFFC0014AB55 /* CatalogViewController.swift */,
 				40C6C4E622DC55B700C9DA72 /* PreviewCatalogViewController.swift */,
 				40BF6D9522DD733100EFB582 /* AllowView.swift */,
+				400FFB1322E3FEC400D4B69F /* ProcessingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -532,6 +537,7 @@
 		40C7B2B222CC69DA001EEEFA /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				400FFB1722E4013600D4B69F /* processing.png */,
 				4058EC3022DF4D4100F88EA8 /* back.png */,
 				40CA6AF222D6FC70003299C3 /* AddNew.png */,
 				40784D9722CDC8350074CC43 /* Photos.png */,
@@ -768,6 +774,7 @@
 				40CA6B7722D6FEDD003299C3 /* ShutterCount20.png in Resources */,
 				4058EC2322DF4A5700F88EA8 /* item4_4.jpg in Resources */,
 				40CA6B7222D6FEDD003299C3 /* ShutterCount4.png in Resources */,
+				400FFB1822E4013600D4B69F /* processing.png in Resources */,
 				4058EBFC22DF4A1200F88EA8 /* item0_2.jpg in Resources */,
 				4058EC1122DF4A2D00F88EA8 /* item2_4.jpg in Resources */,
 				4058EC2022DF4A5700F88EA8 /* item4_1.jpg in Resources */,
@@ -828,6 +835,7 @@
 				405BE2CB22CEFF5F0014AB55 /* CatalogViewModels.swift in Sources */,
 				405BE2D122CF00A20014AB55 /* ImageCell.swift in Sources */,
 				40C7B2AF22CC687E001EEEFA /* Other.swift in Sources */,
+				400FFB1422E3FEC400D4B69F /* ProcessingView.swift in Sources */,
 				4059672D22D5C15D00B6B931 /* DisayaProfile.swift in Sources */,
 				4078AD7622D8624E00521CCC /* PresetModels.swift in Sources */,
 				405BE2C922CEFF4E0014AB55 /* PhotosViewModels.swift in Sources */,
@@ -1022,7 +1030,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIMClassic;
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIMM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1041,7 +1049,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIMClassic;
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.FLIMM;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

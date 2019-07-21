@@ -19,15 +19,15 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>This lets you capture images</string>
+	<string>FLIM app. need access to the Camera to create image effects, You photos will not be shared without your permission. </string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This lets you edit and publish images from your Camera Roll  </string>
+	<string>This lets you save photos to your Camera Roll.  You photos will not be shared without your permission. </string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This lets you edit and publish images from your Camera Roll  </string>
+	<string>This lets you save photos to your Camera Roll.  You photos will not be shared without your permission. </string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
