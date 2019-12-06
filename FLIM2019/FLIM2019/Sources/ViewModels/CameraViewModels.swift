@@ -64,7 +64,7 @@ open class CameraViewModels: UIViewController {
         self.previewLayer.frame.size = preview.frame.size
 
         preview.layer.addSublayer(self.previewLayer)
-        
+    
         self.captureSession.addOutput(self.photoOutput)
     }
     

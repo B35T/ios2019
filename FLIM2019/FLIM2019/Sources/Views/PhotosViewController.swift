@@ -13,6 +13,9 @@ class PhotosViewController: PhotosViewModels {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+//    @IBOutlet var colrProBtn: UIBarButtonItem!
+    
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!

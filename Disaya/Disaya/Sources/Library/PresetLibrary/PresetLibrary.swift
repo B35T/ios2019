@@ -80,6 +80,8 @@ open class PresetLibrary {
         
         case IndexPath(item: 0, section: 5):
             return RB0(ciimage: ciimage)
+        case IndexPath(item: 1, section: 5):
+            return RB1(ciimage: ciimage)
         
         case IndexPath(item: 0, section: 6):
             return M0(ciimage: ciimage)
@@ -92,6 +94,21 @@ open class PresetLibrary {
         case IndexPath(item: 4, section: 6):
             return M4(ciimage: ciimage)
         
+        case IndexPath(item: 0, section: 7):
+            return CINE0(ciimage: ciimage)
+        case IndexPath(item: 1, section: 7):
+            return CINE1(ciimage: ciimage)
+        case IndexPath(item: 2, section: 7):
+            return CINE2(ciimage: ciimage)
+        case IndexPath(item: 3, section: 7):
+            return CINE3(ciimage: ciimage)
+        case IndexPath(item: 4, section: 7):
+            return CINE4(ciimage: ciimage)
+        case IndexPath(item: 5, section: 7):
+            return CINE5(ciimage: ciimage)
+            
+        case IndexPath(item: 0, section: 8):
+            return ciimage
         default: return ciimage
         }
     }
@@ -656,6 +673,21 @@ open class PresetLibrary {
         let c7 = self.C2(ciimage: ciimage)
         
         let angle:Float = -15 * .pi / 180
+        
+        let Hue = CIFilter(name: "CIHueAdjust")
+        Hue?.setDefaults()
+        Hue?.setValue(c7, forKey: kCIInputImageKey)
+        Hue?.setValue(NSNumber(value: angle), forKey: "inputAngle")
+        
+        return Hue?.outputImage
+    }
+    
+    func RB1(ciimage:CIImage?) -> CIImage? {
+        guard let ciimage = ciimage else {return nil}
+        
+        let c7 = self.C2(ciimage: ciimage)
+        
+        let angle:Float = 15 * .pi / 180
         
         let Hue = CIFilter(name: "CIHueAdjust")
         Hue?.setDefaults()

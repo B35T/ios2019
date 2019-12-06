@@ -1,0 +1,8 @@
+framework module "Pop" {
+	header "ref.h"
+    header "Pop.objc.h"
+    header "Universe.objc.h"
+    header "Pop.h"
+
+    export *
+}

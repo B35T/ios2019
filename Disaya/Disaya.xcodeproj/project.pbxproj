@@ -71,6 +71,7 @@
 		40A96C102288048D005F066C /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C0F2288048D005F066C /* Cover.swift */; };
 		40A96C122288086A005F066C /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C112288086A005F066C /* Preview.swift */; };
 		40A96C1722880AB2005F066C /* NextBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A96C1622880AB2005F066C /* NextBar.swift */; };
+		40BD21D0234718720001B1E6 /* PresetLibrary + Cinematic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BD21CF234718720001B1E6 /* PresetLibrary + Cinematic.swift */; };
 		40C35E62228FB5F900F3C3BD /* DisayaProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E61228FB5F900F3C3BD /* DisayaProfile.swift */; };
 		40C35E64228FB74100F3C3BD /* HSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E63228FB74100F3C3BD /* HSLViewController.swift */; };
 		40C35E66228FB7D300F3C3BD /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C35E65228FB7D300F3C3BD /* Slider.swift */; };
@@ -169,6 +170,7 @@
 		40A96C0F2288048D005F066C /* Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
 		40A96C112288086A005F066C /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		40A96C1622880AB2005F066C /* NextBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextBar.swift; sourceTree = "<group>"; };
+		40BD21CF234718720001B1E6 /* PresetLibrary + Cinematic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PresetLibrary + Cinematic.swift"; sourceTree = "<group>"; };
 		40C35E61228FB5F900F3C3BD /* DisayaProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisayaProfile.swift; sourceTree = "<group>"; };
 		40C35E63228FB74100F3C3BD /* HSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSLViewController.swift; sourceTree = "<group>"; };
 		40C35E65228FB7D300F3C3BD /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 			children = (
 				40025059228AB65600E4FCB1 /* PresetLibrary.swift */,
 				40414AD22293B2710004B34D /* PresetLibrary + Tool.swift */,
+				40BD21CF234718720001B1E6 /* PresetLibrary + Cinematic.swift */,
 				4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */,
 				407014C6229BCF41009C1B23 /* ChromaticAberration.swift */,
 				407014C8229BD178009C1B23 /* TransverseChromaticAberration.swift */,
@@ -675,6 +678,7 @@
 				404F090D228A85A000AC15DE /* LightCell.swift in Sources */,
 				40A96C122288086A005F066C /* Preview.swift in Sources */,
 				40010E702287EAEA003EB199 /* PhotoPreviewCell.swift in Sources */,
+				40BD21D0234718720001B1E6 /* PresetLibrary + Cinematic.swift in Sources */,
 				40D9E17E229937EC0006131A /* LightSliderViewController.swift in Sources */,
 				404F0909228A858F00AC15DE /* PresetCell.swift in Sources */,
 				40C35E68228FB7EE00F3C3BD /* HSLSlider.swift in Sources */,

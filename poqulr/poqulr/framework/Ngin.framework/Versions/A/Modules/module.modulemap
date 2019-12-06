@@ -1,0 +1,8 @@
+framework module "Ngin" {
+	header "ref.h"
+    header "Ngin.objc.h"
+    header "Universe.objc.h"
+    header "Ngin.h"
+
+    export *
+}

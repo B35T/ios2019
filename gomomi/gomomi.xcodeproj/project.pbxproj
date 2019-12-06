@@ -1,0 +1,628 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4052C264233A49530090A341 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4052C263233A49530090A341 /* AppDelegate.swift */; };
+		4052C266233A49530090A341 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4052C265233A49530090A341 /* ViewController.swift */; };
+		4052C269233A49530090A341 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4052C267233A49530090A341 /* Main.storyboard */; };
+		4052C26C233A49530090A341 /* gomomi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4052C26A233A49530090A341 /* gomomi.xcdatamodeld */; };
+		4052C26E233A49530090A341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4052C26D233A49530090A341 /* Assets.xcassets */; };
+		4052C271233A49530090A341 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4052C26F233A49530090A341 /* LaunchScreen.storyboard */; };
+		4052C27C233A49540090A341 /* gomomiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4052C27B233A49540090A341 /* gomomiTests.swift */; };
+		4052C287233A49540090A341 /* gomomiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4052C286233A49540090A341 /* gomomiUITests.swift */; };
+		4052C29C233A58190090A341 /* Pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4052C29B233A58190090A341 /* Pop.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4052C278233A49540090A341 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4052C258233A49530090A341 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4052C25F233A49530090A341;
+			remoteInfo = gomomi;
+		};
+		4052C283233A49540090A341 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4052C258233A49530090A341 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4052C25F233A49530090A341;
+			remoteInfo = gomomi;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4052C260233A49530090A341 /* gomomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gomomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4052C263233A49530090A341 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4052C265233A49530090A341 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4052C268233A49530090A341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4052C26B233A49530090A341 /* gomomi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gomomi.xcdatamodel; sourceTree = "<group>"; };
+		4052C26D233A49530090A341 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4052C270233A49530090A341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4052C272233A49530090A341 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4052C277233A49540090A341 /* gomomiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gomomiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4052C27B233A49540090A341 /* gomomiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gomomiTests.swift; sourceTree = "<group>"; };
+		4052C27D233A49540090A341 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4052C282233A49540090A341 /* gomomiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gomomiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4052C286233A49540090A341 /* gomomiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gomomiUITests.swift; sourceTree = "<group>"; };
+		4052C288233A49540090A341 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4052C29B233A58190090A341 /* Pop.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pop.framework; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4052C25D233A49530090A341 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4052C29C233A58190090A341 /* Pop.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4052C274233A49540090A341 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4052C27F233A49540090A341 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4052C257233A49530090A341 = {
+			isa = PBXGroup;
+			children = (
+				4052C262233A49530090A341 /* gomomi */,
+				4052C27A233A49540090A341 /* gomomiTests */,
+				4052C285233A49540090A341 /* gomomiUITests */,
+				4052C261233A49530090A341 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4052C261233A49530090A341 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4052C260233A49530090A341 /* gomomi.app */,
+				4052C277233A49540090A341 /* gomomiTests.xctest */,
+				4052C282233A49540090A341 /* gomomiUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4052C262233A49530090A341 /* gomomi */ = {
+			isa = PBXGroup;
+			children = (
+				4052C294233A495B0090A341 /* framework */,
+				4052C263233A49530090A341 /* AppDelegate.swift */,
+				4052C265233A49530090A341 /* ViewController.swift */,
+				4052C267233A49530090A341 /* Main.storyboard */,
+				4052C26D233A49530090A341 /* Assets.xcassets */,
+				4052C26F233A49530090A341 /* LaunchScreen.storyboard */,
+				4052C272233A49530090A341 /* Info.plist */,
+				4052C26A233A49530090A341 /* gomomi.xcdatamodeld */,
+			);
+			path = gomomi;
+			sourceTree = "<group>";
+		};
+		4052C27A233A49540090A341 /* gomomiTests */ = {
+			isa = PBXGroup;
+			children = (
+				4052C27B233A49540090A341 /* gomomiTests.swift */,
+				4052C27D233A49540090A341 /* Info.plist */,
+			);
+			path = gomomiTests;
+			sourceTree = "<group>";
+		};
+		4052C285233A49540090A341 /* gomomiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4052C286233A49540090A341 /* gomomiUITests.swift */,
+				4052C288233A49540090A341 /* Info.plist */,
+			);
+			path = gomomiUITests;
+			sourceTree = "<group>";
+		};
+		4052C294233A495B0090A341 /* framework */ = {
+			isa = PBXGroup;
+			children = (
+				4052C29B233A58190090A341 /* Pop.framework */,
+			);
+			path = framework;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4052C25F233A49530090A341 /* gomomi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4052C28B233A49540090A341 /* Build configuration list for PBXNativeTarget "gomomi" */;
+			buildPhases = (
+				4052C25C233A49530090A341 /* Sources */,
+				4052C25D233A49530090A341 /* Frameworks */,
+				4052C25E233A49530090A341 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = gomomi;
+			productName = gomomi;
+			productReference = 4052C260233A49530090A341 /* gomomi.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4052C276233A49540090A341 /* gomomiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4052C28E233A49540090A341 /* Build configuration list for PBXNativeTarget "gomomiTests" */;
+			buildPhases = (
+				4052C273233A49540090A341 /* Sources */,
+				4052C274233A49540090A341 /* Frameworks */,
+				4052C275233A49540090A341 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4052C279233A49540090A341 /* PBXTargetDependency */,
+			);
+			name = gomomiTests;
+			productName = gomomiTests;
+			productReference = 4052C277233A49540090A341 /* gomomiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4052C281233A49540090A341 /* gomomiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4052C291233A49540090A341 /* Build configuration list for PBXNativeTarget "gomomiUITests" */;
+			buildPhases = (
+				4052C27E233A49540090A341 /* Sources */,
+				4052C27F233A49540090A341 /* Frameworks */,
+				4052C280233A49540090A341 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4052C284233A49540090A341 /* PBXTargetDependency */,
+			);
+			name = gomomiUITests;
+			productName = gomomiUITests;
+			productReference = 4052C282233A49540090A341 /* gomomiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4052C258233A49530090A341 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1030;
+				LastUpgradeCheck = 1030;
+				ORGANIZATIONNAME = charoemphong;
+				TargetAttributes = {
+					4052C25F233A49530090A341 = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					4052C276233A49540090A341 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 4052C25F233A49530090A341;
+					};
+					4052C281233A49540090A341 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 4052C25F233A49530090A341;
+					};
+				};
+			};
+			buildConfigurationList = 4052C25B233A49530090A341 /* Build configuration list for PBXProject "gomomi" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4052C257233A49530090A341;
+			productRefGroup = 4052C261233A49530090A341 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4052C25F233A49530090A341 /* gomomi */,
+				4052C276233A49540090A341 /* gomomiTests */,
+				4052C281233A49540090A341 /* gomomiUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4052C25E233A49530090A341 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4052C271233A49530090A341 /* LaunchScreen.storyboard in Resources */,
+				4052C26E233A49530090A341 /* Assets.xcassets in Resources */,
+				4052C269233A49530090A341 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4052C275233A49540090A341 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4052C280233A49540090A341 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4052C25C233A49530090A341 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4052C26C233A49530090A341 /* gomomi.xcdatamodeld in Sources */,
+				4052C266233A49530090A341 /* ViewController.swift in Sources */,
+				4052C264233A49530090A341 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4052C273233A49540090A341 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4052C27C233A49540090A341 /* gomomiTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4052C27E233A49540090A341 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4052C287233A49540090A341 /* gomomiUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4052C279233A49540090A341 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4052C25F233A49530090A341 /* gomomi */;
+			targetProxy = 4052C278233A49540090A341 /* PBXContainerItemProxy */;
+		};
+		4052C284233A49540090A341 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4052C25F233A49530090A341 /* gomomi */;
+			targetProxy = 4052C283233A49540090A341 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4052C267233A49530090A341 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4052C268233A49530090A341 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4052C26F233A49530090A341 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4052C270233A49530090A341 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4052C289233A49540090A341 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4052C28A233A49540090A341 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4052C28C233A49540090A341 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7CF9VVF6X;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/gomomi/framework",
+				);
+				INFOPLIST_FILE = gomomi/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.gomomi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4052C28D233A49540090A341 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7CF9VVF6X;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/gomomi/framework",
+				);
+				INFOPLIST_FILE = gomomi/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.gomomi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4052C28F233A49540090A341 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7CF9VVF6X;
+				INFOPLIST_FILE = gomomiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.gomomiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gomomi.app/gomomi";
+			};
+			name = Debug;
+		};
+		4052C290233A49540090A341 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7CF9VVF6X;
+				INFOPLIST_FILE = gomomiTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.gomomiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/gomomi.app/gomomi";
+			};
+			name = Release;
+		};
+		4052C292233A49540090A341 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7CF9VVF6X;
+				INFOPLIST_FILE = gomomiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.gomomiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = gomomi;
+			};
+			name = Debug;
+		};
+		4052C293233A49540090A341 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H7CF9VVF6X;
+				INFOPLIST_FILE = gomomiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = charoemphong.gomomiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = gomomi;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4052C25B233A49530090A341 /* Build configuration list for PBXProject "gomomi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4052C289233A49540090A341 /* Debug */,
+				4052C28A233A49540090A341 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4052C28B233A49540090A341 /* Build configuration list for PBXNativeTarget "gomomi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4052C28C233A49540090A341 /* Debug */,
+				4052C28D233A49540090A341 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4052C28E233A49540090A341 /* Build configuration list for PBXNativeTarget "gomomiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4052C28F233A49540090A341 /* Debug */,
+				4052C290233A49540090A341 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4052C291233A49540090A341 /* Build configuration list for PBXNativeTarget "gomomiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4052C292233A49540090A341 /* Debug */,
+				4052C293233A49540090A341 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4052C26A233A49530090A341 /* gomomi.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4052C26B233A49530090A341 /* gomomi.xcdatamodel */,
+			);
+			currentVersion = 4052C26B233A49530090A341 /* gomomi.xcdatamodel */;
+			path = gomomi.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 4052C258233A49530090A341 /* Project object */;
+}
