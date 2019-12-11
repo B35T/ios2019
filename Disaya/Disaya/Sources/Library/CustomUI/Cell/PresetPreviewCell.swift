@@ -42,8 +42,8 @@ class PresetPreviewCell: UICollectionViewCell {
                 self.labelTitle.backgroundColor = self.isSelected ? indigo : .white
                 self.labelTitle.textColor = self.isSelected ? .white : indigo
             case 8:
-                self.labelTitle.backgroundColor = self.isSelected ? indigo : .white
-                self.labelTitle.textColor = self.isSelected ? .white : indigo
+                self.labelTitle.backgroundColor = self.isSelected ? go_duck : .white
+                self.labelTitle.textColor = self.isSelected ? .white : go_duck
             default:
                 break
             }

@@ -108,7 +108,15 @@ open class PresetLibrary {
             return CINE5(ciimage: ciimage)
             
         case IndexPath(item: 0, section: 8):
-            return ciimage
+            return Goduck_G5(ciimage: ciimage)
+        case IndexPath(item: 1, section: 8):
+            return Goduck_G6(ciimage: ciimage)
+        case IndexPath(item: 2, section: 8):
+            return Goduck_C9(ciimage: ciimage)
+        case IndexPath(item: 3, section: 8):
+            return Goduck_CINE0(ciimage: ciimage)
+        case IndexPath(item: 4, section: 8):
+            return Goduck_CINE5(ciimage: ciimage)
         default: return ciimage
         }
     }

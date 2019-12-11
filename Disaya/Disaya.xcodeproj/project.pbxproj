@@ -31,6 +31,7 @@
 		40025057228AAF6200E4FCB1 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 40025056228AAF6200E4FCB1 /* close.png */; };
 		4002505A228AB65600E4FCB1 /* PresetLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40025059228AB65600E4FCB1 /* PresetLibrary.swift */; };
 		4002505C228AB6DD00E4FCB1 /* MutiBandHSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */; };
+		400AB12F239B68550044F739 /* PresetLibrary_goduck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400AB12E239B68550044F739 /* PresetLibrary_goduck.swift */; };
 		400C90AA228E796800074251 /* CroprViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90A9228E796800074251 /* CroprViewController.swift */; };
 		400C90AC228E797F00074251 /* margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90AB228E797F00074251 /* margin.swift */; };
 		400C90AE228E799600074251 /* GridOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400C90AD228E799600074251 /* GridOverlay.swift */; };
@@ -130,6 +131,7 @@
 		40025056228AAF6200E4FCB1 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		40025059228AB65600E4FCB1 /* PresetLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetLibrary.swift; sourceTree = "<group>"; };
 		4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutiBandHSV.swift; sourceTree = "<group>"; };
+		400AB12E239B68550044F739 /* PresetLibrary_goduck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetLibrary_goduck.swift; sourceTree = "<group>"; };
 		400C90A9228E796800074251 /* CroprViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CroprViewController.swift; sourceTree = "<group>"; };
 		400C90AB228E797F00074251 /* margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = margin.swift; sourceTree = "<group>"; };
 		400C90AD228E799600074251 /* GridOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridOverlay.swift; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 			children = (
 				40025059228AB65600E4FCB1 /* PresetLibrary.swift */,
 				40414AD22293B2710004B34D /* PresetLibrary + Tool.swift */,
+				400AB12E239B68550044F739 /* PresetLibrary_goduck.swift */,
 				40BD21CF234718720001B1E6 /* PresetLibrary + Cinematic.swift */,
 				4002505B228AB6DD00E4FCB1 /* MutiBandHSV.swift */,
 				407014C6229BCF41009C1B23 /* ChromaticAberration.swift */,
@@ -684,6 +687,7 @@
 				40C35E68228FB7EE00F3C3BD /* HSLSlider.swift in Sources */,
 				400C90C3228E9F7800074251 /* StraightenCell.swift in Sources */,
 				406E1F7222A17EF500610CFE /* LoadingCompletedOverlay.swift in Sources */,
+				400AB12F239B68550044F739 /* PresetLibrary_goduck.swift in Sources */,
 				40010E2B2287E859003EB199 /* AppDelegate.swift in Sources */,
 				400C90B2228E79CA00074251 /* ImageScrollView.swift in Sources */,
 				400C90BF228E91FE00074251 /* ImageRatioCell.swift in Sources */,

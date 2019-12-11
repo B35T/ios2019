@@ -96,7 +96,7 @@ extension PresetCell: UICollectionViewDataSource {
         case 5: cell.labelTitle.text = self.H[indexPath.item]; cell.labelTitle.textColor = indigo // color
         case 6: cell.labelTitle.text = "M\(indexPath.item + 1)"; cell.labelTitle.textColor = UIColor.darkGray
         case 7: cell.labelTitle.text = "CINE\(indexPath.item + 1)"; cell.labelTitle.textColor = indigo
-        case 8: cell.labelTitle.text = goduck[indexPath.item]; cell.labelTitle.textColor = indigo
+        case 8: cell.labelTitle.text = goduck[indexPath.item]; cell.labelTitle.textColor = go_duck
         default:
             break
         }
